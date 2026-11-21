@@ -60,7 +60,7 @@ export function CameraRig(): JSX.Element {
     const currentFov = cam instanceof PerspectiveCamera ? cam.fov : 35;
 
     const getAspect = () =>
-      sizeRef.current.width / Math.max(1, sizeRef.current.height);
+      Math.max(1, sizeRef.current.width) / Math.max(1, sizeRef.current.height);
 
     const applyBodyPose = async (
       preset: Preset,

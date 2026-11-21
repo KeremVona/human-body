@@ -45,6 +45,7 @@ describe('shortcutFor', () => {
   it('ignores typing and Alt', () => {
     expect(k('h', { targetTag: 'INPUT' })).toBeNull();
     expect(k('h', { targetTag: 'TEXTAREA' })).toBeNull();
+    expect(k('h', { targetTag: 'SELECT' })).toBeNull();
     expect(k('h', { targetEditable: true })).toBeNull();
     expect(k('h', { altKey: true })).toBeNull();
   });

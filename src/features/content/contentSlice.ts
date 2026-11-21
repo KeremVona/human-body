@@ -6,6 +6,7 @@ import {
 import type { z } from 'zod';
 import type { StructureId } from '../../data/ids';
 import { loadManifest } from '../../data/manifest';
+import type { AssetsState } from '../assets/assetsSlice';
 import {
   IndexFileSchema,
   StructureFileSchema,
@@ -52,16 +53,23 @@ async function fetchValidated<T>(
 /** Bootstraps manifest, taxonomy, and the English structure index in parallel. */
 export const bootstrap = createAsyncThunk<
   { manifest: Manifest; taxonomy: Taxonomy; index: IndexFile },
-  void
->('content/bootstrap', async () => {
-  const base = import.meta.env.BASE_URL;
-  const [manifest, taxonomy, index] = await Promise.all([
-    loadManifest(),
-    fetchValidated(`${base}content/taxonomy.json`, TaxonomySchema),
-    fetchValidated(`${base}content/en/index.json`, IndexFileSchema),
-  ]);
-  return { manifest, taxonomy, index };
-});
+  void,
+  { state: { assets: AssetsState } }
+>(
+  'content/bootstrap',
+  async () => {
+    const base = import.meta.env.BASE_URL;
+    const [manifest, taxonomy, index] = await Promise.all([
+      loadManifest(),
+      fetchValidated(`${base}content/taxonomy.json`, TaxonomySchema),
+      fetchValidated(`${base}content/en/index.json`, IndexFileSchema),
+    ]);
+    return { manifest, taxonomy, index };
+  },
+  {
+    condition: (_arg, { getState }) => getState().assets.boot === 'idle',
+  },
+);
 
 /** Fetches detailed descriptions for a single anatomical system; 404 or mismatched system becomes empty ready state. */
 export const loadStructures = createAsyncThunk<

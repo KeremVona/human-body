@@ -39,7 +39,7 @@ export function FirstRunHint(): JSX.Element | null {
     : 'Drag to rotate · Scroll to zoom · Click any part';
 
   return (
-    <div className="fixed bottom-16 left-1/2 z-10 flex max-w-[calc(100vw-2rem)] -translate-x-1/2 items-center gap-3 rounded-full border border-white/10 bg-slate-900/75 px-4 py-1.5 text-xs text-slate-200 shadow-lg backdrop-blur-md">
+    <div className="pointer-events-auto flex max-w-[calc(100vw-2rem)] items-center gap-3 rounded-full border border-white/10 bg-slate-900/75 px-4 py-1.5 text-xs text-slate-200 shadow-lg backdrop-blur-md">
       <span className="truncate">{copy}</span>
       <button
         type="button"

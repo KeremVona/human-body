@@ -14,7 +14,7 @@ export function ExitChips(): JSX.Element | null {
   }
 
   return (
-    <div className="fixed bottom-16 left-1/2 z-10 flex -translate-x-1/2 items-center gap-2">
+    <div className="pointer-events-auto flex items-center gap-2">
       {hasIsolate ? (
         <Chip active onClick={() => dispatch(exitIsolate())}>
           Exit isolate

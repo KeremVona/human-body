@@ -96,6 +96,13 @@ function AtlasShell({
     void dispatch(bootstrap());
   }, [dispatch]);
 
+  useEffect(() => {
+    if (!debug) return;
+    return registry.subscribe(() => {
+      setMeshCount(registry.size);
+    });
+  }, [debug, registry]);
+
   const canvasBundles: CanvasBundle[] = useMemo(() => {
     if (!manifest) return [];
     return manifest.bundles
@@ -181,9 +188,11 @@ function AtlasShell({
         <>
           <SystemsPanel />
           <Inspector />
-          <ExitChips />
+          <div className="pointer-events-none fixed bottom-16 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2">
+            <FirstRunHint />
+            <ExitChips />
+          </div>
           <Toolbar />
-          <FirstRunHint />
           <DissectionMenu
             target={contextMenu}
             onClose={() => setContextMenu(null)}

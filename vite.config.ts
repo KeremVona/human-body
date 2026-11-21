@@ -1,6 +1,6 @@
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
-import { cpSync, existsSync } from 'node:fs';
+import { cpSync, existsSync, statSync } from 'node:fs';
 import path from 'node:path';
 import {
   defineConfig,
@@ -52,7 +52,8 @@ function content404Plugin(): Plugin {
       const filePath = path.resolve(baseDir, rel);
       if (
         !filePath.startsWith(contentRoot + path.sep) ||
-        !existsSync(filePath)
+        !existsSync(filePath) ||
+        !statSync(filePath).isFile()
       ) {
         res.statusCode = 404;
         res.end();

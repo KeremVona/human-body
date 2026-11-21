@@ -20,6 +20,7 @@ export function useShortcuts(onContextMenu?: () => void): void {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.defaultPrevented) return;
       const target = e.target;
       const cmd = shortcutFor({
         key: e.key,

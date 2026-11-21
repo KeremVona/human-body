@@ -85,6 +85,35 @@ it('bootstrap stores all three files and sets boot to ready', async () => {
   expect(selectStructureLookup(state).get('femur')?.names.common).toBe('Femur');
 });
 
+it('bootstrap skips duplicate concurrent and post-ready dispatches', async () => {
+  vi.resetModules();
+  const fetchMock = vi.fn(async (input: RequestInfo | URL) => {
+    const url = String(input);
+    if (url.endsWith('models/manifest.json')) return okJson(sampleManifest);
+    if (url.endsWith('content/taxonomy.json')) return okJson(taxonomy);
+    if (url.endsWith('content/en/index.json')) return okJson(sampleIndex);
+    return new Response(null, { status: 404 });
+  });
+  vi.stubGlobal('fetch', fetchMock);
+
+  const { makeStore } = await import('../../app/store');
+  const { bundleStarted } = await import('../assets/assetsSlice');
+  const { bootstrap } = await import('./contentSlice');
+
+  const store = makeStore();
+  const first = store.dispatch(bootstrap());
+  const second = store.dispatch(bootstrap());
+  await Promise.all([first, second]);
+
+  expect(fetchMock).toHaveBeenCalledTimes(3);
+  expect(store.getState().assets.boot).toBe('ready');
+
+  store.dispatch(bundleStarted('skeletal'));
+  await store.dispatch(bootstrap());
+  expect(fetchMock).toHaveBeenCalledTimes(3);
+  expect(store.getState().assets.bundles.skeletal).toBe('loading');
+});
+
 it('any schema failure during bootstrap sets boot to error', async () => {
   vi.resetModules();
   vi.stubGlobal(

@@ -32,7 +32,10 @@ export function SceneStateApplier(): null {
       ) {
         return libraryRef.current.lib;
       }
-      libraryRef.current?.lib.dispose();
+      if (libraryRef.current) {
+        libraryRef.current.lib.dispose();
+        prevStatesRef.current = new Map();
+      }
       const lib = createMaterialLibrary(fadeOpacity);
       libraryRef.current = { fadeOpacity, lib };
       return lib;

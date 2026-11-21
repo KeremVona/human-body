@@ -72,6 +72,7 @@ it('caps history at 50', () => {
 
 it('no-op actions keep the same state and history', () => {
   const s = r(s0, hide(['a']));
+  expect(r(s0, hide([]))).toBe(s0);
   expect(r(s, hide(['a']))).toBe(s);
   expect(r(s0, showAll())).toBe(s0);
   expect(r(s0, exitIsolate())).toBe(s0);

@@ -15,6 +15,10 @@ npm run dev
 
 Append `?debug` to the URL to display the live FPS, draw-call, and triangle HUD.
 
+### Accessibility Scope (Phase 1)
+
+Phase 1 requires pointer interaction (mouse or touch) to pick individual 3D structures. Keyboard-only visitors can toggle anatomical systems, switch camera presets (`1–6`), zoom (`+`/`-`), undo (`Ctrl/Cmd+Z`), open context actions (`Shift+F10`), and reset view (`0`); keyboard structure selection arrives in Phase 2 alongside search and the hierarchy tree.
+
 Verification commands:
 
 ```sh
@@ -29,7 +33,7 @@ Pushes to `main` trigger `.github/workflows/deploy.yml`, which builds `dist/` wi
 
 ## Rebuilding 3D Assets
 
-The pre-built skeletal bundle is committed under `public/models/`. To regenerate assets from source:
+All four Phase 1 bundles (`skeletal`, `muscular`, `cardiovascular`, `organs`) are committed under `public/models/`. To regenerate assets from source:
 
 ### Prerequisites
 

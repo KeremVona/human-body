@@ -297,7 +297,7 @@ export function Inspector(): JSX.Element | null {
                   {model.sources.map((src) => {
                     const href = safeHref(src.url);
                     return (
-                      <li key={src.url}>
+                      <li key={`${src.url}-${src.title}`}>
                         {href ? (
                           <a
                             href={href}
