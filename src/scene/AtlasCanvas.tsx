@@ -1,6 +1,5 @@
-import { CameraControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
-import { Suspense } from 'react';
+import { Suspense, useContext } from 'react';
 import { Provider, useStore } from 'react-redux';
 import { AgXToneMapping } from 'three';
 import { useAppDispatch } from '../app/hooks';
@@ -11,6 +10,8 @@ import {
 } from '../features/selection/selectionSlice';
 import { BundleErrorBoundary } from './BundleErrorBoundary';
 import { BundleModel } from './BundleModel';
+import { CameraApiContext, CameraApiProvider } from './camera';
+import { CameraRig } from './CameraRig';
 import { DebugStatsProbe, type RenderStats } from './DebugStats';
 import { Lights } from './Lights';
 import { MeshRegistryProvider, useMeshRegistry } from './meshRegistry';
@@ -45,6 +46,7 @@ export function AtlasCanvas({
   const store = useStore<RootState>();
   const dispatch = useAppDispatch();
   const registry = useMeshRegistry();
+  const cameraController = useContext(CameraApiContext);
 
   return (
     <div
@@ -60,7 +62,7 @@ export function AtlasCanvas({
         aria-label="Interactive 3D human anatomy canvas"
         className="h-full w-full"
         frameloop={debug ? 'always' : 'demand'}
-        camera={{ fov: 35, near: 0.01, far: 50, position: [0, 0, 3.2] }}
+        camera={{ fov: 35, near: 0.01, far: 100, position: [0, 0, 3.2] }}
         gl={{ alpha: true, antialias: true, toneMapping: AgXToneMapping }}
         onPointerMissed={(e) => {
           if (!('button' in e) || e.button === 0) {
@@ -73,33 +75,37 @@ export function AtlasCanvas({
       >
         <Provider store={store}>
           <MeshRegistryProvider registry={registry}>
-            <Lights />
+            <CameraApiProvider controller={cameraController ?? undefined}>
+              <Lights />
 
-            <CameraControls makeDefault />
+              <CameraRig />
 
-            <SceneStateApplier />
+              <SceneStateApplier />
 
-            <Picking onContextRequest={onContextRequest ?? noopContextRequest}>
-              {bundles.map((bundle) => (
-                <BundleErrorBoundary
-                  key={bundle.id}
-                  bundleId={bundle.id}
-                  onError={onBundleError}
-                >
-                  <Suspense fallback={null}>
-                    <BundleModel
-                      url={bundle.url}
-                      bundleId={bundle.id}
-                      onReady={(count) => onBundleReady?.(bundle.id, count)}
-                    />
-                  </Suspense>
-                </BundleErrorBoundary>
-              ))}
-            </Picking>
+              <Picking
+                onContextRequest={onContextRequest ?? noopContextRequest}
+              >
+                {bundles.map((bundle) => (
+                  <BundleErrorBoundary
+                    key={bundle.id}
+                    bundleId={bundle.id}
+                    onError={onBundleError}
+                  >
+                    <Suspense fallback={null}>
+                      <BundleModel
+                        url={bundle.url}
+                        bundleId={bundle.id}
+                        onReady={(count) => onBundleReady?.(bundle.id, count)}
+                      />
+                    </Suspense>
+                  </BundleErrorBoundary>
+                ))}
+              </Picking>
 
-            {debug && onDebugSample ? (
-              <DebugStatsProbe onSample={onDebugSample} />
-            ) : null}
+              {debug && onDebugSample ? (
+                <DebugStatsProbe onSample={onDebugSample} />
+              ) : null}
+            </CameraApiProvider>
           </MeshRegistryProvider>
         </Provider>
       </Canvas>

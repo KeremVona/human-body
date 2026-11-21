@@ -9,6 +9,7 @@ import {
   selected,
   selectionCleared,
 } from '../features/selection/selectionSlice';
+import { useCameraApi } from './camera';
 import {
   LONG_PRESS_MS,
   STATIONARY_PX,
@@ -53,6 +54,7 @@ export function Picking({
 }): JSX.Element {
   const dispatch = useAppDispatch();
   const store = useStore<RootState>();
+  const cameraApi = useCameraApi();
 
   const pressRef = useRef<ActivePress | null>(null);
   const tapTrackerRef = useRef<ReturnType<typeof createTapTracker> | null>(
@@ -120,7 +122,7 @@ export function Picking({
               t: performance.now(),
             }) === 'double'
           ) {
-            // Double-click / double-tap camera focus wired in Task 7.
+            void cameraApi.focusMeshes([press.meshId]);
           }
         } else {
           dispatch(selectionCleared());
@@ -143,7 +145,7 @@ export function Picking({
       window.removeEventListener('pointerup', handleUp);
       window.removeEventListener('pointercancel', handleCancel);
     };
-  }, [dispatch]);
+  }, [dispatch, cameraApi]);
 
   const handlePointerMove = (e: ThreeEvent<PointerEvent>) => {
     e.stopPropagation();

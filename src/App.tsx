@@ -9,6 +9,7 @@ import { BundleScheduler } from './features/assets/BundleScheduler';
 import { bootstrap } from './features/content/contentSlice';
 import { HoverLabel } from './features/selection/HoverLabel';
 import { AtlasCanvas, type CanvasBundle } from './scene/AtlasCanvas';
+import { CameraApiProvider } from './scene/camera';
 import { DebugStats, type RenderStats } from './scene/DebugStats';
 import {
   createMeshRegistry,
@@ -133,8 +134,10 @@ export default function App({ store }: { store?: AppStore } = {}): JSX.Element {
   return (
     <Provider store={defaultStore}>
       <MeshRegistryProvider registry={registry}>
-        <BundleScheduler />
-        <AtlasShell registry={registry} />
+        <CameraApiProvider>
+          <BundleScheduler />
+          <AtlasShell registry={registry} />
+        </CameraApiProvider>
       </MeshRegistryProvider>
     </Provider>
   );
