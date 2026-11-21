@@ -16,7 +16,7 @@
     }
   },
   "simplify": {
-    "ratio": 1,
+    "ratio": 0.7,
     "error": 0.001
   },
   "budgets": {

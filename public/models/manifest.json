@@ -1,11 +1,4755 @@
 {
   "version": 1,
-  "generatedAt": "2026-11-21T00:00:00Z",
+  "generatedAt": "2026-11-21T16:25:52.506Z",
   "source": {
     "name": "Z-Anatomy",
-    "version": "pending",
+    "version": "2023-05-02",
     "license": "CC-BY-SA-4.0"
   },
-  "bundles": [],
-  "meshes": {}
+  "bundles": [
+    {
+      "id": "skeletal",
+      "file": "skeletal.6c6d593d.glb",
+      "bytes": 4701748,
+      "sha256": "6c6d593d3ab3b2b40051cee0024e92a75390a5bc3e53411ce822fcd700a956d1",
+      "meshIds": [
+        "arytenoid-cartilage--l",
+        "arytenoid-cartilage--r",
+        "atlas-c1",
+        "axis-c2",
+        "body-of-sternum",
+        "calcaneus--l",
+        "calcaneus--r",
+        "capitate-bone--l",
+        "capitate-bone--r",
+        "clavicle--l",
+        "clavicle--r",
+        "coccyx",
+        "corniculate-cartilage--l",
+        "corniculate-cartilage--r",
+        "costal-cartilage-of-eighth-rib--l",
+        "costal-cartilage-of-eighth-rib--r",
+        "costal-cartilage-of-fifth-rib--l",
+        "costal-cartilage-of-fifth-rib--r",
+        "costal-cartilage-of-first-rib--l",
+        "costal-cartilage-of-first-rib--r",
+        "costal-cartilage-of-fourth-rib--l",
+        "costal-cartilage-of-fourth-rib--r",
+        "costal-cartilage-of-ninth-rib--l",
+        "costal-cartilage-of-ninth-rib--r",
+        "costal-cartilage-of-second-rib--l",
+        "costal-cartilage-of-second-rib--r",
+        "costal-cartilage-of-seventh-rib--l",
+        "costal-cartilage-of-seventh-rib--r",
+        "costal-cartilage-of-sixth-rib--l",
+        "costal-cartilage-of-sixth-rib--r",
+        "costal-cartilage-of-tenth-rib--l",
+        "costal-cartilage-of-tenth-rib--r",
+        "costal-cartilage-of-third-rib--l",
+        "costal-cartilage-of-third-rib--r",
+        "cricoid-cartilage",
+        "cuboid-bone--l",
+        "cuboid-bone--r",
+        "distal-phalanx-of-fifth-finger-of-foot--l",
+        "distal-phalanx-of-fifth-finger-of-foot--r",
+        "distal-phalanx-of-fifth-finger-of-hand--l",
+        "distal-phalanx-of-fifth-finger-of-hand--r",
+        "distal-phalanx-of-first-finger-of-foot--l",
+        "distal-phalanx-of-first-finger-of-foot--r",
+        "distal-phalanx-of-first-finger-of-hand--l",
+        "distal-phalanx-of-first-finger-of-hand--r",
+        "distal-phalanx-of-fourth-finger-of-foot--l",
+        "distal-phalanx-of-fourth-finger-of-foot--r",
+        "distal-phalanx-of-fourth-finger-of-hand--l",
+        "distal-phalanx-of-fourth-finger-of-hand--r",
+        "distal-phalanx-of-second-finger-of-foot--l",
+        "distal-phalanx-of-second-finger-of-foot--r",
+        "distal-phalanx-of-second-finger-of-hand--l",
+        "distal-phalanx-of-second-finger-of-hand--r",
+        "distal-phalanx-of-third-finger-of-foot--l",
+        "distal-phalanx-of-third-finger-of-foot--r",
+        "distal-phalanx-of-third-finger-of-hand--l",
+        "distal-phalanx-of-third-finger-of-hand--r",
+        "eighth-rib--l",
+        "eighth-rib--r",
+        "eleventh-rib--l",
+        "eleventh-rib--r",
+        "ethmoid-bone",
+        "femur--l",
+        "femur--r",
+        "fibula--l",
+        "fibula--r",
+        "fifth-metacarpal-bone--l",
+        "fifth-metacarpal-bone--r",
+        "fifth-metatarsal-bone--l",
+        "fifth-metatarsal-bone--r",
+        "fifth-rib--l",
+        "fifth-rib--r",
+        "first-metacarpal-bone--l",
+        "first-metacarpal-bone--r",
+        "first-metatarsal-bone--l",
+        "first-metatarsal-bone--r",
+        "first-rib--l",
+        "first-rib--r",
+        "fourth-metacarpal-bone--l",
+        "fourth-metacarpal-bone--r",
+        "fourth-metatarsal-bone--l",
+        "fourth-metatarsal-bone--r",
+        "fourth-rib--l",
+        "fourth-rib--r",
+        "frontal-bone",
+        "hamate-bone--l",
+        "hamate-bone--r",
+        "hip-bone--l",
+        "hip-bone--r",
+        "humerus--l",
+        "humerus--r",
+        "hyoid-bone",
+        "inferior-nasal-concha-bone--l",
+        "inferior-nasal-concha-bone--r",
+        "intermediate-cuneiform-bone--l",
+        "intermediate-cuneiform-bone--r",
+        "lacrimal-bone--l",
+        "lacrimal-bone--r",
+        "lateral-cuneiform-bone--l",
+        "lateral-cuneiform-bone--r",
+        "lateral-process-of-nasal-septal-cartilage--l",
+        "lateral-process-of-nasal-septal-cartilage--r",
+        "lower-canine--l",
+        "lower-canine--r",
+        "lower-first-molar-tooth--l",
+        "lower-first-molar-tooth--r",
+        "lower-first-premolar--l",
+        "lower-first-premolar--r",
+        "lower-lateral-incisor--l",
+        "lower-lateral-incisor--r",
+        "lower-medial-incisor--l",
+        "lower-medial-incisor--r",
+        "lower-second-molar-tooth--l",
+        "lower-second-molar-tooth--r",
+        "lower-second-premolar--l",
+        "lower-second-premolar--r",
+        "lunate-bone--l",
+        "lunate-bone--r",
+        "major-alar-cartilage--l",
+        "major-alar-cartilage--r",
+        "mandible",
+        "manubrium-of-sternum",
+        "maxilla--l",
+        "maxilla--r",
+        "medial-cuneiform-bone--l",
+        "medial-cuneiform-bone--r",
+        "middle-phalanx-of-fifth-finger-of-foot--l",
+        "middle-phalanx-of-fifth-finger-of-foot--r",
+        "middle-phalanx-of-fifth-finger-of-hand--l",
+        "middle-phalanx-of-fifth-finger-of-hand--r",
+        "middle-phalanx-of-fourth-finger-of-foot--l",
+        "middle-phalanx-of-fourth-finger-of-foot--r",
+        "middle-phalanx-of-fourth-finger-of-hand--l",
+        "middle-phalanx-of-fourth-finger-of-hand--r",
+        "middle-phalanx-of-second-finger-of-foot--l",
+        "middle-phalanx-of-second-finger-of-foot--r",
+        "middle-phalanx-of-second-finger-of-hand--l",
+        "middle-phalanx-of-second-finger-of-hand--r",
+        "middle-phalanx-of-third-finger-of-foot--l",
+        "middle-phalanx-of-third-finger-of-foot--r",
+        "middle-phalanx-of-third-finger-of-hand--l",
+        "middle-phalanx-of-third-finger-of-hand--r",
+        "nasal-bone--l",
+        "nasal-bone--r",
+        "nasal-septal-cartilage",
+        "navicular-bone--l",
+        "navicular-bone--r",
+        "ninth-rib--l",
+        "ninth-rib--r",
+        "occipital-bone",
+        "palatine-bone--l",
+        "palatine-bone--r",
+        "parietal-bone--l",
+        "parietal-bone--r",
+        "patella--l",
+        "patella--r",
+        "pisiform-bone--l",
+        "pisiform-bone--r",
+        "proximal-phalanx-of-fifth-finger-of-foot--l",
+        "proximal-phalanx-of-fifth-finger-of-foot--r",
+        "proximal-phalanx-of-fifth-finger-of-hand--l",
+        "proximal-phalanx-of-fifth-finger-of-hand--r",
+        "proximal-phalanx-of-first-finger-of-foot--l",
+        "proximal-phalanx-of-first-finger-of-foot--r",
+        "proximal-phalanx-of-first-finger-of-hand--l",
+        "proximal-phalanx-of-first-finger-of-hand--r",
+        "proximal-phalanx-of-fourth-finger-of-foot--l",
+        "proximal-phalanx-of-fourth-finger-of-foot--r",
+        "proximal-phalanx-of-fourth-finger-of-hand--l",
+        "proximal-phalanx-of-fourth-finger-of-hand--r",
+        "proximal-phalanx-of-second-finger-of-foot--l",
+        "proximal-phalanx-of-second-finger-of-foot--r",
+        "proximal-phalanx-of-second-finger-of-hand--l",
+        "proximal-phalanx-of-second-finger-of-hand--r",
+        "proximal-phalanx-of-third-finger-of-foot--l",
+        "proximal-phalanx-of-third-finger-of-foot--r",
+        "proximal-phalanx-of-third-finger-of-hand--l",
+        "proximal-phalanx-of-third-finger-of-hand--r",
+        "radius--l",
+        "radius--r",
+        "sacrum",
+        "scaphoid-bone--l",
+        "scaphoid-bone--r",
+        "scapula--l",
+        "scapula--r",
+        "second-metacarpal-bone--l",
+        "second-metacarpal-bone--r",
+        "second-metatarsal-bone--l",
+        "second-metatarsal-bone--r",
+        "second-rib--l",
+        "second-rib--r",
+        "sesamoid-bones-of-foot--l",
+        "sesamoid-bones-of-foot--r",
+        "seventh-rib--l",
+        "seventh-rib--r",
+        "sixth-rib--l",
+        "sixth-rib--r",
+        "sphenoid-bone",
+        "talus--l",
+        "talus--r",
+        "temporal-bone--l",
+        "temporal-bone--r",
+        "tenth-rib--l",
+        "tenth-rib--r",
+        "third-metacarpal-bone--l",
+        "third-metacarpal-bone--r",
+        "third-metatarsal-bone--l",
+        "third-metatarsal-bone--r",
+        "third-rib--l",
+        "third-rib--r",
+        "thyroid-cartilage",
+        "tibia--l",
+        "tibia--r",
+        "trapezium-bone--l",
+        "trapezium-bone--r",
+        "trapezoid-bone--l",
+        "trapezoid-bone--r",
+        "triquetrum-bone--l",
+        "triquetrum-bone--r",
+        "twelfth-rib--l",
+        "twelfth-rib--r",
+        "ulna--l",
+        "ulna--r",
+        "upper-canine--l",
+        "upper-canine--r",
+        "upper-first-molar-tooth--l",
+        "upper-first-molar-tooth--r",
+        "upper-first-premolar--l",
+        "upper-first-premolar--r",
+        "upper-lateral-incisor--l",
+        "upper-lateral-incisor--r",
+        "upper-medial-incisor--l",
+        "upper-medial-incisor--r",
+        "upper-second-molar-tooth--l",
+        "upper-second-molar-tooth--r",
+        "upper-second-premolar--l",
+        "upper-second-premolar--r",
+        "vertebra-c3",
+        "vertebra-c4",
+        "vertebra-c5",
+        "vertebra-c6",
+        "vertebra-c7",
+        "vertebra-l1",
+        "vertebra-l2",
+        "vertebra-l3",
+        "vertebra-l4",
+        "vertebra-l5",
+        "vertebra-t1",
+        "vertebra-t10",
+        "vertebra-t11",
+        "vertebra-t12",
+        "vertebra-t2",
+        "vertebra-t3",
+        "vertebra-t4",
+        "vertebra-t5",
+        "vertebra-t6",
+        "vertebra-t7",
+        "vertebra-t8",
+        "vertebra-t9",
+        "vomer",
+        "xiphoid-process",
+        "zygomatic-bone--l",
+        "zygomatic-bone--r"
+      ]
+    }
+  ],
+  "meshes": {
+    "arytenoid-cartilage--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.0025405483320355415,
+          0.615759015083313,
+          -0.008613617159426212
+        ],
+        "max": [
+          0.007984107360243797,
+          0.6238327026367188,
+          -0.00135465944185853
+        ]
+      },
+      "triangles": 2644,
+      "sizeClass": "tiny"
+    },
+    "arytenoid-cartilage--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.007984107360243797,
+          0.615759015083313,
+          -0.008613616228103638
+        ],
+        "max": [
+          -0.0025405483320355415,
+          0.6238327026367188,
+          -0.00135465944185853
+        ]
+      },
+      "triangles": 2644,
+      "sizeClass": "tiny"
+    },
+    "atlas-c1": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.043027929961681366,
+          0.6757796406745911,
+          -0.05820358544588089
+        ],
+        "max": [
+          0.04303619638085365,
+          0.6954273581504822,
+          -0.009136080741882324
+        ]
+      },
+      "triangles": 1920,
+      "sizeClass": "medium"
+    },
+    "axis-c2": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.026784639805555344,
+          0.6511964797973633,
+          -0.06463270634412766
+        ],
+        "max": [
+          0.02681589685380459,
+          0.6941065192222595,
+          -0.011893769726157188
+        ]
+      },
+      "triangles": 2170,
+      "sizeClass": "medium"
+    },
+    "body-of-sternum": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.024654345586895943,
+          0.38229379057884216,
+          0.05688578635454178
+        ],
+        "max": [
+          0.02465434931218624,
+          0.5016156435012817,
+          0.09993396699428558
+        ]
+      },
+      "triangles": 3516,
+      "sizeClass": "medium"
+    },
+    "calcaneus--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.0546853169798851,
+          -0.845879316329956,
+          -0.10380647331476212
+        ],
+        "max": [
+          0.10222742706537247,
+          -0.7947719693183899,
+          -0.028118785470724106
+        ]
+      },
+      "triangles": 1066,
+      "sizeClass": "medium"
+    },
+    "calcaneus--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.10222742706537247,
+          -0.845879316329956,
+          -0.10380647331476212
+        ],
+        "max": [
+          -0.0546853169798851,
+          -0.7947719693183899,
+          -0.028118789196014404
+        ]
+      },
+      "triangles": 1062,
+      "sizeClass": "medium"
+    },
+    "capitate-bone--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.25654876232147217,
+          -0.025448862463235855,
+          -0.0032789241522550583
+        ],
+        "max": [
+          0.2731603980064392,
+          -0.002039019949734211,
+          0.014694243669509888
+        ]
+      },
+      "triangles": 426,
+      "sizeClass": "small"
+    },
+    "capitate-bone--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.2731603980064392,
+          -0.025448860600590706,
+          -0.003278925083577633
+        ],
+        "max": [
+          -0.25654876232147217,
+          -0.002039019949734211,
+          0.014694241806864738
+        ]
+      },
+      "triangles": 426,
+      "sizeClass": "small"
+    },
+    "clavicle--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.011254377663135529,
+          0.531783401966095,
+          -0.06451207399368286
+        ],
+        "max": [
+          0.15433061122894287,
+          0.5678867101669312,
+          0.038259558379650116
+        ]
+      },
+      "triangles": 1084,
+      "sizeClass": "medium"
+    },
+    "clavicle--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.15433064103126526,
+          0.531783401966095,
+          -0.06451207399368286
+        ],
+        "max": [
+          -0.011254392564296722,
+          0.5678866505622864,
+          0.038259558379650116
+        ]
+      },
+      "triangles": 1084,
+      "sizeClass": "medium"
+    },
+    "coccyx": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.016741100698709488,
+          -0.02703212760388851,
+          -0.09861912578344345
+        ],
+        "max": [
+          0.01676384173333645,
+          0.003796863369643688,
+          -0.07889434695243835
+        ]
+      },
+      "triangles": 1098,
+      "sizeClass": "small"
+    },
+    "corniculate-cartilage--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.0028714120853692293,
+          0.6232930421829224,
+          -0.008940533734858036
+        ],
+        "max": [
+          0.0043858615681529045,
+          0.6248530149459839,
+          -0.007360740099102259
+        ]
+      },
+      "triangles": 136,
+      "sizeClass": "tiny"
+    },
+    "corniculate-cartilage--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.00438586063683033,
+          0.6232930421829224,
+          -0.008940533734858036
+        ],
+        "max": [
+          -0.002871411619707942,
+          0.6248530149459839,
+          -0.007360740099102259
+        ]
+      },
+      "triangles": 136,
+      "sizeClass": "tiny"
+    },
+    "costal-cartilage-of-eighth-rib--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.037125542759895325,
+          0.2727273404598236,
+          0.04603195562958717
+        ],
+        "max": [
+          0.11865273118019104,
+          0.3350655138492584,
+          0.09619870781898499
+        ]
+      },
+      "triangles": 1836,
+      "sizeClass": "medium"
+    },
+    "costal-cartilage-of-eighth-rib--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.11865273118019104,
+          0.2727273404598236,
+          0.04603195935487747
+        ],
+        "max": [
+          -0.037125542759895325,
+          0.3350655138492584,
+          0.09619870781898499
+        ]
+      },
+      "triangles": 1836,
+      "sizeClass": "medium"
+    },
+    "costal-cartilage-of-fifth-rib--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.019041012972593307,
+          0.38332873582839966,
+          0.08108048141002655
+        ],
+        "max": [
+          0.08466891944408417,
+          0.42271333932876587,
+          0.09742144495248795
+        ]
+      },
+      "triangles": 4544,
+      "sizeClass": "medium"
+    },
+    "costal-cartilage-of-fifth-rib--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.08466891944408417,
+          0.38332873582839966,
+          0.08108048141002655
+        ],
+        "max": [
+          -0.019041012972593307,
+          0.42271333932876587,
+          0.09742144495248795
+        ]
+      },
+      "triangles": 4544,
+      "sizeClass": "medium"
+    },
+    "costal-cartilage-of-first-rib--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.023542366921901703,
+          0.5212883949279785,
+          0.015338932164013386
+        ],
+        "max": [
+          0.05410471558570862,
+          0.5402446389198303,
+          0.03945661336183548
+        ]
+      },
+      "triangles": 1940,
+      "sizeClass": "small"
+    },
+    "costal-cartilage-of-first-rib--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.05410471558570862,
+          0.5212883949279785,
+          0.015338931232690811
+        ],
+        "max": [
+          -0.023542366921901703,
+          0.5402446389198303,
+          0.03945661336183548
+        ]
+      },
+      "triangles": 1940,
+      "sizeClass": "small"
+    },
+    "costal-cartilage-of-fourth-rib--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.0161946639418602,
+          0.41968774795532227,
+          0.07252021878957748
+        ],
+        "max": [
+          0.07064327597618103,
+          0.44863826036453247,
+          0.08509369194507599
+        ]
+      },
+      "triangles": 3130,
+      "sizeClass": "small"
+    },
+    "costal-cartilage-of-fourth-rib--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.07064327597618103,
+          0.41968774795532227,
+          0.07252021878957748
+        ],
+        "max": [
+          -0.0161946639418602,
+          0.44863826036453247,
+          0.08509369194507599
+        ]
+      },
+      "triangles": 3130,
+      "sizeClass": "small"
+    },
+    "costal-cartilage-of-ninth-rib--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.06499101221561432,
+          0.23802810907363892,
+          0.017917241901159286
+        ],
+        "max": [
+          0.12685026228427887,
+          0.2773803770542145,
+          0.08463182300329208
+        ]
+      },
+      "triangles": 1374,
+      "sizeClass": "medium"
+    },
+    "costal-cartilage-of-ninth-rib--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.12685026228427887,
+          0.23802810907363892,
+          0.017917241901159286
+        ],
+        "max": [
+          -0.06499101221561432,
+          0.2773803770542145,
+          0.08463181555271149
+        ]
+      },
+      "triangles": 1374,
+      "sizeClass": "medium"
+    },
+    "costal-cartilage-of-second-rib--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.012630976736545563,
+          0.48575326800346375,
+          0.045175984501838684
+        ],
+        "max": [
+          0.04595036059617996,
+          0.5025006532669067,
+          0.06948433816432953
+        ]
+      },
+      "triangles": 2384,
+      "sizeClass": "small"
+    },
+    "costal-cartilage-of-second-rib--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.04595036059617996,
+          0.48575326800346375,
+          0.04517596960067749
+        ],
+        "max": [
+          -0.012630976736545563,
+          0.5025006532669067,
+          0.06948432326316833
+        ]
+      },
+      "triangles": 2384,
+      "sizeClass": "small"
+    },
+    "costal-cartilage-of-seventh-rib--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.006262581795454025,
+          0.3115084171295166,
+          0.06299984455108643
+        ],
+        "max": [
+          0.11432647705078125,
+          0.38700032234191895,
+          0.09967759996652603
+        ]
+      },
+      "triangles": 9634,
+      "sizeClass": "medium"
+    },
+    "costal-cartilage-of-seventh-rib--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.11432647705078125,
+          0.3115084171295166,
+          0.06299985200166702
+        ],
+        "max": [
+          -0.006262581795454025,
+          0.38700321316719055,
+          0.09967759996652603
+        ]
+      },
+      "triangles": 9634,
+      "sizeClass": "medium"
+    },
+    "costal-cartilage-of-sixth-rib--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.013711009174585342,
+          0.3483971655368805,
+          0.07792510092258453
+        ],
+        "max": [
+          0.09629075974225998,
+          0.40411874651908875,
+          0.10056284070014954
+        ]
+      },
+      "triangles": 5684,
+      "sizeClass": "medium"
+    },
+    "costal-cartilage-of-sixth-rib--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.09629075974225998,
+          0.3483971655368805,
+          0.07792510092258453
+        ],
+        "max": [
+          -0.013711009174585342,
+          0.40411874651908875,
+          0.10056284070014954
+        ]
+      },
+      "triangles": 5684,
+      "sizeClass": "medium"
+    },
+    "costal-cartilage-of-tenth-rib--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.08046071231365204,
+          0.2056138813495636,
+          0.003966614603996277
+        ],
+        "max": [
+          0.12759074568748474,
+          0.24154996871948242,
+          0.07136047631502151
+        ]
+      },
+      "triangles": 1066,
+      "sizeClass": "medium"
+    },
+    "costal-cartilage-of-tenth-rib--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.12759074568748474,
+          0.2056138813495636,
+          0.003966614603996277
+        ],
+        "max": [
+          -0.08046071231365204,
+          0.24154996871948242,
+          0.07136046886444092
+        ]
+      },
+      "triangles": 1066,
+      "sizeClass": "medium"
+    },
+    "costal-cartilage-of-third-rib--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.015364428982138634,
+          0.4531782567501068,
+          0.05654626339673996
+        ],
+        "max": [
+          0.05267367139458656,
+          0.4725383520126343,
+          0.07885904610157013
+        ]
+      },
+      "triangles": 2518,
+      "sizeClass": "small"
+    },
+    "costal-cartilage-of-third-rib--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.05267367139458656,
+          0.4531782567501068,
+          0.05654626339673996
+        ],
+        "max": [
+          -0.015364428982138634,
+          0.4725383520126343,
+          0.07885904610157013
+        ]
+      },
+      "triangles": 2518,
+      "sizeClass": "small"
+    },
+    "cricoid-cartilage": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.012166486121714115,
+          0.5995461940765381,
+          -0.01082365307956934
+        ],
+        "max": [
+          0.012166510336101055,
+          0.6170662045478821,
+          0.008028817363083363
+        ]
+      },
+      "triangles": 1790,
+      "sizeClass": "small"
+    },
+    "cuboid-bone--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.07952053099870682,
+          -0.8284244537353516,
+          -0.035722874104976654
+        ],
+        "max": [
+          0.11175450682640076,
+          -0.7975667715072632,
+          -0.0015308130532503128
+        ]
+      },
+      "triangles": 908,
+      "sizeClass": "small"
+    },
+    "cuboid-bone--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.11175450682640076,
+          -0.8284244537353516,
+          -0.035722874104976654
+        ],
+        "max": [
+          -0.07952053099870682,
+          -0.7975667715072632,
+          -0.0015308130532503128
+        ]
+      },
+      "triangles": 906,
+      "sizeClass": "small"
+    },
+    "distal-phalanx-of-fifth-finger-of-foot--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.13852769136428833,
+          -0.8481253981590271,
+          0.07333477586507797
+        ],
+        "max": [
+          0.14641644060611725,
+          -0.842491090297699,
+          0.08426288515329361
+        ]
+      },
+      "triangles": 194,
+      "sizeClass": "tiny"
+    },
+    "distal-phalanx-of-fifth-finger-of-foot--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.14641644060611725,
+          -0.8481253981590271,
+          0.07333477586507797
+        ],
+        "max": [
+          -0.13852769136428833,
+          -0.842491090297699,
+          0.08426288515329361
+        ]
+      },
+      "triangles": 194,
+      "sizeClass": "tiny"
+    },
+    "distal-phalanx-of-fifth-finger-of-hand--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.22608551383018494,
+          -0.13437776267528534,
+          0.05651506036520004
+        ],
+        "max": [
+          0.23466768860816956,
+          -0.12124531716108322,
+          0.07131382077932358
+        ]
+      },
+      "triangles": 176,
+      "sizeClass": "small"
+    },
+    "distal-phalanx-of-fifth-finger-of-hand--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.23466765880584717,
+          -0.13437776267528534,
+          0.05651506409049034
+        ],
+        "max": [
+          -0.22608548402786255,
+          -0.12124531716108322,
+          0.07131382077932358
+        ]
+      },
+      "triangles": 176,
+      "sizeClass": "small"
+    },
+    "distal-phalanx-of-first-finger-of-foot--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.06975451856851578,
+          -0.8473803997039795,
+          0.09546112269163132
+        ],
+        "max": [
+          0.09042906016111374,
+          -0.8359113335609436,
+          0.12237178534269333
+        ]
+      },
+      "triangles": 432,
+      "sizeClass": "small"
+    },
+    "distal-phalanx-of-first-finger-of-foot--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.09042906016111374,
+          -0.8473803997039795,
+          0.09546112269163132
+        ],
+        "max": [
+          -0.06975451856851578,
+          -0.8359113335609436,
+          0.12237178534269333
+        ]
+      },
+      "triangles": 432,
+      "sizeClass": "small"
+    },
+    "distal-phalanx-of-first-finger-of-hand--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.32061296701431274,
+          -0.09047260135412216,
+          0.045125510543584824
+        ],
+        "max": [
+          0.33462458848953247,
+          -0.06634381413459778,
+          0.061883870512247086
+        ]
+      },
+      "triangles": 180,
+      "sizeClass": "small"
+    },
+    "distal-phalanx-of-first-finger-of-hand--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.33462458848953247,
+          -0.09047260135412216,
+          0.045125510543584824
+        ],
+        "max": [
+          -0.32061296701431274,
+          -0.06634381413459778,
+          0.06188386678695679
+        ]
+      },
+      "triangles": 180,
+      "sizeClass": "small"
+    },
+    "distal-phalanx-of-fourth-finger-of-foot--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.12778301537036896,
+          -0.8480893969535828,
+          0.09147697687149048
+        ],
+        "max": [
+          0.13657230138778687,
+          -0.8407568335533142,
+          0.10315295308828354
+        ]
+      },
+      "triangles": 242,
+      "sizeClass": "tiny"
+    },
+    "distal-phalanx-of-fourth-finger-of-foot--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.13657233119010925,
+          -0.8480893969535828,
+          0.09147697687149048
+        ],
+        "max": [
+          -0.12778304517269135,
+          -0.8407568335533142,
+          0.10315295308828354
+        ]
+      },
+      "triangles": 242,
+      "sizeClass": "tiny"
+    },
+    "distal-phalanx-of-fourth-finger-of-hand--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.2533382177352905,
+          -0.14656849205493927,
+          0.06741949915885925
+        ],
+        "max": [
+          0.2619461417198181,
+          -0.13696159422397614,
+          0.08359937369823456
+        ]
+      },
+      "triangles": 112,
+      "sizeClass": "small"
+    },
+    "distal-phalanx-of-fourth-finger-of-hand--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.2619461417198181,
+          -0.14656849205493927,
+          0.06741949915885925
+        ],
+        "max": [
+          -0.2533382177352905,
+          -0.13696159422397614,
+          0.08359937369823456
+        ]
+      },
+      "triangles": 112,
+      "sizeClass": "small"
+    },
+    "distal-phalanx-of-second-finger-of-foot--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.09870919585227966,
+          -0.847865641117096,
+          0.1113911047577858
+        ],
+        "max": [
+          0.10889412462711334,
+          -0.8402822613716125,
+          0.12505768239498138
+        ]
+      },
+      "triangles": 202,
+      "sizeClass": "small"
+    },
+    "distal-phalanx-of-second-finger-of-foot--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.10889412462711334,
+          -0.847865641117096,
+          0.1113911047577858
+        ],
+        "max": [
+          -0.09870919585227966,
+          -0.8402822613716125,
+          0.12505768239498138
+        ]
+      },
+      "triangles": 202,
+      "sizeClass": "small"
+    },
+    "distal-phalanx-of-second-finger-of-hand--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.31113776564598083,
+          -0.1495378613471985,
+          0.05803445726633072
+        ],
+        "max": [
+          0.3215741813182831,
+          -0.13523799180984497,
+          0.07568015903234482
+        ]
+      },
+      "triangles": 208,
+      "sizeClass": "small"
+    },
+    "distal-phalanx-of-second-finger-of-hand--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.3215741813182831,
+          -0.1495378613471985,
+          0.05803445726633072
+        ],
+        "max": [
+          -0.31113776564598083,
+          -0.13523799180984497,
+          0.07568015903234482
+        ]
+      },
+      "triangles": 208,
+      "sizeClass": "small"
+    },
+    "distal-phalanx-of-third-finger-of-foot--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.11437457799911499,
+          -0.847851037979126,
+          0.10602933168411255
+        ],
+        "max": [
+          0.12322283536195755,
+          -0.8416872620582581,
+          0.11802453547716141
+        ]
+      },
+      "triangles": 260,
+      "sizeClass": "tiny"
+    },
+    "distal-phalanx-of-third-finger-of-foot--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.12322285026311874,
+          -0.847851037979126,
+          0.10602933168411255
+        ],
+        "max": [
+          -0.11437459290027618,
+          -0.8416872620582581,
+          0.11802453547716141
+        ]
+      },
+      "triangles": 260,
+      "sizeClass": "tiny"
+    },
+    "distal-phalanx-of-third-finger-of-hand--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.2802492082118988,
+          -0.15864256024360657,
+          0.0668797641992569
+        ],
+        "max": [
+          0.290111243724823,
+          -0.1447342336177826,
+          0.08478061109781265
+        ]
+      },
+      "triangles": 174,
+      "sizeClass": "small"
+    },
+    "distal-phalanx-of-third-finger-of-hand--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.290111243724823,
+          -0.15864256024360657,
+          0.0668797641992569
+        ],
+        "max": [
+          -0.2802492082118988,
+          -0.1447342336177826,
+          0.08478060364723206
+        ]
+      },
+      "triangles": 174,
+      "sizeClass": "small"
+    },
+    "eighth-rib--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.01740984618663788,
+          0.2779693305492401,
+          -0.10861998796463013
+        ],
+        "max": [
+          0.13526833057403564,
+          0.4295002222061157,
+          0.05479012429714203
+        ]
+      },
+      "triangles": 5788,
+      "sizeClass": "medium"
+    },
+    "eighth-rib--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.13526833057403564,
+          0.2779693305492401,
+          -0.10861999541521072
+        ],
+        "max": [
+          -0.01743505150079727,
+          0.4294380843639374,
+          0.05479013919830322
+        ]
+      },
+      "triangles": 5788,
+      "sizeClass": "medium"
+    },
+    "eleventh-rib--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.019907314330339432,
+          0.2017248421907425,
+          -0.09047506749629974
+        ],
+        "max": [
+          0.11971871554851532,
+          0.3337318003177643,
+          -0.009318143129348755
+        ]
+      },
+      "triangles": 3522,
+      "sizeClass": "medium"
+    },
+    "eleventh-rib--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.11971873044967651,
+          0.2017248421907425,
+          -0.09047506749629974
+        ],
+        "max": [
+          -0.019907329231500626,
+          0.3337318003177643,
+          -0.009318139404058456
+        ]
+      },
+      "triangles": 3522,
+      "sizeClass": "medium"
+    },
+    "ethmoid-bone": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.01874006725847721,
+          0.7085486650466919,
+          0.019158465787768364
+        ],
+        "max": [
+          0.018740063533186913,
+          0.7479823231697083,
+          0.06369614601135254
+        ]
+      },
+      "triangles": 8528,
+      "sizeClass": "medium"
+    },
+    "femur--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.031938303261995316,
+          -0.427462637424469,
+          -0.07160310447216034
+        ],
+        "max": [
+          0.14853090047836304,
+          0.026976555585861206,
+          0.006507761776447296
+        ]
+      },
+      "triangles": 2654,
+      "sizeClass": "large"
+    },
+    "femur--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.14853090047836304,
+          -0.427462637424469,
+          -0.07160313427448273
+        ],
+        "max": [
+          -0.031938303261995316,
+          0.026976555585861206,
+          0.006507791578769684
+        ]
+      },
+      "triangles": 2654,
+      "sizeClass": "large"
+    },
+    "fibula--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.08862368762493134,
+          -0.8021177053451538,
+          -0.07193683087825775
+        ],
+        "max": [
+          0.12484715133905411,
+          -0.43962523341178894,
+          -0.039010725915431976
+        ]
+      },
+      "triangles": 884,
+      "sizeClass": "large"
+    },
+    "fibula--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.12484713643789291,
+          -0.8021177053451538,
+          -0.07193685322999954
+        ],
+        "max": [
+          -0.08862367272377014,
+          -0.4396318197250366,
+          -0.039010703563690186
+        ]
+      },
+      "triangles": 884,
+      "sizeClass": "large"
+    },
+    "fifth-metacarpal-bone--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.2325180023908615,
+          -0.0772019699215889,
+          0.006688104942440987
+        ],
+        "max": [
+          0.25343313813209534,
+          -0.02024342678487301,
+          0.03219597786664963
+        ]
+      },
+      "triangles": 412,
+      "sizeClass": "small"
+    },
+    "fifth-metacarpal-bone--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.25343310832977295,
+          -0.0772019773721695,
+          0.006688108667731285
+        ],
+        "max": [
+          -0.23251797258853912,
+          -0.02024342492222786,
+          0.03219597041606903
+        ]
+      },
+      "triangles": 414,
+      "sizeClass": "small"
+    },
+    "fifth-metatarsal-bone--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.10093510150909424,
+          -0.8474413156509399,
+          -0.026288628578186035
+        ],
+        "max": [
+          0.1379590630531311,
+          -0.8162701725959778,
+          0.047444261610507965
+        ]
+      },
+      "triangles": 658,
+      "sizeClass": "medium"
+    },
+    "fifth-metatarsal-bone--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.1379590779542923,
+          -0.8474413156509399,
+          -0.026288628578186035
+        ],
+        "max": [
+          -0.10093511641025543,
+          -0.8162701725959778,
+          0.047444261610507965
+        ]
+      },
+      "triangles": 658,
+      "sizeClass": "medium"
+    },
+    "fifth-rib--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.015495769679546356,
+          0.3839826285839081,
+          -0.09946545958518982
+        ],
+        "max": [
+          0.1313079595565796,
+          0.5099672079086304,
+          0.08985614031553268
+        ]
+      },
+      "triangles": 6562,
+      "sizeClass": "medium"
+    },
+    "fifth-rib--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.1313079595565796,
+          0.3839826285839081,
+          -0.09946545958518982
+        ],
+        "max": [
+          -0.015495769679546356,
+          0.5099672079086304,
+          0.08985614031553268
+        ]
+      },
+      "triangles": 6562,
+      "sizeClass": "medium"
+    },
+    "first-metacarpal-bone--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.2811800241470337,
+          -0.04796203225851059,
+          0.010310288518667221
+        ],
+        "max": [
+          0.31984418630599976,
+          -0.00958302617073059,
+          0.04178991913795471
+        ]
+      },
+      "triangles": 550,
+      "sizeClass": "small"
+    },
+    "first-metacarpal-bone--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.31984418630599976,
+          -0.04796203225851059,
+          0.01031029038131237
+        ],
+        "max": [
+          -0.2811800241470337,
+          -0.009583024308085442,
+          0.04178991913795471
+        ]
+      },
+      "triangles": 550,
+      "sizeClass": "small"
+    },
+    "first-metatarsal-bone--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.060315269976854324,
+          -0.8426892161369324,
+          0.008583715185523033
+        ],
+        "max": [
+          0.08216327428817749,
+          -0.7977946996688843,
+          0.07215966284275055
+        ]
+      },
+      "triangles": 932,
+      "sizeClass": "medium"
+    },
+    "first-metatarsal-bone--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.08216328918933868,
+          -0.8426892161369324,
+          0.008583715185523033
+        ],
+        "max": [
+          -0.06031528487801552,
+          -0.7977946996688843,
+          0.07215966284275055
+        ]
+      },
+      "triangles": 930,
+      "sizeClass": "medium"
+    },
+    "first-rib--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.01629643887281418,
+          0.52982497215271,
+          -0.04577118903398514
+        ],
+        "max": [
+          0.07116007059812546,
+          0.5892120599746704,
+          0.024879083037376404
+        ]
+      },
+      "triangles": 2246,
+      "sizeClass": "medium"
+    },
+    "first-rib--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.07116007804870605,
+          0.52982497215271,
+          -0.045771192759275436
+        ],
+        "max": [
+          -0.016273513436317444,
+          0.5892120599746704,
+          0.024879083037376404
+        ]
+      },
+      "triangles": 2246,
+      "sizeClass": "medium"
+    },
+    "fourth-metacarpal-bone--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.24918271601200104,
+          -0.08420509099960327,
+          0.002492764964699745
+        ],
+        "max": [
+          0.2622728943824768,
+          -0.022136278450489044,
+          0.029634833335876465
+        ]
+      },
+      "triangles": 494,
+      "sizeClass": "medium"
+    },
+    "fourth-metacarpal-bone--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.2622728943824768,
+          -0.08420509099960327,
+          0.0024927686899900436
+        ],
+        "max": [
+          -0.24918271601200104,
+          -0.022136278450489044,
+          0.029634829610586166
+        ]
+      },
+      "triangles": 494,
+      "sizeClass": "medium"
+    },
+    "fourth-metatarsal-bone--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.09434925019741058,
+          -0.8449175357818604,
+          -0.008584477007389069
+        ],
+        "max": [
+          0.12422113120555878,
+          -0.807946503162384,
+          0.0599343441426754
+        ]
+      },
+      "triangles": 582,
+      "sizeClass": "medium"
+    },
+    "fourth-metatarsal-bone--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.12422113120555878,
+          -0.8449175357818604,
+          -0.008584478870034218
+        ],
+        "max": [
+          -0.09434925019741058,
+          -0.807946503162384,
+          0.0599343478679657
+        ]
+      },
+      "triangles": 582,
+      "sizeClass": "medium"
+    },
+    "fourth-rib--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.015797894448041916,
+          0.4201888144016266,
+          -0.08926147222518921
+        ],
+        "max": [
+          0.1253829151391983,
+          0.537279486656189,
+          0.08054801821708679
+        ]
+      },
+      "triangles": 6052,
+      "sizeClass": "medium"
+    },
+    "fourth-rib--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.1253829151391983,
+          0.420188844203949,
+          -0.08926147222518921
+        ],
+        "max": [
+          -0.015797894448041916,
+          0.5372588038444519,
+          0.08053871989250183
+        ]
+      },
+      "triangles": 6052,
+      "sizeClass": "medium"
+    },
+    "frontal-bone": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.061189014464616776,
+          0.7352829575538635,
+          0.005762830376625061
+        ],
+        "max": [
+          0.06118898466229439,
+          0.8418331146240234,
+          0.07480752468109131
+        ]
+      },
+      "triangles": 6080,
+      "sizeClass": "medium"
+    },
+    "hamate-bone--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.24423450231552124,
+          -0.02638828009366989,
+          -0.0021991515532135963
+        ],
+        "max": [
+          0.2603338062763214,
+          -0.006187017075717449,
+          0.0212106890976429
+        ]
+      },
+      "triangles": 516,
+      "sizeClass": "small"
+    },
+    "hamate-bone--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.2603338062763214,
+          -0.02638828009366989,
+          -0.0021991506218910217
+        ],
+        "max": [
+          -0.24423450231552124,
+          -0.006187017075717449,
+          0.0212106890976429
+        ]
+      },
+      "triangles": 516,
+      "sizeClass": "small"
+    },
+    "hip-bone--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.0029371455311775208,
+          -0.059988975524902344,
+          -0.09903392195701599
+        ],
+        "max": [
+          0.13489440083503723,
+          0.1546115279197693,
+          0.04381836950778961
+        ]
+      },
+      "triangles": 2650,
+      "sizeClass": "large"
+    },
+    "hip-bone--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.13489440083503723,
+          -0.059988975524902344,
+          -0.09903392940759659
+        ],
+        "max": [
+          -0.0029371455311775208,
+          0.1546115279197693,
+          0.043818362057209015
+        ]
+      },
+      "triangles": 2650,
+      "sizeClass": "large"
+    },
+    "humerus--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.1446065753698349,
+          0.2296937108039856,
+          -0.06587652862071991
+        ],
+        "max": [
+          0.2488328069448471,
+          0.5472756624221802,
+          -0.013509446755051613
+        ]
+      },
+      "triangles": 2996,
+      "sizeClass": "large"
+    },
+    "humerus--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.24883277714252472,
+          0.2296937108039856,
+          -0.06587651371955872
+        ],
+        "max": [
+          -0.1446065455675125,
+          0.5472756624221802,
+          -0.013509467244148254
+        ]
+      },
+      "triangles": 2996,
+      "sizeClass": "large"
+    },
+    "hyoid-bone": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.02274441532790661,
+          0.6341891884803772,
+          -0.009198037907481194
+        ],
+        "max": [
+          0.02274441532790661,
+          0.6537024974822998,
+          0.026746205985546112
+        ]
+      },
+      "triangles": 1250,
+      "sizeClass": "small"
+    },
+    "inferior-nasal-concha-bone--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.004423435311764479,
+          0.6947746276855469,
+          0.028537403792142868
+        ],
+        "max": [
+          0.014880185015499592,
+          0.7172939777374268,
+          0.06317904591560364
+        ]
+      },
+      "triangles": 466,
+      "sizeClass": "small"
+    },
+    "inferior-nasal-concha-bone--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.014880185015499592,
+          0.6947746276855469,
+          0.02853740192949772
+        ],
+        "max": [
+          -0.004423435311764479,
+          0.7172939777374268,
+          0.06317904591560364
+        ]
+      },
+      "triangles": 466,
+      "sizeClass": "small"
+    },
+    "intermediate-cuneiform-bone--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.07385104894638062,
+          -0.8106510043144226,
+          -0.012469708919525146
+        ],
+        "max": [
+          0.09337491542100906,
+          -0.7866299748420715,
+          0.010492422617971897
+        ]
+      },
+      "triangles": 436,
+      "sizeClass": "small"
+    },
+    "intermediate-cuneiform-bone--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.09337491542100906,
+          -0.8106510043144226,
+          -0.012469708919525146
+        ],
+        "max": [
+          -0.07385104894638062,
+          -0.7866299748420715,
+          0.010492421686649323
+        ]
+      },
+      "triangles": 436,
+      "sizeClass": "small"
+    },
+    "lacrimal-bone--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.006468209903687239,
+          0.7157886624336243,
+          0.049268681555986404
+        ],
+        "max": [
+          0.017119670286774635,
+          0.7408906817436218,
+          0.06397756189107895
+        ]
+      },
+      "triangles": 578,
+      "sizeClass": "small"
+    },
+    "lacrimal-bone--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.017119670286774635,
+          0.7157886624336243,
+          0.049268681555986404
+        ],
+        "max": [
+          -0.006468209903687239,
+          0.7408906817436218,
+          0.06397756934165955
+        ]
+      },
+      "triangles": 578,
+      "sizeClass": "small"
+    },
+    "lateral-cuneiform-bone--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.08131526410579681,
+          -0.8171043395996094,
+          -0.0184513907879591
+        ],
+        "max": [
+          0.10554154217243195,
+          -0.7902438044548035,
+          0.008019320666790009
+        ]
+      },
+      "triangles": 608,
+      "sizeClass": "small"
+    },
+    "lateral-cuneiform-bone--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.10554154217243195,
+          -0.8171043395996094,
+          -0.0184513907879591
+        ],
+        "max": [
+          -0.08131526410579681,
+          -0.7902438044548035,
+          0.00801931880414486
+        ]
+      },
+      "triangles": 608,
+      "sizeClass": "small"
+    },
+    "lateral-process-of-nasal-septal-cartilage--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.000012484844774007797,
+          0.6964338421821594,
+          0.06983356922864914
+        ],
+        "max": [
+          0.013153081759810448,
+          0.7294132113456726,
+          0.10340812802314758
+        ]
+      },
+      "triangles": 341,
+      "sizeClass": "small"
+    },
+    "lateral-process-of-nasal-septal-cartilage--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.013153081759810448,
+          0.6964338421821594,
+          0.06983356922864914
+        ],
+        "max": [
+          0.000012484844774007797,
+          0.7294132113456726,
+          0.10340812802314758
+        ]
+      },
+      "triangles": 341,
+      "sizeClass": "small"
+    },
+    "lower-canine--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.008993148803710938,
+          0.6443236470222473,
+          0.05646125227212906
+        ],
+        "max": [
+          0.016699332743883133,
+          0.6704996824264526,
+          0.0716661885380745
+        ]
+      },
+      "triangles": 1042,
+      "sizeClass": "small"
+    },
+    "lower-canine--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.016699332743883133,
+          0.6443236470222473,
+          0.05646125227212906
+        ],
+        "max": [
+          -0.008993148803710938,
+          0.6704996824264526,
+          0.0716661885380745
+        ]
+      },
+      "triangles": 1040,
+      "sizeClass": "small"
+    },
+    "lower-first-molar-tooth--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.016771171241998672,
+          0.6560989618301392,
+          0.037665437906980515
+        ],
+        "max": [
+          0.028837645426392555,
+          0.6753436326980591,
+          0.05241772532463074
+        ]
+      },
+      "triangles": 4028,
+      "sizeClass": "small"
+    },
+    "lower-first-molar-tooth--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.028837645426392555,
+          0.6560989618301392,
+          0.03766544163227081
+        ],
+        "max": [
+          -0.016771171241998672,
+          0.6753436326980591,
+          0.05241772532463074
+        ]
+      },
+      "triangles": 4040,
+      "sizeClass": "small"
+    },
+    "lower-first-premolar--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.01298273354768753,
+          0.6491625308990479,
+          0.051701340824365616
+        ],
+        "max": [
+          0.020762566477060318,
+          0.6711241006851196,
+          0.06552598625421524
+        ]
+      },
+      "triangles": 1146,
+      "sizeClass": "small"
+    },
+    "lower-first-premolar--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.020762566477060318,
+          0.6491625308990479,
+          0.051701340824365616
+        ],
+        "max": [
+          -0.01298273354768753,
+          0.6711241006851196,
+          0.06552598625421524
+        ]
+      },
+      "triangles": 1146,
+      "sizeClass": "small"
+    },
+    "lower-lateral-incisor--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.004217204172164202,
+          0.6455697417259216,
+          0.05909426137804985
+        ],
+        "max": [
+          0.011909222230315208,
+          0.6700932383537292,
+          0.07554065436124802
+        ]
+      },
+      "triangles": 884,
+      "sizeClass": "small"
+    },
+    "lower-lateral-incisor--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.011909222230315208,
+          0.6455697417259216,
+          0.05909426510334015
+        ],
+        "max": [
+          -0.004217204172164202,
+          0.6700932383537292,
+          0.07554065436124802
+        ]
+      },
+      "triangles": 886,
+      "sizeClass": "small"
+    },
+    "lower-medial-incisor--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.00015612668357789516,
+          0.6453651785850525,
+          0.058410339057445526
+        ],
+        "max": [
+          0.006279340013861656,
+          0.6700848340988159,
+          0.07631713151931763
+        ]
+      },
+      "triangles": 882,
+      "sizeClass": "small"
+    },
+    "lower-medial-incisor--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.006279340013861656,
+          0.6453651785850525,
+          0.058410339057445526
+        ],
+        "max": [
+          -0.00015612668357789516,
+          0.6700848340988159,
+          0.07631712406873703
+        ]
+      },
+      "triangles": 880,
+      "sizeClass": "small"
+    },
+    "lower-second-molar-tooth--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.020320983603596687,
+          0.6612672805786133,
+          0.025377534329891205
+        ],
+        "max": [
+          0.03213685005903244,
+          0.6795101165771484,
+          0.04151816666126251
+        ]
+      },
+      "triangles": 1584,
+      "sizeClass": "small"
+    },
+    "lower-second-molar-tooth--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.03213685005903244,
+          0.6612672805786133,
+          0.025377536192536354
+        ],
+        "max": [
+          -0.020320983603596687,
+          0.6795101165771484,
+          0.04151816666126251
+        ]
+      },
+      "triangles": 1582,
+      "sizeClass": "small"
+    },
+    "lower-second-premolar--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.015951769426465034,
+          0.6496687531471252,
+          0.04580797627568245
+        ],
+        "max": [
+          0.023905763402581215,
+          0.6724774241447449,
+          0.058817580342292786
+        ]
+      },
+      "triangles": 1104,
+      "sizeClass": "small"
+    },
+    "lower-second-premolar--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.023905763402581215,
+          0.6496687531471252,
+          0.04580798000097275
+        ],
+        "max": [
+          -0.015951769426465034,
+          0.6724774241447449,
+          0.058817580342292786
+        ]
+      },
+      "triangles": 1104,
+      "sizeClass": "small"
+    },
+    "lunate-bone--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.24395652115345,
+          -0.009546837769448757,
+          -0.0027409414760768414
+        ],
+        "max": [
+          0.2610536217689514,
+          0.003192590083926916,
+          0.013865848071873188
+        ]
+      },
+      "triangles": 1602,
+      "sizeClass": "small"
+    },
+    "lunate-bone--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.2610536217689514,
+          -0.009546836838126183,
+          -0.0027409419417381287
+        ],
+        "max": [
+          -0.24395652115345,
+          0.003192589618265629,
+          0.013865848071873188
+        ]
+      },
+      "triangles": 1606,
+      "sizeClass": "small"
+    },
+    "major-alar-cartilage--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.00006979051977396011,
+          0.6908040642738342,
+          0.07478680461645126
+        ],
+        "max": [
+          0.014849269762635231,
+          0.704987108707428,
+          0.10216234624385834
+        ]
+      },
+      "triangles": 344,
+      "sizeClass": "small"
+    },
+    "major-alar-cartilage--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.014849269762635231,
+          0.6908040642738342,
+          0.07478680461645126
+        ],
+        "max": [
+          -0.00006979051977396011,
+          0.704987108707428,
+          0.10216234624385834
+        ]
+      },
+      "triangles": 344,
+      "sizeClass": "small"
+    },
+    "mandible": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.05166403576731682,
+          0.6389678716659546,
+          -0.01045229658484459
+        ],
+        "max": [
+          0.05166403576731682,
+          0.7213186621665955,
+          0.07145962119102478
+        ]
+      },
+      "triangles": 13182,
+      "sizeClass": "medium"
+    },
+    "manubrium-of-sternum": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.028658593073487282,
+          0.4926072657108307,
+          0.01935146562755108
+        ],
+        "max": [
+          0.028399184346199036,
+          0.5465919375419617,
+          0.07158198952674866
+        ]
+      },
+      "triangles": 2558,
+      "sizeClass": "medium"
+    },
+    "maxilla--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.00021110475063323975,
+          0.680115282535553,
+          0.027810165658593178
+        ],
+        "max": [
+          0.04603412002325058,
+          0.7478904128074646,
+          0.08162223547697067
+        ]
+      },
+      "triangles": 4126,
+      "sizeClass": "medium"
+    },
+    "maxilla--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.04603412002325058,
+          0.680115282535553,
+          0.027810165658593178
+        ],
+        "max": [
+          0.00021110475063323975,
+          0.7478904128074646,
+          0.08162223547697067
+        ]
+      },
+      "triangles": 4122,
+      "sizeClass": "medium"
+    },
+    "medial-cuneiform-bone--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.0580701008439064,
+          -0.8218941688537598,
+          -0.013247065246105194
+        ],
+        "max": [
+          0.08315329253673553,
+          -0.7895919680595398,
+          0.01971190609037876
+        ]
+      },
+      "triangles": 848,
+      "sizeClass": "small"
+    },
+    "medial-cuneiform-bone--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.08315329253673553,
+          -0.8218941688537598,
+          -0.013247065246105194
+        ],
+        "max": [
+          -0.0580701008439064,
+          -0.7895919680595398,
+          0.019711904227733612
+        ]
+      },
+      "triangles": 846,
+      "sizeClass": "small"
+    },
+    "middle-phalanx-of-fifth-finger-of-foot--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.13682787120342255,
+          -0.8477529883384705,
+          0.06752418726682663
+        ],
+        "max": [
+          0.14542387425899506,
+          -0.8411504030227661,
+          0.07531403750181198
+        ]
+      },
+      "triangles": 150,
+      "sizeClass": "tiny"
+    },
+    "middle-phalanx-of-fifth-finger-of-foot--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.14542387425899506,
+          -0.8477529883384705,
+          0.06752418726682663
+        ],
+        "max": [
+          -0.13682787120342255,
+          -0.8411504030227661,
+          0.07531403750181198
+        ]
+      },
+      "triangles": 150,
+      "sizeClass": "tiny"
+    },
+    "middle-phalanx-of-fifth-finger-of-hand--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.22607554495334625,
+          -0.1231338232755661,
+          0.042678069323301315
+        ],
+        "max": [
+          0.23812755942344666,
+          -0.10268151015043259,
+          0.05996325984597206
+        ]
+      },
+      "triangles": 204,
+      "sizeClass": "small"
+    },
+    "middle-phalanx-of-fifth-finger-of-hand--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.23812752962112427,
+          -0.1231338307261467,
+          0.042678069323301315
+        ],
+        "max": [
+          -0.22607551515102386,
+          -0.10268151015043259,
+          0.05996325984597206
+        ]
+      },
+      "triangles": 204,
+      "sizeClass": "small"
+    },
+    "middle-phalanx-of-fourth-finger-of-foot--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.12432035803794861,
+          -0.847509503364563,
+          0.08003292977809906
+        ],
+        "max": [
+          0.13546094298362732,
+          -0.8391730785369873,
+          0.09408688545227051
+        ]
+      },
+      "triangles": 348,
+      "sizeClass": "small"
+    },
+    "middle-phalanx-of-fourth-finger-of-foot--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.1354609727859497,
+          -0.847509503364563,
+          0.08003292977809906
+        ],
+        "max": [
+          -0.124320387840271,
+          -0.8391730785369873,
+          0.09408688545227051
+        ]
+      },
+      "triangles": 348,
+      "sizeClass": "small"
+    },
+    "middle-phalanx-of-fourth-finger-of-hand--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.2505098283290863,
+          -0.14146968722343445,
+          0.04438748583197594
+        ],
+        "max": [
+          0.2630731761455536,
+          -0.11662909388542175,
+          0.06943979114294052
+        ]
+      },
+      "triangles": 354,
+      "sizeClass": "small"
+    },
+    "middle-phalanx-of-fourth-finger-of-hand--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.2630731761455536,
+          -0.14146968722343445,
+          0.044387489557266235
+        ],
+        "max": [
+          -0.2505098283290863,
+          -0.11662909388542175,
+          0.06943979114294052
+        ]
+      },
+      "triangles": 354,
+      "sizeClass": "small"
+    },
+    "middle-phalanx-of-second-finger-of-foot--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.0948350578546524,
+          -0.8454862833023071,
+          0.09669242054224014
+        ],
+        "max": [
+          0.10716063529253006,
+          -0.8364025354385376,
+          0.11431950330734253
+        ]
+      },
+      "triangles": 266,
+      "sizeClass": "small"
+    },
+    "middle-phalanx-of-second-finger-of-foot--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.10716065019369125,
+          -0.8454862833023071,
+          0.09669242054224014
+        ],
+        "max": [
+          -0.0948350727558136,
+          -0.8364025354385376,
+          0.11431950330734253
+        ]
+      },
+      "triangles": 266,
+      "sizeClass": "small"
+    },
+    "middle-phalanx-of-second-finger-of-hand--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.30404597520828247,
+          -0.1402616798877716,
+          0.03897637128829956
+        ],
+        "max": [
+          0.3191753029823303,
+          -0.11894575506448746,
+          0.06059809774160385
+        ]
+      },
+      "triangles": 228,
+      "sizeClass": "small"
+    },
+    "middle-phalanx-of-second-finger-of-hand--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.3191753029823303,
+          -0.1402616798877716,
+          0.03897637128829956
+        ],
+        "max": [
+          -0.30404597520828247,
+          -0.11894575506448746,
+          0.06059809774160385
+        ]
+      },
+      "triangles": 228,
+      "sizeClass": "small"
+    },
+    "middle-phalanx-of-third-finger-of-foot--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.11054730415344238,
+          -0.8463631868362427,
+          0.09114847332239151
+        ],
+        "max": [
+          0.12165475636720657,
+          -0.8380635976791382,
+          0.10858654230833054
+        ]
+      },
+      "triangles": 292,
+      "sizeClass": "small"
+    },
+    "middle-phalanx-of-third-finger-of-foot--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.12165475636720657,
+          -0.8463631868362427,
+          0.09114847332239151
+        ],
+        "max": [
+          -0.11054730415344238,
+          -0.8380635976791382,
+          0.10858654230833054
+        ]
+      },
+      "triangles": 292,
+      "sizeClass": "small"
+    },
+    "middle-phalanx-of-third-finger-of-hand--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.2752591371536255,
+          -0.1490769386291504,
+          0.04576917365193367
+        ],
+        "max": [
+          0.2894773483276367,
+          -0.12281811237335205,
+          0.0695839524269104
+        ]
+      },
+      "triangles": 292,
+      "sizeClass": "small"
+    },
+    "middle-phalanx-of-third-finger-of-hand--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.2894773483276367,
+          -0.1490769386291504,
+          0.04576917365193367
+        ],
+        "max": [
+          -0.2752591371536255,
+          -0.12281811237335205,
+          0.0695839524269104
+        ]
+      },
+      "triangles": 292,
+      "sizeClass": "small"
+    },
+    "nasal-bone--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          1.7462298274040222e-8,
+          0.7163786292076111,
+          0.06708554923534393
+        ],
+        "max": [
+          0.008399778045713902,
+          0.7477508783340454,
+          0.08802135288715363
+        ]
+      },
+      "triangles": 260,
+      "sizeClass": "small"
+    },
+    "nasal-bone--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.008399778045713902,
+          0.7163786292076111,
+          0.06708554923534393
+        ],
+        "max": [
+          -1.7462298274040222e-8,
+          0.7477508783340454,
+          0.08802135288715363
+        ]
+      },
+      "triangles": 260,
+      "sizeClass": "small"
+    },
+    "nasal-septal-cartilage": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.0025010944809764624,
+          0.6937377452850342,
+          0.061250388622283936
+        ],
+        "max": [
+          0.002422896446660161,
+          0.7281258702278137,
+          0.10351662337779999
+        ]
+      },
+      "triangles": 332,
+      "sizeClass": "small"
+    },
+    "navicular-bone--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.05268992483615875,
+          -0.8088694214820862,
+          -0.027358589693903923
+        ],
+        "max": [
+          0.09337539225816727,
+          -0.7813529968261719,
+          -0.0033218329772353172
+        ]
+      },
+      "triangles": 702,
+      "sizeClass": "small"
+    },
+    "navicular-bone--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.09337539225816727,
+          -0.8088694214820862,
+          -0.027358589693903923
+        ],
+        "max": [
+          -0.05268992483615875,
+          -0.7813529968261719,
+          -0.003321833908557892
+        ]
+      },
+      "triangles": 702,
+      "sizeClass": "small"
+    },
+    "ninth-rib--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.018174856901168823,
+          0.2465209662914276,
+          -0.10556325316429138
+        ],
+        "max": [
+          0.1333899199962616,
+          0.40164658427238464,
+          0.026832696050405502
+        ]
+      },
+      "triangles": 5444,
+      "sizeClass": "medium"
+    },
+    "ninth-rib--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.1333899199962616,
+          0.2465209811925888,
+          -0.10556325316429138
+        ],
+        "max": [
+          -0.018174856901168823,
+          0.40164658427238464,
+          0.026832710951566696
+        ]
+      },
+      "triangles": 5444,
+      "sizeClass": "medium"
+    },
+    "occipital-bone": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.05963081866502762,
+          0.6934073567390442,
+          -0.11562550067901611
+        ],
+        "max": [
+          0.059630781412124634,
+          0.7978642582893372,
+          0.000221937894821167
+        ]
+      },
+      "triangles": 5826,
+      "sizeClass": "medium"
+    },
+    "palatine-bone--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.0007838830351829529,
+          0.6866490244865417,
+          0.01252754032611847
+        ],
+        "max": [
+          0.02703838422894478,
+          0.7268018126487732,
+          0.04774663969874382
+        ]
+      },
+      "triangles": 1422,
+      "sizeClass": "small"
+    },
+    "palatine-bone--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.02703838422894478,
+          0.6866490244865417,
+          0.012527542188763618
+        ],
+        "max": [
+          -0.0007838830351829529,
+          0.7268018126487732,
+          0.04774663597345352
+        ]
+      },
+      "triangles": 1422,
+      "sizeClass": "small"
+    },
+    "parietal-bone--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.007425185292959213,
+          0.7323635816574097,
+          -0.11281047761440277
+        ],
+        "max": [
+          0.0742856115102768,
+          0.848038911819458,
+          0.030492734163999557
+        ]
+      },
+      "triangles": 4962,
+      "sizeClass": "medium"
+    },
+    "parietal-bone--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.07439018785953522,
+          0.7324914932250977,
+          -0.11255542933940887
+        ],
+        "max": [
+          0.0056159887462854385,
+          0.8481150269508362,
+          0.026810776442289352
+        ]
+      },
+      "triangles": 4996,
+      "sizeClass": "medium"
+    },
+    "patella--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.06285180896520615,
+          -0.43352293968200684,
+          -0.016338232904672623
+        ],
+        "max": [
+          0.10603746026754379,
+          -0.3926007151603699,
+          0.006414016708731651
+        ]
+      },
+      "triangles": 266,
+      "sizeClass": "small"
+    },
+    "patella--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.10603746026754379,
+          -0.43352293968200684,
+          -0.016338234767317772
+        ],
+        "max": [
+          -0.06285180896520615,
+          -0.3926007151603699,
+          0.0064140185713768005
+        ]
+      },
+      "triangles": 266,
+      "sizeClass": "small"
+    },
+    "pisiform-bone--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.23962296545505524,
+          -0.017551742494106293,
+          0.014629028737545013
+        ],
+        "max": [
+          0.24808627367019653,
+          -0.005461049731820822,
+          0.025048356503248215
+        ]
+      },
+      "triangles": 1276,
+      "sizeClass": "small"
+    },
+    "pisiform-bone--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.24808624386787415,
+          -0.017551742494106293,
+          0.014629029668867588
+        ],
+        "max": [
+          -0.23962293565273285,
+          -0.005461049731820822,
+          0.025048356503248215
+        ]
+      },
+      "triangles": 1264,
+      "sizeClass": "small"
+    },
+    "proximal-phalanx-of-fifth-finger-of-foot--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.12629695236682892,
+          -0.8476284742355347,
+          0.0427667498588562
+        ],
+        "max": [
+          0.1446382850408554,
+          -0.8371830582618713,
+          0.06954830139875412
+        ]
+      },
+      "triangles": 396,
+      "sizeClass": "small"
+    },
+    "proximal-phalanx-of-fifth-finger-of-foot--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.1446382850408554,
+          -0.8476284146308899,
+          0.0427667498588562
+        ],
+        "max": [
+          -0.12629695236682892,
+          -0.8371830582618713,
+          0.06954830139875412
+        ]
+      },
+      "triangles": 396,
+      "sizeClass": "small"
+    },
+    "proximal-phalanx-of-fifth-finger-of-hand--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.22937661409378052,
+          -0.10679031908512115,
+          0.025960082188248634
+        ],
+        "max": [
+          0.24421462416648865,
+          -0.07298436015844345,
+          0.04759625717997551
+        ]
+      },
+      "triangles": 392,
+      "sizeClass": "small"
+    },
+    "proximal-phalanx-of-fifth-finger-of-hand--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.24421459436416626,
+          -0.10679032653570175,
+          0.025960084050893784
+        ],
+        "max": [
+          -0.22937658429145813,
+          -0.07298436015844345,
+          0.04759625345468521
+        ]
+      },
+      "triangles": 392,
+      "sizeClass": "small"
+    },
+    "proximal-phalanx-of-first-finger-of-foot--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.06089169904589653,
+          -0.8460022211074829,
+          0.06767025589942932
+        ],
+        "max": [
+          0.08703815191984177,
+          -0.828270435333252,
+          0.10219103842973709
+        ]
+      },
+      "triangles": 416,
+      "sizeClass": "small"
+    },
+    "proximal-phalanx-of-first-finger-of-foot--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.08703815191984177,
+          -0.8460022211074829,
+          0.06767025589942932
+        ],
+        "max": [
+          -0.06089169904589653,
+          -0.828270435333252,
+          0.10219103842973709
+        ]
+      },
+      "triangles": 416,
+      "sizeClass": "small"
+    },
+    "proximal-phalanx-of-first-finger-of-hand--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.30836087465286255,
+          -0.07338790595531464,
+          0.030089445412158966
+        ],
+        "max": [
+          0.32928842306137085,
+          -0.040851522237062454,
+          0.053118109703063965
+        ]
+      },
+      "triangles": 270,
+      "sizeClass": "small"
+    },
+    "proximal-phalanx-of-first-finger-of-hand--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.32928842306137085,
+          -0.07338790595531464,
+          0.030089445412158966
+        ],
+        "max": [
+          -0.30836087465286255,
+          -0.040851522237062454,
+          0.053118109703063965
+        ]
+      },
+      "triangles": 270,
+      "sizeClass": "small"
+    },
+    "proximal-phalanx-of-fourth-finger-of-foot--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.11410622298717499,
+          -0.8473628759384155,
+          0.05621025711297989
+        ],
+        "max": [
+          0.13220921158790588,
+          -0.8336054682731628,
+          0.08220463991165161
+        ]
+      },
+      "triangles": 438,
+      "sizeClass": "small"
+    },
+    "proximal-phalanx-of-fourth-finger-of-foot--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.13220921158790588,
+          -0.8473628759384155,
+          0.05621025711297989
+        ],
+        "max": [
+          -0.11410622298717499,
+          -0.8336054682731628,
+          0.08220463991165161
+        ]
+      },
+      "triangles": 438,
+      "sizeClass": "small"
+    },
+    "proximal-phalanx-of-fourth-finger-of-hand--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.24822033941745758,
+          -0.12063963711261749,
+          0.022850535809993744
+        ],
+        "max": [
+          0.2621699571609497,
+          -0.08020701259374619,
+          0.050123803317546844
+        ]
+      },
+      "triangles": 322,
+      "sizeClass": "small"
+    },
+    "proximal-phalanx-of-fourth-finger-of-hand--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.2621699571609497,
+          -0.12063963711261749,
+          0.022850537672638893
+        ],
+        "max": [
+          -0.24822033941745758,
+          -0.08020701259374619,
+          0.050123803317546844
+        ]
+      },
+      "triangles": 320,
+      "sizeClass": "small"
+    },
+    "proximal-phalanx-of-second-finger-of-foot--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.08660420775413513,
+          -0.844297468662262,
+          0.07019534707069397
+        ],
+        "max": [
+          0.10446777194738388,
+          -0.8313449025154114,
+          0.09957694262266159
+        ]
+      },
+      "triangles": 410,
+      "sizeClass": "small"
+    },
+    "proximal-phalanx-of-second-finger-of-foot--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.10446778684854507,
+          -0.844297468662262,
+          0.07019534707069397
+        ],
+        "max": [
+          -0.08660422265529633,
+          -0.8313449025154114,
+          0.09957694262266159
+        ]
+      },
+      "triangles": 410,
+      "sizeClass": "small"
+    },
+    "proximal-phalanx-of-second-finger-of-hand--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.2899731993675232,
+          -0.12494275718927383,
+          0.021215248852968216
+        ],
+        "max": [
+          0.3127208948135376,
+          -0.08603279292583466,
+          0.044926732778549194
+        ]
+      },
+      "triangles": 368,
+      "sizeClass": "small"
+    },
+    "proximal-phalanx-of-second-finger-of-hand--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.3127208948135376,
+          -0.12494275718927383,
+          0.021215250715613365
+        ],
+        "max": [
+          -0.2899731993675232,
+          -0.08603279292583466,
+          0.044926729053258896
+        ]
+      },
+      "triangles": 368,
+      "sizeClass": "small"
+    },
+    "proximal-phalanx-of-third-finger-of-foot--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.1024104580283165,
+          -0.8451716899871826,
+          0.06383221596479416
+        ],
+        "max": [
+          0.1188027486205101,
+          -0.8331946730613708,
+          0.09404641389846802
+        ]
+      },
+      "triangles": 418,
+      "sizeClass": "small"
+    },
+    "proximal-phalanx-of-third-finger-of-foot--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.1188027486205101,
+          -0.8451716899871826,
+          0.06383221596479416
+        ],
+        "max": [
+          -0.1024104580283165,
+          -0.8331946730613708,
+          0.09404641389846802
+        ]
+      },
+      "triangles": 418,
+      "sizeClass": "small"
+    },
+    "proximal-phalanx-of-third-finger-of-hand--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.2676553428173065,
+          -0.12648023664951324,
+          0.02233314886689186
+        ],
+        "max": [
+          0.286610871553421,
+          -0.08433177322149277,
+          0.05250190198421478
+        ]
+      },
+      "triangles": 388,
+      "sizeClass": "small"
+    },
+    "proximal-phalanx-of-third-finger-of-hand--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.286610871553421,
+          -0.12648023664951324,
+          0.02233315259218216
+        ],
+        "max": [
+          -0.2676553428173065,
+          -0.08433177322149277,
+          0.052501898258924484
+        ]
+      },
+      "triangles": 388,
+      "sizeClass": "small"
+    },
+    "radius--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.22687694430351257,
+          -0.0010050460696220398,
+          -0.054191067814826965
+        ],
+        "max": [
+          0.2886669337749481,
+          0.236002579331398,
+          0.014479985460639
+        ]
+      },
+      "triangles": 552,
+      "sizeClass": "medium"
+    },
+    "radius--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.2886669337749481,
+          -0.0010050460696220398,
+          -0.054191090166568756
+        ],
+        "max": [
+          -0.22687694430351257,
+          0.236002579331398,
+          0.014480000361800194
+        ]
+      },
+      "triangles": 552,
+      "sizeClass": "medium"
+    },
+    "sacrum": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.0615042969584465,
+          0.00842507928609848,
+          -0.10725287348031998
+        ],
+        "max": [
+          0.061426106840372086,
+          0.12350475788116455,
+          -0.015850797295570374
+        ]
+      },
+      "triangles": 9608,
+      "sizeClass": "medium"
+    },
+    "scaphoid-bone--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.25752878189086914,
+          -0.01082884706556797,
+          -0.0021247277036309242
+        ],
+        "max": [
+          0.28208836913108826,
+          0.005378905218094587,
+          0.013763834722340107
+        ]
+      },
+      "triangles": 314,
+      "sizeClass": "small"
+    },
+    "scaphoid-bone--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.28208836913108826,
+          -0.01082884706556797,
+          -0.0021247277036309242
+        ],
+        "max": [
+          -0.25752878189086914,
+          0.005378905218094587,
+          0.013763834722340107
+        ]
+      },
+      "triangles": 314,
+      "sizeClass": "small"
+    },
+    "scapula--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.060611166059970856,
+          0.3969459533691406,
+          -0.12505769729614258
+        ],
+        "max": [
+          0.17357538640499115,
+          0.56051105260849,
+          -0.010985616594552994
+        ]
+      },
+      "triangles": 17728,
+      "sizeClass": "medium"
+    },
+    "scapula--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.17357537150382996,
+          0.3969459533691406,
+          -0.12505768239498138
+        ],
+        "max": [
+          -0.06061115115880966,
+          0.56051105260849,
+          -0.010987374931573868
+        ]
+      },
+      "triangles": 17728,
+      "sizeClass": "medium"
+    },
+    "second-metacarpal-bone--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.2702603340148926,
+          -0.09078198671340942,
+          0.003682173788547516
+        ],
+        "max": [
+          0.30235254764556885,
+          -0.02025086060166359,
+          0.030382132157683372
+        ]
+      },
+      "triangles": 608,
+      "sizeClass": "medium"
+    },
+    "second-metacarpal-bone--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.30235254764556885,
+          -0.09078198671340942,
+          0.003682178445160389
+        ],
+        "max": [
+          -0.2702603340148926,
+          -0.02025086060166359,
+          0.030382126569747925
+        ]
+      },
+      "triangles": 606,
+      "sizeClass": "medium"
+    },
+    "second-metatarsal-bone--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.08074896782636642,
+          -0.8437997698783875,
+          0.0024469494819641113
+        ],
+        "max": [
+          0.09813735634088516,
+          -0.7938888669013977,
+          0.07290367782115936
+        ]
+      },
+      "triangles": 584,
+      "sizeClass": "medium"
+    },
+    "second-metatarsal-bone--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.09813735634088516,
+          -0.8437997698783875,
+          0.0024469494819641113
+        ],
+        "max": [
+          -0.08074896782636642,
+          -0.7938888669013977,
+          0.07290368527173996
+        ]
+      },
+      "triangles": 584,
+      "sizeClass": "medium"
+    },
+    "second-rib--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.01727437600493431,
+          0.4877631962299347,
+          -0.0575127899646759
+        ],
+        "max": [
+          0.09939618408679962,
+          0.5790699124336243,
+          0.0544416680932045
+        ]
+      },
+      "triangles": 3754,
+      "sizeClass": "medium"
+    },
+    "second-rib--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.09937708079814911,
+          0.4877631962299347,
+          -0.0575127974152565
+        ],
+        "max": [
+          -0.017274372279644012,
+          0.5790699124336243,
+          0.054441675543785095
+        ]
+      },
+      "triangles": 3754,
+      "sizeClass": "medium"
+    },
+    "sesamoid-bones-of-foot--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.06302047520875931,
+          -0.8466935753822327,
+          0.05138499662280083
+        ],
+        "max": [
+          0.08037590235471725,
+          -0.838671088218689,
+          0.06501851975917816
+        ]
+      },
+      "triangles": 234,
+      "sizeClass": "small"
+    },
+    "sesamoid-bones-of-foot--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.08037590235471725,
+          -0.8466935753822327,
+          0.05138499662280083
+        ],
+        "max": [
+          -0.06302047520875931,
+          -0.838671088218689,
+          0.06501851975917816
+        ]
+      },
+      "triangles": 234,
+      "sizeClass": "small"
+    },
+    "seventh-rib--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.016455024480819702,
+          0.31411951780319214,
+          -0.10869003087282181
+        ],
+        "max": [
+          0.14164012670516968,
+          0.4584709703922272,
+          0.0729084238409996
+        ]
+      },
+      "triangles": 6842,
+      "sizeClass": "medium"
+    },
+    "seventh-rib--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.14161638915538788,
+          0.31411951780319214,
+          -0.10869003087282181
+        ],
+        "max": [
+          -0.016455024480819702,
+          0.4584709703922272,
+          0.0729084312915802
+        ]
+      },
+      "triangles": 6842,
+      "sizeClass": "medium"
+    },
+    "sixth-rib--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.015732884407043457,
+          0.34848615527153015,
+          -0.10959245264530182
+        ],
+        "max": [
+          0.13881564140319824,
+          0.48708394169807434,
+          0.08661477267742157
+        ]
+      },
+      "triangles": 7092,
+      "sizeClass": "medium"
+    },
+    "sixth-rib--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.13881564140319824,
+          0.34848615527153015,
+          -0.10959245264530182
+        ],
+        "max": [
+          -0.015732884407043457,
+          0.4870735704898834,
+          0.08661478012800217
+        ]
+      },
+      "triangles": 7092,
+      "sizeClass": "medium"
+    },
+    "sphenoid-bone": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.05441933497786522,
+          0.6929835081100464,
+          -0.009998774155974388
+        ],
+        "max": [
+          0.054419297724962234,
+          0.7629199028015137,
+          0.04320370778441429
+        ]
+      },
+      "triangles": 5583,
+      "sizeClass": "medium"
+    },
+    "talus--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.053645744919776917,
+          -0.8074660301208496,
+          -0.07835526764392853
+        ],
+        "max": [
+          0.09575540572404861,
+          -0.7718531489372253,
+          -0.019291052594780922
+        ]
+      },
+      "triangles": 1252,
+      "sizeClass": "medium"
+    },
+    "talus--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.09575540572404861,
+          -0.8074660301208496,
+          -0.07835526764392853
+        ],
+        "max": [
+          -0.053645744919776917,
+          -0.7718531489372253,
+          -0.019291052594780922
+        ]
+      },
+      "triangles": 1250,
+      "sizeClass": "medium"
+    },
+    "temporal-bone--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.009648576378822327,
+          0.6913977861404419,
+          -0.06381429731845856
+        ],
+        "max": [
+          0.07242035865783691,
+          0.765816867351532,
+          0.032532770186662674
+        ]
+      },
+      "triangles": 9864,
+      "sizeClass": "medium"
+    },
+    "temporal-bone--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.07242035865783691,
+          0.6913977861404419,
+          -0.06381429731845856
+        ],
+        "max": [
+          -0.009648576378822327,
+          0.765816867351532,
+          0.032532770186662674
+        ]
+      },
+      "triangles": 9864,
+      "sizeClass": "medium"
+    },
+    "tenth-rib--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.018531862646341324,
+          0.21510586142539978,
+          -0.09745685756206512
+        ],
+        "max": [
+          0.13142843544483185,
+          0.37194618582725525,
+          0.011932320892810822
+        ]
+      },
+      "triangles": 4918,
+      "sizeClass": "medium"
+    },
+    "tenth-rib--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.13145634531974792,
+          0.21510586142539978,
+          -0.09745685756206512
+        ],
+        "max": [
+          -0.018558524549007416,
+          0.37194618582725525,
+          0.011932305991649628
+        ]
+      },
+      "triangles": 4918,
+      "sizeClass": "medium"
+    },
+    "third-metacarpal-bone--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.26062309741973877,
+          -0.08874174952507019,
+          -0.00124408770352602
+        ],
+        "max": [
+          0.2814122438430786,
+          -0.022053396329283714,
+          0.030470043420791626
+        ]
+      },
+      "triangles": 564,
+      "sizeClass": "medium"
+    },
+    "third-metacarpal-bone--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.2814122438430786,
+          -0.08874174952507019,
+          -0.0012440839782357216
+        ],
+        "max": [
+          -0.26062309741973877,
+          -0.022053394466638565,
+          0.03047003783285618
+        ]
+      },
+      "triangles": 564,
+      "sizeClass": "medium"
+    },
+    "third-metatarsal-bone--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.08914398401975632,
+          -0.8439096808433533,
+          0.0013027600944042206
+        ],
+        "max": [
+          0.11222227662801743,
+          -0.7994675636291504,
+          0.06905719637870789
+        ]
+      },
+      "triangles": 582,
+      "sizeClass": "medium"
+    },
+    "third-metatarsal-bone--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.11222227662801743,
+          -0.8439096808433533,
+          0.0013027600944042206
+        ],
+        "max": [
+          -0.08914398401975632,
+          -0.7994675636291504,
+          0.06905719637870789
+        ]
+      },
+      "triangles": 580,
+      "sizeClass": "medium"
+    },
+    "third-rib--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.017041470855474472,
+          0.45339739322662354,
+          -0.0750165581703186
+        ],
+        "max": [
+          0.11254553496837616,
+          0.5591251254081726,
+          0.0641825795173645
+        ]
+      },
+      "triangles": 4884,
+      "sizeClass": "medium"
+    },
+    "third-rib--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.11254554241895676,
+          0.45339739322662354,
+          -0.0750165656208992
+        ],
+        "max": [
+          -0.017054200172424316,
+          0.5591766238212585,
+          0.0641825795173645
+        ]
+      },
+      "triangles": 4884,
+      "sizeClass": "medium"
+    },
+    "thyroid-cartilage": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.020600760355591774,
+          0.6037347912788391,
+          -0.01175743993371725
+        ],
+        "max": [
+          0.020600775256752968,
+          0.6415178179740906,
+          0.0197027288377285
+        ]
+      },
+      "triangles": 3796,
+      "sizeClass": "small"
+    },
+    "tibia--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.03734216094017029,
+          -0.7821104526519775,
+          -0.0751258060336113
+        ],
+        "max": [
+          0.11578907072544098,
+          -0.424278199672699,
+          -0.007186863571405411
+        ]
+      },
+      "triangles": 1168,
+      "sizeClass": "large"
+    },
+    "tibia--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.11578907072544098,
+          -0.7821104526519775,
+          -0.0751257911324501
+        ],
+        "max": [
+          -0.03734216094017029,
+          -0.42414724826812744,
+          -0.007186848670244217
+        ]
+      },
+      "triangles": 1168,
+      "sizeClass": "large"
+    },
+    "trapezium-bone--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.2733875513076782,
+          -0.021649565547704697,
+          0.004427402280271053
+        ],
+        "max": [
+          0.29105907678604126,
+          -0.0008521368727087975,
+          0.02195223793387413
+        ]
+      },
+      "triangles": 432,
+      "sizeClass": "small"
+    },
+    "trapezium-bone--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.29105907678604126,
+          -0.021649565547704697,
+          0.004427401348948479
+        ],
+        "max": [
+          -0.2733875513076782,
+          -0.0008521368727087975,
+          0.02195223793387413
+        ]
+      },
+      "triangles": 432,
+      "sizeClass": "small"
+    },
+    "trapezoid-bone--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.270657479763031,
+          -0.024772655218839645,
+          0.00002713548019528389
+        ],
+        "max": [
+          0.2823716998100281,
+          -0.01163704413920641,
+          0.015571719035506248
+        ]
+      },
+      "triangles": 356,
+      "sizeClass": "small"
+    },
+    "trapezoid-bone--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.2823716998100281,
+          -0.024772655218839645,
+          0.000027135014533996582
+        ],
+        "max": [
+          -0.270657479763031,
+          -0.011637045070528984,
+          0.015571719035506248
+        ]
+      },
+      "triangles": 356,
+      "sizeClass": "small"
+    },
+    "triquetrum-bone--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.2396918088197708,
+          -0.018453547731041908,
+          0.0011823703534901142
+        ],
+        "max": [
+          0.25079241394996643,
+          -0.004176389891654253,
+          0.017112262547016144
+        ]
+      },
+      "triangles": 170,
+      "sizeClass": "small"
+    },
+    "triquetrum-bone--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.25079238414764404,
+          -0.018453547731041908,
+          0.0011823708191514015
+        ],
+        "max": [
+          -0.23969177901744843,
+          -0.004176389891654253,
+          0.017112262547016144
+        ]
+      },
+      "triangles": 170,
+      "sizeClass": "small"
+    },
+    "twelfth-rib--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.019427787512540817,
+          0.19911709427833557,
+          -0.08034662902355194
+        ],
+        "max": [
+          0.08543668687343597,
+          0.2969834506511688,
+          -0.035974450409412384
+        ]
+      },
+      "triangles": 2100,
+      "sizeClass": "medium"
+    },
+    "twelfth-rib--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.08543670177459717,
+          0.19911709427833557,
+          -0.08034662902355194
+        ],
+        "max": [
+          -0.01942780241370201,
+          0.2969937324523926,
+          -0.03597445785999298
+        ]
+      },
+      "triangles": 2100,
+      "sizeClass": "medium"
+    },
+    "ulna--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.20323723554611206,
+          -0.0017484575510025024,
+          -0.07263833284378052
+        ],
+        "max": [
+          0.255630224943161,
+          0.25369101762771606,
+          0.010601121932268143
+        ]
+      },
+      "triangles": 632,
+      "sizeClass": "large"
+    },
+    "ulna--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.2556301951408386,
+          -0.0017484575510025024,
+          -0.07263834774494171
+        ],
+        "max": [
+          -0.20323720574378967,
+          0.25369101762771606,
+          0.010601144284009933
+        ]
+      },
+      "triangles": 632,
+      "sizeClass": "large"
+    },
+    "upper-canine--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.012550358660519123,
+          0.6697787642478943,
+          0.06462269276380539
+        ],
+        "max": [
+          0.0216037780046463,
+          0.7003762125968933,
+          0.07371309399604797
+        ]
+      },
+      "triangles": 1242,
+      "sizeClass": "small"
+    },
+    "upper-canine--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.0216037780046463,
+          0.6697787642478943,
+          0.06462269276380539
+        ],
+        "max": [
+          -0.012550358660519123,
+          0.7003865838050842,
+          0.07371309399604797
+        ]
+      },
+      "triangles": 1242,
+      "sizeClass": "small"
+    },
+    "upper-first-molar-tooth--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.01849355734884739,
+          0.6743791699409485,
+          0.04126320406794548
+        ],
+        "max": [
+          0.029819782823324203,
+          0.6983447670936584,
+          0.052521876990795135
+        ]
+      },
+      "triangles": 2050,
+      "sizeClass": "small"
+    },
+    "upper-first-molar-tooth--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.029819782823324203,
+          0.6743791699409485,
+          0.04126320406794548
+        ],
+        "max": [
+          -0.01849355734884739,
+          0.6983447670936584,
+          0.05252187326550484
+        ]
+      },
+      "triangles": 2054,
+      "sizeClass": "small"
+    },
+    "upper-first-premolar--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.015402333810925484,
+          0.6713868975639343,
+          0.05765818804502487
+        ],
+        "max": [
+          0.02471141889691353,
+          0.699122965335846,
+          0.06552138179540634
+        ]
+      },
+      "triangles": 1532,
+      "sizeClass": "small"
+    },
+    "upper-first-premolar--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.02471141889691353,
+          0.6713868975639343,
+          0.05765818804502487
+        ],
+        "max": [
+          -0.015402333810925484,
+          0.699122965335846,
+          0.06552138179540634
+        ]
+      },
+      "triangles": 1532,
+      "sizeClass": "small"
+    },
+    "upper-lateral-incisor--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.006503517739474773,
+          0.6682652831077576,
+          0.06687270104885101
+        ],
+        "max": [
+          0.01587347686290741,
+          0.6964661478996277,
+          0.07790203392505646
+        ]
+      },
+      "triangles": 1196,
+      "sizeClass": "small"
+    },
+    "upper-lateral-incisor--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.01587347686290741,
+          0.6682652831077576,
+          0.06687270104885101
+        ],
+        "max": [
+          -0.006503517739474773,
+          0.6964661478996277,
+          0.07790203392505646
+        ]
+      },
+      "triangles": 1188,
+      "sizeClass": "small"
+    },
+    "upper-medial-incisor--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.00006178067997097969,
+          0.6689640879631042,
+          0.06836159527301788
+        ],
+        "max": [
+          0.008846853859722614,
+          0.69471675157547,
+          0.08095282316207886
+        ]
+      },
+      "triangles": 1190,
+      "sizeClass": "small"
+    },
+    "upper-medial-incisor--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.008846853859722614,
+          0.6689640879631042,
+          0.06836159527301788
+        ],
+        "max": [
+          -0.00006178067997097969,
+          0.69471675157547,
+          0.08095282316207886
+        ]
+      },
+      "triangles": 1200,
+      "sizeClass": "small"
+    },
+    "upper-second-molar-tooth--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.01786145381629467,
+          0.6778622269630432,
+          0.03363097086548805
+        ],
+        "max": [
+          0.02950119413435459,
+          0.6999891400337219,
+          0.043236833065748215
+        ]
+      },
+      "triangles": 1810,
+      "sizeClass": "small"
+    },
+    "upper-second-molar-tooth--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.02950119413435459,
+          0.6778622269630432,
+          0.03363097086548805
+        ],
+        "max": [
+          -0.01786145381629467,
+          0.6999891400337219,
+          0.043236833065748215
+        ]
+      },
+      "triangles": 1810,
+      "sizeClass": "small"
+    },
+    "upper-second-premolar--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.018529731780290604,
+          0.6723588109016418,
+          0.051882553845644
+        ],
+        "max": [
+          0.027620336040854454,
+          0.6976673603057861,
+          0.059311896562576294
+        ]
+      },
+      "triangles": 1404,
+      "sizeClass": "small"
+    },
+    "upper-second-premolar--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.027620336040854454,
+          0.6723588109016418,
+          0.051882553845644
+        ],
+        "max": [
+          -0.018529731780290604,
+          0.6976673603057861,
+          0.059311892837285995
+        ]
+      },
+      "triangles": 1404,
+      "sizeClass": "small"
+    },
+    "vertebra-c3": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.02826078236103058,
+          0.6357259750366211,
+          -0.06623081862926483
+        ],
+        "max": [
+          0.02826077863574028,
+          0.6623771786689758,
+          -0.01204930804669857
+        ]
+      },
+      "triangles": 2274,
+      "sizeClass": "medium"
+    },
+    "vertebra-c4": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.028904492035508156,
+          0.6232259273529053,
+          -0.06489872932434082
+        ],
+        "max": [
+          0.029055321589112282,
+          0.6482658386230469,
+          -0.012542035430669785
+        ]
+      },
+      "triangles": 1776,
+      "sizeClass": "medium"
+    },
+    "vertebra-c5": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.03071589022874832,
+          0.6115664839744568,
+          -0.07021449506282806
+        ],
+        "max": [
+          0.030715882778167725,
+          0.6340652704238892,
+          -0.013806568458676338
+        ]
+      },
+      "triangles": 2228,
+      "sizeClass": "medium"
+    },
+    "vertebra-c6": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.03063075803220272,
+          0.5963973999023438,
+          -0.07901783287525177
+        ],
+        "max": [
+          0.03063075803220272,
+          0.6209974884986877,
+          -0.015395542606711388
+        ]
+      },
+      "triangles": 2064,
+      "sizeClass": "medium"
+    },
+    "vertebra-c7": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.03561040759086609,
+          0.5811854600906372,
+          -0.08947674930095673
+        ],
+        "max": [
+          0.03561040014028549,
+          0.6081985235214233,
+          -0.019170602783560753
+        ]
+      },
+      "triangles": 1978,
+      "sizeClass": "medium"
+    },
+    "vertebra-l1": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.037206150591373444,
+          0.21699056029319763,
+          -0.08302388340234756
+        ],
+        "max": [
+          0.037206150591373444,
+          0.2762112617492676,
+          0.0000484175980091095
+        ]
+      },
+      "triangles": 2856,
+      "sizeClass": "medium"
+    },
+    "vertebra-l2": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.04190992936491966,
+          0.19272837042808533,
+          -0.07790543138980865
+        ],
+        "max": [
+          0.04190992936491966,
+          0.24245420098304749,
+          0.005174767225980759
+        ]
+      },
+      "triangles": 2422,
+      "sizeClass": "medium"
+    },
+    "vertebra-l3": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.041715674102306366,
+          0.16368408501148224,
+          -0.07789233326911926
+        ],
+        "max": [
+          0.04173629730939865,
+          0.20839233696460724,
+          0.007055085152387619
+        ]
+      },
+      "triangles": 2772,
+      "sizeClass": "medium"
+    },
+    "vertebra-l4": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.04437034949660301,
+          0.13627730309963226,
+          -0.07846913486719131
+        ],
+        "max": [
+          0.044370364397764206,
+          0.17916126549243927,
+          0.0058616697788238525
+        ]
+      },
+      "triangles": 3414,
+      "sizeClass": "medium"
+    },
+    "vertebra-l5": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.05292297527194023,
+          0.10026665776968002,
+          -0.08273456990718842
+        ],
+        "max": [
+          0.05292296037077904,
+          0.15068736672401428,
+          -0.000019662082195281982
+        ]
+      },
+      "triangles": 3416,
+      "sizeClass": "medium"
+    },
+    "vertebra-t1": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.03884495049715042,
+          0.5652778148651123,
+          -0.09569453448057175
+        ],
+        "max": [
+          0.03884495049715042,
+          0.5960509181022644,
+          -0.023512139916419983
+        ]
+      },
+      "triangles": 1680,
+      "sizeClass": "medium"
+    },
+    "vertebra-t10": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.037550248205661774,
+          0.31051743030548096,
+          -0.10427789390087128
+        ],
+        "max": [
+          0.037668898701667786,
+          0.36984267830848694,
+          -0.02656978741288185
+        ]
+      },
+      "triangles": 2770,
+      "sizeClass": "medium"
+    },
+    "vertebra-t11": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.029034623876214027,
+          0.28448647260665894,
+          -0.09665100276470184
+        ],
+        "max": [
+          0.029034623876214027,
+          0.33948707580566406,
+          -0.01800522953271866
+        ]
+      },
+      "triangles": 1582,
+      "sizeClass": "medium"
+    },
+    "vertebra-t12": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.023341557011008263,
+          0.25472381711006165,
+          -0.0893162190914154
+        ],
+        "max": [
+          0.023341549560427666,
+          0.3087720274925232,
+          -0.008628875017166138
+        ]
+      },
+      "triangles": 2326,
+      "sizeClass": "medium"
+    },
+    "vertebra-t2": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.03755068778991699,
+          0.5452249646186829,
+          -0.10149850696325302
+        ],
+        "max": [
+          0.03755069524049759,
+          0.5802437663078308,
+          -0.02853381261229515
+        ]
+      },
+      "triangles": 1830,
+      "sizeClass": "medium"
+    },
+    "vertebra-t3": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.03442719578742981,
+          0.5208389759063721,
+          -0.11265174299478531
+        ],
+        "max": [
+          0.03442718833684921,
+          0.5621073246002197,
+          -0.034808460623025894
+        ]
+      },
+      "triangles": 2024,
+      "sizeClass": "medium"
+    },
+    "vertebra-t4": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.035436008125543594,
+          0.4963969588279724,
+          -0.1131715476512909
+        ],
+        "max": [
+          0.035436008125543594,
+          0.5394317507743835,
+          -0.041840702295303345
+        ]
+      },
+      "triangles": 1970,
+      "sizeClass": "medium"
+    },
+    "vertebra-t5": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.03770855441689491,
+          0.46324992179870605,
+          -0.1115928515791893
+        ],
+        "max": [
+          0.03770865872502327,
+          0.5165998935699463,
+          -0.04504178464412689
+        ]
+      },
+      "triangles": 1910,
+      "sizeClass": "medium"
+    },
+    "vertebra-t6": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.037972692400217056,
+          0.42586997151374817,
+          -0.11238500475883484
+        ],
+        "max": [
+          0.037972692400217056,
+          0.48795321583747864,
+          -0.04562371224164963
+        ]
+      },
+      "triangles": 1588,
+      "sizeClass": "medium"
+    },
+    "vertebra-t7": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.03829716518521309,
+          0.397799551486969,
+          -0.110501728951931
+        ],
+        "max": [
+          0.03829716518521309,
+          0.4596244692802429,
+          -0.043900445103645325
+        ]
+      },
+      "triangles": 2418,
+      "sizeClass": "medium"
+    },
+    "vertebra-t8": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.03509736433625221,
+          0.36838439106941223,
+          -0.11251965165138245
+        ],
+        "max": [
+          0.03509736433625221,
+          0.42861872911453247,
+          -0.038816485553979874
+        ]
+      },
+      "triangles": 1379,
+      "sizeClass": "medium"
+    },
+    "vertebra-t9": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.036141056567430496,
+          0.3428322970867157,
+          -0.10868591070175171
+        ],
+        "max": [
+          0.03614106401801109,
+          0.399471640586853,
+          -0.033009398728609085
+        ]
+      },
+      "triangles": 2572,
+      "sizeClass": "medium"
+    },
+    "vomer": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.00511865084990859,
+          0.700078010559082,
+          0.008708050474524498
+        ],
+        "max": [
+          0.005118680652230978,
+          0.723029375076294,
+          0.06985130906105042
+        ]
+      },
+      "triangles": 854,
+      "sizeClass": "small"
+    },
+    "xiphoid-process": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.01085023395717144,
+          0.3636181354522705,
+          0.08363722264766693
+        ],
+        "max": [
+          0.010850232094526291,
+          0.3862614631652832,
+          0.09899687021970749
+        ]
+      },
+      "triangles": 885,
+      "sizeClass": "small"
+    },
+    "zygomatic-bone--l": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          0.031617116183042526,
+          0.6963878870010376,
+          0.02045823633670807
+        ],
+        "max": [
+          0.06232469528913498,
+          0.7511368989944458,
+          0.05942712724208832
+        ]
+      },
+      "triangles": 1250,
+      "sizeClass": "medium"
+    },
+    "zygomatic-bone--r": {
+      "bundle": "skeletal",
+      "bounds": {
+        "min": [
+          -0.06232469528913498,
+          0.6963878870010376,
+          0.02045823447406292
+        ],
+        "max": [
+          -0.031617116183042526,
+          0.7511368989944458,
+          0.05942712724208832
+        ]
+      },
+      "triangles": 1248,
+      "sizeClass": "medium"
+    }
+  }
 }
