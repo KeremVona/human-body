@@ -37,8 +37,7 @@ export function BundleModel({ url, bundleId, onReady }: BundleModelProps) {
           );
           return;
         }
-        // Only skeletal defaults visible before Task 5's SceneStateApplier manages visibility.
-        mesh.visible = bundleId === 'skeletal';
+        mesh.visible = false;
         if (attachMeshBvh(mesh)) {
           bvhMeshes.push(mesh);
         }

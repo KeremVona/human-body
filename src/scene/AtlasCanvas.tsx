@@ -1,11 +1,15 @@
 import { CameraControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { Suspense } from 'react';
-import { ACESFilmicToneMapping } from 'three';
+import { Provider, useStore } from 'react-redux';
+import { AgXToneMapping } from 'three';
+import type { RootState } from '../app/store';
 import { BundleErrorBoundary } from './BundleErrorBoundary';
 import { BundleModel } from './BundleModel';
 import { DebugStatsProbe, type RenderStats } from './DebugStats';
+import { Lights } from './Lights';
 import { MeshRegistryProvider, useMeshRegistry } from './meshRegistry';
+import { SceneStateApplier } from './SceneStateApplier';
 
 export type CanvasBundle = {
   id: string;
@@ -28,6 +32,7 @@ export function AtlasCanvas({
   onBundleError,
   onDebugSample,
 }: AtlasCanvasProps) {
+  const store = useStore<RootState>();
   const registry = useMeshRegistry();
 
   return (
@@ -36,51 +41,40 @@ export function AtlasCanvas({
       className="h-full w-full"
       frameloop={debug ? 'always' : 'demand'}
       camera={{ fov: 35, near: 0.01, far: 50, position: [0, 0, 3.2] }}
-      gl={{ antialias: true, toneMapping: ACESFilmicToneMapping }}
+      gl={{ alpha: true, antialias: true, toneMapping: AgXToneMapping }}
       onCreated={({ raycaster }) => {
         Object.assign(raycaster, { firstHitOnly: true });
       }}
     >
-      <MeshRegistryProvider registry={registry}>
-        <ambientLight intensity={0.35} />
-        <directionalLight
-          position={[-2, 3, 4]}
-          intensity={1.8}
-          color="#fff5e6"
-        />
-        <directionalLight
-          position={[3, 1, 2]}
-          intensity={0.7}
-          color="#cfe2ff"
-        />
-        <directionalLight
-          position={[0, 2, -4]}
-          intensity={1.4}
-          color="#ffffff"
-        />
+      <Provider store={store}>
+        <MeshRegistryProvider registry={registry}>
+          <Lights />
 
-        <CameraControls makeDefault />
+          <CameraControls makeDefault />
 
-        {bundles.map((bundle) => (
-          <BundleErrorBoundary
-            key={bundle.id}
-            bundleId={bundle.id}
-            onError={onBundleError}
-          >
-            <Suspense fallback={null}>
-              <BundleModel
-                url={bundle.url}
-                bundleId={bundle.id}
-                onReady={(count) => onBundleReady?.(bundle.id, count)}
-              />
-            </Suspense>
-          </BundleErrorBoundary>
-        ))}
+          <SceneStateApplier />
 
-        {debug && onDebugSample ? (
-          <DebugStatsProbe onSample={onDebugSample} />
-        ) : null}
-      </MeshRegistryProvider>
+          {bundles.map((bundle) => (
+            <BundleErrorBoundary
+              key={bundle.id}
+              bundleId={bundle.id}
+              onError={onBundleError}
+            >
+              <Suspense fallback={null}>
+                <BundleModel
+                  url={bundle.url}
+                  bundleId={bundle.id}
+                  onReady={(count) => onBundleReady?.(bundle.id, count)}
+                />
+              </Suspense>
+            </BundleErrorBoundary>
+          ))}
+
+          {debug && onDebugSample ? (
+            <DebugStatsProbe onSample={onDebugSample} />
+          ) : null}
+        </MeshRegistryProvider>
+      </Provider>
     </Canvas>
   );
 }
