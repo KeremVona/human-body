@@ -1,0 +1,166 @@
+{
+  "source": {
+    "file": "pipeline/source/Z-Anatomy.blend",
+    "name": "Z-Anatomy",
+    "version": "2023-05-02",
+    "license": "CC-BY-SA-4.0"
+  },
+  "originBundle": "skeletal",
+  "orientation": {
+    "rotateZDeg": 0,
+    "scale": 1,
+    "checks": {
+      "above": [["frontal-bone", "femur--l"]],
+      "anterior": [["body-of-sternum", "vertebra-t6"]],
+      "leftSide": ["femur--l"]
+    }
+  },
+  "simplify": {
+    "ratio": 1,
+    "error": 0.001
+  },
+  "budgets": {
+    "perBundleBytes": {
+      "skeletal": 5242880
+    },
+    "defaultBundleBytes": 15728640,
+    "totalBytes": 41943040
+  },
+  "bundles": [
+    {
+      "id": "skeletal",
+      "rules": [
+        {
+          "system": "skeletal",
+          "region": "thorax",
+          "kind": "other",
+          "tissue": "cartilage",
+          "match": {
+            "collection": "Bonus collection/Skeletal system/Cartilages",
+            "name": "^Costal cartilage"
+          },
+          "exclude": ["\\.(i|j|s|t|g)$"]
+        },
+        {
+          "system": "skeletal",
+          "region": "head",
+          "kind": "other",
+          "tissue": "cartilage",
+          "match": {
+            "collection": "Bonus collection/Skeletal system/Cartilages",
+            "name": "(nasal|alar)"
+          },
+          "exclude": ["\\.(i|j|s|t|g)$"]
+        },
+        {
+          "system": "skeletal",
+          "region": "neck",
+          "kind": "other",
+          "tissue": "cartilage",
+          "match": {
+            "collection": "Bonus collection/Skeletal system/Cartilages"
+          },
+          "exclude": ["\\.(i|j|s|t|g)$"]
+        },
+        {
+          "system": "skeletal",
+          "region": "pelvis",
+          "kind": "bone",
+          "tissue": "bone",
+          "match": {
+            "collection": "Bonus collection/Skeletal system/Bony pelvis"
+          },
+          "exclude": ["\\.(i|j|s|t|g)$"]
+        },
+        {
+          "system": "skeletal",
+          "region": "lower-limb",
+          "kind": "bone",
+          "tissue": "bone",
+          "match": {
+            "collection": "Bonus collection/Skeletal system/Bones of lower limb"
+          },
+          "exclude": ["\\.(i|j|s|t|g)$"]
+        },
+        {
+          "system": "skeletal",
+          "region": "upper-limb",
+          "kind": "bone",
+          "tissue": "bone",
+          "match": {
+            "collection": "Bonus collection/Skeletal system/Appendicular skeleton"
+          },
+          "exclude": ["\\.(i|j|s|t|g)$"]
+        },
+        {
+          "system": "skeletal",
+          "region": "back",
+          "kind": "bone",
+          "tissue": "bone",
+          "match": {
+            "collection": "Bonus collection/Skeletal system/Vertebral column",
+            "name": "^(Atlas|Axis|Vertebra )"
+          },
+          "exclude": ["\\.(i|j|s|t|g)$"]
+        },
+        {
+          "system": "skeletal",
+          "region": "thorax",
+          "kind": "bone",
+          "tissue": "bone",
+          "match": {
+            "collection": "Bonus collection/Skeletal system/Thoracic skeleton",
+            "name": "(rib|sternum|xiphoid)"
+          },
+          "exclude": ["\\.(i|j|s|t|g)$"]
+        },
+        {
+          "system": "skeletal",
+          "region": "neck",
+          "kind": "bone",
+          "tissue": "bone",
+          "match": {
+            "collection": "Bonus collection/Skeletal system/Extracranial bones of head",
+            "name": "^Hyoid"
+          },
+          "exclude": ["\\.(i|j|s|t|g)$"]
+        },
+        {
+          "system": "skeletal",
+          "region": "head",
+          "kind": "bone",
+          "tissue": "bone",
+          "match": {
+            "collection": "Bonus collection/Skeletal system/Cranium"
+          },
+          "exclude": [
+            "\\.(i|j|s|t|g)$",
+            "^(Incus|Malleus|Stapes)\\.",
+            "cells of ethmoid bone",
+            "^Sinus of "
+          ]
+        },
+        {
+          "system": "skeletal",
+          "region": "head",
+          "kind": "bone",
+          "tissue": "bone",
+          "match": {
+            "collection": "Bonus collection/Skeletal system/Teeth"
+          },
+          "exclude": ["\\.(i|j|s|t|g)$"]
+        },
+        {
+          "system": "skeletal",
+          "region": "head",
+          "kind": "bone",
+          "tissue": "bone",
+          "match": {
+            "collection": "Bonus collection/Skeletal system/Extracranial bones of head"
+          },
+          "exclude": ["\\.(i|j|s|t|g)$"]
+        }
+      ]
+    }
+  ]
+}
