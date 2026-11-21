@@ -23,9 +23,14 @@ test('loads the skeletal bundle and registers every mesh', async ({
     null,
     { timeout: 30_000 },
   );
-  expect(
-    await page.evaluate(() => (globalThis as AtlasGlobal).__atlas?.meshCount()),
-  ).toBe(expected);
+  const registered = await page.evaluate(
+    () => (globalThis as AtlasGlobal).__atlas?.meshIds() ?? [],
+  );
+  expect(registered.length).toBeGreaterThanOrEqual(expected);
+  const skeletalIds: string[] = manifest.bundles.find(
+    (b: { id: string }) => b.id === 'skeletal',
+  ).meshIds;
+  expect(registered).toEqual(expect.arrayContaining(skeletalIds));
 });
 
 test('shows an error when the skeletal bundle fails', async ({ page }) => {

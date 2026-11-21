@@ -1,15 +1,10 @@
 import { useGLTF } from '@react-three/drei';
 import { useThree } from '@react-three/fiber';
 import { useEffect, useRef } from 'react';
-import { MeshStandardMaterial, type Mesh } from 'three';
+import type { Mesh } from 'three';
 import type { MeshId } from '../data/ids';
 import { attachMeshBvh, detachMeshBvh } from './bvh';
 import { meshIdOf, useMeshRegistry } from './meshRegistry';
-
-const placeholderMaterial = new MeshStandardMaterial({
-  color: '#E8DCC4',
-  roughness: 0.85,
-});
 
 type BundleModelProps = {
   url: string;
@@ -42,8 +37,8 @@ export function BundleModel({ url, bundleId, onReady }: BundleModelProps) {
           );
           return;
         }
-        mesh.material = placeholderMaterial;
-        // Async Suspense bundles mount after parent <Bvh> initial traversal, so build BVH per mesh here.
+        // Only skeletal defaults visible before Task 5's SceneStateApplier manages visibility.
+        mesh.visible = bundleId === 'skeletal';
         if (attachMeshBvh(mesh)) {
           bvhMeshes.push(mesh);
         }

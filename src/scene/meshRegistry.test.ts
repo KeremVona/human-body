@@ -29,3 +29,19 @@ it('meshIdOf walks up to the nearest valid ancestor', () => {
   expect(meshIdOf(plain)).toBe('sternum');
   expect(meshIdOf(orphan)).toBeNull();
 });
+
+it('notifies subscribers after register and unregister batches', () => {
+  const r = createMeshRegistry();
+  const listener = vi.fn();
+  const unsubscribe = r.subscribe(listener);
+
+  r.register('femur--l', new Mesh());
+  expect(listener).toHaveBeenCalledTimes(1);
+
+  r.unregister(['femur--l', 'missing--r']);
+  expect(listener).toHaveBeenCalledTimes(2);
+
+  unsubscribe();
+  r.register('sternum', new Mesh());
+  expect(listener).toHaveBeenCalledTimes(2);
+});

@@ -13,12 +13,20 @@ export type MeshRegistry = {
   unregister(ids: MeshId[]): void;
   get(id: MeshId): Mesh | undefined;
   ids(): MeshId[];
+  subscribe(listener: () => void): () => void;
   readonly size: number;
 };
 
 /** Creates an isolated MeshRegistry backed by a Map. */
 export function createMeshRegistry(): MeshRegistry {
   const meshes = new Map<MeshId, Mesh>();
+  const listeners = new Set<() => void>();
+
+  function notify(): void {
+    for (const listener of listeners) {
+      listener();
+    }
+  }
 
   return {
     register(id: MeshId, mesh: Mesh): void {
@@ -26,17 +34,25 @@ export function createMeshRegistry(): MeshRegistry {
         throw new Error(`duplicate mesh id "${id}"`);
       }
       meshes.set(id, mesh);
+      notify();
     },
     unregister(ids: MeshId[]): void {
       for (const id of ids) {
         meshes.delete(id);
       }
+      notify();
     },
     get(id: MeshId): Mesh | undefined {
       return meshes.get(id);
     },
     ids(): MeshId[] {
       return [...meshes.keys()];
+    },
+    subscribe(listener: () => void): () => void {
+      listeners.add(listener);
+      return () => {
+        listeners.delete(listener);
+      };
     },
     get size(): number {
       return meshes.size;
