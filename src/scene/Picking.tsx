@@ -57,6 +57,7 @@ export function Picking({
   const cameraApi = useCameraApi();
 
   const pressRef = useRef<ActivePress | null>(null);
+  const pickTimingRef = useRef({ count: 0, totalMs: 0 });
   const tapTrackerRef = useRef<ReturnType<typeof createTapTracker> | null>(
     null,
   );
@@ -152,7 +153,25 @@ export function Picking({
     pointerPosition.set(e.clientX, e.clientY);
     if (toPointerKind(e.pointerType) !== 'mouse') return;
 
-    const id = pickMeshId(e.intersections);
+    let id: MeshId | null;
+    if (import.meta.env.DEV && window.location.search.includes('debug')) {
+      const t0 = performance.now();
+      id = pickMeshId(e.intersections);
+      const dt = performance.now() - t0;
+      const stat = pickTimingRef.current;
+      stat.totalMs += dt;
+      stat.count += 1;
+      if (stat.count === 100) {
+        console.info(
+          `[picking] 100 moves: ${stat.totalMs.toFixed(3)} ms total (${(stat.totalMs / 100).toFixed(4)} ms/move)`,
+        );
+        stat.count = 0;
+        stat.totalMs = 0;
+      }
+    } else {
+      id = pickMeshId(e.intersections);
+    }
+
     if (id !== store.getState().selection.hoveredId) {
       dispatch(hovered(id));
     }
