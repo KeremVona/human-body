@@ -45,7 +45,7 @@ Within the 1,244 skeletal `MESH` objects (`622` joint `.j` helpers, `344` insert
 | Optimized GLB gzipped (wire transfer estimate) | 3,751,524 | 3.58 MiB | 511,561 | Static CDN / GitHub Pages gzip transfer |
 
 - **Skeletal budget (`5 MiB` = `5,242,880` bytes):** Passed with `541,132` bytes (`10.3%`) headroom (`4,701,748` bytes).
-- **Production JS bundle (`npm run build`):** `1,402.31 kB` raw / `386.00 kB` gzipped (inside the `< 400 KB` gzipped target in §8.6).
+- **Production JS bundle (`npm run build`):** `1,408.55 kB` raw / `387.92 kB` gzipped (inside the `< 400 KB` gzipped target in §8.6).
 
 ## Orientation & Verification Checks
 
@@ -85,4 +85,4 @@ Notes for subsequent phases:
 
 1. **Per-bundle budget (`15 MiB`):** Splitting the remaining structures across the Muscular, Organs, and Cardiovascular bundles keeps each bundle well below `15 MiB` (each would sit near `~5–9 MiB` at skeletal density, supporting up to ~`880` skeletal-density meshes per bundle).
 2. **Draw calls (§9.1):** One mesh equals one draw call (`263` today). When multiple heavy systems are visible simultaneously (`1,000–1,500` meshes), profile on mid-range / integrated GPUs and adopt `THREE.BatchedMesh` per bundle if draw calls approach `~1,500`.
-3. **JS bundle headroom (§8.6):** Current production JS is `386.00 kB` gzipped against the `400 KB` target; Plans 1+2 UI additions should introduce lazy chunking (e.g., splitting UI panels or `MeshoptDecoder` / detail views) so gzipped initial JS stays under `400 KB`.
+3. **JS bundle headroom (§8.6):** Current production JS is `387.92 kB` gzipped against the `400 KB` target; Plans 1+2 UI additions should introduce lazy chunking (e.g., splitting UI panels or `MeshoptDecoder` / detail views) so gzipped initial JS stays under `400 KB`.

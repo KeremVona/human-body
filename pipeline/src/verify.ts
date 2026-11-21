@@ -17,8 +17,10 @@ export function verifyManifest(
 ): string[] {
   const problems: string[] = [];
 
+  const expectedFiles = new Set<string>();
   let totalBytes = 0;
   for (const bundle of manifest.bundles) {
+    expectedFiles.add(bundle.file);
     totalBytes += bundle.bytes;
     const budget =
       config.budgets.perBundleBytes[bundle.id] ??
@@ -44,6 +46,14 @@ export function verifyManifest(
     }
   }
 
+  for (const file of Object.keys(files).sort()) {
+    if (file.endsWith('.glb') && !expectedFiles.has(file)) {
+      problems.push(
+        `stray unreferenced glb file "${file}" in models directory`,
+      );
+    }
+  }
+
   if (totalBytes > config.budgets.totalBytes) {
     problems.push(
       `total bundle size is ${totalBytes} bytes, over its ${config.budgets.totalBytes}-byte budget`,
@@ -53,7 +63,11 @@ export function verifyManifest(
   const originMeshes = Object.values(manifest.meshes).filter(
     (m) => m.bundle === config.originBundle,
   );
-  if (originMeshes.length > 0) {
+  if (originMeshes.length === 0) {
+    problems.push(
+      `orientation: origin bundle "${config.originBundle}" has no meshes`,
+    );
+  } else {
     let minY = Infinity;
     let maxY = -Infinity;
     for (const mesh of originMeshes) {

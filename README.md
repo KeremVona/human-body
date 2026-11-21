@@ -19,7 +19,7 @@ Verification commands:
 
 ```sh
 npm run ci        # typecheck, lint, unit tests, content & asset verification, production build
-npm run test:e2e  # Playwright Chromium smoke tests against production build
+npm run test:e2e  # Playwright Chromium smoke tests against Vite dev server (uses dev-only __atlas hooks)
 ```
 
 ## Rebuilding 3D Assets

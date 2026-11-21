@@ -119,15 +119,23 @@ function runVerify(): boolean {
   if (parsedManifest.success) {
     const files: Record<string, { bytes: number; sha256: string } | undefined> =
       {};
-    for (const bundle of parsedManifest.data.bundles) {
-      const filePath = path.join(modelsDir, bundle.file);
-      if (existsSync(filePath)) {
-        const buf = readFileSync(filePath);
-        files[bundle.file] = {
-          bytes: statSync(filePath).size,
-          sha256: createHash('sha256').update(buf).digest('hex'),
-        };
+    const recordModelFile = (fileName: string) => {
+      if (files[fileName]) return;
+      const filePath = path.join(modelsDir, fileName);
+      if (!existsSync(filePath)) return;
+      const buf = readFileSync(filePath);
+      files[fileName] = {
+        bytes: statSync(filePath).size,
+        sha256: createHash('sha256').update(buf).digest('hex'),
+      };
+    };
+    if (existsSync(modelsDir)) {
+      for (const entry of readdirSync(modelsDir)) {
+        if (entry.endsWith('.glb')) recordModelFile(entry);
       }
+    }
+    for (const bundle of parsedManifest.data.bundles) {
+      recordModelFile(bundle.file);
     }
     problems.push(...verifyManifest(parsedManifest.data, config, files));
   }

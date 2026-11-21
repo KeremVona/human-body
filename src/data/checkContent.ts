@@ -1,5 +1,5 @@
 import type { z } from 'zod';
-import { parseMeshId, type Side, type StructureId } from './ids';
+import { parseMeshId, type MeshId, type Side, type StructureId } from './ids';
 import {
   IndexFileSchema,
   ManifestSchema,
@@ -70,6 +70,44 @@ function checkManifestMeshes(
   errors: string[],
   warnings: string[],
 ): void {
+  const bundleIds = new Set<string>();
+  const bundleMeshOwner = new Map<MeshId, string>();
+
+  for (const bundle of manifest.bundles) {
+    if (bundleIds.has(bundle.id)) {
+      errors.push(`manifest: duplicate bundle id "${bundle.id}"`);
+    } else {
+      bundleIds.add(bundle.id);
+    }
+
+    for (const meshId of bundle.meshIds) {
+      const meta = manifest.meshes[meshId];
+      if (!meta) {
+        errors.push(
+          `manifest: bundle "${bundle.id}" references missing mesh "${meshId}"`,
+        );
+      } else if (meta.bundle !== bundle.id) {
+        errors.push(
+          `manifest: mesh "${meshId}" lists bundle "${meta.bundle}" but appears in bundle "${bundle.id}"`,
+        );
+      }
+
+      if (bundleMeshOwner.has(meshId)) {
+        errors.push(`manifest: mesh "${meshId}" appears in multiple bundles`);
+      } else {
+        bundleMeshOwner.set(meshId, bundle.id);
+      }
+    }
+  }
+
+  for (const [meshId, meta] of Object.entries(manifest.meshes)) {
+    if (bundleMeshOwner.get(meshId) !== meta.bundle) {
+      errors.push(
+        `manifest: mesh "${meshId}" is not listed in bundle "${meta.bundle}" meshIds`,
+      );
+    }
+  }
+
   const sidesByStructure = new Map<StructureId, Set<Side>>();
 
   for (const meshId of Object.keys(manifest.meshes)) {

@@ -149,6 +149,23 @@ it.each([
   expect(verifyManifest(...fixture(tweak))).toContain(message);
 });
 
+it('reports a stray glb file in models directory', () => {
+  const [manifest, config, files] = fixture({});
+  files['skeletal.deadbeef.glb'] = { bytes: 100, sha256: 'c'.repeat(64) };
+  expect(verifyManifest(manifest, config, files)).toContain(
+    'stray unreferenced glb file "skeletal.deadbeef.glb" in models directory',
+  );
+});
+
+it('reports an empty origin bundle', () => {
+  const [manifest, config, files] = fixture({});
+  manifest.bundles[0].meshIds = [];
+  manifest.meshes = {};
+  expect(verifyManifest(manifest, config, files)).toContain(
+    'orientation: origin bundle "skeletal" has no meshes',
+  );
+});
+
 it('passes a good manifest', () => {
   expect(verifyManifest(...fixture({}))).toEqual([]);
 });

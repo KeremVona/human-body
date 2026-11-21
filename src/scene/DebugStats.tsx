@@ -16,7 +16,6 @@ export function DebugStatsProbe({
 }) {
   const framesRef = useRef(0);
   const lastSampleRef = useRef<number | null>(null);
-  const emittedInitialRef = useRef(false);
 
   useFrame(({ gl }) => {
     const now = performance.now();
@@ -26,14 +25,8 @@ export function DebugStatsProbe({
     framesRef.current += 1;
 
     const elapsed = now - lastSampleRef.current;
-    // Emit once after frame 2 so gl.info.render already holds the first drawn frame's counts.
-    if (
-      (!emittedInitialRef.current && framesRef.current >= 2) ||
-      elapsed >= 500
-    ) {
-      emittedInitialRef.current = true;
-      const fps =
-        elapsed > 0 ? Math.round((framesRef.current * 1000) / elapsed) : 0;
+    if (elapsed >= 500) {
+      const fps = Math.round((framesRef.current * 1000) / elapsed);
       onSample({
         fps,
         calls: gl.info.render.calls,

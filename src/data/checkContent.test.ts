@@ -122,6 +122,7 @@ it('reports duplicate index ids', () => {
 it('reports a mesh with no structure', () => {
   const { manifest, taxonomy: tax, index, structureFiles } = makeFixture();
   manifest.meshes['tibia--l'] = manifest.meshes['femur--l'];
+  manifest.bundles[0].meshIds.push('tibia--l');
   const report = checkContent({
     manifest,
     taxonomy: tax,
@@ -202,6 +203,7 @@ it('reports an unsided mesh on a paired structure', () => {
 it('warns on a missing side', () => {
   const { manifest, taxonomy: tax, index, structureFiles } = makeFixture();
   delete manifest.meshes['femur--r'];
+  manifest.bundles[0].meshIds = ['femur--l', 'sternum'];
   const report = checkContent({
     manifest,
     taxonomy: tax,
@@ -305,6 +307,7 @@ it('accepts facts details for non-muscle/non-bone kinds and rejects mismatched d
     source,
   } = makeFixture();
   manifest.meshes['heart'] = manifest.meshes['sternum'];
+  manifest.bundles[0].meshIds.push('heart');
   index.structures.push({
     id: 'heart',
     system: 'cardiovascular',
@@ -343,5 +346,49 @@ it('accepts facts details for non-muscle/non-bone kinds and rejects mismatched d
     checkContent({ manifest, taxonomy: tax, index, structureFiles }).errors,
   ).toContain(
     'structures/cardiovascular.json: "heart" has bone details but kind "organ"',
+  );
+});
+
+it('reports bundle.meshIds and manifest.meshes mismatches', () => {
+  const missingMesh = makeFixture();
+  missingMesh.manifest.bundles[0].meshIds.push('humerus--l');
+  expect(
+    checkContent({
+      manifest: missingMesh.manifest,
+      taxonomy: missingMesh.taxonomy,
+      index: missingMesh.index,
+      structureFiles: missingMesh.structureFiles,
+    }).errors,
+  ).toContain(
+    'manifest: bundle "skeletal" references missing mesh "humerus--l"',
+  );
+
+  const unlistedMesh = makeFixture();
+  unlistedMesh.manifest.bundles[0].meshIds = ['femur--l', 'femur--r'];
+  expect(
+    checkContent({
+      manifest: unlistedMesh.manifest,
+      taxonomy: unlistedMesh.taxonomy,
+      index: unlistedMesh.index,
+      structureFiles: unlistedMesh.structureFiles,
+    }).errors,
+  ).toContain(
+    'manifest: mesh "sternum" is not listed in bundle "skeletal" meshIds',
+  );
+
+  const mismatchedBundle = makeFixture();
+  mismatchedBundle.manifest.meshes['sternum'] = {
+    ...(mismatchedBundle.manifest.meshes['sternum'] as Record<string, unknown>),
+    bundle: 'muscular',
+  };
+  expect(
+    checkContent({
+      manifest: mismatchedBundle.manifest,
+      taxonomy: mismatchedBundle.taxonomy,
+      index: mismatchedBundle.index,
+      structureFiles: mismatchedBundle.structureFiles,
+    }).errors,
+  ).toContain(
+    'manifest: mesh "sternum" lists bundle "muscular" but appears in bundle "skeletal"',
   );
 });

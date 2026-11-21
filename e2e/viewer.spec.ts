@@ -43,7 +43,13 @@ test('shows an error when the skeletal bundle fails', async ({ page }) => {
 
 test('?debug shows renderer stats', async ({ page }) => {
   await page.goto('/?debug');
-  await expect(page.getByText(/draw calls \d+/)).toBeVisible({
+  await page.waitForFunction(
+    () => (globalThis as AtlasGlobal).__atlas?.ready === true,
+    null,
+    { timeout: 30_000 },
+  );
+  await expect(page.getByText(/draw calls [1-9]\d*/)).toBeVisible({
     timeout: 30_000,
   });
+  await expect(page.getByText(/meshes [1-9]\d*/)).toBeVisible();
 });

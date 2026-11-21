@@ -1,4 +1,4 @@
-import { Bvh, CameraControls } from '@react-three/drei';
+import { CameraControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { Suspense } from 'react';
 import { ACESFilmicToneMapping } from 'three';
@@ -37,6 +37,9 @@ export function AtlasCanvas({
       frameloop={debug ? 'always' : 'demand'}
       camera={{ fov: 35, near: 0.01, far: 50, position: [0, 0, 3.2] }}
       gl={{ antialias: true, toneMapping: ACESFilmicToneMapping }}
+      onCreated={({ raycaster }) => {
+        Object.assign(raycaster, { firstHitOnly: true });
+      }}
     >
       <MeshRegistryProvider registry={registry}>
         <ambientLight intensity={0.35} />
@@ -58,23 +61,21 @@ export function AtlasCanvas({
 
         <CameraControls makeDefault />
 
-        <Bvh firstHitOnly>
-          {bundles.map((bundle) => (
-            <BundleErrorBoundary
-              key={bundle.id}
-              bundleId={bundle.id}
-              onError={onBundleError}
-            >
-              <Suspense fallback={null}>
-                <BundleModel
-                  url={bundle.url}
-                  bundleId={bundle.id}
-                  onReady={(count) => onBundleReady?.(bundle.id, count)}
-                />
-              </Suspense>
-            </BundleErrorBoundary>
-          ))}
-        </Bvh>
+        {bundles.map((bundle) => (
+          <BundleErrorBoundary
+            key={bundle.id}
+            bundleId={bundle.id}
+            onError={onBundleError}
+          >
+            <Suspense fallback={null}>
+              <BundleModel
+                url={bundle.url}
+                bundleId={bundle.id}
+                onReady={(count) => onBundleReady?.(bundle.id, count)}
+              />
+            </Suspense>
+          </BundleErrorBoundary>
+        ))}
 
         {debug && onDebugSample ? (
           <DebugStatsProbe onSample={onDebugSample} />
