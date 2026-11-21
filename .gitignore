@@ -1,0 +1,14 @@
+# Dependencies and build output
+node_modules
+dist
+
+# Pipeline inputs and intermediate outputs
+pipeline/source/
+pipeline/out/
+
+# Test and local env files
+test-results
+playwright-report
+.env*.local
+*.log
+.DS_Store

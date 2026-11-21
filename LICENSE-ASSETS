@@ -1,0 +1,12 @@
+Asset and Content License
+
+The 3D model files in `public/models/` and the anatomical content files in
+`content/` are licensed under the Creative Commons Attribution-ShareAlike 4.0
+International License (CC-BY-SA 4.0):
+https://creativecommons.org/licenses/by-sa/4.0/
+
+These assets are derived from Z-Anatomy (CC-BY-SA 4.0), which is built on
+BodyParts3D (© The Database Center for Life Science).
+
+(Placeholder attribution notice; Task 5 replaces this with the exact upstream
+attribution wording verified from the Z-Anatomy and BodyParts3D sources.)
