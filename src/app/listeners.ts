@@ -1,11 +1,13 @@
 import { useGLTF } from '@react-three/drei';
-import { createListenerMiddleware } from '@reduxjs/toolkit';
+import { createListenerMiddleware, isAnyOf } from '@reduxjs/toolkit';
 import { parseMeshId } from '../data/ids';
 import { bundleUrl } from '../data/manifest';
-import type { SystemId } from '../data/schema';
+import { SystemIdSchema, type SystemId } from '../data/schema';
 import {
   bundleReady,
   bundleRetry,
+  bundlesRequested,
+  selectBundlesForSystem,
   type AssetsState,
 } from '../features/assets/assetsSlice';
 import {
@@ -13,10 +15,16 @@ import {
   selectStructureLookup,
   type ContentState,
 } from '../features/content/contentSlice';
+import {
+  systemToggled,
+  uiGroupToggled,
+  type SystemsState,
+} from '../features/systems/systemsSlice';
 
 type ListenerState = {
   assets: AssetsState;
   content: ContentState;
+  systems: SystemsState;
 };
 
 /** App-wide Redux listener middleware for bundle cache clearing and lazy structure loading. */
@@ -53,6 +61,29 @@ listenerMiddleware.startListening({
 
     for (const system of systems) {
       void listenerApi.dispatch(loadStructures(system));
+    }
+  },
+});
+
+listenerMiddleware.startListening({
+  matcher: isAnyOf(systemToggled, uiGroupToggled),
+  effect: (_action, listenerApi) => {
+    const prev = listenerApi.getOriginalState();
+    const next = listenerApi.getState();
+    const toRequest = new Set<string>();
+
+    for (const sys of SystemIdSchema.options) {
+      if (!prev.systems[sys].enabled && next.systems[sys].enabled) {
+        for (const bundleId of selectBundlesForSystem(next, sys)) {
+          if (next.assets.bundles[bundleId] !== 'ready') {
+            toRequest.add(bundleId);
+          }
+        }
+      }
+    }
+
+    if (toRequest.size > 0) {
+      listenerApi.dispatch(bundlesRequested([...toRequest]));
     }
   },
 });

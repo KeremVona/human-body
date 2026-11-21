@@ -6,11 +6,13 @@ import {
 } from '@reduxjs/toolkit';
 import { assetsReducer } from '../features/assets/assetsSlice';
 import { contentReducer } from '../features/content/contentSlice';
+import { systemsReducer } from '../features/systems/systemsSlice';
 import { listenerMiddleware } from './listeners';
 
 const rootReducer = combineReducers({
   assets: assetsReducer,
   content: contentReducer,
+  systems: systemsReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
