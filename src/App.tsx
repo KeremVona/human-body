@@ -7,6 +7,7 @@ import { bundleUrl } from './data/manifest';
 import { bundleFailed, bundleReady } from './features/assets/assetsSlice';
 import { BundleScheduler } from './features/assets/BundleScheduler';
 import { bootstrap } from './features/content/contentSlice';
+import { HoverLabel } from './features/selection/HoverLabel';
 import { AtlasCanvas, type CanvasBundle } from './scene/AtlasCanvas';
 import { DebugStats, type RenderStats } from './scene/DebugStats';
 import {
@@ -120,6 +121,7 @@ function AtlasShell({ registry }: { registry: MeshRegistry }): JSX.Element {
       ) : null}
 
       {debug ? <DebugStats stats={debugStats} meshCount={meshCount} /> : null}
+      <HoverLabel />
     </main>
   );
 }
