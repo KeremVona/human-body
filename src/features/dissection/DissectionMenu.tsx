@@ -54,6 +54,7 @@ export function DissectionMenu({
 
       <DropdownMenu.Portal>
         <DropdownMenu.Content
+          aria-label="Dissection actions"
           align="start"
           sideOffset={4}
           collisionPadding={8}

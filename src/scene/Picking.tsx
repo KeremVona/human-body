@@ -1,5 +1,11 @@
-import type { ThreeEvent } from '@react-three/fiber';
-import { useEffect, useRef, type JSX, type ReactNode } from 'react';
+import { useThree, type ThreeEvent } from '@react-three/fiber';
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  type JSX,
+  type ReactNode,
+} from 'react';
 import { useStore } from 'react-redux';
 import { useAppDispatch } from '../app/hooks';
 import type { RootState } from '../app/store';
@@ -55,8 +61,10 @@ export function Picking({
   const dispatch = useAppDispatch();
   const store = useStore<RootState>();
   const cameraApi = useCameraApi();
+  const gl = useThree((s) => s.gl);
 
   const pressRef = useRef<ActivePress | null>(null);
+  const activePointersRef = useRef(new Set<number>());
   const pickTimingRef = useRef({ count: 0, totalMs: 0 });
   const tapTrackerRef = useRef<ReturnType<typeof createTapTracker> | null>(
     null,
@@ -67,16 +75,83 @@ export function Picking({
     onContextRequestRef.current = onContextRequest;
   }, [onContextRequest]);
 
+  const clearPress = useCallback(() => {
+    const press = pressRef.current;
+    if (press?.timer !== null && press?.timer !== undefined) {
+      window.clearTimeout(press.timer);
+    }
+    pressRef.current = null;
+  }, []);
+
+  const beginPress = useCallback(
+    (p: {
+      pointerId: number;
+      pointerType: PointerKind;
+      button: number;
+      clientX: number;
+      clientY: number;
+      meshId: MeshId | null;
+    }) => {
+      clearPress();
+      const press: ActivePress = {
+        pointerId: p.pointerId,
+        pointerType: p.pointerType,
+        button: p.button,
+        startX: p.clientX,
+        startY: p.clientY,
+        startT: performance.now(),
+        meshId: p.meshId,
+        longPressFired: false,
+        timer: null,
+      };
+
+      if (p.pointerType !== 'mouse') {
+        press.timer = window.setTimeout(() => {
+          if (pressRef.current === press) {
+            press.longPressFired = true;
+            press.timer = null;
+            onContextRequestRef.current({
+              x: press.startX,
+              y: press.startY,
+              meshId: press.meshId,
+            });
+          }
+        }, LONG_PRESS_MS);
+      }
+
+      pressRef.current = press;
+    },
+    [clearPress],
+  );
+
   useEffect(() => {
     if (!tapTrackerRef.current) {
       tapTrackerRef.current = createTapTracker();
     }
-    const clearPress = () => {
-      const press = pressRef.current;
-      if (press?.timer !== null && press?.timer !== undefined) {
-        window.clearTimeout(press.timer);
+
+    const handleDown = (ev: PointerEvent) => {
+      activePointersRef.current.add(ev.pointerId);
+      if (activePointersRef.current.size > 1) {
+        clearPress();
+        return;
       }
-      pressRef.current = null;
+      if (ev.target !== gl.domElement) return;
+      if (pressRef.current?.pointerId === ev.pointerId) return;
+
+      const pointerType = toPointerKind(ev.pointerType);
+      if (
+        (pointerType === 'mouse' && ev.button === 2) ||
+        pointerType !== 'mouse'
+      ) {
+        beginPress({
+          pointerId: ev.pointerId,
+          pointerType,
+          button: ev.button,
+          clientX: ev.clientX,
+          clientY: ev.clientY,
+          meshId: null,
+        });
+      }
     };
 
     const handleMove = (ev: PointerEvent) => {
@@ -93,6 +168,7 @@ export function Picking({
     };
 
     const handleCancel = (ev: PointerEvent) => {
+      activePointersRef.current.delete(ev.pointerId);
       const press = pressRef.current;
       if (press && ev.pointerId === press.pointerId) {
         clearPress();
@@ -100,6 +176,7 @@ export function Picking({
     };
 
     const handleUp = (ev: PointerEvent) => {
+      activePointersRef.current.delete(ev.pointerId);
       const press = pressRef.current;
       if (!press || ev.pointerId !== press.pointerId) return;
       clearPress();
@@ -125,7 +202,7 @@ export function Picking({
           ) {
             void cameraApi.focusMeshes([press.meshId]);
           }
-        } else {
+        } else if (press.pointerType !== 'mouse' || press.button === 0) {
           dispatch(selectionCleared());
         }
       } else if (release === 'context' || release === 'long-press') {
@@ -137,16 +214,20 @@ export function Picking({
       }
     };
 
+    const pointers = activePointersRef.current;
+    window.addEventListener('pointerdown', handleDown);
     window.addEventListener('pointermove', handleMove);
     window.addEventListener('pointerup', handleUp);
     window.addEventListener('pointercancel', handleCancel);
     return () => {
       clearPress();
+      pointers.clear();
+      window.removeEventListener('pointerdown', handleDown);
       window.removeEventListener('pointermove', handleMove);
       window.removeEventListener('pointerup', handleUp);
       window.removeEventListener('pointercancel', handleCancel);
     };
-  }, [dispatch, cameraApi]);
+  }, [dispatch, cameraApi, gl, clearPress, beginPress]);
 
   const handlePointerMove = (e: ThreeEvent<PointerEvent>) => {
     e.stopPropagation();
@@ -188,42 +269,18 @@ export function Picking({
 
   const handlePointerDown = (e: ThreeEvent<PointerEvent>) => {
     e.stopPropagation();
-    if (
-      pressRef.current?.timer !== null &&
-      pressRef.current?.timer !== undefined
-    ) {
-      window.clearTimeout(pressRef.current.timer);
+    if (activePointersRef.current.size >= 1) {
+      clearPress();
+      return;
     }
-
-    const pointerType = toPointerKind(e.pointerType);
-    const meshId = pickMeshId(e.intersections);
-    const press: ActivePress = {
+    beginPress({
       pointerId: e.pointerId,
-      pointerType,
+      pointerType: toPointerKind(e.pointerType),
       button: e.button,
-      startX: e.clientX,
-      startY: e.clientY,
-      startT: performance.now(),
-      meshId,
-      longPressFired: false,
-      timer: null,
-    };
-
-    if (pointerType !== 'mouse') {
-      press.timer = window.setTimeout(() => {
-        if (pressRef.current === press) {
-          press.longPressFired = true;
-          press.timer = null;
-          onContextRequestRef.current({
-            x: press.startX,
-            y: press.startY,
-            meshId: press.meshId,
-          });
-        }
-      }, LONG_PRESS_MS);
-    }
-
-    pressRef.current = press;
+      clientX: e.clientX,
+      clientY: e.clientY,
+      meshId: pickMeshId(e.intersections),
+    });
   };
 
   return (

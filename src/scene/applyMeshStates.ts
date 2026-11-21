@@ -1,3 +1,4 @@
+import type { Mesh } from 'three';
 import type { MeshId } from '../data/ids';
 import type { SystemId, Tissue } from '../data/schema';
 import {
@@ -15,6 +16,16 @@ export type MeshAppearance = {
 };
 
 const warnedPerRegistry = new WeakMap<MeshRegistry, Set<MeshId>>();
+const appliedMeshPerRegistry = new WeakMap<MeshRegistry, Map<MeshId, Mesh>>();
+
+function getAppliedMap(registry: MeshRegistry): Map<MeshId, Mesh> {
+  let map = appliedMeshPerRegistry.get(registry);
+  if (!map) {
+    map = new Map();
+    appliedMeshPerRegistry.set(registry, map);
+  }
+  return map;
+}
 
 function warnOnce(registry: MeshRegistry, id: MeshId): void {
   let warned = warnedPerRegistry.get(registry);
@@ -54,16 +65,21 @@ export function applyMeshStates({
   lookup: (id: MeshId) => MeshAppearance | undefined;
   library: ReturnType<typeof createMaterialLibrary>;
 }): number {
+  const appliedMeshes = getAppliedMap(registry);
   let changed = 0;
 
   for (const [id, state] of next) {
-    const previous = prev.get(id);
-    if (previous && sameMeshState(previous, state)) {
+    const mesh = registry.get(id);
+    if (!mesh) {
       continue;
     }
 
-    const mesh = registry.get(id);
-    if (!mesh) {
+    const previous = prev.get(id);
+    if (
+      previous &&
+      sameMeshState(previous, state) &&
+      appliedMeshes.get(id) === mesh
+    ) {
       continue;
     }
 
@@ -84,6 +100,7 @@ export function applyMeshStates({
 
     mesh.visible = state.visible;
     mesh.userData.pickable = state.pickable;
+    appliedMeshes.set(id, mesh);
     changed += 1;
   }
 

@@ -121,4 +121,54 @@ describe('applyMeshStates', () => {
     expect(mystery.material).toBe(library.fallback());
     expect(warnSpy).toHaveBeenCalledTimes(1);
   });
+
+  it('re-applies state when a MeshId is replaced by a new Mesh instance with the same state', () => {
+    const registry = createMeshRegistry();
+    const oldMesh = new Mesh(new BufferGeometry());
+    oldMesh.name = 'femur--l';
+    registry.register('femur--l', oldMesh);
+
+    const library = createMaterialLibrary(0.15);
+    const lookup = () => ({
+      system: 'skeletal' as const,
+      tissue: 'bone' as const,
+    });
+    const visibleState: MeshState = {
+      visible: true,
+      opacity: 1,
+      ghost: false,
+      highlight: 'none',
+      pickable: true,
+    };
+
+    const next = new Map([['femur--l', visibleState]]);
+    applyMeshStates({
+      registry,
+      prev: new Map(),
+      next,
+      lookup,
+      library,
+    });
+
+    registry.unregister(['femur--l']);
+    const reloadedMesh = new Mesh(new BufferGeometry());
+    reloadedMesh.name = 'femur--l';
+    reloadedMesh.visible = false;
+    registry.register('femur--l', reloadedMesh);
+
+    const changed = applyMeshStates({
+      registry,
+      prev: next,
+      next: new Map([['femur--l', { ...visibleState }]]),
+      lookup,
+      library,
+    });
+
+    expect(changed).toBe(1);
+    expect(reloadedMesh.visible).toBe(true);
+    expect(reloadedMesh.userData.pickable).toBe(true);
+    expect(reloadedMesh.material).toBe(
+      library.get({ system: 'skeletal', tissue: 'bone', state: 'base' }),
+    );
+  });
 });

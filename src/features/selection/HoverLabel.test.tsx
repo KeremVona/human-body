@@ -83,4 +83,21 @@ describe('HoverLabel', () => {
     const { container } = renderWithStore(null);
     expect(container).toBeEmptyDOMElement();
   });
+
+  it('clamps position inside the viewport near right/bottom edges', () => {
+    Object.defineProperty(window, 'innerWidth', {
+      value: 300,
+      configurable: true,
+    });
+    Object.defineProperty(window, 'innerHeight', {
+      value: 200,
+      configurable: true,
+    });
+    pointerPosition.set(295, 195);
+    renderWithStore('femur--l');
+
+    const label = screen.getByText('Femur (left)');
+    expect(parseFloat(label.style.left)).toBeLessThan(295);
+    expect(parseFloat(label.style.top)).toBeLessThan(195);
+  });
 });

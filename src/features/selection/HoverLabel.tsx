@@ -29,11 +29,17 @@ export function HoverLabel(): JSX.Element | null {
   }
 
   const label = side ? `${entry.names.common} (${side})` : entry.names.common;
+  const vw = typeof window !== 'undefined' ? window.innerWidth : 1024;
+  const vh = typeof window !== 'undefined' ? window.innerHeight : 768;
+  const estWidth = Math.min(260, Math.max(96, label.length * 8 + 24));
+  const estHeight = 32;
+  const left = Math.max(8, Math.min(pos.x + 12, vw - estWidth - 8));
+  const top = Math.max(8, Math.min(pos.y + 16, vh - estHeight - 8));
 
   return (
     <div
       aria-hidden="true"
-      style={{ left: `${pos.x + 12}px`, top: `${pos.y + 16}px` }}
+      style={{ left: `${left}px`, top: `${top}px` }}
       className="pointer-events-none fixed z-30 rounded-md bg-slate-900/90 px-2.5 py-1 text-xs font-medium text-slate-100 shadow-lg ring-1 ring-white/10 backdrop-blur [@media(pointer:coarse)]:hidden"
     >
       {label}
