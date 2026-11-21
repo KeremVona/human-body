@@ -1,6 +1,6 @@
 import { useGLTF } from '@react-three/drei';
 import { createListenerMiddleware, isAnyOf } from '@reduxjs/toolkit';
-import { parseMeshId } from '../data/ids';
+import { isMeshId, parseMeshId } from '../data/ids';
 import { bundleUrl } from '../data/manifest';
 import { SystemIdSchema, type SystemId } from '../data/schema';
 import {
@@ -15,6 +15,7 @@ import {
   selectStructureLookup,
   type ContentState,
 } from '../features/content/contentSlice';
+import { selected } from '../features/selection/selectionSlice';
 import {
   systemToggled,
   uiGroupToggled,
@@ -84,6 +85,25 @@ listenerMiddleware.startListening({
 
     if (toRequest.size > 0) {
       listenerApi.dispatch(bundlesRequested([...toRequest]));
+    }
+  },
+});
+
+listenerMiddleware.startListening({
+  actionCreator: selected,
+  effect: (action, listenerApi) => {
+    const state = listenerApi.getState();
+    const lookup = selectStructureLookup(state);
+    const systems = new Set<SystemId>();
+    for (const meshId of action.payload) {
+      if (!isMeshId(meshId)) continue;
+      const entry = lookup.get(parseMeshId(meshId).structureId);
+      if (entry && state.content.structures[entry.system] === undefined) {
+        systems.add(entry.system);
+      }
+    }
+    for (const system of systems) {
+      void listenerApi.dispatch(loadStructures(system));
     }
   },
 });

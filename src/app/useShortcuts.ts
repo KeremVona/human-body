@@ -1,0 +1,86 @@
+import { useEffect } from 'react';
+import { useStore } from 'react-redux';
+import {
+  fadeOthers,
+  hide,
+  isolate,
+  undo,
+} from '../features/dissection/dissectionSlice';
+import { selectionCleared } from '../features/selection/selectionSlice';
+import { useCameraApi, type Preset } from '../scene/camera';
+import { useAppDispatch } from './hooks';
+import { shortcutFor } from './shortcuts';
+import type { RootState } from './store';
+
+/** Registers global viewer keyboard shortcuts while skipping inputs and Alt-combos. */
+export function useShortcuts(onContextMenu?: () => void): void {
+  const dispatch = useAppDispatch();
+  const store = useStore<RootState>();
+  const cameraApi = useCameraApi();
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const target = e.target;
+      const cmd = shortcutFor({
+        key: e.key,
+        ctrlKey: e.ctrlKey,
+        metaKey: e.metaKey,
+        altKey: e.altKey,
+        shiftKey: e.shiftKey,
+        targetTag: target instanceof Element ? target.tagName : '',
+        targetEditable:
+          target instanceof HTMLElement ? target.isContentEditable : false,
+      });
+      if (!cmd) return;
+
+      const selectedIds = store.getState().selection.selectedIds;
+
+      switch (cmd) {
+        case 'hide':
+          if (selectedIds.length > 0) dispatch(hide(selectedIds));
+          break;
+        case 'isolate':
+          if (selectedIds.length > 0) {
+            dispatch(isolate(selectedIds));
+            void cameraApi.focusMeshes(selectedIds);
+          }
+          break;
+        case 'fade':
+          if (selectedIds.length > 0) dispatch(fadeOthers(selectedIds));
+          break;
+        case 'focus':
+          if (selectedIds.length > 0) {
+            void cameraApi.focusMeshes(selectedIds);
+          }
+          break;
+        case 'undo':
+          e.preventDefault();
+          dispatch(undo());
+          break;
+        case 'deselect':
+          if (selectedIds.length > 0) dispatch(selectionCleared());
+          break;
+        case 'context-menu':
+          e.preventDefault();
+          onContextMenu?.();
+          break;
+        case 'zoom-in':
+          cameraApi.zoom(1);
+          break;
+        case 'zoom-out':
+          cameraApi.zoom(-1);
+          break;
+        case 'reset-view':
+          void cameraApi.resetView();
+          break;
+        default: {
+          const preset = cmd.slice('preset:'.length) as Preset;
+          void cameraApi.goToPreset(preset);
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [dispatch, store, cameraApi, onContextMenu]);
+}

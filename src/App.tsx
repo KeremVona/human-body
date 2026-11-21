@@ -3,11 +3,22 @@ import { Provider, useStore } from 'react-redux';
 import { useAppDispatch, useAppSelector } from './app/hooks';
 import { makeStore, type AppStore, type RootState } from './app/store';
 import { installTestHooks } from './app/testHooks';
+import { useShortcuts } from './app/useShortcuts';
 import { bundleUrl } from './data/manifest';
 import { bundleFailed, bundleReady } from './features/assets/assetsSlice';
 import { BundleScheduler } from './features/assets/BundleScheduler';
 import { bootstrap } from './features/content/contentSlice';
+import {
+  DissectionMenu,
+  type ContextMenuTarget,
+} from './features/dissection/DissectionMenu';
+import { ExitChips } from './features/dissection/ExitChips';
+import { Toolbar } from './features/dissection/Toolbar';
+import { Inspector } from './features/inspector/Inspector';
+import { FirstRunHint } from './features/onboarding/FirstRunHint';
 import { HoverLabel } from './features/selection/HoverLabel';
+import { SelectionAnnouncer } from './features/selection/SelectionAnnouncer';
+import { selected } from './features/selection/selectionSlice';
 import { SystemsPanel } from './features/systems/SystemsPanel';
 import { AtlasCanvas, type CanvasBundle } from './scene/AtlasCanvas';
 import { CameraApiProvider } from './scene/camera';
@@ -17,6 +28,7 @@ import {
   MeshRegistryProvider,
   type MeshRegistry,
 } from './scene/meshRegistry';
+import type { ContextRequest } from './scene/Picking';
 
 function AtlasShell({ registry }: { registry: MeshRegistry }): JSX.Element {
   const dispatch = useAppDispatch();
@@ -26,6 +38,32 @@ function AtlasShell({ registry }: { registry: MeshRegistry }): JSX.Element {
   const bundles = useAppSelector((s) => s.assets.bundles);
   const [meshCount, setMeshCount] = useState(0);
   const [debugStats, setDebugStats] = useState<RenderStats | null>(null);
+  const [contextMenu, setContextMenu] = useState<ContextMenuTarget | null>(
+    null,
+  );
+
+  const openKeyboardContextMenu = useCallback(() => {
+    const selectedIds = store.getState().selection.selectedIds;
+    setContextMenu({
+      x: typeof window !== 'undefined' ? window.innerWidth / 2 : 0,
+      y: typeof window !== 'undefined' ? window.innerHeight / 2 : 0,
+      meshIds: [...selectedIds],
+    });
+  }, [store]);
+
+  useShortcuts(openKeyboardContextMenu);
+
+  const handleContextRequest = useCallback(
+    (req: ContextRequest) => {
+      if (req.meshId) {
+        dispatch(selected([req.meshId]));
+        setContextMenu({ x: req.x, y: req.y, meshIds: [req.meshId] });
+      } else {
+        setContextMenu({ x: req.x, y: req.y, meshIds: [] });
+      }
+    },
+    [dispatch],
+  );
 
   const debug = useMemo(() => {
     if (typeof window === 'undefined') return false;
@@ -85,6 +123,7 @@ function AtlasShell({ registry }: { registry: MeshRegistry }): JSX.Element {
           onBundleReady={handleBundleReady}
           onBundleError={handleBundleError}
           onDebugSample={debug ? setDebugStats : undefined}
+          onContextRequest={handleContextRequest}
         />
       ) : null}
 
@@ -123,8 +162,21 @@ function AtlasShell({ registry }: { registry: MeshRegistry }): JSX.Element {
       ) : null}
 
       {debug ? <DebugStats stats={debugStats} meshCount={meshCount} /> : null}
-      {boot === 'ready' ? <SystemsPanel /> : null}
+      {boot === 'ready' ? (
+        <>
+          <SystemsPanel />
+          <Inspector />
+          <ExitChips />
+          <Toolbar />
+          <FirstRunHint />
+          <DissectionMenu
+            target={contextMenu}
+            onClose={() => setContextMenu(null)}
+          />
+        </>
+      ) : null}
       <HoverLabel />
+      <SelectionAnnouncer />
     </main>
   );
 }
