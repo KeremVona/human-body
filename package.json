@@ -11,7 +11,8 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "test": "vitest run",
-    "ci": "npm run typecheck && npm run lint && npm test && npm run build"
+    "check:content": "tsx scripts/check-content.ts",
+    "ci": "npm run typecheck && npm run lint && npm test && npm run check:content && npm run build"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.5",
