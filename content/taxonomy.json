@@ -1,0 +1,46 @@
+{
+  "systems": [
+    { "id": "skeletal", "label": "Skeletal", "color": "#E8DCC4", "order": 1 },
+    { "id": "muscular", "label": "Muscular", "color": "#C0504D", "order": 2 },
+    {
+      "id": "cardiovascular",
+      "label": "Cardiovascular",
+      "color": "#D93A3A",
+      "order": 3
+    },
+    { "id": "nervous", "label": "Nervous", "color": "#E5C34B", "order": 4 },
+    {
+      "id": "respiratory",
+      "label": "Respiratory",
+      "color": "#E89AA6",
+      "order": 5
+    },
+    { "id": "digestive", "label": "Digestive", "color": "#C98A4B", "order": 6 },
+    { "id": "urinary", "label": "Urinary", "color": "#8E7CC3", "order": 7 },
+    { "id": "lymphatic", "label": "Lymphatic", "color": "#5FB58A", "order": 8 },
+    {
+      "id": "integumentary",
+      "label": "Integumentary",
+      "color": "#D8A98A",
+      "order": 9
+    }
+  ],
+  "regions": [
+    { "id": "head", "label": "Head" },
+    { "id": "neck", "label": "Neck" },
+    { "id": "thorax", "label": "Thorax" },
+    { "id": "abdomen", "label": "Abdomen" },
+    { "id": "pelvis", "label": "Pelvis" },
+    { "id": "back", "label": "Back" },
+    { "id": "upper-limb", "label": "Upper limb" },
+    { "id": "lower-limb", "label": "Lower limb" },
+    { "id": "multiple", "label": "Multiple regions" }
+  ],
+  "uiGroups": [
+    {
+      "id": "major-organs",
+      "label": "Major Organs",
+      "systems": ["nervous", "respiratory", "digestive", "urinary", "lymphatic"]
+    }
+  ]
+}
