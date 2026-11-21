@@ -6,6 +6,8 @@ import {
 } from '@reduxjs/toolkit';
 import { assetsReducer } from '../features/assets/assetsSlice';
 import { contentReducer } from '../features/content/contentSlice';
+import { dissectionReducer } from '../features/dissection/dissectionSlice';
+import { selectionReducer } from '../features/selection/selectionSlice';
 import { systemsReducer } from '../features/systems/systemsSlice';
 import { listenerMiddleware } from './listeners';
 
@@ -13,6 +15,8 @@ const rootReducer = combineReducers({
   assets: assetsReducer,
   content: contentReducer,
   systems: systemsReducer,
+  dissection: dissectionReducer,
+  selection: selectionReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
