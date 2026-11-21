@@ -18,9 +18,14 @@ Append `?debug` to the URL to display the live FPS, draw-call, and triangle HUD.
 Verification commands:
 
 ```sh
-npm run ci        # typecheck, lint, unit tests, content & asset verification, production build
-npm run test:e2e  # Playwright Chromium smoke tests against Vite dev server (uses dev-only __atlas hooks)
+npm run ci            # typecheck, lint, unit tests, content & asset verification, production build
+npm run test:e2e      # Playwright Chromium + mobile smoke tests against Vite dev server (uses dev-only __atlas hooks)
+npm run test:e2e:base # Production sub-path build + Vite preview smoke test (ATLAS_BASE_PATH=/atlas-check/)
 ```
+
+## Deploying to GitHub Pages
+
+Pushes to `main` trigger `.github/workflows/deploy.yml`, which builds `dist/` with `ATLAS_BASE_PATH=/<repo>/` so all static glTF models and JSON content resolve under the repository subpath. After creating the repository, set **Settings → Pages → Source** to **GitHub Actions** once to enable automatic deployments.
 
 ## Rebuilding 3D Assets
 
