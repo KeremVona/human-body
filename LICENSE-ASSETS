@@ -5,8 +5,30 @@ The 3D model files in `public/models/` and the anatomical content files in
 International License (CC-BY-SA 4.0):
 https://creativecommons.org/licenses/by-sa/4.0/
 
-These assets are derived from Z-Anatomy (CC-BY-SA 4.0), which is built on
-BodyParts3D (© The Database Center for Life Science).
+Only Z-Anatomy and BodyParts3D geometry ships in this repository. All
+non-commercial (CC-BY-NC / CC-BY-NC-SA) and unverified-license third-party
+reference models bundled in the Z-Anatomy `.blend` source are excluded by the
+asset pipeline (see `pipeline/README.md`, "Excluded for licensing").
 
-(Placeholder attribution notice; Task 5 replaces this with the exact upstream
-attribution wording verified from the Z-Anatomy and BodyParts3D sources.)
+---
+
+Upstream Attribution (verbatim from Z-Anatomy and BodyParts3D)
+
+From Z-Anatomy `Z-Anatomy-License.txt`:
+- "BodyParts3D - The Database Center for Life Science - CC-BY-SA 2.1 Japan"
+- "Z-Anatomy - The open source atlas of anatomy - CC-BY-SA 4.0"
+
+From the embedded `1.Licence` text block inside `Z-Anatomy.blend`:
+  "BodyParts3D, © The Database Center for Life Science licensed under CC Attribution-Share Alike 2.1 Japan"
+  https://dbarchive.biosciencedbc.jp/en/bodyparts3d/lic.html
+  mixed and modified by 'Z-Anatomy.com'
+
+From BodyParts3D's license page (https://dbarchive.biosciencedbc.jp/en/bodyparts3d/lic.html):
+  "BodyParts3D, © The Database Center for Life Science licensed under CC Attribution 4.0 International"
+
+Applicable BodyParts3D license version:
+  Z-Anatomy was derived from the earlier BodyParts3D release licensed under
+  CC-BY-SA 2.1 Japan (as stated in both `1.Licence` and `Z-Anatomy-License.txt`),
+  whereas current BodyParts3D portal distributions use CC-BY 4.0. Because the
+  exported geometry derives from Z-Anatomy's CC-BY-SA 2.1 Japan / CC-BY-SA 4.0
+  lineage, `public/models/` and `content/` are distributed under CC-BY-SA 4.0.
