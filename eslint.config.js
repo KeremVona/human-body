@@ -20,7 +20,12 @@ export default defineConfig([
     },
   },
   {
-    files: ['pipeline/**/*.ts', 'scripts/**/*.ts', '*.config.ts'],
+    files: [
+      'pipeline/**/*.ts',
+      'scripts/**/*.ts',
+      'e2e/**/*.ts',
+      '*.config.ts',
+    ],
     languageOptions: {
       globals: globals.node,
     },
