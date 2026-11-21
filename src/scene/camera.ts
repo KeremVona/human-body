@@ -141,13 +141,21 @@ export type CameraApi = {
   zoom(step: 1 | -1): void;
 };
 
+export type CameraDebugProbe = {
+  screenPointOf(id: MeshId): { x: number; y: number } | null;
+  waitIdle(): Promise<void>;
+};
+
 export type CameraController = {
   api: CameraApi;
-  bind(impl: CameraApi): () => void;
+  bind(impl: CameraApi, probe?: CameraDebugProbe): () => void;
+  screenPointOf(id: MeshId): { x: number; y: number } | null;
+  waitIdle(): Promise<void>;
 };
 
 export function createCameraController(): CameraController {
   let impl: CameraApi | null = null;
+  let probeImpl: CameraDebugProbe | null = null;
   const api: CameraApi = {
     focusMeshes(ids) {
       return impl ? impl.focusMeshes(ids) : Promise.resolve();
@@ -165,13 +173,21 @@ export function createCameraController(): CameraController {
 
   return {
     api,
-    bind(next) {
+    bind(next, nextProbe) {
       impl = next;
+      probeImpl = nextProbe ?? null;
       return () => {
         if (impl === next) {
           impl = null;
+          probeImpl = null;
         }
       };
+    },
+    screenPointOf(id) {
+      return probeImpl ? probeImpl.screenPointOf(id) : null;
+    },
+    waitIdle() {
+      return probeImpl ? probeImpl.waitIdle() : Promise.resolve();
     },
   };
 }
@@ -192,7 +208,12 @@ export function CameraApiProvider({
   const resolved = useMemo<CameraController>(() => {
     if (controller) return controller;
     if (value) {
-      return { api: value, bind: () => () => {} };
+      return {
+        api: value,
+        bind: () => () => {},
+        screenPointOf: () => null,
+        waitIdle: () => Promise.resolve(),
+      };
     }
     return fallback;
   }, [controller, value, fallback]);

@@ -12,8 +12,10 @@ import {
   presetPose,
   unionBounds,
   type CameraApi,
+  type CameraDebugProbe,
   type Preset,
 } from './camera';
+import { useMeshRegistry } from './meshRegistry';
 
 function prefersReducedMotion(): boolean {
   return (
@@ -28,7 +30,9 @@ export function CameraRig(): JSX.Element {
   const controlsRef = useRef<CameraControlsImpl | null>(null);
   const initializedRef = useRef(false);
   const store = useStore<RootState>();
+  const registry = useMeshRegistry();
   const controller = useContext(CameraApiContext);
+  const gl = useThree((s) => s.gl);
   const size = useThree((s) => s.size);
   const invalidate = useThree((s) => s.invalidate);
 
@@ -119,7 +123,43 @@ export function CameraRig(): JSX.Element {
       },
     };
 
-    const unbind = controller?.bind(impl);
+    const probe: CameraDebugProbe = {
+      screenPointOf(id) {
+        const mesh = registry.get(id);
+        if (!mesh) return null;
+        cam.updateMatrixWorld();
+        mesh.updateWorldMatrix(true, false);
+        const box = new Box3().setFromObject(mesh);
+        if (box.isEmpty()) return null;
+        const center = box.getCenter(new Vector3()).project(cam);
+        const rect = gl.domElement.getBoundingClientRect();
+        return {
+          x: rect.left + ((center.x + 1) / 2) * rect.width,
+          y: rect.top + ((-center.y + 1) / 2) * rect.height,
+        };
+      },
+      waitIdle() {
+        return new Promise((resolve) => {
+          if (!controls.active) {
+            requestAnimationFrame(() => resolve());
+            return;
+          }
+          let done = false;
+          const finish = () => {
+            if (done) return;
+            done = true;
+            controls.removeEventListener('sleep', finish);
+            window.clearTimeout(timer);
+            requestAnimationFrame(() => resolve());
+          };
+          const timer = window.setTimeout(finish, 2000);
+          controls.addEventListener('sleep', finish);
+          invalidate();
+        });
+      },
+    };
+
+    const unbind = controller?.bind(impl, probe);
 
     const maybeInitPose = () => {
       if (initializedRef.current) return;
@@ -135,7 +175,7 @@ export function CameraRig(): JSX.Element {
       unsubStore();
       unbind?.();
     };
-  }, [store, controller, invalidate]);
+  }, [store, registry, gl, controller, invalidate]);
 
   return (
     <CameraControls

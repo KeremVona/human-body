@@ -1,7 +1,14 @@
-import { useCallback, useEffect, useMemo, useState, type JSX } from 'react';
-import { Provider, useStore } from 'react-redux';
+import {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  type JSX,
+} from 'react';
+import { Provider } from 'react-redux';
 import { useAppDispatch, useAppSelector } from './app/hooks';
-import { makeStore, type AppStore, type RootState } from './app/store';
+import { makeStore, type AppStore } from './app/store';
 import { installTestHooks } from './app/testHooks';
 import { useShortcuts } from './app/useShortcuts';
 import { bundleUrl } from './data/manifest';
@@ -21,7 +28,7 @@ import { SelectionAnnouncer } from './features/selection/SelectionAnnouncer';
 import { selected } from './features/selection/selectionSlice';
 import { SystemsPanel } from './features/systems/SystemsPanel';
 import { AtlasCanvas, type CanvasBundle } from './scene/AtlasCanvas';
-import { CameraApiProvider } from './scene/camera';
+import { CameraApiContext, CameraApiProvider } from './scene/camera';
 import { DebugStats, type RenderStats } from './scene/DebugStats';
 import {
   createMeshRegistry,
@@ -30,9 +37,15 @@ import {
 } from './scene/meshRegistry';
 import type { ContextRequest } from './scene/Picking';
 
-function AtlasShell({ registry }: { registry: MeshRegistry }): JSX.Element {
+function AtlasShell({
+  registry,
+  store,
+}: {
+  registry: MeshRegistry;
+  store: AppStore;
+}): JSX.Element {
   const dispatch = useAppDispatch();
-  const store = useStore<RootState>();
+  const cameraController = useContext(CameraApiContext);
   const boot = useAppSelector((s) => s.assets.boot);
   const manifest = useAppSelector((s) => s.assets.manifest);
   const bundles = useAppSelector((s) => s.assets.bundles);
@@ -73,9 +86,11 @@ function AtlasShell({ registry }: { registry: MeshRegistry }): JSX.Element {
   useEffect(() => {
     installTestHooks({
       registry,
+      store,
+      camera: cameraController,
       isReady: () => store.getState().assets.bundles.skeletal === 'ready',
     });
-  }, [registry, store]);
+  }, [registry, store, cameraController]);
 
   useEffect(() => {
     void dispatch(bootstrap());
@@ -190,7 +205,7 @@ export default function App({ store }: { store?: AppStore } = {}): JSX.Element {
       <MeshRegistryProvider registry={registry}>
         <CameraApiProvider>
           <BundleScheduler />
-          <AtlasShell registry={registry} />
+          <AtlasShell registry={registry} store={defaultStore} />
         </CameraApiProvider>
       </MeshRegistryProvider>
     </Provider>

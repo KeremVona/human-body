@@ -3,6 +3,7 @@ import { defineConfig, devices } from '@playwright/test';
 export default defineConfig({
   testDir: './e2e',
   fullyParallel: true,
+  workers: process.env.CI ? 2 : 4,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
   use: {
@@ -12,8 +13,19 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
+      testIgnore: /mobile\.spec\.ts/,
       use: {
         ...devices['Desktop Chrome'],
+        launchOptions: {
+          args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader'],
+        },
+      },
+    },
+    {
+      name: 'mobile',
+      testMatch: /mobile\.spec\.ts/,
+      use: {
+        ...devices['Pixel 7'],
         launchOptions: {
           args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader'],
         },
