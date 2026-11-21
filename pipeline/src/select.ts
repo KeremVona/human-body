@@ -11,6 +11,7 @@ export type Selection = {
 type CompiledRule = {
   bundleId: string;
   rule: PipelineRule;
+  types: Set<string>;
   collection?: string;
   nameRe: RegExp | null;
   excludeRes: RegExp[];
@@ -28,6 +29,7 @@ function compileRules(config: PipelineConfig): CompiledRule[] {
       compiled.push({
         bundleId: bundle.id,
         rule,
+        types: new Set(rule.types ?? ['MESH']),
         collection: rule.match.collection,
         nameRe: rule.match.name ? new RegExp(rule.match.name, 'i') : null,
         excludeRes: (rule.exclude ?? []).map((src) => new RegExp(src, 'i')),
@@ -38,6 +40,9 @@ function compileRules(config: PipelineConfig): CompiledRule[] {
 }
 
 function ruleMatches(cr: CompiledRule, obj: InventoryObject): boolean {
+  if (!cr.types.has(obj.type)) {
+    return false;
+  }
   if (cr.collection && !matchesCollection(obj.collections, cr.collection)) {
     return false;
   }
@@ -50,17 +55,19 @@ function ruleMatches(cr: CompiledRule, obj: InventoryObject): boolean {
   return true;
 }
 
-/** Selects MESH objects using first-match-wins pipeline rules, skipping non-MESH objects. */
+/** Selects objects matching rule types (default MESH) using first-match-wins pipeline rules. */
 export function selectObjects(
   config: PipelineConfig,
   objects: InventoryObject[],
 ): { selected: Selection[]; unmatched: number } {
   const rules = compileRules(config);
+  const candidateTypes = new Set(rules.flatMap((r) => [...r.types]));
+  candidateTypes.add('MESH');
   const selected: Selection[] = [];
   let unmatched = 0;
 
   for (const object of objects) {
-    if (object.type !== 'MESH') continue;
+    if (!candidateTypes.has(object.type)) continue;
     const hit = rules.find((r) => ruleMatches(r, object));
     if (hit) {
       selected.push({ object, bundleId: hit.bundleId, rule: hit.rule });

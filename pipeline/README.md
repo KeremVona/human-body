@@ -113,3 +113,13 @@ Per `pipeline/source/Z-Anatomy-License.txt` and the embedded `1.Licence` text bl
    - `Bonus collection/Nervous system/Central nervous system/Brain` (`234` meshes, including `White matter of telencephalon.l`, `White matter of telencephalon.r`, `Corpus callosum`, sulci/gyri, brainstem nuclei, etc.) and `White matter of spinal cord`
 4. **Cranial Nerves and Foramina — by University of Dundee, CAHID — CC-BY 4.0** _(license compatible in principle, but listed here for explicit provenance tracking before any future phase selects cranial nerve meshes)_
    - `Bonus collection/Nervous system/Peripheral nervous system/Cranial nerves`
+
+---
+
+## Phase 1 Bundle Rules & Exclusions
+
+Phase 1 adds the `muscular` (`459` meshes), `cardiovascular` (`216` meshes), and `organs` (`73` meshes) bundles alongside `skeletal` (`263` meshes) for `1,011` meshes across `582` structures:
+
+- **Licensing exclusions upheld:** Neither `.blend` object metadata nor upstream author tags separate BodyParts3D/Z-Anatomy from third-party imports on a per-object basis. Therefore `Kidney.l`/`.r` & `Renal pelvis.l`/`.r` (`CC-BY-NC 4.0`), `Bonus collection/.../Brain` & `White matter*` (`Brainder` / Univ. of Washington, no license stated), `Internal ear` / `Tympanic membrane` & `Auditory ossicles` (`CC-BY-NC-SA 4.0`), and `Cranial nerves` (University of Dundee — excluded to keep shipped geometry strictly Z-Anatomy/BodyParts3D) remain excluded. `Intrarenal` vessels (`cardiovascular`) and `Mucosa of stomach` (`0` vertices) are also excluded.
+- **Beveled `CURVE` vessels/organs (`rule.types`):** Systemic arteries/veins (`5: Cardiovascular system`), `Oesophagus`, `Jejunum`, lobar/main bronchi, `Ureter.{l,r}`, `Urethra`, and major spinal nerves (`Sciatic`, `Femoral`, `Median`, `Radial`, `Ulnar`, `Sympathetic trunk`) are stored as beveled `CURVE` objects (`bevel_depth > 0`) rather than `MESH` objects in `Z-Anatomy.blend`. Rules opt in via `types: ["MESH", "CURVE"]`, and `export.py` converts selected curves to solid meshes cleanly before glTF export.
+- **Name curation fixes:** Source object `Iliocostalis colli muscle` lacks `.l` in Z-Anatomy despite sitting on `+X` (patient left, symmetric with `Iliocostalis colli muscle.r` on `-X`) and maps to `iliocostalis-colli-muscle--l`; `Middle lobar bronchus.r` maps to unpaired `right-middle-lobar-bronchus`.

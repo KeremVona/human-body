@@ -18,6 +18,7 @@ export const PipelineRuleSchema = z.object({
   kind: KindSchema,
   tissue: TissueSchema,
   color: HexColorSchema.optional(),
+  types: z.array(z.enum(['MESH', 'CURVE'])).default(['MESH']),
   match: z.object({
     collection: z.string().min(1).optional(),
     name: z.string().min(1).optional(),

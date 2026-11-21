@@ -161,6 +161,655 @@
           "exclude": ["\\.(i|j|s|t|g)$"]
         }
       ]
+    },
+    {
+      "id": "muscular",
+      "rules": [
+        {
+          "system": "muscular",
+          "region": "lower-limb",
+          "kind": "other",
+          "tissue": "tendon",
+          "match": {
+            "collection": "Bonus collection/Muscular system/Muscular system of lower limb",
+            "name": "^(Calcaneal tendon|Tendon of extensor digitorum longus)(\\.(l|r))?$"
+          },
+          "exclude": ["\\.(i|j|s|t|g|[oe]\\d*[lr])$"]
+        },
+        {
+          "system": "muscular",
+          "region": "neck",
+          "kind": "other",
+          "tissue": "tendon",
+          "match": {
+            "collection": "Bonus collection/Muscular system/Cervical part of muscular system",
+            "name": "^Intermediate tendon of digastric muscle(\\.(l|r))?$"
+          },
+          "exclude": ["\\.(i|j|s|t|g|[oe]\\d*[lr])$"]
+        },
+        {
+          "system": "muscular",
+          "region": "lower-limb",
+          "kind": "muscle",
+          "tissue": "muscle",
+          "match": {
+            "collection": "Bonus collection/Muscular system/Muscular system of lower limb"
+          },
+          "exclude": [
+            "\\.(i|j|s|t|g|[oe]\\d*[lr])$",
+            "(bursa|fascia|tendon sheath|retinaculum|ligament|fibrous sheath|tendinous arch)"
+          ]
+        },
+        {
+          "system": "muscular",
+          "region": "upper-limb",
+          "kind": "muscle",
+          "tissue": "muscle",
+          "match": {
+            "collection": "Bonus collection/Muscular system/Muscular system of upper limb"
+          },
+          "exclude": [
+            "\\.(i|j|s|t|g|[oe]\\d*[lr])$",
+            "(bursa|fascia|tendon sheath|retinaculum|ligament|fibrous sheath|tendinous arch)"
+          ]
+        },
+        {
+          "system": "muscular",
+          "region": "abdomen",
+          "kind": "muscle",
+          "tissue": "muscle",
+          "match": {
+            "collection": "Bonus collection/Muscular system/Abdominal part of muscular system"
+          },
+          "exclude": [
+            "\\.(i|j|s|t|g|[oe]\\d*[lr])$",
+            "(bursa|fascia|tendon sheath|retinaculum|ligament|fibrous sheath|tendinous arch)"
+          ]
+        },
+        {
+          "system": "muscular",
+          "region": "thorax",
+          "kind": "muscle",
+          "tissue": "muscle",
+          "match": {
+            "collection": "Bonus collection/Muscular system/Thoracic part of muscular system"
+          },
+          "exclude": [
+            "\\.(i|j|s|t|g|[oe]\\d*[lr])$",
+            "(bursa|fascia|tendon sheath|retinaculum|ligament|fibrous sheath|tendinous arch)"
+          ]
+        },
+        {
+          "system": "muscular",
+          "region": "upper-limb",
+          "kind": "muscle",
+          "tissue": "muscle",
+          "match": {
+            "collection": "4: Muscular system",
+            "name": "^Teres major"
+          },
+          "exclude": ["\\.(i|j|s|t|g|[oe]\\d*[lr])$"]
+        },
+        {
+          "system": "muscular",
+          "region": "thorax",
+          "kind": "muscle",
+          "tissue": "muscle",
+          "match": {
+            "collection": "4: Muscular system",
+            "name": "^(Diaphragm|(External|Internal|Innermost) intercostal|Levatores (breves|longi) costarum|Pectoralis minor|Serratus anterior|Subclavius|Transversus thoracis)"
+          },
+          "exclude": ["\\.(i|j|s|t|g|[oe]\\d*[lr])$"]
+        },
+        {
+          "system": "muscular",
+          "region": "back",
+          "kind": "muscle",
+          "tissue": "muscle",
+          "match": {
+            "collection": "Bonus collection/Muscular system/Dorsal part of muscular system"
+          },
+          "exclude": [
+            "\\.(i|j|s|t|g|[oe]\\d*[lr])$",
+            "(bursa|fascia|tendon sheath|retinaculum|ligament|fibrous sheath|tendinous arch)"
+          ]
+        },
+        {
+          "system": "muscular",
+          "region": "back",
+          "kind": "muscle",
+          "tissue": "muscle",
+          "match": {
+            "collection": "4: Muscular system",
+            "name": "^(Interspinales|Splenius)"
+          },
+          "exclude": ["\\.(i|j|s|t|g|[oe]\\d*[lr])$"]
+        },
+        {
+          "system": "muscular",
+          "region": "neck",
+          "kind": "muscle",
+          "tissue": "muscle",
+          "match": {
+            "collection": "Bonus collection/Muscular system/Cervical part of muscular system"
+          },
+          "exclude": [
+            "\\.(i|j|s|t|g|[oe]\\d*[lr])$",
+            "(bursa|fascia|tendon sheath|retinaculum|ligament|pharyng|laryng|palat|uvul|arytenoid)"
+          ]
+        },
+        {
+          "system": "muscular",
+          "region": "head",
+          "kind": "muscle",
+          "tissue": "muscle",
+          "match": {
+            "collection": "Bonus collection/Muscular system/Cranial part of muscular system"
+          },
+          "exclude": [
+            "\\.(i|j|s|t|g|[oe]\\d*[lr])$",
+            "(bursa|fascia|tendon sheath|stapedius|tensor tympani|common tendinous ring)"
+          ]
+        },
+        {
+          "system": "muscular",
+          "region": "pelvis",
+          "kind": "muscle",
+          "tissue": "muscle",
+          "match": {
+            "collection": "4: Muscular system",
+            "name": "^(Coccygeus|Iliococcygeus|Pubococcygeus|Pubo-analis|External anal sphincter)"
+          },
+          "exclude": ["\\.(i|j|s|t|g|[oe]\\d*[lr])$"]
+        }
+      ]
+    },
+    {
+      "id": "cardiovascular",
+      "rules": [
+        {
+          "system": "cardiovascular",
+          "region": "thorax",
+          "kind": "organ",
+          "tissue": "organ",
+          "color": "#B83B4A",
+          "types": ["MESH", "CURVE"],
+          "match": {
+            "collection": "Bonus collection/Cardiovascular system/Heart"
+          },
+          "exclude": ["\\.(i|j|s|t|g)$"]
+        },
+        {
+          "system": "cardiovascular",
+          "region": "thorax",
+          "kind": "vessel",
+          "tissue": "artery",
+          "types": ["MESH", "CURVE"],
+          "match": {
+            "collection": "Bonus collection/Cardiovascular system/Cardiac vessels",
+            "name": "artery"
+          },
+          "exclude": ["\\.(i|j|s|t|g)$", "^\\?", "//"]
+        },
+        {
+          "system": "cardiovascular",
+          "region": "thorax",
+          "kind": "vessel",
+          "tissue": "vein",
+          "types": ["MESH", "CURVE"],
+          "match": {
+            "collection": "Bonus collection/Cardiovascular system/Cardiac vessels",
+            "name": "(vein|sinus)"
+          },
+          "exclude": ["\\.(i|j|s|t|g)$", "^\\?", "//"]
+        },
+        {
+          "system": "cardiovascular",
+          "region": "thorax",
+          "kind": "vessel",
+          "tissue": "artery",
+          "types": ["MESH", "CURVE"],
+          "match": {
+            "collection": "5: Cardiovascular system",
+            "name": "^(Pulmonary trunk|Bifurcation of pulmonary trunk|(Left|Right) pulmonary artery)$"
+          },
+          "exclude": ["\\.(i|j|s|t|g)$"]
+        },
+        {
+          "system": "cardiovascular",
+          "region": "thorax",
+          "kind": "vessel",
+          "tissue": "vein",
+          "types": ["MESH", "CURVE"],
+          "match": {
+            "collection": "5: Cardiovascular system",
+            "name": "^(Left|Right) (superior|inferior) pulmonary vein$"
+          },
+          "exclude": ["\\.(i|j|s|t|g)$"]
+        },
+        {
+          "system": "cardiovascular",
+          "region": "thorax",
+          "kind": "vessel",
+          "tissue": "artery",
+          "types": ["MESH", "CURVE"],
+          "match": {
+            "collection": "5: Cardiovascular system",
+            "name": "^(Ascending aorta|Aortic arch|Thoracic aorta|Brachiocephalic trunk|Internal thoracic artery)(\\.(l|r))?$"
+          },
+          "exclude": ["\\.(i|j|s|t|g)$"]
+        },
+        {
+          "system": "cardiovascular",
+          "region": "neck",
+          "kind": "vessel",
+          "tissue": "artery",
+          "types": ["MESH", "CURVE"],
+          "match": {
+            "collection": "5: Cardiovascular system",
+            "name": "^((Left |Right )?Common carotid artery|(Internal|External) carotid artery|(Left |Right )?Subclavian artery|Vertebral artery|Thyrocervical trunk|(Superior|Inferior) thyroid artery|Suprascapular artery)(\\.(l|r))?$"
+          },
+          "exclude": ["\\.(i|j|s|t|g)$"]
+        },
+        {
+          "system": "cardiovascular",
+          "region": "head",
+          "kind": "vessel",
+          "tissue": "artery",
+          "types": ["MESH", "CURVE"],
+          "match": {
+            "collection": "5: Cardiovascular system",
+            "name": "^(Facial artery|Lingual artery|Occipital artery|Superficial temporal artery|Maxillary artery|Ophthalmic artery|Anterior cerebral artery|Anterior communicating artery|Middle cerebral artery \\(M1-segment\\)|Posterior cerebral artery|Basilar artery)(\\.(l|r))?$"
+          },
+          "exclude": ["\\.(i|j|s|t|g)$"]
+        },
+        {
+          "system": "cardiovascular",
+          "region": "abdomen",
+          "kind": "vessel",
+          "tissue": "artery",
+          "types": ["MESH", "CURVE"],
+          "match": {
+            "collection": "5: Cardiovascular system",
+            "name": "^(Abdominal aorta|Coeliac trunk|Common hepatic artery|Proper hepatic artery|Splenic artery|Left gastric artery|Gastroduodenal artery|Superior mesenteric artery|Inferior mesenteric artery|(Left|Right) renal artery)(\\.(l|r))?$"
+          },
+          "exclude": ["\\.(i|j|s|t|g)$"]
+        },
+        {
+          "system": "cardiovascular",
+          "region": "pelvis",
+          "kind": "vessel",
+          "tissue": "artery",
+          "types": ["MESH", "CURVE"],
+          "match": {
+            "collection": "5: Cardiovascular system",
+            "name": "^(Common|External|Internal) iliac artery(\\.(l|r))?$"
+          },
+          "exclude": ["\\.(i|j|s|t|g)$"]
+        },
+        {
+          "system": "cardiovascular",
+          "region": "upper-limb",
+          "kind": "vessel",
+          "tissue": "artery",
+          "types": ["MESH", "CURVE"],
+          "match": {
+            "collection": "5: Cardiovascular system",
+            "name": "^(Axillary artery|Brachial artery|Deep brachial artery|Radial artery|Ulnar artery|Common interosseous artery|Subscapular artery|Thoraco-acromial artery|Deep palmar arch|Superficial palmar arch)(\\.(l|r))?$"
+          },
+          "exclude": ["\\.(i|j|s|t|g)$"]
+        },
+        {
+          "system": "cardiovascular",
+          "region": "lower-limb",
+          "kind": "vessel",
+          "tissue": "artery",
+          "types": ["MESH", "CURVE"],
+          "match": {
+            "collection": "5: Cardiovascular system",
+            "name": "^(Femoral artery|Deep femoral artery|Popliteal artery|(Anterior|Posterior) tibial artery|Fibular artery|Dorsalis pedis artery)(\\.(l|r))?$"
+          },
+          "exclude": ["\\.(i|j|s|t|g)$"]
+        },
+        {
+          "system": "cardiovascular",
+          "region": "thorax",
+          "kind": "vessel",
+          "tissue": "vein",
+          "types": ["MESH", "CURVE"],
+          "match": {
+            "collection": "5: Cardiovascular system",
+            "name": "^(Superior vena cava|(Left |Right )Brachiocephalic vein|Inferior vena cava \\(thoracic part\\)|Azygos vein|Hemi-azygos vein|Accessory hemi-azygos vein|Internal thoracic veins)(\\.(l|r))?$"
+          },
+          "exclude": ["\\.(i|j|s|t|g)$"]
+        },
+        {
+          "system": "cardiovascular",
+          "region": "neck",
+          "kind": "vessel",
+          "tissue": "vein",
+          "types": ["MESH", "CURVE"],
+          "match": {
+            "collection": "5: Cardiovascular system",
+            "name": "^((Internal|External|Anterior) jugular vein|(Left |Right )?Subclavian vein|Vertebral vein|(Superior|Inferior) thyroid vein|Suprascapular vein)(\\.(l|r))?$"
+          },
+          "exclude": ["\\.(i|j|s|t|g)$"]
+        },
+        {
+          "system": "cardiovascular",
+          "region": "head",
+          "kind": "vessel",
+          "tissue": "vein",
+          "types": ["MESH", "CURVE"],
+          "match": {
+            "collection": "5: Cardiovascular system",
+            "name": "^(Facial vein|Lingual vein|Occipital vein|Retromandibular vein|Superficial temporal veins|(Superior|Inferior) sagittal sinus|Straight sinus|Transverse sinus|Sigmoid sinus|Cavernous sinus)(\\.(l|r))?$"
+          },
+          "exclude": ["\\.(i|j|s|t|g)$"]
+        },
+        {
+          "system": "cardiovascular",
+          "region": "abdomen",
+          "kind": "vessel",
+          "tissue": "vein",
+          "types": ["MESH", "CURVE"],
+          "match": {
+            "collection": "5: Cardiovascular system",
+            "name": "^(Inferior vena cava \\(abdominal part\\)|Hepatic portal vein|Hepatic veins|Splenic vein|Superior mesenteric vein|Inferior mesenteric vein|(Left|Right) renal vein)(\\.(l|r))?$"
+          },
+          "exclude": ["\\.(i|j|s|t|g)$"]
+        },
+        {
+          "system": "cardiovascular",
+          "region": "pelvis",
+          "kind": "vessel",
+          "tissue": "vein",
+          "types": ["MESH", "CURVE"],
+          "match": {
+            "collection": "5: Cardiovascular system",
+            "name": "^(Common|External|Internal) iliac vein(\\.(l|r))?$"
+          },
+          "exclude": ["\\.(i|j|s|t|g)$"]
+        },
+        {
+          "system": "cardiovascular",
+          "region": "upper-limb",
+          "kind": "vessel",
+          "tissue": "vein",
+          "types": ["MESH", "CURVE"],
+          "match": {
+            "collection": "5: Cardiovascular system",
+            "name": "^(Axillary vein|Brachial veins|Basilic vein|Cephalic vein|Median cubital vein|Median antebrachial vein|Radial veins|Ulnar veins|Subscapular vein)(\\.(l|r))?$"
+          },
+          "exclude": ["\\.(i|j|s|t|g)$"]
+        },
+        {
+          "system": "cardiovascular",
+          "region": "lower-limb",
+          "kind": "vessel",
+          "tissue": "vein",
+          "types": ["MESH", "CURVE"],
+          "match": {
+            "collection": "5: Cardiovascular system",
+            "name": "^(Femoral vein|Deep femoral vein|Popliteal vein|(Great|Small) saphenous vein|(Anterior|Posterior) tibial veins|Fibular veins)(\\.(l|r))?$"
+          },
+          "exclude": ["\\.(i|j|s|t|g)$"]
+        }
+      ]
+    },
+    {
+      "id": "organs",
+      "rules": [
+        {
+          "system": "respiratory",
+          "region": "neck",
+          "kind": "organ",
+          "tissue": "organ",
+          "color": "#E89AA6",
+          "match": {
+            "collection": "Bonus collection/Visceral systems/Respiratory system",
+            "name": "^Trachea$"
+          }
+        },
+        {
+          "system": "respiratory",
+          "region": "thorax",
+          "kind": "organ",
+          "tissue": "organ",
+          "color": "#E89AA6",
+          "types": ["MESH", "CURVE"],
+          "match": {
+            "collection": "Bonus collection/Visceral systems/Respiratory system",
+            "name": "^((Superior|Middle|Inferior) lobe of (left|right) lung|(Left|Right) main bronchus|(Left|Right) (superior|inferior) lobar bronchus|Middle lobar bronchus\\.r)$"
+          }
+        },
+        {
+          "system": "digestive",
+          "region": "head",
+          "kind": "organ",
+          "tissue": "organ",
+          "color": "#D16D74",
+          "match": {
+            "collection": "8: Visceral systems",
+            "name": "^(Tongue|Parotid gland|Submandibular gland|Sublingual gland|Soft palate|Uvula of palate)(\\.(l|r))?$"
+          },
+          "exclude": ["\\.(i|j|s|t|g)$"]
+        },
+        {
+          "system": "digestive",
+          "region": "thorax",
+          "kind": "organ",
+          "tissue": "organ",
+          "color": "#D4846A",
+          "types": ["MESH", "CURVE"],
+          "match": {
+            "collection": "Bonus collection/Visceral systems/Digestive system",
+            "name": "^Oesophagus$"
+          }
+        },
+        {
+          "system": "digestive",
+          "region": "abdomen",
+          "kind": "organ",
+          "tissue": "organ",
+          "color": "#D97B59",
+          "match": {
+            "collection": "Bonus collection/Visceral systems/Digestive system",
+            "name": "^Stomach$"
+          }
+        },
+        {
+          "system": "digestive",
+          "region": "abdomen",
+          "kind": "organ",
+          "tissue": "organ",
+          "color": "#D89A6C",
+          "types": ["MESH", "CURVE"],
+          "match": {
+            "collection": "Bonus collection/Visceral systems/Digestive system",
+            "name": "^(Duodenum|Jejunum)$"
+          }
+        },
+        {
+          "system": "digestive",
+          "region": "abdomen",
+          "kind": "organ",
+          "tissue": "organ",
+          "color": "#8C3B32",
+          "match": {
+            "collection": "Bonus collection/Visceral systems/Digestive system",
+            "name": "^Liver$"
+          }
+        },
+        {
+          "system": "digestive",
+          "region": "abdomen",
+          "kind": "organ",
+          "tissue": "organ",
+          "color": "#4F8A5B",
+          "match": {
+            "collection": "Bonus collection/Visceral systems/Digestive system",
+            "name": "^Gallbladder$"
+          }
+        },
+        {
+          "system": "digestive",
+          "region": "abdomen",
+          "kind": "organ",
+          "tissue": "organ",
+          "color": "#D9B466",
+          "match": {
+            "collection": "Bonus collection/Visceral systems/Digestive system",
+            "name": "^Pancreas$"
+          }
+        },
+        {
+          "system": "digestive",
+          "region": "abdomen",
+          "kind": "organ",
+          "tissue": "organ",
+          "color": "#C98A4B",
+          "match": {
+            "collection": "Bonus collection/Visceral systems/Digestive system",
+            "name": "^((Ascending|Transverse|Descending|Sigmoid) colon|Vermiform appendix)$"
+          }
+        },
+        {
+          "system": "urinary",
+          "region": "abdomen",
+          "kind": "organ",
+          "tissue": "organ",
+          "color": "#A08FD1",
+          "types": ["MESH", "CURVE"],
+          "match": {
+            "collection": "Bonus collection/Visceral systems/Urinary system",
+            "name": "^Ureter\\.(l|r)$"
+          }
+        },
+        {
+          "system": "urinary",
+          "region": "pelvis",
+          "kind": "organ",
+          "tissue": "organ",
+          "color": "#8E7CC3",
+          "types": ["MESH", "CURVE"],
+          "match": {
+            "collection": "Bonus collection/Visceral systems/Urinary system",
+            "name": "^(Urinary bladder|Urethra)$"
+          }
+        },
+        {
+          "system": "lymphatic",
+          "region": "abdomen",
+          "kind": "organ",
+          "tissue": "organ",
+          "color": "#7A3E65",
+          "match": {
+            "collection": "6: Lymphoid organs",
+            "name": "^Spleen$"
+          }
+        },
+        {
+          "system": "lymphatic",
+          "region": "thorax",
+          "kind": "organ",
+          "tissue": "organ",
+          "color": "#5FB58A",
+          "match": {
+            "collection": "6: Lymphoid organs",
+            "name": "^(Left|Right) lobe of thymus$"
+          }
+        },
+        {
+          "system": "lymphatic",
+          "region": "head",
+          "kind": "organ",
+          "tissue": "organ",
+          "color": "#6FA88A",
+          "match": {
+            "collection": "6: Lymphoid organs",
+            "name": "^Palatine tonsil\\.(l|r)$"
+          }
+        },
+        {
+          "system": "nervous",
+          "region": "head",
+          "kind": "organ",
+          "tissue": "organ",
+          "color": "#E3DEC9",
+          "match": {
+            "collection": "7: Nervous system & Sense organs",
+            "name": "^(Sclera|Cornea|Lens|Retina)\\.(l|r)$"
+          }
+        },
+        {
+          "system": "nervous",
+          "region": "head",
+          "kind": "organ",
+          "tissue": "organ",
+          "color": "#5C8AB5",
+          "match": {
+            "collection": "7: Nervous system & Sense organs",
+            "name": "^Iris\\.(l|r)$"
+          }
+        },
+        {
+          "system": "nervous",
+          "region": "head",
+          "kind": "organ",
+          "tissue": "organ",
+          "color": "#E5C34B",
+          "match": {
+            "collection": "Bonus collection/Nervous system/Central nervous system/Meninges",
+            "name": "^(Falx cerebri|Tentorium cerebelli(\\.(l|r))?)$"
+          }
+        },
+        {
+          "system": "nervous",
+          "region": "back",
+          "kind": "organ",
+          "tissue": "organ",
+          "color": "#E5C34B",
+          "match": {
+            "collection": "Bonus collection/Nervous system/Central nervous system/Meninges/Dura/Spinal dura",
+            "name": "^Spinal dura$"
+          }
+        },
+        {
+          "system": "nervous",
+          "region": "multiple",
+          "kind": "nerve",
+          "tissue": "nerve",
+          "types": ["MESH", "CURVE"],
+          "match": {
+            "collection": "7: Nervous system & Sense organs",
+            "name": "^(Spinal ganglion|Sympathetic trunk|Ganglia of sympathetic trunk)(\\.(l|r))?$"
+          },
+          "exclude": ["\\.(i|j|s|t|g)$"]
+        },
+        {
+          "system": "nervous",
+          "region": "upper-limb",
+          "kind": "nerve",
+          "tissue": "nerve",
+          "types": ["MESH", "CURVE"],
+          "match": {
+            "collection": "Bonus collection/Nervous system/Peripheral nervous system/Spinal nerves",
+            "name": "^(Median|Ulnar|Radial) nerve\\.(l|r)$"
+          }
+        },
+        {
+          "system": "nervous",
+          "region": "lower-limb",
+          "kind": "nerve",
+          "tissue": "nerve",
+          "types": ["MESH", "CURVE"],
+          "match": {
+            "collection": "Bonus collection/Nervous system/Peripheral nervous system/Spinal nerves",
+            "name": "^(Sciatic|Femoral) nerve\\.(l|r)$"
+          }
+        }
+      ]
     }
   ]
 }

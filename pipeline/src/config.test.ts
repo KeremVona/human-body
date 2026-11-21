@@ -35,3 +35,33 @@ it('rejects an originBundle that is not a bundle', () => {
     }).success,
   ).toBe(false);
 });
+
+it('defaults rule types to MESH and accepts CURVE', () => {
+  const c = PipelineConfigSchema.parse({
+    ...minimalConfig,
+    bundles: [
+      {
+        id: 'skeletal',
+        rules: [
+          {
+            system: 'skeletal',
+            region: 'head',
+            kind: 'bone',
+            tissue: 'bone',
+            match: { collection: 'Bones' },
+          },
+          {
+            system: 'cardiovascular',
+            region: 'thorax',
+            kind: 'vessel',
+            tissue: 'artery',
+            types: ['MESH', 'CURVE'],
+            match: { collection: 'Arteries' },
+          },
+        ],
+      },
+    ],
+  });
+  expect(c.bundles[0].rules[0].types).toEqual(['MESH']);
+  expect(c.bundles[0].rules[1].types).toEqual(['MESH', 'CURVE']);
+});

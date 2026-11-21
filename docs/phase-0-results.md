@@ -86,3 +86,15 @@ Notes for subsequent phases:
 1. **Per-bundle budget (`15 MiB`):** Splitting the remaining structures across the Muscular, Organs, and Cardiovascular bundles keeps each bundle well below `15 MiB` (each would sit near `~5–9 MiB` at skeletal density, supporting up to ~`880` skeletal-density meshes per bundle).
 2. **Draw calls (§9.1):** One mesh equals one draw call (`263` today). When multiple heavy systems are visible simultaneously (`1,000–1,500` meshes), profile on mid-range / integrated GPUs and adopt `THREE.BatchedMesh` per bundle if draw calls approach `~1,500`.
 3. **JS bundle headroom (§8.6):** Current production JS is `387.92 kB` gzipped against the `400 KB` target; Plans 1+2 UI additions should introduce lazy chunking (e.g., splitting UI panels or `MeshoptDecoder` / detail views) so gzipped initial JS stays under `400 KB`.
+
+## Phase 1 bundles
+
+All four bundles built at `simplify.ratio = 0.7`, `error = 0.001` (`582` canonical structures in `content/en/index.json`, `assets:verify`: `0 errors, 0 warnings`):
+
+| Bundle | Output File | Meshes | Triangles | Raw (bytes) | Optimized (bytes) | Size (MiB) | Budget (MiB) |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| `skeletal` | `skeletal.6c6d593d.glb` | 263 | 511,561 | 13,040,492 | 4,701,748 | 4.48 MiB | 5 MiB |
+| `muscular` | `muscular.2ea164df.glb` | 459 | 1,432,926 | 38,790,828 | 13,703,256 | 13.07 MiB | 15 MiB |
+| `cardiovascular` | `cardiovascular.7f4bfbb0.glb` | 216 | 617,917 | 19,031,280 | 6,056,040 | 5.78 MiB | 15 MiB |
+| `organs` | `organs.d20832d0.glb` | 73 | 328,420 | 11,053,756 | 3,246,064 | 3.10 MiB | 15 MiB |
+| **Total** | **4 bundles** | **1,011** | **2,890,824** | **81,916,356** | **27,707,108** | **26.42 MiB** | **40 MiB** |

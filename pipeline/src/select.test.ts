@@ -18,6 +18,7 @@ function cfg(
     tissue?: PipelineConfig['bundles'][number]['rules'][number]['tissue'];
     match: { collection?: string; name?: string };
     exclude?: string[];
+    types?: Array<'MESH' | 'CURVE'>;
   }>,
 ): PipelineConfig {
   return PipelineConfigSchema.parse({
@@ -42,6 +43,7 @@ function cfg(
           tissue: r.tissue ?? 'bone',
           match: r.match,
           exclude: r.exclude,
+          types: r.types,
         })),
       },
     ],
@@ -82,4 +84,24 @@ it('applies name regex and exclude, skips non-mesh, first rule wins', () => {
     ['Rib 2', 'lower-limb'],
   ]);
   expect(r.unmatched).toBe(1);
+});
+
+it('skips CURVE objects by default and selects them only when rule types includes CURVE', () => {
+  const objs = [
+    obj('Femur.l', ['Vessels'], 'MESH'),
+    obj('Abdominal aorta', ['Vessels'], 'CURVE'),
+    obj('Aorta.t', ['Vessels'], 'FONT'),
+  ];
+  expect(
+    selectObjects(
+      cfg([{ match: { collection: 'Vessels' } }]),
+      objs,
+    ).selected.map((s) => s.object.name),
+  ).toEqual(['Femur.l']);
+  expect(
+    selectObjects(
+      cfg([{ match: { collection: 'Vessels' }, types: ['MESH', 'CURVE'] }]),
+      objs,
+    ).selected.map((s) => s.object.name),
+  ).toEqual(['Femur.l', 'Abdominal aorta']);
 });
