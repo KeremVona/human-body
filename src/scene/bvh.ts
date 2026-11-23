@@ -1,6 +1,6 @@
 import { Mesh } from 'three';
 import {
-  SAH,
+  CENTER,
   acceleratedRaycast,
   computeBoundsTree,
   disposeBoundsTree,
@@ -13,7 +13,7 @@ export function attachMeshBvh(mesh: Mesh): boolean {
   }
   mesh.raycast = acceleratedRaycast;
   computeBoundsTree.call(mesh.geometry, {
-    strategy: SAH,
+    strategy: CENTER,
     targetLeafSize: 10,
     setBoundingBox: true,
   });

@@ -1,9 +1,9 @@
-import { useGLTF } from '@react-three/drei';
 import { useThree } from '@react-three/fiber';
 import { useEffect, useRef } from 'react';
 import type { Mesh } from 'three';
 import type { MeshId } from '../data/ids';
 import { attachMeshBvh, detachMeshBvh } from './bvh';
+import { useGltf } from './gltf';
 import { meshIdOf, useMeshRegistry } from './meshRegistry';
 
 type BundleModelProps = {
@@ -14,7 +14,7 @@ type BundleModelProps = {
 
 /** Loads one Meshopt-compressed GLB bundle and registers every mesh in MeshRegistry. */
 export function BundleModel({ url, bundleId, onReady }: BundleModelProps) {
-  const gltf = useGLTF(url, false, true);
+  const gltf = useGltf(url);
   const registry = useMeshRegistry();
   const invalidate = useThree((s) => s.invalidate);
   const onReadyRef = useRef(onReady);

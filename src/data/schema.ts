@@ -1,9 +1,9 @@
-import { z } from 'zod';
+import { z } from 'zod/mini';
 import { MESH_ID_RE, STRUCTURE_ID_RE } from './ids';
 
-const StructureIdString = z.string().regex(STRUCTURE_ID_RE);
-const MeshIdString = z.string().regex(MESH_ID_RE);
-const NonEmptyString = z.string().min(1);
+const StructureIdString = z.string().check(z.regex(STRUCTURE_ID_RE));
+const MeshIdString = z.string().check(z.regex(MESH_ID_RE));
+const NonEmptyString = z.string().check(z.minLength(1));
 
 /** Anatomical system identifier. */
 export const SystemIdSchema = z.enum([
@@ -60,7 +60,7 @@ export const TissueSchema = z.enum([
 export type Tissue = z.infer<typeof TissueSchema>;
 
 /** Six-digit hex RGB color string (`#RRGGBB`). */
-export const HexColorSchema = z.string().regex(/^#[0-9a-fA-F]{6}$/);
+export const HexColorSchema = z.string().check(z.regex(/^#[0-9a-fA-F]{6}$/));
 export type HexColor = z.infer<typeof HexColorSchema>;
 
 /** Systems, regions, and UI system groupings used by the app and content check. */
@@ -105,9 +105,9 @@ export const ManifestSchema = z.object({
   bundles: z.array(
     z.object({
       id: StructureIdString,
-      file: z.string().regex(/^[a-z0-9-]+\.[0-9a-f]{8}\.glb$/),
-      bytes: z.number().int().nonnegative(),
-      sha256: z.string().regex(/^[0-9a-f]{64}$/),
+      file: z.string().check(z.regex(/^[a-z0-9-]+\.[0-9a-f]{8}\.glb$/)),
+      bytes: z.number().check(z.int(), z.nonnegative()),
+      sha256: z.string().check(z.regex(/^[0-9a-f]{64}$/)),
       meshIds: z.array(MeshIdString),
     }),
   ),
@@ -119,7 +119,7 @@ export const ManifestSchema = z.object({
         min: Vec3Schema,
         max: Vec3Schema,
       }),
-      triangles: z.number().int().nonnegative(),
+      triangles: z.number().check(z.int(), z.nonnegative()),
       sizeClass: z.enum(['tiny', 'small', 'medium', 'large']),
     }),
   ),
@@ -131,14 +131,14 @@ export const IndexEntrySchema = z.object({
   id: StructureIdString,
   system: SystemIdSchema,
   region: RegionIdSchema,
-  group: NonEmptyString.optional(),
+  group: z.optional(NonEmptyString),
   paired: z.boolean(),
   kind: KindSchema,
   tissue: TissueSchema,
-  color: HexColorSchema.optional(),
+  color: z.optional(HexColorSchema),
   names: z.object({
     common: NonEmptyString,
-    latin: NonEmptyString.optional(),
+    latin: z.optional(NonEmptyString),
     synonyms: z.array(z.string()),
   }),
   featured: z.boolean(),
@@ -169,7 +169,7 @@ export const DetailsSchema = z.discriminatedUnion('kind', [
   }),
   z.object({
     kind: z.literal('facts'),
-    facts: z.array(NonEmptyString).min(1),
+    facts: z.array(NonEmptyString).check(z.minLength(1)),
   }),
 ]);
 export type Details = z.infer<typeof DetailsSchema>;
@@ -185,10 +185,10 @@ export type Source = z.infer<typeof SourceSchema>;
 /** Full descriptive entry stored per system under `content/<locale>/structures/`. */
 export const StructureEntrySchema = z.object({
   id: StructureIdString,
-  overview: NonEmptyString.optional(),
-  function: NonEmptyString.optional(),
-  details: DetailsSchema.optional(),
-  sources: z.array(SourceSchema).min(1),
+  overview: z.optional(NonEmptyString),
+  function: z.optional(NonEmptyString),
+  details: z.optional(DetailsSchema),
+  sources: z.array(SourceSchema).check(z.minLength(1)),
 });
 export type StructureEntry = z.infer<typeof StructureEntrySchema>;
 

@@ -1,8 +1,21 @@
-import { CameraControls, CameraControlsImpl } from '@react-three/drei';
-import { useThree } from '@react-three/fiber';
-import { useContext, useEffect, useRef, type JSX } from 'react';
+import { useFrame, useThree } from '@react-three/fiber';
+import CameraControlsImpl from 'camera-controls';
+import { useContext, useEffect, useRef } from 'react';
 import { useStore } from 'react-redux';
-import { Box3, PerspectiveCamera, Vector3 } from 'three';
+import {
+  Box3,
+  MathUtils,
+  Matrix4,
+  OrthographicCamera,
+  PerspectiveCamera,
+  Quaternion,
+  Raycaster,
+  Sphere,
+  Spherical,
+  Vector2,
+  Vector3,
+  Vector4,
+} from 'three';
 import type { RootState } from '../app/store';
 import {
   CameraApiContext,
@@ -17,6 +30,21 @@ import {
 } from './camera';
 import { useMeshRegistry } from './meshRegistry';
 
+CameraControlsImpl.install({
+  THREE: {
+    Box3,
+    MathUtils: { clamp: MathUtils.clamp },
+    Matrix4,
+    Quaternion,
+    Raycaster,
+    Sphere,
+    Spherical,
+    Vector2,
+    Vector3,
+    Vector4,
+  },
+});
+
 function prefersReducedMotion(): boolean {
   return (
     typeof window !== 'undefined' &&
@@ -25,13 +53,14 @@ function prefersReducedMotion(): boolean {
   );
 }
 
-/** Owns drei CameraControls inside Canvas and implements CameraApi transitions and limits. */
-export function CameraRig(): JSX.Element {
+/** Owns CameraControls inside Canvas and implements CameraApi transitions and limits. */
+export function CameraRig(): null {
   const controlsRef = useRef<CameraControlsImpl | null>(null);
   const initializedRef = useRef(false);
   const store = useStore<RootState>();
   const registry = useMeshRegistry();
   const controller = useContext(CameraApiContext);
+  const camera = useThree((s) => s.camera);
   const gl = useThree((s) => s.gl);
   const size = useThree((s) => s.size);
   const invalidate = useThree((s) => s.invalidate);
@@ -41,23 +70,35 @@ export function CameraRig(): JSX.Element {
     sizeRef.current = size;
   }, [size]);
 
-  useEffect(() => {
-    const controls = controlsRef.current;
-    if (!controls) return;
+  useFrame((_, delta) => {
+    if (controlsRef.current?.update(delta)) {
+      invalidate();
+    }
+  }, -1);
 
-    const cam = controls.camera;
-    cam.near = 0.01;
-    cam.far = 100;
-    if (cam instanceof PerspectiveCamera) {
-      cam.updateProjectionMatrix();
+  useEffect(() => {
+    if (
+      !(camera instanceof PerspectiveCamera) &&
+      !(camera instanceof OrthographicCamera)
+    ) {
+      return;
     }
 
+    const controls = new CameraControlsImpl(camera, gl.domElement);
+    controlsRef.current = controls;
     controls.smoothTime = 0.25;
     controls.dollyToCursor = true;
     controls.mouseButtons.right = CameraControlsImpl.ACTION.TRUCK;
     controls.touches.two = CameraControlsImpl.ACTION.TOUCH_DOLLY_TRUCK;
 
-    const currentFov = cam instanceof PerspectiveCamera ? cam.fov : 35;
+    const triggerInvalidate = () => invalidate();
+    controls.addEventListener('controlstart', triggerInvalidate);
+    controls.addEventListener('control', triggerInvalidate);
+    controls.addEventListener('transitionstart', triggerInvalidate);
+    controls.addEventListener('update', triggerInvalidate);
+    controls.addEventListener('wake', triggerInvalidate);
+
+    const currentFov = camera instanceof PerspectiveCamera ? camera.fov : 35;
 
     const getAspect = () =>
       Math.max(1, sizeRef.current.width) / Math.max(1, sizeRef.current.height);
@@ -127,11 +168,11 @@ export function CameraRig(): JSX.Element {
       screenPointOf(id) {
         const mesh = registry.get(id);
         if (!mesh) return null;
-        cam.updateMatrixWorld();
+        camera.updateMatrixWorld();
         mesh.updateWorldMatrix(true, false);
         const box = new Box3().setFromObject(mesh);
         if (box.isEmpty()) return null;
-        const center = box.getCenter(new Vector3()).project(cam);
+        const center = box.getCenter(new Vector3()).project(camera);
         const rect = gl.domElement.getBoundingClientRect();
         return {
           x: rect.left + ((center.x + 1) / 2) * rect.width,
@@ -174,15 +215,15 @@ export function CameraRig(): JSX.Element {
     return () => {
       unsubStore();
       unbind?.();
+      controls.removeEventListener('controlstart', triggerInvalidate);
+      controls.removeEventListener('control', triggerInvalidate);
+      controls.removeEventListener('transitionstart', triggerInvalidate);
+      controls.removeEventListener('update', triggerInvalidate);
+      controls.removeEventListener('wake', triggerInvalidate);
+      controls.dispose();
+      controlsRef.current = null;
     };
-  }, [store, registry, gl, controller, invalidate]);
+  }, [store, registry, camera, gl, controller, invalidate]);
 
-  return (
-    <CameraControls
-      ref={controlsRef}
-      makeDefault
-      smoothTime={0.25}
-      dollyToCursor
-    />
-  );
+  return null;
 }

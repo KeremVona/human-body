@@ -12,8 +12,10 @@ import {
 
 const clearMock = vi.hoisted(() => vi.fn());
 
-vi.mock('@react-three/drei', () => ({
-  useGLTF: Object.assign(() => ({}), { clear: clearMock }),
+vi.mock('../../scene/gltfCache', () => ({
+  clearGltf: clearMock,
+  preloadGltf: vi.fn(),
+  registerGltfHandlers: vi.fn(),
 }));
 
 const sampleManifest: Manifest = {

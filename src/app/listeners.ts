@@ -1,4 +1,3 @@
-import { useGLTF } from '@react-three/drei';
 import { createListenerMiddleware, isAnyOf } from '@reduxjs/toolkit';
 import { isMeshId, parseMeshId } from '../data/ids';
 import { bundleUrl } from '../data/manifest';
@@ -21,6 +20,7 @@ import {
   uiGroupToggled,
   type SystemsState,
 } from '../features/systems/systemsSlice';
+import { clearGltf } from '../scene/gltfCache';
 
 type ListenerState = {
   assets: AssetsState;
@@ -37,7 +37,7 @@ listenerMiddleware.startListening({
     const manifest = listenerApi.getState().assets.manifest;
     const bundle = manifest?.bundles.find((b) => b.id === action.payload.id);
     if (bundle) {
-      useGLTF.clear(bundleUrl(bundle.file));
+      clearGltf(bundleUrl(bundle.file));
     }
   },
 });

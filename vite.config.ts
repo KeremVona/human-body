@@ -1,10 +1,11 @@
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
-import { cpSync, existsSync, statSync } from 'node:fs';
+import { cpSync, existsSync, readFileSync, statSync } from 'node:fs';
 import path from 'node:path';
 import {
   defineConfig,
   type Connect,
+  type HtmlTagDescriptor,
   type Plugin,
   type ResolvedConfig,
 } from 'vite';
@@ -78,7 +79,111 @@ function content404Plugin(): Plugin {
   };
 }
 
+function preloadAssetsPlugin(): Plugin {
+  let root = process.cwd();
+  let base = '/';
+  return {
+    name: 'preload-atlas-assets',
+    configResolved(config) {
+      root = config.root;
+      base = config.base;
+    },
+    transformIndexHtml() {
+      const normalizedBase = base.endsWith('/') ? base : `${base}/`;
+      const manifestPath = path.resolve(root, 'public/models/manifest.json');
+      let skeletalFile: string | undefined;
+      if (existsSync(manifestPath)) {
+        try {
+          const parsed = JSON.parse(readFileSync(manifestPath, 'utf8')) as {
+            bundles?: Array<{ id?: string; file?: string }>;
+          };
+          skeletalFile = parsed.bundles?.find((b) => b.id === 'skeletal')?.file;
+        } catch {
+          skeletalFile = undefined;
+        }
+      }
+
+      const tags: HtmlTagDescriptor[] = [
+        {
+          tag: 'link',
+          attrs: {
+            rel: 'preload',
+            as: 'fetch',
+            crossorigin: 'anonymous',
+            href: `${normalizedBase}models/manifest.json`,
+          },
+          injectTo: 'head',
+        },
+        {
+          tag: 'link',
+          attrs: {
+            rel: 'preload',
+            as: 'fetch',
+            crossorigin: 'anonymous',
+            href: `${normalizedBase}content/taxonomy.json`,
+          },
+          injectTo: 'head',
+        },
+        {
+          tag: 'link',
+          attrs: {
+            rel: 'preload',
+            as: 'fetch',
+            crossorigin: 'anonymous',
+            href: `${normalizedBase}content/en/index.json`,
+          },
+          injectTo: 'head',
+        },
+      ];
+
+      if (skeletalFile) {
+        tags.push({
+          tag: 'meta',
+          attrs: {
+            name: 'atlas-skeletal',
+            content: `${normalizedBase}models/${skeletalFile}`,
+          },
+          injectTo: 'head',
+        });
+      }
+
+      return tags;
+    },
+  };
+}
+
 export default defineConfig({
-  plugins: [react(), tailwindcss(), copyContentPlugin(), content404Plugin()],
+  plugins: [
+    react(),
+    tailwindcss(),
+    copyContentPlugin(),
+    content404Plugin(),
+    preloadAssetsPlugin(),
+  ],
   base: process.env.ATLAS_BASE_PATH ?? '/',
+  build: {
+    rolldownOptions: {
+      output: {
+        codeSplitting: {
+          groups: [
+            {
+              name: 'three',
+              test: /[\\/]node_modules[\\/]three[\\/]/,
+              priority: 3,
+            },
+            {
+              name: 'r3f',
+              test: /[\\/]node_modules[\\/](@react-three|camera-controls|three-mesh-bvh|its-fine|suspend-react|zustand)[\\/]/,
+              priority: 2,
+            },
+            {
+              name: 'react',
+              test: /[\\/]node_modules[\\/](react|react-dom|scheduler|react-redux|@reduxjs|redux|immer|reselect)[\\/]/,
+              priority: 2,
+            },
+          ],
+        },
+      },
+    },
+  },
 });

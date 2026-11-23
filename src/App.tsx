@@ -1,4 +1,6 @@
 import {
+  lazy,
+  Suspense,
   useCallback,
   useContext,
   useEffect,
@@ -11,24 +13,35 @@ import { useAppDispatch, useAppSelector } from './app/hooks';
 import { makeStore, type AppStore } from './app/store';
 import { installTestHooks } from './app/testHooks';
 import { useShortcuts } from './app/useShortcuts';
-import { bundleUrl } from './data/manifest';
+import { bundleUrl, loadManifest } from './data/manifest';
 import { bundleFailed, bundleReady } from './features/assets/assetsSlice';
+import { preloadGltf } from './scene/gltfCache';
 import { BundleScheduler } from './features/assets/BundleScheduler';
 import { bootstrap } from './features/content/contentSlice';
-import {
-  DissectionMenu,
-  type ContextMenuTarget,
-} from './features/dissection/DissectionMenu';
+import type { ContextMenuTarget } from './features/dissection/DissectionMenu';
 import { ExitChips } from './features/dissection/ExitChips';
 import { Toolbar } from './features/dissection/Toolbar';
-import { Inspector } from './features/inspector/Inspector';
 import { FirstRunHint } from './features/onboarding/FirstRunHint';
 import { HoverLabel } from './features/selection/HoverLabel';
 import { SelectionAnnouncer } from './features/selection/SelectionAnnouncer';
 import { selected } from './features/selection/selectionSlice';
 import { SystemsPanel } from './features/systems/SystemsPanel';
-import { AtlasCanvas, type CanvasBundle } from './scene/AtlasCanvas';
+import type { CanvasBundle } from './scene/AtlasCanvas';
 import { CameraApiContext, CameraApiProvider } from './scene/camera';
+
+const loadAtlasCanvas = () =>
+  import('./scene/AtlasCanvas').then((m) => ({ default: m.AtlasCanvas }));
+const AtlasCanvas = lazy(loadAtlasCanvas);
+const loadInspector = () =>
+  import('./features/inspector/Inspector').then((m) => ({
+    default: m.Inspector,
+  }));
+const Inspector = lazy(loadInspector);
+const DissectionMenu = lazy(() =>
+  import('./features/dissection/DissectionMenu').then((m) => ({
+    default: m.DissectionMenu,
+  })),
+);
 import { DebugStats, type RenderStats } from './scene/DebugStats';
 import {
   createMeshRegistry,
@@ -49,6 +62,9 @@ function AtlasShell({
   const boot = useAppSelector((s) => s.assets.boot);
   const manifest = useAppSelector((s) => s.assets.manifest);
   const bundles = useAppSelector((s) => s.assets.bundles);
+  const hasSelection = useAppSelector(
+    (s) => s.selection.selectedIds.length > 0,
+  );
   const [meshCount, setMeshCount] = useState(0);
   const [debugStats, setDebugStats] = useState<RenderStats | null>(null);
   const [contextMenu, setContextMenu] = useState<ContextMenuTarget | null>(
@@ -93,7 +109,16 @@ function AtlasShell({
   }, [registry, store, cameraController]);
 
   useEffect(() => {
+    void loadAtlasCanvas();
     void dispatch(bootstrap());
+    void loadManifest()
+      .then((m) => {
+        const skeletal = m.bundles.find((b) => b.id === 'skeletal');
+        if (skeletal) {
+          preloadGltf(bundleUrl(skeletal.file));
+        }
+      })
+      .catch(() => {});
   }, [dispatch]);
 
   useEffect(() => {
@@ -122,6 +147,9 @@ function AtlasShell({
     (bundleId: string) => {
       setMeshCount(registry.size);
       dispatch(bundleReady(bundleId));
+      if (bundleId === 'skeletal') {
+        void loadInspector();
+      }
     },
     [dispatch, registry],
   );
@@ -139,14 +167,16 @@ function AtlasShell({
       className="relative h-dvh w-full overflow-hidden bg-[radial-gradient(ellipse_at_center,#2a3038_0%,#14171c_100%)]"
     >
       {boot === 'ready' ? (
-        <AtlasCanvas
-          debug={debug}
-          bundles={canvasBundles}
-          onBundleReady={handleBundleReady}
-          onBundleError={handleBundleError}
-          onDebugSample={debug ? setDebugStats : undefined}
-          onContextRequest={handleContextRequest}
-        />
+        <Suspense fallback={null}>
+          <AtlasCanvas
+            debug={debug}
+            bundles={canvasBundles}
+            onBundleReady={handleBundleReady}
+            onBundleError={handleBundleError}
+            onDebugSample={debug ? setDebugStats : undefined}
+            onContextRequest={handleContextRequest}
+          />
+        </Suspense>
       ) : null}
 
       {boot === 'idle' || boot === 'loading' ? (
@@ -187,16 +217,24 @@ function AtlasShell({
       {boot === 'ready' ? (
         <>
           <SystemsPanel />
-          <Inspector />
+          {hasSelection ? (
+            <Suspense fallback={null}>
+              <Inspector />
+            </Suspense>
+          ) : null}
           <div className="pointer-events-none fixed bottom-16 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2">
             <FirstRunHint />
             <ExitChips />
           </div>
           <Toolbar />
-          <DissectionMenu
-            target={contextMenu}
-            onClose={() => setContextMenu(null)}
-          />
+          {contextMenu ? (
+            <Suspense fallback={null}>
+              <DissectionMenu
+                target={contextMenu}
+                onClose={() => setContextMenu(null)}
+              />
+            </Suspense>
+          ) : null}
         </>
       ) : null}
       <HoverLabel />

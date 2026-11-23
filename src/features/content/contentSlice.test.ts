@@ -2,10 +2,6 @@ import { vi } from 'vitest';
 import taxonomy from '../../../content/taxonomy.json';
 import type { IndexFile, Manifest, StructureFile } from '../../data/schema';
 
-vi.mock('@react-three/drei', () => ({
-  useGLTF: { clear: vi.fn() },
-}));
-
 const sampleManifest: Manifest = {
   version: 1,
   generatedAt: '2026-11-21T00:00:00Z',

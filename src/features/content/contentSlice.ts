@@ -3,7 +3,6 @@ import {
   createSelector,
   createSlice,
 } from '@reduxjs/toolkit';
-import type { z } from 'zod';
 import type { StructureId } from '../../data/ids';
 import { loadManifest } from '../../data/manifest';
 import type { AssetsState } from '../assets/assetsSlice';
@@ -40,7 +39,7 @@ const initialState: ContentState = {
 
 async function fetchValidated<T>(
   url: string,
-  schema: z.ZodType<T>,
+  schema: { parse(data: unknown): T },
 ): Promise<T> {
   const res = await fetch(url);
   if (!res.ok) {

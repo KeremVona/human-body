@@ -5,11 +5,11 @@ const e2eBase = process.env.E2E_BASE;
 export default defineConfig({
   testDir: './e2e',
   fullyParallel: true,
-  workers: 2,
+  workers: 1,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
   use: {
-    baseURL: e2eBase ? 'http://localhost:4173' : 'http://localhost:5173',
+    baseURL: e2eBase ? 'http://localhost:4174' : 'http://localhost:5174',
     trace: 'on-first-retry',
   },
   projects: e2eBase
@@ -49,13 +49,13 @@ export default defineConfig({
       ],
   webServer: e2eBase
     ? {
-        command: `npx vite preview --port 4173 --strictPort --base ${e2eBase}`,
-        url: `http://localhost:4173${e2eBase}`,
-        reuseExistingServer: !process.env.CI,
+        command: `npx vite preview --port 4174 --strictPort --base ${e2eBase}`,
+        url: `http://localhost:4174${e2eBase}`,
+        reuseExistingServer: false,
       }
     : {
-        command: 'npm run dev -- --port 5173 --strictPort',
-        url: 'http://localhost:5173',
-        reuseExistingServer: !process.env.CI,
+        command: 'npm run dev -- --port 5174 --strictPort',
+        url: 'http://localhost:5174',
+        reuseExistingServer: false,
       },
 });

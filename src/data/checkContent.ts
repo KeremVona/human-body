@@ -1,4 +1,3 @@
-import type { z } from 'zod';
 import { parseMeshId, type MeshId, type Side, type StructureId } from './ids';
 import {
   IndexFileSchema,
@@ -20,9 +19,17 @@ export type ContentReport = {
   warnings: string[];
 };
 
-function formatSchemaErrors(file: string, error: z.ZodError): string[] {
+function formatSchemaErrors(
+  file: string,
+  error: {
+    issues: ReadonlyArray<{
+      path: ReadonlyArray<PropertyKey>;
+      message: string;
+    }>;
+  },
+): string[] {
   return error.issues.map((issue) => {
-    const path = issue.path.join('.');
+    const path = issue.path.map(String).join('.');
     return path
       ? `${file}: ${path}: ${issue.message}`
       : `${file}: ${issue.message}`;

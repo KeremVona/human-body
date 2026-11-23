@@ -9,8 +9,8 @@ const mocks = vi.hoisted(() => ({
   invalidate: vi.fn(),
 }));
 
-vi.mock('@react-three/drei', () => ({
-  useGLTF: () => ({ scene: mocks.scene }),
+vi.mock('./gltf', () => ({
+  useGltf: () => ({ scene: mocks.scene }),
 }));
 
 vi.mock('@react-three/fiber', () => ({

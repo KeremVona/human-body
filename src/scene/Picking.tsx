@@ -233,6 +233,12 @@ export function Picking({
     e.stopPropagation();
     pointerPosition.set(e.clientX, e.clientY);
     if (toPointerKind(e.pointerType) !== 'mouse') return;
+    if (e.buttons !== 0) {
+      if (store.getState().selection.hoveredId !== null) {
+        dispatch(hovered(null));
+      }
+      return;
+    }
 
     let id: MeshId | null;
     if (import.meta.env.DEV && window.location.search.includes('debug')) {
