@@ -380,7 +380,7 @@
         "latin": "Colon ascendens",
         "synonyms": []
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "ascending-part-of-trapezius-muscle",
@@ -857,7 +857,7 @@
         "latin": "Cornea",
         "synonyms": []
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "corniculate-cartilage",
@@ -1475,7 +1475,7 @@
         "latin": "Duodenum",
         "synonyms": []
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "eighth-rib",
@@ -1532,7 +1532,7 @@
         "latin": "Oesophagus",
         "synonyms": ["gullet", "food pipe", "oesophagus"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "ethmoid-bone",
@@ -1841,7 +1841,7 @@
         "latin": "Falx cerebri",
         "synonyms": []
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "femoral-artery",
@@ -2262,7 +2262,7 @@
         "latin": "Vesica biliaris",
         "synonyms": ["gall bladder"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "ganglia-of-sympathetic-trunk",
@@ -2713,7 +2713,7 @@
         "latin": "Lobus inferior pulmonis dextri",
         "synonyms": []
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "inferior-mesenteric-artery",
@@ -3137,7 +3137,7 @@
         "latin": "Jejunum",
         "synonyms": []
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "lacrimal-bone",
@@ -3379,7 +3379,7 @@
         "latin": "Lobus sinister thymi",
         "synonyms": []
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "left-main-bronchus",
@@ -3394,7 +3394,7 @@
         "latin": "Bronchus principalis sinister",
         "synonyms": []
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "left-pulmonary-artery",
@@ -3679,7 +3679,7 @@
         "latin": "Hepar",
         "synonyms": []
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "long-head-of-biceps-brachii",
@@ -4127,7 +4127,7 @@
         "latin": "Nervus medianus",
         "synonyms": []
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "mentalis-muscle",
@@ -4184,7 +4184,7 @@
         "latin": "Lobus medius pulmonis dextri",
         "synonyms": []
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "middle-phalanx-of-fifth-finger-of-foot",
@@ -4775,7 +4775,7 @@
         "latin": "Pancreas",
         "synonyms": []
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "parietal-bone",
@@ -5506,7 +5506,7 @@
         "latin": "Retina",
         "synonyms": []
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "retromandibular-vein",
@@ -5991,7 +5991,7 @@
         "latin": "Nervus ischiadicus",
         "synonyms": []
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "sclera",
@@ -6361,7 +6361,7 @@
         "latin": "Dura mater spinalis",
         "synonyms": []
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "spinal-ganglion",
@@ -6432,7 +6432,7 @@
         "latin": "Splen",
         "synonyms": []
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "splenic-artery",
@@ -6559,7 +6559,7 @@
         "latin": "Gaster",
         "synonyms": ["belly"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "straight-part-of-cricothyroid-muscle",
@@ -6814,7 +6814,7 @@
         "latin": "Lobus superior pulmonis sinistri",
         "synonyms": []
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "superior-lobe-of-right-lung",
@@ -7307,7 +7307,7 @@
         "latin": "Lingua",
         "synonyms": []
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "trachea",
@@ -7322,7 +7322,7 @@
         "latin": "Trachea",
         "synonyms": ["windpipe"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "transverse-colon",
@@ -7688,7 +7688,7 @@
         "latin": "Ureter",
         "synonyms": []
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "urethra",
@@ -7703,7 +7703,7 @@
         "latin": "Urethra",
         "synonyms": []
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "urinary-bladder",
@@ -7718,7 +7718,7 @@
         "latin": "Vesica urinaria",
         "synonyms": ["bladder"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "uvula-of-palate",

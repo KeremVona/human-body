@@ -1,0 +1,53 @@
+{
+  "system": "lymphatic",
+  "entries": [
+    {
+      "id": "spleen",
+      "overview": "A soft, fist-sized purplish organ tucked high under the left lower ribcage just beside the stomach.",
+      "function": "Filters worn-out red blood cells from the bloodstream and mounts fast immune responses against blood-borne microbes.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "White pulp pockets monitor the blood for pathogens while red pulp recycles iron and old red blood cells.",
+          "Acts as an emergency reserve holding extra platelets and immune monocytes."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Secondary Lymphoid Organs",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/21-1-anatomy-of-the-lymphatic-and-immune-systems#fs-id1971419",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Spleen",
+          "url": "https://en.wikipedia.org/wiki/Spleen",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "left-lobe-of-thymus",
+      "overview": "One of two soft lobes of a flat lymphoid gland resting right behind the upper breastbone in front of the great vessels.",
+      "function": "Provides the specialized training site where immature T lymphocytes mature so they recognize threats safely.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Reaches its largest size during childhood and gradually shrinks and fills with fat after puberty.",
+          "Trains T cells to attack foreign invaders without attacking the body’s own healthy tissues."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Primary Lymphoid Organs",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/21-1-anatomy-of-the-lymphatic-and-immune-systems#fs-id1492060",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Thymus",
+          "url": "https://en.wikipedia.org/wiki/Thymus",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    }
+  ]
+}

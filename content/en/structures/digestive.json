@@ -1,0 +1,222 @@
+{
+  "system": "digestive",
+  "entries": [
+    {
+      "id": "tongue",
+      "overview": "A nimble muscular organ anchored to the floor of the mouth and covered by taste-sensing papillae.",
+      "function": "Shapes sounds for speech, detects taste, and pushes chewed food backward into the throat to swallow.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Contains both intrinsic muscles that change its shape and extrinsic muscles that shift its position.",
+          "Papillae on its upper surface grip food and house clusters of taste buds."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — The Tongue",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-3-the-mouth-pharynx-and-esophagus#fs-id1376256",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Tongue",
+          "url": "https://en.wikipedia.org/wiki/Tongue",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "esophagus",
+      "overview": "A collapsible muscular tube about 25 cm long traveling behind the windpipe through the chest to the abdomen.",
+      "function": "Propels swallowed food and liquids down into the stomach using coordinated muscular waves (peristalsis).",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Passes through a small muscular opening in the diaphragm right above the stomach.",
+          "Guarded at top and bottom by muscular sphincters that help prevent stomach acid reflux."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — The Esophagus",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-3-the-mouth-pharynx-and-esophagus#fs-id1897277",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Esophagus",
+          "url": "https://en.wikipedia.org/wiki/Esophagus",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "stomach",
+      "overview": "A J-shaped muscular pouch tucked beneath the left ribcage between the esophagus and small intestine.",
+      "function": "Stores eaten meals, churns food into acidic liquid chyme, and starts breaking down dietary protein.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Folds called rugae allow the empty stomach to expand smoothly after a large meal.",
+          "Gastric glands secrete hydrochloric acid and the protein-digesting enzyme pepsin while mucus protects the lining."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Structure of the Stomach",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-4-the-stomach#fs-id1976396",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Stomach",
+          "url": "https://en.wikipedia.org/wiki/Stomach",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "liver",
+      "overview": "The largest internal gland in the body, wedged beneath the right diaphragm under the lower ribs.",
+      "function": "Processes nutrients from the gut, makes bile for fat digestion, detoxifies blood, and builds vital plasma proteins.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Receives dual blood flow from the oxygen-rich hepatic artery and the nutrient-rich hepatic portal vein.",
+          "Stores excess glucose as glycogen and releases it back into the bloodstream between meals.",
+          "Can regenerate lost tissue after injury faster than almost any other solid organ."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — The Liver",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-6-accessory-organs-in-digestion-the-liver-pancreas-and-gallbladder#fs-id1858356",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Liver",
+          "url": "https://en.wikipedia.org/wiki/Liver",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "gallbladder",
+      "overview": "A small pear-shaped green sac nestled into a shallow hollow on the underside of the liver.",
+      "function": "Stores and concentrates liver-made bile, squeezing it into the small intestine when fatty food arrives.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Holds roughly 30 to 60 milliliters of concentrated bile between meals.",
+          "Connects via the cystic duct to the common bile duct emptying into the duodenum."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — The Gallbladder",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-6-accessory-organs-in-digestion-the-liver-pancreas-and-gallbladder#fs-id1845287",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Gallbladder",
+          "url": "https://en.wikipedia.org/wiki/Gallbladder",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "pancreas",
+      "overview": "A soft, elongated gland lying horizontally behind the stomach with its head cradled in the curve of the duodenum.",
+      "function": "Releases digestive enzymes into the small intestine and secretes insulin and glucagon to steady blood sugar.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Works as both an exocrine digestive gland and an endocrine hormone gland.",
+          "Produces bicarbonate-rich fluid to neutralize stomach acid entering the small intestine."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — The Pancreas",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-6-accessory-organs-in-digestion-the-liver-pancreas-and-gallbladder#fs-id1938339",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Pancreas",
+          "url": "https://en.wikipedia.org/wiki/Pancreas",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "duodenum",
+      "overview": "The short C-shaped first loop of the small intestine curving around the head of the pancreas.",
+      "function": "Neutralizes stomach acid and mixes chyme with bile and pancreatic enzymes to complete chemical digestion.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Measures about 25 cm (roughly twelve finger-widths) long.",
+          "Serves as a primary site for absorbing dietary iron and neutralizing gastric acid."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — The Small and Large Intestines",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-5-the-small-and-large-intestines#fs-id2176582",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Duodenum",
+          "url": "https://en.wikipedia.org/wiki/Duodenum",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "jejunum",
+      "overview": "The coiled middle section of the small intestine filling the upper left and central abdomen.",
+      "function": "Absorbs most digested sugars, amino acids, and fats across millions of microscopic finger-like villi.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Has taller circular folds and denser blood supply than the ileum, maximizing nutrient uptake.",
+          "Makes up roughly two-fifths of the small intestine between the duodenum and ileum."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — The Small and Large Intestines",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-5-the-small-and-large-intestines#fs-id2176582",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Jejunum",
+          "url": "https://en.wikipedia.org/wiki/Jejunum",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "ascending-colon",
+      "overview": "The first vertical segment of the large intestine rising along the right side of the abdomen up to the liver.",
+      "function": "Absorbs remaining water and salts from undigested residue as material moves upward toward the transverse colon.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Begins above the cecum near the right hip and bends sharply under the liver at the right colic flexure.",
+          "Anchored against the back abdominal wall so it stays in place during digestion."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Large Intestine Anatomy",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-5-the-small-and-large-intestines#fs-id1905668",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Ascending colon",
+          "url": "https://en.wikipedia.org/wiki/Ascending_colon",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    }
+  ]
+}

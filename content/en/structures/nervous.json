@@ -1,0 +1,150 @@
+{
+  "system": "nervous",
+  "entries": [
+    {
+      "id": "falx-cerebri",
+      "overview": "A tough, sickle-shaped vertical sheet of dura mater dipping along the midline crease inside the skull.",
+      "function": "Separates the left and right cerebral hemispheres and prevents the brain from shifting side to side.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Houses both the superior sagittal sinus along its top rim and the inferior sagittal sinus along its lower edge.",
+          "Anchors to the skull in front near the nose bridge and blends behind with the tentorium cerebelli."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — The Central Nervous System",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/13-2-the-central-nervous-system#fs-id1488700",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Falx cerebri",
+          "url": "https://en.wikipedia.org/wiki/Falx_cerebri",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "cornea",
+      "overview": "The crystal-clear domed window covering the front colored iris and pupil of the eyeball.",
+      "function": "Bends incoming light rays sharply inward toward the lens and shields the front of the eye from dust and germs.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Provides roughly two-thirds of the eye’s total focusing power.",
+          "Contains no blood vessels so it stays transparent, receiving oxygen directly from tears and the air.",
+          "Heavily supplied with sensory nerve endings that trigger protective blinking when touched."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Vision and Sensory Perception",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/14-1-sensory-perception#fs-id2489815",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Cornea",
+          "url": "https://en.wikipedia.org/wiki/Cornea",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "retina",
+      "overview": "The ultra-thin light-sensitive neural membrane lining the inside back wall of the eyeball.",
+      "function": "Converts focused patterns of light into electrical nerve signals sent down the optic nerve to the brain.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Contains rod cells for dim-light vision and cone cells for sharp color vision.",
+          "Its central pit, the fovea, provides our crispest reading and face-recognition detail."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Vision and Sensory Perception",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/14-1-sensory-perception#fs-id2489815",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Retina",
+          "url": "https://en.wikipedia.org/wiki/Retina",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "spinal-dura",
+      "overview": "A tough, tubular outer sleeve of fibrous connective tissue enclosing the spinal cord inside the vertebral canal.",
+      "function": "Protects the delicate spinal cord and nerve roots while containing the cushion of cerebrospinal fluid.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Separated from the bony vertebrae by the fat- and vessel-filled epidural space.",
+          "Extends downward past the end of the spinal cord down to the sacrum."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — The Central Nervous System",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/13-2-the-central-nervous-system#fs-id1488700",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Dura mater",
+          "url": "https://en.wikipedia.org/wiki/Dura_mater",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "sciatic-nerve",
+      "overview": "The thickest, longest nerve in the human body, running from the lower spine deep through the buttock down the leg.",
+      "function": "Carries movement commands to the hamstrings and lower-leg muscles while returning sensation from most of the leg and foot.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Formed by nerve roots L4 through S3 and emerges below or near the piriformis muscle in the buttock.",
+          "Splits above the back of the knee into the tibial nerve and common fibular nerve."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — The Peripheral Nervous System",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/13-4-the-peripheral-nervous-system#fs-id1942417",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Sciatic nerve",
+          "url": "https://en.wikipedia.org/wiki/Sciatic_nerve",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "median-nerve",
+      "overview": "A major peripheral nerve descending down the midline of the arm and forearm into the palm.",
+      "function": "Controls most forearm wrist-flexor and thumb-pinch muscles and supplies touch sensation to the thumb and index fingers.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Passes through the tight carpal tunnel at the wrist beneath a fibrous ligament.",
+          "Gives sensation to the palmar side of the thumb, index, middle, and half of the ring finger."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — The Peripheral Nervous System",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/13-4-the-peripheral-nervous-system#fs-id1942417",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Median nerve",
+          "url": "https://en.wikipedia.org/wiki/Median_nerve",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    }
+  ]
+}

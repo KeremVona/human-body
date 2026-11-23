@@ -1,0 +1,126 @@
+{
+  "system": "respiratory",
+  "entries": [
+    {
+      "id": "trachea",
+      "overview": "A sturdy, flexible windpipe reinforced with C-shaped cartilage rings descending down the center of the neck.",
+      "function": "Provides an open airway linking the voice box to the main bronchi leading into the left and right lungs.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Measures roughly 10 to 12 cm long and splits into the left and right main bronchi at the carina.",
+          "Incomplete cartilage rings keep the airway open while leaving soft muscle at the back so the esophagus can expand when swallowing.",
+          "Lined with tiny beating cilia that sweep trapped dust and mucus upward."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Conducting Zone",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/22-1-organs-and-structures-of-the-respiratory-system#fs-id1938446",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Trachea",
+          "url": "https://en.wikipedia.org/wiki/Trachea",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "left-main-bronchus",
+      "overview": "The primary airway branching leftward from the lower end of the trachea into the root of the left lung.",
+      "function": "Conducts inhaled and exhaled air between the windpipe and the lobar airways of the left lung.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Passes underneath the aortic arch and is longer and slightly narrower than the right main bronchus.",
+          "Splits inside the left lung into superior and inferior lobar bronchi supplying its two lobes."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Conducting Zone",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/22-1-organs-and-structures-of-the-respiratory-system#fs-id1938446",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Bronchus",
+          "url": "https://en.wikipedia.org/wiki/Bronchus",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "superior-lobe-of-left-lung",
+      "overview": "The upper section of the left lung extending above the collarbone down across the front of the upper chest.",
+      "function": "Takes in inhaled air through millions of tiny alveoli where oxygen enters the blood and carbon dioxide leaves.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Includes the cardiac notch along its front edge, leaving extra space inside the chest for the heart.",
+          "Separated from the left inferior lobe by a deep diagonal groove called the oblique fissure."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Respiratory Zone",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/22-1-organs-and-structures-of-the-respiratory-system#fs-id2875750",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Lung",
+          "url": "https://en.wikipedia.org/wiki/Lung",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "middle-lobe-of-right-lung",
+      "overview": "A wedge-shaped front-lower lobe found only on the right lung between its horizontal and oblique fissures.",
+      "function": "Expands during inhalation to perform gas exchange across delicate alveolar capillaries.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Because the right lung has three lobes while the left has two, only the right lung contains a middle lobe.",
+          "Fed by the right middle lobar bronchus branching from the right main airway."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Respiratory Zone",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/22-1-organs-and-structures-of-the-respiratory-system#fs-id2875750",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Lung",
+          "url": "https://en.wikipedia.org/wiki/Lung",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "inferior-lobe-of-right-lung",
+      "overview": "The large lower-back lobe of the right lung resting directly over the right dome of the diaphragm.",
+      "function": "Contributes major ventilated volume during deep breathing as the diaphragm pulls downward.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Accounts for most of the posterior chest surface of the right lung.",
+          "Separated from the superior and middle lobes by the oblique fissure."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Respiratory Zone",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/22-1-organs-and-structures-of-the-respiratory-system#fs-id2875750",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Lung",
+          "url": "https://en.wikipedia.org/wiki/Lung",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    }
+  ]
+}

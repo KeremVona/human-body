@@ -1,0 +1,77 @@
+{
+  "system": "urinary",
+  "entries": [
+    {
+      "id": "ureter",
+      "overview": "A pair of slender muscular tubes about 25 to 30 cm long descending down the back abdominal wall to the pelvis.",
+      "function": "Propels urine smoothly downward from each kidney into the urinary bladder via rhythmic smooth-muscle waves.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Enters the back wall of the bladder at an oblique angle so filling pressure seals the opening against backflow.",
+          "Moves urine actively by peristalsis rather than relying only on gravity."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Ureters",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/25-2-gross-anatomy-of-urine-transport#fs-id2339546",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Ureter",
+          "url": "https://en.wikipedia.org/wiki/Ureter",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "urinary-bladder",
+      "overview": "A hollow, balloon-like muscular sac tucked cleanly behind the front pubic bones on the pelvic floor.",
+      "function": "Stores urine comfortably at low pressure until voluntary signals squeeze it empty through the urethra.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Lined by stretchy transitional epithelium and inner folds that flatten out as volume increases.",
+          "Its smooth muscle wall (detrusor muscle) contracts during urination while sphincters relax."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Bladder",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/25-2-gross-anatomy-of-urine-transport#fs-id1616433",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Bladder",
+          "url": "https://en.wikipedia.org/wiki/Bladder",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "urethra",
+      "overview": "A thin-walled fibromuscular canal leading from the bottom neck of the bladder to the outside of the body.",
+      "function": "Conducts stored urine out of the body during urination while internal and external sphincters regulate timing.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Guarded by an involuntary smooth-muscle internal sphincter and a voluntary skeletal-muscle external sphincter.",
+          "Differs in length between sexes: shorter (~4 cm) in females and longer (~20 cm) in males."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Urethra",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/25-2-gross-anatomy-of-urine-transport#fs-id2447210",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Urethra",
+          "url": "https://en.wikipedia.org/wiki/Urethra",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    }
+  ]
+}
