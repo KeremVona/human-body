@@ -408,7 +408,7 @@
         "latin": "Atlas",
         "synonyms": ["C1", "first cervical vertebra"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "axillary-artery",
@@ -450,7 +450,7 @@
         "latin": "Axis",
         "synonyms": ["C2", "second cervical vertebra"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "azygos-vein",
@@ -520,7 +520,7 @@
         "latin": "Corpus sterni",
         "synonyms": ["breastbone"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "brachial-artery",
@@ -632,7 +632,7 @@
         "latin": "Calcaneus",
         "synonyms": ["heel bone"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "capitate-bone",
@@ -716,7 +716,7 @@
         "latin": "Clavicula",
         "synonyms": ["collarbone"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "clavicular-head-of-pectoralis-major-muscle",
@@ -772,7 +772,7 @@
         "latin": "Os coccygis",
         "synonyms": ["tailbone"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "common-hepatic-artery",
@@ -1897,7 +1897,7 @@
         "latin": "Femur",
         "synonyms": ["thigh bone"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "fibula",
@@ -1911,7 +1911,7 @@
         "latin": "Fibula",
         "synonyms": ["calf bone"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "fibular-artery",
@@ -2065,7 +2065,7 @@
         "latin": "Costa I",
         "synonyms": []
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "flexor-carpi-radialis",
@@ -2233,7 +2233,7 @@
         "latin": "Os frontale",
         "synonyms": ["forehead bone"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "frontalis-muscle",
@@ -2472,7 +2472,7 @@
         "latin": "Os coxae",
         "synonyms": ["pelvic bone", "innominate bone"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "humeral-head-of-extensor-carpi-ulnaris",
@@ -2528,7 +2528,7 @@
         "latin": "Humerus",
         "synonyms": ["upper arm bone"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "hyoglossus-muscle",
@@ -2556,7 +2556,7 @@
         "latin": "Os hyoideum",
         "synonyms": ["tongue bone"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "iliacus-muscle",
@@ -3959,7 +3959,7 @@
         "latin": "Mandibula",
         "synonyms": ["jawbone", "lower jaw"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "manubrium-of-sternum",
@@ -3973,7 +3973,7 @@
         "latin": "Manubrium sterni",
         "synonyms": ["breastbone"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "maxilla",
@@ -3987,7 +3987,7 @@
         "latin": "Maxilla",
         "synonyms": ["upper jaw"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "maxillary-artery",
@@ -4366,7 +4366,7 @@
         "latin": "Os nasale",
         "synonyms": ["bridge of nose"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "nasal-septal-cartilage",
@@ -4563,7 +4563,7 @@
         "latin": "Os occipitale",
         "synonyms": ["back of skull"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "occipital-vein",
@@ -4789,7 +4789,7 @@
         "latin": "Os parietale",
         "synonyms": []
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "parotid-gland",
@@ -4818,7 +4818,7 @@
         "latin": "Patella",
         "synonyms": ["kneecap"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "pectineus-muscle",
@@ -5407,7 +5407,7 @@
         "latin": "Radius",
         "synonyms": ["forearm bone"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "rectus-abdominis-muscle",
@@ -5879,7 +5879,7 @@
         "latin": "Os sacrum",
         "synonyms": []
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "sartorius-muscle",
@@ -5963,7 +5963,7 @@
         "latin": "Scapula",
         "synonyms": ["shoulder blade"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "scapular-spinal-part-of-deltoid-muscle",
@@ -6218,7 +6218,7 @@
         "latin": "Costa VII",
         "synonyms": []
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "short-head-of-biceps-brachii",
@@ -6346,7 +6346,7 @@
         "latin": "Os sphenoidale",
         "synonyms": []
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "spinal-dura",
@@ -7039,7 +7039,7 @@
         "latin": "Os temporale",
         "synonyms": ["temple bone"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "temporalis-muscle",
@@ -7264,7 +7264,7 @@
         "latin": "Tibia",
         "synonyms": ["shinbone"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "tibialis-anterior-muscle",
@@ -7491,7 +7491,7 @@
         "latin": "Costa XII",
         "synonyms": ["floating rib"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "ulna",
@@ -7505,7 +7505,7 @@
         "latin": "Ulna",
         "synonyms": ["forearm bone"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "ulnar-artery",
@@ -7874,7 +7874,7 @@
         "latin": "Vertebra cervicalis VII",
         "synonyms": ["vertebra C7"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "vertebra-l1",
@@ -7888,7 +7888,7 @@
         "latin": "Vertebra lumbalis I",
         "synonyms": ["vertebra L1"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "vertebra-l2",
@@ -7944,7 +7944,7 @@
         "latin": "Vertebra lumbalis V",
         "synonyms": ["vertebra L5"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "vertebra-t1",
@@ -7958,7 +7958,7 @@
         "latin": "Vertebra thoracica I",
         "synonyms": ["vertebra T1"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "vertebra-t10",
@@ -8000,7 +8000,7 @@
         "latin": "Vertebra thoracica XII",
         "synonyms": ["vertebra T12"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "vertebra-t2",
@@ -8182,7 +8182,7 @@
         "latin": "Os zygomaticum",
         "synonyms": ["cheekbone"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "zygomaticus-major-muscle",

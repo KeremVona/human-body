@@ -1,0 +1,670 @@
+{
+  "system": "skeletal",
+  "entries": [
+    {
+      "id": "frontal-bone",
+      "overview": "The frontal bone forms your forehead, the front roof of the skull cavity, and the upper bony rims above both eye sockets.",
+      "function": "It shields the frontal lobes of the brain from impact and provides smooth attachment ridges for forehead muscles that raise the eyebrows.",
+      "details": {
+        "kind": "bone",
+        "boneType": "flat",
+        "articulatesWith": [
+          "parietal-bone",
+          "sphenoid-bone",
+          "ethmoid-bone",
+          "nasal-bone",
+          "maxilla",
+          "lacrimal-bone",
+          "zygomatic-bone"
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Bones of the Brain Case",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-2-the-skull#fs-id2346875",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "parietal-bone",
+      "overview": "The left and right parietal bones are wide, curved plates forming most of the upper sides and roof of the skull.",
+      "function": "Joined together at the midline seam, they create a protective dome around the upper cerebral cortex while anchoring jaw-closing muscles along the side of the head.",
+      "details": {
+        "kind": "bone",
+        "boneType": "flat",
+        "articulatesWith": [
+          "frontal-bone",
+          "occipital-bone",
+          "temporal-bone",
+          "sphenoid-bone"
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Bones of the Brain Case",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-2-the-skull#fs-id2346875",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "temporal-bone",
+      "overview": "Each temporal bone forms the lower side of the skull around the ear and includes the bony canal leading to the middle and inner ear.",
+      "function": "It houses the delicate organs of hearing and balance, provides the socket for the lower jaw joint, and anchors major neck muscles behind the ear.",
+      "details": {
+        "kind": "bone",
+        "boneType": "irregular",
+        "articulatesWith": [
+          "parietal-bone",
+          "occipital-bone",
+          "sphenoid-bone",
+          "zygomatic-bone",
+          "mandible"
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Bones of the Brain Case",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-2-the-skull#fs-id2346875",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "occipital-bone",
+      "overview": "The occipital bone forms the back and rear base of the skull, framing the large oval opening where the spinal cord leaves the braincase.",
+      "function": "It cradles the back of the brain and cerebellum, connects the skull to the top vertebra of the spine, and anchors strong posterior neck muscles that keep your head upright.",
+      "details": {
+        "kind": "bone",
+        "boneType": "flat",
+        "articulatesWith": [
+          "parietal-bone",
+          "temporal-bone",
+          "sphenoid-bone",
+          "atlas-c1"
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Bones of the Brain Case",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-2-the-skull#fs-id2346875",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "sphenoid-bone",
+      "overview": "Shaped somewhat like a butterfly with outstretched wings, the sphenoid bone spans the width of the skull floor behind the eyes and nose.",
+      "function": "Acting as the central keystone of the cranial floor, it locks nearly all other skull bones together, forms the back of the eye sockets, and carries passages for vision and facial nerves.",
+      "details": {
+        "kind": "bone",
+        "boneType": "irregular",
+        "articulatesWith": [
+          "frontal-bone",
+          "parietal-bone",
+          "temporal-bone",
+          "occipital-bone",
+          "ethmoid-bone",
+          "zygomatic-bone",
+          "palatine-bone",
+          "vomer"
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Bones of the Brain Case",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-2-the-skull#fs-id2346875",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "zygomatic-bone",
+      "overview": "Often called the cheekbone, the paired zygomatic bone forms the outer prominence of each cheek and the lower outer corner of the eye socket.",
+      "function": "It shapes the upper face, protects the eyeball from side impact, and completes the bony cheek arch where chewing muscles attach.",
+      "details": {
+        "kind": "bone",
+        "boneType": "irregular",
+        "articulatesWith": [
+          "frontal-bone",
+          "sphenoid-bone",
+          "temporal-bone",
+          "maxilla"
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Facial Bones of the Skull",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-2-the-skull#fs-id1474296",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "maxilla",
+      "overview": "The paired maxilla bones fuse at the midline to form the upper jaw, the front hard roof of the mouth, the sides of the nose, and much of the eye socket floor.",
+      "function": "It anchors all sixteen upper teeth, resists strong upward chewing forces, and houses the large air-filled maxillary sinuses beside the nasal cavity.",
+      "details": {
+        "kind": "bone",
+        "boneType": "irregular",
+        "articulatesWith": [
+          "frontal-bone",
+          "ethmoid-bone",
+          "nasal-bone",
+          "zygomatic-bone",
+          "lacrimal-bone",
+          "inferior-nasal-concha-bone",
+          "palatine-bone",
+          "vomer"
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Facial Bones of the Skull",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-2-the-skull#fs-id1474296",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "mandible",
+      "overview": "The mandible, or lower jawbone, is the only freely movable bone of the skull and holds all of the lower teeth in its curved body.",
+      "function": "It hinges against the temporal bones just in front of each ear so powerful jaw muscles can bite, grind food, and open the mouth for speaking.",
+      "details": {
+        "kind": "bone",
+        "boneType": "irregular",
+        "articulatesWith": ["temporal-bone"]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Facial Bones of the Skull",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-2-the-skull#fs-id1474296",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "nasal-bone",
+      "overview": "The nasal bones are two small, thin rectangular plates sitting side by side across the upper bridge of the nose between the eyes.",
+      "function": "They form the rigid upper bony roof of the nose and anchor the flexible nasal cartilages that shape the lower half of the nose.",
+      "details": {
+        "kind": "bone",
+        "boneType": "flat",
+        "articulatesWith": ["frontal-bone", "ethmoid-bone", "maxilla"]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Facial Bones of the Skull",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-2-the-skull#fs-id1474296",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "hyoid-bone",
+      "overview": "The U-shaped hyoid bone rests in the front of the upper neck just below the lower jaw and does not touch any other bone directly.",
+      "function": "Suspended solely by muscles and ligaments, it acts as a mobile anchor for the base of the tongue above and the larynx below during swallowing and speech.",
+      "details": {
+        "kind": "bone",
+        "boneType": "irregular",
+        "articulatesWith": []
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Hyoid Bone",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-2-the-skull#fs-id1296982",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "atlas-c1",
+      "overview": "Named after the Greek figure holding up the world, the atlas (C1) is the ring-shaped first vertebra at the top of the neck that directly cradles the skull.",
+      "function": "Its deep upper sockets rock against the base of the skull to let you nod yes, while its front ring pivots around the second vertebra below.",
+      "details": {
+        "kind": "bone",
+        "boneType": "irregular",
+        "articulatesWith": ["occipital-bone", "axis-c2"]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Regional Modifications of Vertebrae",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-3-the-vertebral-column#fs-id2125210",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "axis-c2",
+      "overview": "The axis (C2) is the second neck vertebra and features an upright bony peg called the dens rising from its body into the ring of C1.",
+      "function": "It acts as the vertical pivot pin for the atlas and skull above it, allowing your head to rotate cleanly from side to side when shaking your head no.",
+      "details": {
+        "kind": "bone",
+        "boneType": "irregular",
+        "articulatesWith": ["atlas-c1", "vertebra-c3"]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Regional Modifications of Vertebrae",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-3-the-vertebral-column#fs-id2125210",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "vertebra-c7",
+      "overview": "The seventh cervical vertebra (C7) sits at the base of the neck and has an extra-long back bony projection you can easily feel under the skin.",
+      "function": "Known as the vertebra prominens, it transitions between the flexible neck spine above and the rib-bearing chest spine below while anchoring neck ligaments.",
+      "details": {
+        "kind": "bone",
+        "boneType": "irregular",
+        "articulatesWith": ["vertebra-c6", "vertebra-t1"]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Regional Modifications of Vertebrae",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-3-the-vertebral-column#fs-id2125210",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "vertebra-t1",
+      "overview": "The first thoracic vertebra (T1) sits at the top of the chest spine just beneath the base of the neck and supports the first pair of ribs.",
+      "function": "It transfers head and neck weight down into the upper back while anchoring the top inlet of the rib cage around the upper chest.",
+      "details": {
+        "kind": "bone",
+        "boneType": "irregular",
+        "articulatesWith": [
+          "vertebra-c7",
+          "vertebra-t2",
+          "first-rib",
+          "second-rib"
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Regional Modifications of Vertebrae",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-3-the-vertebral-column#fs-id2125210",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "vertebra-t12",
+      "overview": "The twelfth thoracic vertebra (T12) is the lowest chest vertebra, sitting right above the lower back and supporting the twelfth pair of ribs.",
+      "function": "It shifts spinal motion from chest twisting into lower-back bending and carries heavy upper-body loads down into the lumbar column.",
+      "details": {
+        "kind": "bone",
+        "boneType": "irregular",
+        "articulatesWith": ["vertebra-t11", "vertebra-l1", "twelfth-rib"]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Regional Modifications of Vertebrae",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-3-the-vertebral-column#fs-id2125210",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "vertebra-l1",
+      "overview": "The first lumbar vertebra (L1) is the topmost of the five thick, kidney-shaped vertebrae forming the lower back just below the rib cage.",
+      "function": "Built without rib attachments, it supports torso weight, allows deep forward and backward bending, and surrounds the lower end of the spinal cord.",
+      "details": {
+        "kind": "bone",
+        "boneType": "irregular",
+        "articulatesWith": ["vertebra-t12", "vertebra-l2"]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Regional Modifications of Vertebrae",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-3-the-vertebral-column#fs-id2125210",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "vertebra-l5",
+      "overview": "The fifth lumbar vertebra (L5) is the largest individual vertebra in the spine, sitting at the bottom of the lower back just above the sacrum.",
+      "function": "Its wedge-shaped body bears the heaviest share of upper-body weight and channels it safely into the sloped top surface of the pelvic girdle.",
+      "details": {
+        "kind": "bone",
+        "boneType": "irregular",
+        "articulatesWith": ["vertebra-l4", "sacrum"]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Regional Modifications of Vertebrae",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-3-the-vertebral-column#fs-id2125210",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "manubrium-of-sternum",
+      "overview": "The manubrium is the broad, shield-shaped top segment of the breastbone, sitting right below the U-shaped notch at the base of your throat.",
+      "function": "It anchors both collarbones and the first ribs, forming the only bony strut connecting the entire upper-limb skeleton directly to the chest wall.",
+      "details": {
+        "kind": "bone",
+        "boneType": "flat",
+        "articulatesWith": [
+          "clavicle",
+          "body-of-sternum",
+          "costal-cartilage-of-first-rib",
+          "costal-cartilage-of-second-rib"
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Sternum",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-4-the-thoracic-cage#fs-id2094432",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "body-of-sternum",
+      "overview": "The body of the sternum is the long, flat central plate of the breastbone running down the midline of the front chest between the ribs.",
+      "function": "It shields the heart and great vessels from direct blows, binds rib cartilages two through seven into the front chest cage, and anchors chest muscles.",
+      "details": {
+        "kind": "bone",
+        "boneType": "flat",
+        "articulatesWith": [
+          "manubrium-of-sternum",
+          "xiphoid-process",
+          "costal-cartilage-of-second-rib",
+          "costal-cartilage-of-third-rib",
+          "costal-cartilage-of-fourth-rib",
+          "costal-cartilage-of-fifth-rib",
+          "costal-cartilage-of-sixth-rib",
+          "costal-cartilage-of-seventh-rib"
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Sternum",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-4-the-thoracic-cage#fs-id2094432",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "first-rib",
+      "overview": "The first rib is the shortest, widest, and tightest-curving rib, arching just underneath the collarbone at the very top of the rib cage.",
+      "function": "It frames the upper opening of the chest around the windpipe, esophagus, and major arm vessels while anchoring neck breathing muscles.",
+      "details": {
+        "kind": "bone",
+        "boneType": "flat",
+        "articulatesWith": ["vertebra-t1", "costal-cartilage-of-first-rib"]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Ribs",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-4-the-thoracic-cage#fs-id2310374",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "seventh-rib",
+      "overview": "The seventh rib is the longest rib on the chest wall and the last of the seven true ribs whose cartilages reach the breastbone directly.",
+      "function": "It wraps around the heart and lower lungs, swinging upward and outward when you inhale to expand chest volume.",
+      "details": {
+        "kind": "bone",
+        "boneType": "flat",
+        "articulatesWith": [
+          "vertebra-t6",
+          "vertebra-t7",
+          "costal-cartilage-of-seventh-rib"
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Ribs",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-4-the-thoracic-cage#fs-id2310374",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "twelfth-rib",
+      "overview": "The twelfth rib is a short floating rib attached only to the back spine at T12, with a free front tip tucked inside the back abdominal wall.",
+      "function": "It shields the upper back abdominal cavity and kidneys while providing an attachment anchor for the diaphragm and deep lower-back muscles.",
+      "details": {
+        "kind": "bone",
+        "boneType": "flat",
+        "articulatesWith": ["vertebra-t12"]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Ribs",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-4-the-thoracic-cage#fs-id2310374",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "clavicle",
+      "overview": "The clavicle, or collarbone, is a slender S-curved long bone lying horizontally just above the first rib across the top front of the chest.",
+      "function": "It holds your shoulder blade out away from the rib cage for free arm swing and channels push forces from the outstretched arm into the breastbone.",
+      "details": {
+        "kind": "bone",
+        "boneType": "long",
+        "articulatesWith": ["manubrium-of-sternum", "scapula"]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Clavicle",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/8-1-the-pectoral-girdle#fs-id1421107",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "scapula",
+      "overview": "The scapula, or shoulder blade, is a broad triangular flat bone gliding across the upper back ribs with a shallow side socket for the upper arm.",
+      "function": "Supported by seventeen attached muscles rather than fixed to the spine, it rotates and slides smoothly to give your shoulder its huge range of motion.",
+      "details": {
+        "kind": "bone",
+        "boneType": "flat",
+        "articulatesWith": ["clavicle", "humerus"]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Scapula",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/8-1-the-pectoral-girdle#fs-id1254545",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "humerus",
+      "overview": "The humerus is the single long bone of the upper arm, spanning from the round ball-and-socket shoulder joint down to the hinge of the elbow.",
+      "function": "It acts as the primary rigid arm lever for lifting, throwing, and reaching while anchoring muscles that flex and straighten the forearm.",
+      "details": {
+        "kind": "bone",
+        "boneType": "long",
+        "articulatesWith": ["scapula", "radius", "ulna"]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Humerus",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/8-2-bones-of-the-upper-limb#fs-id1424173",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "radius",
+      "overview": "The radius is the shorter of the two forearm bones, running along the thumb side from a disc-shaped head at the elbow to a wide wrist base.",
+      "function": "When you turn your palm up or down, the radius crosses smoothly over the ulna and carries most of the load coming from the hand across the wrist joint.",
+      "details": {
+        "kind": "bone",
+        "boneType": "long",
+        "articulatesWith": ["humerus", "ulna", "scaphoid-bone", "lunate-bone"]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Radius",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/8-2-bones-of-the-upper-limb#fs-id1975588",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "ulna",
+      "overview": "The ulna sits on the little-finger side of the forearm and ends at the elbow in a deep C-shaped wrench grip around the lower humerus.",
+      "function": "Forming the pointed bony tip of the elbow, it stabilizes forearm bending and straightening while giving the radius a steady shaft to rotate around.",
+      "details": {
+        "kind": "bone",
+        "boneType": "long",
+        "articulatesWith": ["humerus", "radius"]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Ulna",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/8-2-bones-of-the-upper-limb#fs-id1349886",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "hip-bone",
+      "overview": "Each hip bone (coxal bone) is a large, flared pelvic plate formed in adulthood by the fusion of three bones around the deep hip socket.",
+      "function": "Joined to the sacrum behind and its partner in front, it forms a sturdy pelvic bowl that shields lower organs and passes body weight into both thighs.",
+      "details": {
+        "kind": "bone",
+        "boneType": "irregular",
+        "articulatesWith": ["sacrum", "femur"]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Hip Bone",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/8-3-the-pelvic-girdle-and-pelvis#fs-id1632656",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "sacrum",
+      "overview": "The sacrum is a thick, curved triangular bone wedged between the two hip bones at the back of the pelvis, formed from five fused vertebrae.",
+      "function": "It anchors the base of the spine to the pelvic ring, splitting torso weight evenly left and right toward the hip sockets and legs.",
+      "details": {
+        "kind": "bone",
+        "boneType": "irregular",
+        "articulatesWith": ["vertebra-l5", "coccyx", "hip-bone"]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Regions of the Vertebral Column",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-3-the-vertebral-column#fs-id1383461",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "coccyx",
+      "overview": "Commonly called the tailbone, the coccyx is a tiny tapered wedge of usually four fused vertebrae hanging below the lower tip of the sacrum.",
+      "function": "Though not weight-bearing while standing, it acts as the third tripod support when seated leaning back and anchors pelvic-floor muscles and ligaments.",
+      "details": {
+        "kind": "bone",
+        "boneType": "irregular",
+        "articulatesWith": ["sacrum"]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Regions of the Vertebral Column",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-3-the-vertebral-column#fs-id1383461",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "femur",
+      "overview": "The femur, or thigh bone, is the longest, heaviest, and strongest bone in the human body, running from the hip socket down to the knee.",
+      "function": "It transfers upper-body weight across the angled thigh into the lower leg during standing, walking, and jumping while anchoring massive thigh muscles.",
+      "details": {
+        "kind": "bone",
+        "boneType": "long",
+        "articulatesWith": ["hip-bone", "patella", "tibia"]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Femur",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/8-4-bones-of-the-lower-limb#fs-id2661070",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "patella",
+      "overview": "The patella, or kneecap, is a smooth triangular sesamoid bone embedded directly inside the front thigh tendon right over the knee joint.",
+      "function": "Gliding in a groove on the front of the femur, it shields the knee and increases the leverage of the quadriceps muscles by roughly a third when straightening your leg.",
+      "details": {
+        "kind": "bone",
+        "boneType": "sesamoid",
+        "articulatesWith": ["femur"]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Patella",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/8-4-bones-of-the-lower-limb#fs-id1632817",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "tibia",
+      "overview": "The tibia, or shinbone, is the heavy inner bone of the lower leg, sitting just beneath the skin down the front of your shin from knee to ankle.",
+      "function": "It bears almost all of the body's weight between the thigh and foot, ending in the prominent inner ankle bump that stabilizes the talus below.",
+      "details": {
+        "kind": "bone",
+        "boneType": "long",
+        "articulatesWith": ["femur", "fibula", "talus"]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Tibia",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/8-4-bones-of-the-lower-limb#fs-id2177045",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "fibula",
+      "overview": "The fibula is a thin, strut-like bone running parallel to the outer side of the tibia from just below the knee down to the outer ankle.",
+      "function": "Although it bears very little weight, it anchors lower-leg muscles and forms the outer ankle bump that grips the ankle bone to prevent side rolling.",
+      "details": {
+        "kind": "bone",
+        "boneType": "long",
+        "articulatesWith": ["tibia", "talus"]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Fibula",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/8-4-bones-of-the-lower-limb#fs-id1605143",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "calcaneus",
+      "overview": "The calcaneus, or heel bone, is the largest bone in the foot, projecting backward beneath the ankle to form the firm point of the heel.",
+      "function": "It absorbs heel-strike impact at every step and provides an outward lever arm for the Achilles tendon so your calf muscles can lift you onto your toes.",
+      "details": {
+        "kind": "bone",
+        "boneType": "short",
+        "articulatesWith": ["talus", "cuboid-bone"]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Tarsal Bones",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/8-4-bones-of-the-lower-limb#fs-id1311342",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    }
+  ]
+}
