@@ -14,6 +14,7 @@ export type ToggleRow = {
   color: string;
   systems: SystemId[];
   on: boolean | 'mixed';
+  opacity: number;
   status: BundleStatus;
 };
 
@@ -105,6 +106,7 @@ export const selectToggleRows = createSelector(
         color: systemMeta.get(systems[0])?.color ?? '#94A3B8',
         systems,
         on,
+        opacity: Math.max(...systems.map((s) => systemsState[s].opacity)),
         status: aggregateBundleStatus(fullState, systems),
       };
     };

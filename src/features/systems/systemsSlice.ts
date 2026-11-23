@@ -42,8 +42,19 @@ const systemsSlice = createSlice({
         state[id].enabled = nextEnabled;
       }
     },
+    opacitySet(
+      state,
+      action: PayloadAction<{ systems: SystemId[]; opacity: number }>,
+    ) {
+      const clamped = Math.min(1, Math.max(0, action.payload.opacity));
+      const rounded = Number((Math.round(clamped * 20) / 20).toFixed(2));
+      for (const id of action.payload.systems) {
+        state[id].opacity = rounded;
+      }
+    },
   },
 });
 
 export const systemsReducer = systemsSlice.reducer;
-export const { systemToggled, uiGroupToggled } = systemsSlice.actions;
+export const { systemToggled, uiGroupToggled, opacitySet } =
+  systemsSlice.actions;

@@ -61,16 +61,23 @@ const SELECTED_EMISSIVE = '#6FA8FF';
 /** Creates a cached MeshPhysicalMaterial pool keyed by system|tissue|color|state. */
 export function createMaterialLibrary(fadeOpacity: number): {
   get(key: MaterialKey): Material;
+  setSystemOpacity(system: SystemId, opacity: number): void;
   fallback(): Material;
   dispose(): void;
 } {
   const cache = new Map<string, MeshPhysicalMaterial>();
+  const systemOpacities = new Map<SystemId, number>();
+  const materialsBySystem = new Map<SystemId, MeshPhysicalMaterial[]>();
   let fallbackMaterial: MeshPhysicalMaterial | null = null;
 
   function buildMaterial(key: MaterialKey): MeshPhysicalMaterial {
     const look = TISSUE_LOOKS[key.tissue];
     const baseColor = key.color ?? look.color;
     const isGhost = key.state === 'ghost';
+    const sysOpacity = systemOpacities.get(key.system) ?? 1;
+    const opacity = isGhost ? fadeOpacity : sysOpacity;
+    const transparent = opacity < 1;
+    const depthWrite = opacity === 1;
 
     const params: ConstructorParameters<typeof MeshPhysicalMaterial>[0] = {
       color: baseColor,
@@ -81,9 +88,9 @@ export function createMaterialLibrary(fadeOpacity: number): {
       sheen: look.sheen,
       sheenRoughness: 0.6,
       sheenColor: new Color('#ffffff'),
-      transparent: isGhost,
-      depthWrite: !isGhost,
-      opacity: isGhost ? fadeOpacity : 1,
+      transparent,
+      depthWrite,
+      opacity,
     };
 
     if (key.state === 'hovered') {
@@ -94,7 +101,16 @@ export function createMaterialLibrary(fadeOpacity: number): {
       params.emissiveIntensity = 0.6;
     }
 
-    return new MeshPhysicalMaterial(params);
+    const material = new MeshPhysicalMaterial(params);
+    if (!isGhost) {
+      let list = materialsBySystem.get(key.system);
+      if (!list) {
+        list = [];
+        materialsBySystem.set(key.system, list);
+      }
+      list.push(material);
+    }
+    return material;
   }
 
   return {
@@ -106,6 +122,22 @@ export function createMaterialLibrary(fadeOpacity: number): {
         cache.set(cacheKey, mat);
       }
       return mat;
+    },
+    setSystemOpacity(system, opacity) {
+      const clamped = Math.min(1, Math.max(0, opacity));
+      systemOpacities.set(system, clamped);
+      const mats = materialsBySystem.get(system);
+      if (!mats) return;
+      const nextTransparent = clamped < 1;
+      for (const mat of mats) {
+        const flipped = mat.transparent !== nextTransparent;
+        mat.transparent = nextTransparent;
+        mat.depthWrite = clamped === 1;
+        mat.opacity = clamped;
+        if (flipped) {
+          mat.needsUpdate = true;
+        }
+      }
     },
     fallback() {
       if (!fallbackMaterial) {
@@ -122,6 +154,8 @@ export function createMaterialLibrary(fadeOpacity: number): {
         mat.dispose();
       }
       cache.clear();
+      systemOpacities.clear();
+      materialsBySystem.clear();
       fallbackMaterial?.dispose();
       fallbackMaterial = null;
     },

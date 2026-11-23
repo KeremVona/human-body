@@ -46,6 +46,7 @@ function resolveWithSets(
 ): MeshState {
   const visible =
     systemEnabled &&
+    systemOpacity > 0 &&
     !sets.hidden.has(meshId) &&
     (sets.isolated === null || sets.isolated.has(meshId));
 

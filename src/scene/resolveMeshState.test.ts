@@ -117,6 +117,11 @@ describe('resolveMeshState', () => {
       overrides: { systemOpacity: 0.49 },
       expected: { pickable: false },
     },
+    {
+      name: 'opacity 0 hides',
+      overrides: { systemOpacity: 0, selectedIds: ['femur--l'] },
+      expected: { visible: false, pickable: false, highlight: 'none' },
+    },
   ])('$name', ({ overrides, expected }) => {
     expect(resolveWith(overrides)).toMatchObject(expected);
   });

@@ -230,4 +230,21 @@ describe('SystemsPanel', () => {
       screen.getByRole('switch', { name: 'Major Organs' }),
     ).toHaveAttribute('aria-checked', 'mixed');
   });
+
+  it('slider dispatches opacity', async () => {
+    const user = userEvent.setup();
+    const store = setupStore();
+    render(
+      <Provider store={store}>
+        <SystemsPanel />
+      </Provider>,
+    );
+
+    const slider = screen.getByRole('slider', { name: 'Skeletal opacity' });
+    slider.focus();
+    await user.keyboard('{End}{ArrowLeft}{ArrowLeft}{ArrowLeft}{ArrowLeft}');
+
+    expect(store.getState().systems.skeletal.opacity).toBe(0.8);
+    expect(screen.getByText('80%')).toBeInTheDocument();
+  });
 });

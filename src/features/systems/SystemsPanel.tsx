@@ -1,3 +1,4 @@
+import * as Slider from '@radix-ui/react-slider';
 import * as Switch from '@radix-ui/react-switch';
 import { useId, useState, type JSX } from 'react';
 import { useStore } from 'react-redux';
@@ -6,7 +7,7 @@ import type { RootState } from '../../app/store';
 import { Panel } from '../../ui/Panel';
 import { retryBundle, selectBundlesForSystem } from '../assets/assetsSlice';
 import { selectToggleRows, type ToggleRow } from './selectors';
-import { systemToggled, uiGroupToggled } from './systemsSlice';
+import { opacitySet, systemToggled, uiGroupToggled } from './systemsSlice';
 
 function startsCollapsed(): boolean {
   if (typeof window === 'undefined') return false;
@@ -70,57 +71,86 @@ export function SystemsPanel(): JSX.Element | null {
           {rows.map((row) => {
             const switchId = `${baseId}-${row.id}`;
             const labelId = `${baseId}-${row.id}-label`;
+            const pct = Math.round(row.opacity * 100);
 
             return (
-              <li
-                key={row.id}
-                className="flex items-center justify-between gap-2 py-0.5"
-              >
-                <div className="flex min-w-0 flex-1 items-center gap-2">
-                  <span
-                    aria-hidden="true"
-                    className="h-2.5 w-2.5 shrink-0 rounded-full ring-1 ring-white/20"
-                    style={{ backgroundColor: row.color }}
-                  />
-                  <label
-                    id={labelId}
-                    htmlFor={switchId}
-                    className="cursor-pointer truncate text-sm text-slate-100 select-none"
-                  >
-                    {row.label}
-                  </label>
+              <li key={row.id} className="space-y-1 py-0.5">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex min-w-0 flex-1 items-center gap-2">
+                    <span
+                      aria-hidden="true"
+                      className="h-2.5 w-2.5 shrink-0 rounded-full ring-1 ring-white/20"
+                      style={{ backgroundColor: row.color }}
+                    />
+                    <label
+                      id={labelId}
+                      htmlFor={switchId}
+                      className="cursor-pointer truncate text-sm text-slate-100 select-none"
+                    >
+                      {row.label}
+                    </label>
+                  </div>
+
+                  <div className="flex shrink-0 items-center gap-1.5">
+                    {row.status === 'loading' ? (
+                      <span
+                        role="status"
+                        aria-label={`Loading ${row.label}`}
+                        className="inline-block h-3.5 w-3.5 animate-spin rounded-full border-2 border-slate-500 border-t-sky-400 motion-reduce:animate-none"
+                      />
+                    ) : null}
+
+                    {row.status === 'error' ? (
+                      <button
+                        type="button"
+                        aria-label={`Retry ${row.label}`}
+                        onClick={() => handleRetryRow(row)}
+                        className="rounded bg-red-900/70 px-1.5 py-0.5 text-xs font-medium text-red-100 hover:bg-red-800/80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400"
+                      >
+                        Retry
+                      </button>
+                    ) : null}
+
+                    <Switch.Root
+                      id={switchId}
+                      checked={row.on === true}
+                      aria-checked={row.on === 'mixed' ? 'mixed' : row.on}
+                      aria-labelledby={labelId}
+                      onCheckedChange={() => handleToggleRow(row)}
+                      className="relative inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border border-white/15 bg-slate-700/80 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400 data-[state=checked]:bg-sky-500"
+                    >
+                      <Switch.Thumb className="block h-4 w-4 translate-x-0.5 rounded-full bg-white shadow transition-transform will-change-transform data-[state=checked]:translate-x-4" />
+                    </Switch.Root>
+                  </div>
                 </div>
 
-                <div className="flex shrink-0 items-center gap-1.5">
-                  {row.status === 'loading' ? (
-                    <span
-                      role="status"
-                      aria-label={`Loading ${row.label}`}
-                      className="inline-block h-3.5 w-3.5 animate-spin rounded-full border-2 border-slate-500 border-t-sky-400 motion-reduce:animate-none"
-                    />
-                  ) : null}
-
-                  {row.status === 'error' ? (
-                    <button
-                      type="button"
-                      aria-label={`Retry ${row.label}`}
-                      onClick={() => handleRetryRow(row)}
-                      className="rounded bg-red-900/70 px-1.5 py-0.5 text-xs font-medium text-red-100 hover:bg-red-800/80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400"
-                    >
-                      Retry
-                    </button>
-                  ) : null}
-
-                  <Switch.Root
-                    id={switchId}
-                    checked={row.on === true}
-                    aria-checked={row.on === 'mixed' ? 'mixed' : row.on}
-                    aria-labelledby={labelId}
-                    onCheckedChange={() => handleToggleRow(row)}
-                    className="relative inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border border-white/15 bg-slate-700/80 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400 data-[state=checked]:bg-sky-500"
+                <div className="flex items-center gap-2 pl-4.5">
+                  <Slider.Root
+                    min={0}
+                    max={100}
+                    step={5}
+                    value={[pct]}
+                    onValueChange={([value]) =>
+                      dispatch(
+                        opacitySet({
+                          systems: row.systems,
+                          opacity: value / 100,
+                        }),
+                      )
+                    }
+                    className="relative flex h-4 flex-1 touch-none items-center select-none"
                   >
-                    <Switch.Thumb className="block h-4 w-4 translate-x-0.5 rounded-full bg-white shadow transition-transform will-change-transform data-[state=checked]:translate-x-4" />
-                  </Switch.Root>
+                    <Slider.Track className="relative h-1 grow rounded-full bg-white/15">
+                      <Slider.Range className="absolute h-full rounded-full bg-sky-400" />
+                    </Slider.Track>
+                    <Slider.Thumb
+                      aria-label={`${row.label} opacity`}
+                      className="block h-3 w-3 rounded-full bg-white shadow ring-1 ring-slate-900/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400"
+                    />
+                  </Slider.Root>
+                  <span className="w-8 shrink-0 text-right text-[11px] text-slate-300 tabular-nums">
+                    {pct}%
+                  </span>
                 </div>
               </li>
             );

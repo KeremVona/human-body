@@ -6,7 +6,12 @@ import {
   type IndexFile,
   type Manifest,
 } from '../../data/schema';
-import { systemToggled, systemsReducer, uiGroupToggled } from './systemsSlice';
+import {
+  opacitySet,
+  systemToggled,
+  systemsReducer,
+  uiGroupToggled,
+} from './systemsSlice';
 
 const taxonomy = TaxonomySchema.parse(rawTaxonomy);
 
@@ -111,4 +116,26 @@ it('requests bundles when a system is enabled', () => {
 
   store.dispatch(systemToggled('muscular'));
   expect(store.getState().assets.requested).toContain('muscular');
+});
+
+it('opacitySet clamps and rounds', () => {
+  let state = systemsReducer(undefined, { type: '@@init' });
+  state = systemsReducer(
+    state,
+    opacitySet({ systems: ['nervous', 'digestive'], opacity: 0.47 }),
+  );
+  expect(state.nervous.opacity).toBe(0.45);
+  expect(state.digestive.opacity).toBe(0.45);
+
+  state = systemsReducer(
+    state,
+    opacitySet({ systems: ['skeletal'], opacity: 1.3 }),
+  );
+  expect(state.skeletal.opacity).toBe(1);
+
+  state = systemsReducer(
+    state,
+    opacitySet({ systems: ['skeletal'], opacity: -1 }),
+  );
+  expect(state.skeletal.opacity).toBe(0);
 });

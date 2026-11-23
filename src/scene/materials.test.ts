@@ -136,4 +136,51 @@ describe('createMaterialLibrary', () => {
     lib.dispose();
     expect(disposeSpy).toHaveBeenCalledTimes(3);
   });
+
+  it('setSystemOpacity toggles transparency and depth writes', () => {
+    const lib = createMaterialLibrary(0.15);
+    const base = lib.get({
+      system: 'skeletal',
+      tissue: 'bone',
+      state: 'base',
+    }) as MeshPhysicalMaterial;
+    const hovered = lib.get({
+      system: 'skeletal',
+      tissue: 'bone',
+      state: 'hovered',
+    }) as MeshPhysicalMaterial;
+    const ghost = lib.get({
+      system: 'skeletal',
+      tissue: 'bone',
+      state: 'ghost',
+    }) as MeshPhysicalMaterial;
+    const v0 = base.version;
+
+    lib.setSystemOpacity('skeletal', 0.3);
+    expect(base.transparent).toBe(true);
+    expect(base.depthWrite).toBe(false);
+    expect(base.opacity).toBe(0.3);
+    expect(hovered.transparent).toBe(true);
+    expect(hovered.depthWrite).toBe(false);
+    expect(hovered.opacity).toBe(0.3);
+    expect(ghost.opacity).toBe(0.15);
+    expect(base.version).toBeGreaterThan(v0);
+
+    const v1 = base.version;
+    lib.setSystemOpacity('skeletal', 1);
+    expect(base.transparent).toBe(false);
+    expect(base.depthWrite).toBe(true);
+    expect(base.opacity).toBe(1);
+    expect(base.version).toBeGreaterThan(v1);
+
+    lib.setSystemOpacity('muscular', 0.4);
+    const laterSelected = lib.get({
+      system: 'muscular',
+      tissue: 'muscle',
+      state: 'selected',
+    }) as MeshPhysicalMaterial;
+    expect(laterSelected.transparent).toBe(true);
+    expect(laterSelected.depthWrite).toBe(false);
+    expect(laterSelected.opacity).toBe(0.4);
+  });
 });
