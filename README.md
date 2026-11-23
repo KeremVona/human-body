@@ -4,7 +4,7 @@ Open-source, browser-based 3D human anatomy atlas — explore `1,011` meshes acr
 
 ![Anatomy Atlas demo](docs/img/demo.gif)
 
-Live demo: [keremvona.github.io/human-body](https://keremvona.github.io/human-body/) _(live verification and browser matrix in Task 8)_
+Live demo: **[keremvona.github.io/human-body](https://keremvona.github.io/human-body/)**
 
 ## Features
 
@@ -78,7 +78,7 @@ Educational copy lives in `content/en/index.json` (names, Latin TA names, synony
 ## Known Gaps
 
 - **Keyboard-only 3D structure selection:** Phase 1 requires mouse or touch pointer input to select individual 3D structures on the canvas. Keyboard-only visitors can toggle systems, switch presets (`1–6`), zoom (`+`/`-`), undo (`Ctrl/Cmd+Z`), open context actions (`Shift+F10`), and reset view (`0`); keyboard search and hierarchy selection arrive in Phase 2 ([design spec §9.3](docs/superpowers/specs/2026-11-21-anatomy-atlas-design.md)).
-- **Safari (macOS & iOS):** Launch verification pending in Task 8 (`docs/launch-checklist.md`).
+- **Safari, Firefox, and physical phone:** Desktop Chrome, Microsoft Edge, and Playwright `Pixel 7` mobile emulation are verified green; macOS Safari, iOS Safari, Desktop Firefox, and real-device Android Chrome are marked `not tested` in [docs/launch-checklist.md](docs/launch-checklist.md).
 
 ## Licensing
 
