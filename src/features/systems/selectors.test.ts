@@ -152,9 +152,85 @@ function makeFixtureState(
   });
 }
 
-it('builds Phase 1 rows in taxonomy order', () => {
-  const store = makeFixtureState();
+it('lists populated systems in taxonomy order when uiGroups is empty', () => {
+  const manifest: Manifest = {
+    version: 1,
+    generatedAt: '2026-11-21T00:00:00Z',
+    source: {
+      name: 'Z-Anatomy',
+      version: '2023-05-02',
+      license: 'CC-BY-SA-4.0',
+    },
+    bundles: [],
+    meshes: {},
+  };
+  const makeEntry = (
+    id: string,
+    system: IndexFile['structures'][number]['system'],
+  ): IndexFile['structures'][number] => ({
+    id,
+    system,
+    region: 'thorax',
+    paired: false,
+    kind: 'other',
+    tissue: 'other',
+    names: { common: id, synonyms: [] },
+    featured: false,
+  });
+  const index: IndexFile = {
+    locale: 'en',
+    structures: [
+      makeEntry('femur', 'skeletal'),
+      makeEntry('biceps', 'muscular'),
+      makeEntry('heart', 'cardiovascular'),
+      makeEntry('brainstem', 'nervous'),
+      makeEntry('trachea', 'respiratory'),
+      makeEntry('stomach', 'digestive'),
+      makeEntry('bladder', 'urinary'),
+      makeEntry('spleen', 'lymphatic'),
+    ],
+  };
+
+  const store = makeStore({
+    assets: { manifest, boot: 'ready', bundles: {}, requested: [] },
+    content: { taxonomy, index, structures: {} },
+  });
+
   const rows = selectToggleRows(store.getState());
+  expect(rows.map((r) => r.id)).toEqual([
+    'skeletal',
+    'muscular',
+    'cardiovascular',
+    'nervous',
+    'respiratory',
+    'digestive',
+    'urinary',
+    'lymphatic',
+  ]);
+});
+
+it('builds grouped rows when a taxonomy defines uiGroups', () => {
+  const store = makeFixtureState();
+  const groupedTaxonomy = {
+    ...taxonomy,
+    uiGroups: [
+      {
+        id: 'major-organs',
+        label: 'Major Organs',
+        systems: [
+          'nervous',
+          'respiratory',
+          'digestive',
+          'urinary',
+          'lymphatic',
+        ] as (typeof taxonomy.systems)[number]['id'][],
+      },
+    ],
+  };
+  const rows = selectToggleRows({
+    ...store.getState(),
+    content: { ...store.getState().content, taxonomy: groupedTaxonomy },
+  });
   expect(rows.map((r) => r.id)).toEqual([
     'skeletal',
     'muscular',
@@ -167,7 +243,23 @@ it('builds Phase 1 rows in taxonomy order', () => {
   expect(organsRow.systems).toEqual(['nervous', 'digestive']);
 });
 
-it('reports mixed and aggregated status', () => {
+it('reports mixed and aggregated status for grouped rows', () => {
+  const groupedTaxonomy = {
+    ...taxonomy,
+    uiGroups: [
+      {
+        id: 'major-organs',
+        label: 'Major Organs',
+        systems: [
+          'nervous',
+          'respiratory',
+          'digestive',
+          'urinary',
+          'lymphatic',
+        ] as (typeof taxonomy.systems)[number]['id'][],
+      },
+    ],
+  };
   const store = makeFixtureState({
     skeletal: 'ready',
     muscular: 'ready',
@@ -176,9 +268,10 @@ it('reports mixed and aggregated status', () => {
   });
   store.dispatch(systemToggled('nervous'));
 
-  let organsRow = selectToggleRows(store.getState()).find(
-    (r) => r.id === 'major-organs',
-  )!;
+  let organsRow = selectToggleRows({
+    ...store.getState(),
+    content: { ...store.getState().content, taxonomy: groupedTaxonomy },
+  }).find((r) => r.id === 'major-organs')!;
   expect(organsRow.on).toBe('mixed');
   expect(organsRow.status).toBe('loading');
 
@@ -188,8 +281,9 @@ it('reports mixed and aggregated status', () => {
     cardiovascular: 'idle',
     organs: 'error',
   });
-  organsRow = selectToggleRows(errStore.getState()).find(
-    (r) => r.id === 'major-organs',
-  )!;
+  organsRow = selectToggleRows({
+    ...errStore.getState(),
+    content: { ...errStore.getState().content, taxonomy: groupedTaxonomy },
+  }).find((r) => r.id === 'major-organs')!;
   expect(organsRow.status).toBe('error');
 });

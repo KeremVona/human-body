@@ -36,11 +36,5 @@
     { "id": "lower-limb", "label": "Lower limb" },
     { "id": "multiple", "label": "Multiple regions" }
   ],
-  "uiGroups": [
-    {
-      "id": "major-organs",
-      "label": "Major Organs",
-      "systems": ["nervous", "respiratory", "digestive", "urinary", "lymphatic"]
-    }
-  ]
+  "uiGroups": []
 }

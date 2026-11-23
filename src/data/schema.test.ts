@@ -80,16 +80,8 @@ it('requires all five muscle detail fields', () => {
   ).toBe(false);
 });
 
-it('ships a valid taxonomy with nine systems and the Major Organs group', () => {
+it('ships a valid taxonomy with nine systems and empty uiGroups', () => {
   const t = TaxonomySchema.parse(taxonomy);
   expect(t.systems).toHaveLength(9);
-  const organs = t.uiGroups.find((g) => g.id === 'major-organs')!;
-  expect(organs.label).toBe('Major Organs');
-  expect(organs.systems).toEqual([
-    'nervous',
-    'respiratory',
-    'digestive',
-    'urinary',
-    'lymphatic',
-  ]);
+  expect(t.uiGroups).toEqual([]);
 });

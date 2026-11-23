@@ -65,7 +65,9 @@ export function SystemsPanel(): JSX.Element | null {
         label="Body systems"
         collapsed={collapsed}
         onToggle={() => setCollapsed((c) => !c)}
-        className={collapsed ? '' : 'w-60'}
+        className={
+          collapsed ? '' : 'max-h-[calc(100dvh-9rem)] w-60 overflow-y-auto'
+        }
       >
         <ul className="space-y-1.5">
           {rows.map((row) => {

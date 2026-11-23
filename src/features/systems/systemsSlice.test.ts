@@ -84,19 +84,15 @@ it('defaults to skeletal only', () => {
   }
 });
 
-it('uiGroupToggled turns a mixed group off, then on', () => {
+it('uiGroupToggled ignores unknown or absent groups safely', () => {
   let state = systemsReducer(undefined, { type: '@@init' });
   state = systemsReducer(state, systemToggled('nervous'));
   expect(state.nervous.enabled).toBe(true);
   expect(state.digestive.enabled).toBe(false);
 
-  state = systemsReducer(state, uiGroupToggled('major-organs'));
-  expect(state.nervous.enabled).toBe(false);
-  expect(state.digestive.enabled).toBe(false);
-
-  state = systemsReducer(state, uiGroupToggled('major-organs'));
-  expect(state.nervous.enabled).toBe(true);
-  expect(state.digestive.enabled).toBe(true);
+  const after = systemsReducer(state, uiGroupToggled('major-organs'));
+  expect(after.nervous.enabled).toBe(true);
+  expect(after.digestive.enabled).toBe(false);
 });
 
 it('requests bundles when a system is enabled', () => {

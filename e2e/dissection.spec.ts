@@ -130,7 +130,7 @@ test('right-click on a bone opens the menu', async ({ page }) => {
 
 test('right-click on empty space opens the reset menu', async ({ page }) => {
   await waitForAtlas(page);
-  await page.mouse.click(40, 400, { button: 'right' });
+  await page.mouse.click(340, 400, { button: 'right' });
   const menu = page.getByRole('menu', { name: 'Dissection actions' });
   await expect(menu).toBeVisible();
   await expect(menu.getByRole('menuitem', { name: /Show all/ })).toBeVisible();

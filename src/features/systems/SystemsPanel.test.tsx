@@ -2,38 +2,18 @@ import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Provider } from 'react-redux';
 import { describe, expect, it } from 'vitest';
+import rawTaxonomy from '../../../content/taxonomy.json';
 import { makeStore } from '../../app/store';
-import type { IndexEntry, Manifest, Taxonomy } from '../../data/schema';
+import {
+  TaxonomySchema,
+  type IndexEntry,
+  type Manifest,
+} from '../../data/schema';
 import { bundleFailed, bundleStarted } from '../assets/assetsSlice';
 import { bootstrap } from '../content/contentSlice';
-import { systemToggled } from './systemsSlice';
 import { SystemsPanel } from './SystemsPanel';
 
-const taxonomy: Taxonomy = {
-  systems: [
-    { id: 'skeletal', label: 'Skeletal', color: '#E8E0D2', order: 0 },
-    { id: 'muscular', label: 'Muscular', color: '#9E3434', order: 1 },
-    {
-      id: 'cardiovascular',
-      label: 'Cardiovascular',
-      color: '#C92A2A',
-      order: 2,
-    },
-    { id: 'nervous', label: 'Nervous', color: '#DFB848', order: 3 },
-    { id: 'respiratory', label: 'Respiratory', color: '#E07A90', order: 4 },
-    { id: 'digestive', label: 'Digestive', color: '#B55D5B', order: 5 },
-    { id: 'urinary', label: 'Urinary', color: '#6488B5', order: 6 },
-    { id: 'lymphatic', label: 'Lymphatic', color: '#58A67D', order: 7 },
-  ],
-  regions: [{ id: 'thorax', label: 'Thorax' }],
-  uiGroups: [
-    {
-      id: 'major-organs',
-      label: 'Major Organs',
-      systems: ['nervous', 'respiratory', 'digestive', 'urinary', 'lymphatic'],
-    },
-  ],
-};
+const taxonomy = TaxonomySchema.parse(rawTaxonomy);
 
 function makeEntry(id: string, system: IndexEntry['system']): IndexEntry {
   return {
@@ -124,7 +104,7 @@ function setupStore() {
 }
 
 describe('SystemsPanel', () => {
-  it('lists the four Phase 1 rows in order with only Skeletal checked', () => {
+  it('lists all populated system rows in order with only Skeletal checked', () => {
     const store = setupStore();
     render(
       <Provider store={store}>
@@ -133,18 +113,20 @@ describe('SystemsPanel', () => {
     );
 
     const switches = screen.getAllByRole('switch');
-    expect(
-      switches.map((s) => s.getAttribute('aria-label') ?? s.textContent),
-    ).toHaveLength(4);
+    expect(switches).toHaveLength(8);
     expect(switches[0]).toHaveAccessibleName('Skeletal');
     expect(switches[1]).toHaveAccessibleName('Muscular');
     expect(switches[2]).toHaveAccessibleName('Cardiovascular');
-    expect(switches[3]).toHaveAccessibleName('Major Organs');
+    expect(switches[3]).toHaveAccessibleName('Nervous');
+    expect(switches[4]).toHaveAccessibleName('Respiratory');
+    expect(switches[5]).toHaveAccessibleName('Digestive');
+    expect(switches[6]).toHaveAccessibleName('Urinary');
+    expect(switches[7]).toHaveAccessibleName('Lymphatic');
 
     expect(switches[0]).toBeChecked();
-    expect(switches[1]).not.toBeChecked();
-    expect(switches[2]).not.toBeChecked();
-    expect(switches[3]).not.toBeChecked();
+    for (const sw of switches.slice(1)) {
+      expect(sw).not.toBeChecked();
+    }
   });
 
   it('toggling a system dispatches systemToggled', async () => {
@@ -158,24 +140,8 @@ describe('SystemsPanel', () => {
 
     await user.click(screen.getByRole('switch', { name: 'Muscular' }));
     expect(store.getState().systems.muscular.enabled).toBe(true);
-  });
-
-  it('toggling the group toggles all its systems', async () => {
-    const user = userEvent.setup();
-    const store = setupStore();
-    render(
-      <Provider store={store}>
-        <SystemsPanel />
-      </Provider>,
-    );
-
-    await user.click(screen.getByRole('switch', { name: 'Major Organs' }));
-    const sys = store.getState().systems;
-    expect(sys.nervous.enabled).toBe(true);
-    expect(sys.respiratory.enabled).toBe(true);
-    expect(sys.digestive.enabled).toBe(true);
-    expect(sys.urinary.enabled).toBe(true);
-    expect(sys.lymphatic.enabled).toBe(true);
+    await user.click(screen.getByRole('switch', { name: 'Nervous' }));
+    expect(store.getState().systems.nervous.enabled).toBe(true);
   });
 
   it('shows loading and retry states', async () => {
@@ -189,13 +155,13 @@ describe('SystemsPanel', () => {
       </Provider>,
     );
 
-    expect(screen.getByLabelText('Loading Major Organs')).toBeInTheDocument();
+    expect(screen.getByLabelText('Loading Digestive')).toBeInTheDocument();
 
     act(() => {
       store.dispatch(bundleFailed('organs'));
     });
     const retry = await screen.findByRole('button', {
-      name: 'Retry Major Organs',
+      name: 'Retry Digestive',
     });
     await user.click(retry);
     expect(store.getState().assets.bundles.organs).toBe('idle');
@@ -214,21 +180,7 @@ describe('SystemsPanel', () => {
     expect(screen.queryAllByRole('switch')).toHaveLength(0);
 
     await user.click(screen.getByRole('button', { name: 'Expand panel' }));
-    expect(screen.getAllByRole('switch')).toHaveLength(4);
-  });
-
-  it('renders mixed state with aria-checked="mixed"', () => {
-    const store = setupStore();
-    store.dispatch(systemToggled('digestive'));
-    render(
-      <Provider store={store}>
-        <SystemsPanel />
-      </Provider>,
-    );
-
-    expect(
-      screen.getByRole('switch', { name: 'Major Organs' }),
-    ).toHaveAttribute('aria-checked', 'mixed');
+    expect(screen.getAllByRole('switch')).toHaveLength(8);
   });
 
   it('slider dispatches opacity', async () => {
