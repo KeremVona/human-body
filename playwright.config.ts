@@ -38,7 +38,7 @@ export default defineConfig({
         },
         {
           name: 'mobile',
-          testMatch: /mobile\.spec\.ts/,
+          testMatch: /(?:mobile|layout)\.spec\.ts/,
           use: {
             ...devices['Pixel 7'],
             launchOptions: {

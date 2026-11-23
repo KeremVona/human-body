@@ -1,10 +1,32 @@
-# 3D Human Anatomy Atlas
+# Anatomy Atlas
 
-Open-source interactive 3D human anatomy atlas built with React Three Fiber, Three.js, and Meshopt-compressed glTF assets.
+Open-source, browser-based 3D human anatomy atlas — explore `1,011` meshes across `582` anatomical structures with instant dissection, plain-English guides, and zero account wall.
 
-See [docs/superpowers/specs/2026-11-21-anatomy-atlas-design.md](docs/superpowers/specs/2026-11-21-anatomy-atlas-design.md) for the design specification and [docs/phase-0-results.md](docs/phase-0-results.md) for the Phase 0 baseline measurements.
+![Anatomy Atlas demo](docs/img/demo.gif)
 
-## Running the App
+Live demo: [keremvona.github.io/human-body](https://keremvona.github.io/human-body/) _(live verification and browser matrix in Task 8)_
+
+## Features
+
+- **Four anatomical bundles at launch:** Skeletal (`263` meshes), Muscular (`459` meshes), Cardiovascular (`216` meshes), and Major Organs (`73` meshes covering Nervous, Respiratory, Digestive, Urinary, and Lymphatic structures).
+- **125 featured structures:** Plain-English overviews, functions, muscle attachments (`origin`, `insertion`, `innervation`, `blood supply`, `action`), bone articulations, key organ/vessel facts, and source links cited directly to OpenStax _Anatomy and Physiology 2e_ (`CC-BY 4.0`) and Wikipedia (`CC-BY-SA 4.0`).
+- **Real-time dissection tools:** Focus (`F`), Isolate (`I`), Hide (`H`), Fade others (`G`), Left/Right paired switching, context menu (right-click, `Shift+F10`, or long-press), and up to `50` steps of Undo (`Ctrl/Cmd+Z`).
+- **Camera presets & responsive UI:** Anterior/Posterior/Left/Right/Superior/Inferior presets (`1–6`), zoom (`+`/`-`), reset view (`0`), desktop side Inspector (`>= 768px`), and touch-friendly bottom sheet on mobile viewports.
+
+## Tech Stack
+
+- **UI & State:** React 19, TypeScript, Redux Toolkit, Radix UI (`Dialog`, `Switch`, `DropdownMenu`, `Tooltip`), Tailwind CSS v4.
+- **3D Engine:** Three.js, React Three Fiber (`frameloop="demand"`), `camera-controls`, `three-mesh-bvh`, Meshopt decoding.
+- **Asset Pipeline:** Headless Blender 5.3 + `@gltf-transform` / `meshoptimizer` + Zod schema validation.
+- **Testing & CI:** Vitest (`node` + `jsdom` projects), Playwright (Desktop Chrome + mobile `Pixel 7` + base-path preview checks), ESLint, Prettier.
+
+## Architecture
+
+Individual meshes are never mounted as React components subscribing to Redux. Instead, `BundleModel` registers every decoded `THREE.Mesh` into `MeshRegistry` (`Map<MeshId, Mesh>`), while `SceneStateApplier` subscribes imperatively to the store, computes only changed states (`selectResolvedMeshStates` → `applyMeshStates`), swaps shared materials from `MaterialLibrary`, and calls `invalidate()` on demand.
+
+Read [docs/architecture.md](docs/architecture.md) for the full layer diagram, slice responsibilities, bundle loading order, and testing strategy, and [docs/pipeline-writeup.md](docs/pipeline-writeup.md) for how a `304.8 MB` `.blend` archive was distilled to `27.71 MB` across four compressed GLB bundles.
+
+## Running Locally
 
 Requires **Node.js 24+**.
 
@@ -13,53 +35,61 @@ npm install
 npm run dev
 ```
 
-Append `?debug` to the URL to display the live FPS, draw-call, and triangle HUD.
-
-### Accessibility Scope (Phase 1)
-
-Phase 1 requires pointer interaction (mouse or touch) to pick individual 3D structures. Keyboard-only visitors can toggle anatomical systems, switch camera presets (`1–6`), zoom (`+`/`-`), undo (`Ctrl/Cmd+Z`), open context actions (`Shift+F10`), and reset view (`0`); keyboard structure selection arrives in Phase 2 alongside search and the hierarchy tree.
+Append `?debug` to the URL to display the live FPS, draw-call, triangle, and mesh count overlay.
 
 Verification commands:
 
 ```sh
-npm run ci            # typecheck, lint, unit tests, content & asset verification, production build
-npm run test:e2e      # Playwright Chromium + mobile smoke tests against Vite dev server (uses dev-only __atlas hooks)
-npm run test:e2e:base # Production sub-path build + Vite preview smoke test (ATLAS_BASE_PATH=/atlas-check/)
+npm run ci            # typecheck, lint, Vitest suites, check:content, assets:verify, production build
+npm run test:e2e      # Playwright Desktop Chrome + Pixel 7 e2e suites against Vite dev server
+npm run test:e2e:base # Sub-path production build (ATLAS_BASE_PATH=/atlas-check/) + Vite preview smoke test
 ```
-
-## Deploying to GitHub Pages
-
-Pushes to `main` trigger `.github/workflows/deploy.yml`, which builds `dist/` with `ATLAS_BASE_PATH=/<repo>/` so all static glTF models and JSON content resolve under the repository subpath. After creating the repository, set **Settings → Pages → Source** to **GitHub Actions** once to enable automatic deployments.
 
 ## Rebuilding 3D Assets
 
-All four Phase 1 bundles (`skeletal`, `muscular`, `cardiovascular`, `organs`) are committed under `public/models/`. To regenerate assets from source:
+All four compressed bundles (`public/models/*.glb`) and `public/models/manifest.json` are committed in the repository. To regenerate them from upstream source:
 
-### Prerequisites
-
-1. Install **Blender 5.3** (tested on 5.3.0) and set `BLENDER_PATH` in `.env.local` (ignored by git):
+1. Install **Blender 5.3** (tested on `5.3.0`) and add its path to `.env.local` (ignored by git):
    ```ini
    BLENDER_PATH=C:\Program Files\Blender Foundation\Blender 5.3\blender.exe
    ```
-2. Place `Z-Anatomy.blend` (version `2023-05-02`) at `pipeline/source/Z-Anatomy.blend` (ignored by git).
+2. Download `Z-Anatomy.blend` (version `2023-05-02`) to `pipeline/source/Z-Anatomy.blend` (ignored by git).
+3. Run the pipeline steps:
+   ```sh
+   npm run assets:inventory  # survey .blend objects into pipeline/out/inventory.json
+   npm run assets:namemap    # reconcile pipeline/name-map.json against selected rules
+   npm run assets:build      # headless Blender export + Meshopt optimize + update manifest & index
+   npm run assets:verify     # verify budgets, bounds, orientation probes, and mesh/index parity
+   ```
 
-### Pipeline Commands
+See [pipeline/README.md](pipeline/README.md) for licensing exclusions and object selection rules.
 
-```sh
-npm run assets:inventory  # survey .blend objects into pipeline/out/inventory.json
-npm run assets:namemap    # reconcile pipeline/name-map.json against current selection
-npm run assets:build      # export from Blender, Meshopt-optimize, update manifest & scaffold index
-npm run assets:verify     # validate exported GLBs, dimensions, and orientation probes
-```
+## Contributing Content
 
-See [pipeline/README.md](pipeline/README.md) for detailed pipeline rules and license exclusions.
+Educational copy lives in `content/en/index.json` (names, Latin TA names, synonyms, taxonomy metadata) and `content/en/structures/<system>.json` (featured prose, details, and verified sources).
+
+- Follow [content/STYLE.md](content/STYLE.md): write plain English, avoid HTML or Markdown formatting inside JSON text fields, and adapt only from `CC-BY 4.0` (OpenStax) or `CC-BY-SA 4.0` (Wikipedia) with exact `sources[]` citations.
+- Validate changes before committing:
+  ```sh
+  npm run check:content
+  npm run content:report
+  ```
+
+## Known Gaps
+
+- **Keyboard-only 3D structure selection:** Phase 1 requires mouse or touch pointer input to select individual 3D structures on the canvas. Keyboard-only visitors can toggle systems, switch presets (`1–6`), zoom (`+`/`-`), undo (`Ctrl/Cmd+Z`), open context actions (`Shift+F10`), and reset view (`0`); keyboard search and hierarchy selection arrive in Phase 2 ([design spec §9.3](docs/superpowers/specs/2026-11-21-anatomy-atlas-design.md)).
+- **Safari (macOS & iOS):** Launch verification pending in Task 8 (`docs/launch-checklist.md`).
 
 ## Licensing
 
 - **Code** (`src/`, `pipeline/`, `scripts/`, tests, config): [MIT License](LICENSE).
-- **3D Assets & Content** (`public/models/`, `content/`): [CC-BY-SA 4.0](LICENSE-ASSETS) (derived from Z-Anatomy and BodyParts3D). Third-party non-commercial (`CC-BY-NC*`) and unverified-license models present in the upstream `.blend` are excluded.
+- **3D Models & Content** (`public/models/`, `content/`): [CC-BY-SA 4.0](LICENSE-ASSETS). Non-commercial (`CC-BY-NC` / `CC-BY-NC-SA`) and unverified-license third-party models present in the upstream `.blend` archive are excluded by pipeline rules.
 
 ## Credits
 
-- **Z-Anatomy** — <https://github.com/LluisV/Z-Anatomy> (`CC-BY-SA 4.0`)
-- **BodyParts3D** — © The Database Center for Life Science (`https://dbarchive.biosciencedbc.jp/en/bodyparts3d/lic.html`)
+- **3D Models:** [Z-Anatomy](https://github.com/LluisV/Z-Anatomy) (`CC-BY-SA 4.0`), built on BodyParts3D (© The Database Center for Life Science, `CC-BY-SA 2.1 Japan` / `CC-BY 4.0`).
+- **Content:** Adapted from [OpenStax _Anatomy and Physiology 2e_](https://openstax.org/books/anatomy-and-physiology-2e/pages/1-introduction) (`CC-BY 4.0`) and [Wikipedia](https://en.wikipedia.org) (`CC-BY-SA 4.0`).
+
+## Disclaimer
+
+This atlas is for learning and curiosity. It is not medical advice.

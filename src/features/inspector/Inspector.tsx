@@ -67,7 +67,7 @@ function DetailsSection({ details }: { details: Details }): JSX.Element {
         {rows.map(([label, value]) => (
           <div key={label}>
             <dt className="font-semibold text-slate-300">{label}</dt>
-            <dd className="text-slate-100">{value}</dd>
+            <dd className="break-words text-slate-100">{value}</dd>
           </div>
         ))}
       </dl>
@@ -86,7 +86,7 @@ function DetailsSection({ details }: { details: Details }): JSX.Element {
         </div>
         <div>
           <dt className="font-semibold text-slate-300">Articulates with</dt>
-          <dd className="text-slate-100">
+          <dd className="break-words text-slate-100">
             {articulatesNames.length > 0 ? articulatesNames.join(', ') : '—'}
           </dd>
         </div>
@@ -141,11 +141,13 @@ export function Inspector(): JSX.Element | null {
       <div className="shrink-0 border-b border-white/10 p-4 pb-3">
         <div className="flex items-start justify-between gap-2">
           <div className="min-w-0">
-            <h2 className="text-base font-semibold text-white">
+            <h2 className="break-words text-base font-semibold text-white">
               {model.common}
             </h2>
             {model.latin ? (
-              <p className="text-xs text-slate-300 italic">{model.latin}</p>
+              <p className="break-words text-xs text-slate-300 italic">
+                {model.latin}
+              </p>
             ) : null}
           </div>
           <IconButton

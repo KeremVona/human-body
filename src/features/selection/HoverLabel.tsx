@@ -40,7 +40,7 @@ export function HoverLabel(): JSX.Element | null {
     <div
       aria-hidden="true"
       style={{ left: `${left}px`, top: `${top}px` }}
-      className="pointer-events-none fixed z-30 rounded-md bg-slate-900/90 px-2.5 py-1 text-xs font-medium text-slate-100 shadow-lg ring-1 ring-white/10 backdrop-blur [@media(pointer:coarse)]:hidden"
+      className="pointer-events-none fixed z-30 max-w-[260px] break-words rounded-md bg-slate-900/90 px-2.5 py-1 text-xs font-medium text-slate-100 shadow-lg ring-1 ring-white/10 backdrop-blur [@media(pointer:coarse)]:hidden"
     >
       {label}
     </div>
