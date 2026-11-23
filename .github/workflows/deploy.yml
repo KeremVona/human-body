@@ -30,6 +30,7 @@ jobs:
       - run: npm run build
         env:
           ATLAS_BASE_PATH: /${{ github.event.repository.name }}/
+          VITE_REPO_URL: ${{ vars.VITE_REPO_URL || format('{0}/{1}', github.server_url, github.repository) }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
