@@ -25,7 +25,7 @@ For deeper design rationale and data contracts, see the [Design Specification](s
 └────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
-- **UI shell (`src/features/`, `src/ui/`):** Presentational components and Radix primitives (`Dialog`, `Switch`, `DropdownMenu`, `Tooltip`) read slice state via memoized selectors and call `CameraApi` directly for imperative camera transitions (`focusMeshes`, `goToPreset`, `resetView`).
+- **UI shell (`src/features/`, `src/ui/`):** Presentational components and Radix primitives (`Dialog`, `Switch`, `DropdownMenu`) read slice state via memoized selectors and call `CameraApi` directly for imperative camera transitions (`focusMeshes`, `goToPreset`, `resetView`).
 - **Store (`src/app/store.ts`):** Coordinates application state and side-effect thunks (`assets/bootstrap`, bundle downloads, lazy structure content fetches).
 - **3D Scene (`src/scene/`):** React Three Fiber hosts `<Canvas frameloop="demand">`, lighting (`Lights.tsx`), `CameraRig.tsx` (`camera-controls`), pointer picking (`Picking.tsx`), `BundleModel.tsx`, and `SceneStateApplier.tsx`.
 
@@ -37,7 +37,7 @@ Individual anatomical meshes (`1,011` meshes across the four Phase 1 bundles) ar
 2. **Resolve → Diff → Apply (`SceneStateApplier.tsx`):**
    - **Resolve:** `SceneStateApplier` subscribes imperatively to `store.subscribe(...)` (scheduled via microtask coalescing) and computes `selectResolvedMeshStates(state, meshIds)`, combining `systems` enabled flags/opacities, `dissection` sets (`hidden`, `isolated`, `faded`), `selection.selectedIds`, and `selection.hoveredId`.
    - **Diff:** `applyMeshStates` (`src/scene/applyMeshStates.ts`) compares each mesh's next `MeshState` (`visible`, `variant`, `opacity`, `renderOrder`) against `prevStatesRef.current`. Only changed meshes are touched.
-   - **Apply:** For each changed mesh, `MaterialLibrary` (`src/scene/materials.ts`) supplies a shared `MeshStandardMaterial` keyed by `(system × tissue-or-custom-color × variant)` (`base`, `hovered`, `selected`, `ghost`). After updating `visible`, `material`, and `renderOrder`, `SceneStateApplier` calls `invalidate()` so `<Canvas frameloop="demand">` renders only when state or camera changes.
+   - **Apply:** For each changed mesh, `MaterialLibrary` (`src/scene/materials.ts`) supplies a shared `MeshPhysicalMaterial` keyed by `(system × tissue-or-custom-color × variant)` (`base`, `hovered`, `selected`, `ghost`). After updating `visible`, `material`, and `renderOrder`, `SceneStateApplier` calls `invalidate()` so `<Canvas frameloop="demand">` renders only when state or camera changes.
 
 ## Redux Slices
 
@@ -62,7 +62,7 @@ Storage bundles are shaped for download budgets and progressive streaming, where
 
 ## Progressive Loading Sequence
 
-1. **HTML Preloads (`index.html` + `src/main.tsx`):** `<link rel="preload">` starts fetching `models/manifest.json`, `content/taxonomy.json`, and `content/en/index.json` while `main.tsx` prefetches `manifest.json` so the `skeletal` GLB bytes (`preloadGltf` in `src/scene/gltfCache.ts`) begin downloading before `AtlasCanvas` finishes lazy-mounting.
+1. **HTML Preloads (`index.html` + `src/main.tsx`):** `<link rel="preload">` starts fetching `models/manifest.json`, `content/taxonomy.json`, and `en/index.json` while `main.tsx` reads the `<meta name="atlas-skeletal">` tag injected at build time by `vite.config.ts` so `preloadGltf` (`src/scene/gltfCache.ts`) starts downloading the `skeletal` GLB bytes before `AtlasCanvas` finishes lazy-mounting.
 2. **Core Boot (`assets/bootstrap`):** Loads `manifest.json`, `taxonomy.json`, and `index.json` in parallel, then transitions `assets.boot` to `'ready'`.
 3. **Skeletal First:** Only the `skeletal` bundle is enabled at startup (`skeletal` renders immediately once parsed; `AtlasCanvas`, `Inspector`, and `DissectionMenu` load in separate code-split chunks).
 4. **Queued Background Bundles (`BundleScheduler.tsx`):** Once booted, `BundleScheduler` advances `BUNDLE_LOAD_ORDER` (`muscular`, `organs`, `cardiovascular`) one bundle at a time (`requested`), or prioritizes a bundle immediately if the user toggles its system early.

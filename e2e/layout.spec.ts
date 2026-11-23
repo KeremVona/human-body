@@ -4,6 +4,7 @@ type AtlasGlobal = typeof globalThis & {
   __atlas?: {
     ready: boolean;
     select: (ids: string[]) => void;
+    setPointer: (x: number, y: number) => void;
     dispatch: (action: { type: string; payload: unknown }) => void;
     getState: () => {
       assets: { bundles: Record<string, string> };
@@ -83,8 +84,8 @@ test('longest names wrap inside the Inspector and hover label', async ({
       ).matchMedia('(pointer: coarse)').matches,
   );
   if (!isCoarse) {
-    await page.mouse.move(1250, 300);
     await page.evaluate((id) => {
+      (globalThis as AtlasGlobal).__atlas!.setPointer(1250, 300);
       (globalThis as AtlasGlobal).__atlas!.dispatch({
         type: 'selection/hovered',
         payload: id,
@@ -99,11 +100,13 @@ test('longest names wrap inside the Inspector and hover label', async ({
       return {
         scrollW: el.scrollWidth,
         clientW: el.clientWidth,
+        left: r.left,
         width: r.width,
         right: r.right,
         vw: (globalThis as unknown as { innerWidth: number }).innerWidth,
       };
     });
+    expect(hoverMetrics.left).toBeGreaterThanOrEqual(800);
     expect(hoverMetrics.scrollW).toBeLessThanOrEqual(hoverMetrics.clientW);
     expect(hoverMetrics.right).toBeLessThanOrEqual(hoverMetrics.vw);
     expect(hoverMetrics.width).toBeLessThanOrEqual(270);

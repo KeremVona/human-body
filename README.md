@@ -15,7 +15,7 @@ Live demo: **[keremvona.github.io/human-body](https://keremvona.github.io/human-
 
 ## Tech Stack
 
-- **UI & State:** React 19, TypeScript, Redux Toolkit, Radix UI (`Dialog`, `Switch`, `DropdownMenu`, `Tooltip`), Tailwind CSS v4.
+- **UI & State:** React 19, TypeScript, Redux Toolkit, Radix UI (`Dialog`, `Switch`, `DropdownMenu`), Tailwind CSS v4.
 - **3D Engine:** Three.js, React Three Fiber (`frameloop="demand"`), `camera-controls`, `three-mesh-bvh`, Meshopt decoding.
 - **Asset Pipeline:** Headless Blender 5.3 + `@gltf-transform` / `meshoptimizer` + Zod schema validation.
 - **Testing & CI:** Vitest (`node` + `jsdom` projects), Playwright (Desktop Chrome + mobile `Pixel 7` + base-path preview checks), ESLint, Prettier.

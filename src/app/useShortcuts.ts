@@ -21,6 +21,12 @@ export function useShortcuts(onContextMenu?: () => void): void {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.defaultPrevented) return;
+      if (
+        typeof document !== 'undefined' &&
+        document.querySelector('[role="dialog"]')
+      ) {
+        return;
+      }
       const target = e.target;
       const cmd = shortcutFor({
         key: e.key,

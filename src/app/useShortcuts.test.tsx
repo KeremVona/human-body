@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { describe, expect, it, vi } from 'vitest';
 import { makeStore } from './store';
 import { useShortcuts } from './useShortcuts';
+import { TopBar } from '../features/about/TopBar';
 import {
   DissectionMenu,
   type ContextMenuTarget,
@@ -53,5 +54,45 @@ describe('useShortcuts', () => {
 
     await user.keyboard('{Escape}');
     expect(store.getState().selection.selectedIds).toEqual([]);
+  });
+
+  it('suppresses viewer shortcuts while a modal dialog is open', async () => {
+    const user = userEvent.setup();
+    const store = makeStore();
+    store.dispatch(selected(['femur--l']));
+    const camera: CameraApi = {
+      focusMeshes: vi.fn(async () => {}),
+      goToPreset: vi.fn(async () => {}),
+      resetView: vi.fn(async () => {}),
+      zoom: vi.fn(),
+    };
+
+    render(
+      <Provider store={store}>
+        <CameraApiProvider value={camera}>
+          <ShortcutMenuHarness initialMenu={null} />
+          <TopBar />
+        </CameraApiProvider>
+      </Provider>,
+    );
+
+    await user.click(screen.getByRole('button', { name: 'About this atlas' }));
+    expect(
+      screen.getByRole('dialog', { name: 'About Anatomy Atlas' }),
+    ).toBeInTheDocument();
+
+    await user.keyboard('h');
+    await user.keyboard('f');
+    await user.keyboard('0');
+
+    expect(store.getState().dissection.hidden).toEqual([]);
+    expect(camera.focusMeshes).not.toHaveBeenCalled();
+    expect(camera.resetView).not.toHaveBeenCalled();
+
+    await user.keyboard('{Escape}');
+    expect(
+      screen.queryByRole('dialog', { name: 'About Anatomy Atlas' }),
+    ).not.toBeInTheDocument();
+    expect(store.getState().selection.selectedIds).toEqual(['femur--l']);
   });
 });

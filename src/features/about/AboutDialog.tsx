@@ -2,6 +2,21 @@ import * as Dialog from '@radix-ui/react-dialog';
 import type { JSX, ReactNode } from 'react';
 import { APP_NAME, getRepoUrl } from '../../app/brand';
 
+function safeHref(url: string | undefined): string | undefined {
+  if (!url) return undefined;
+  try {
+    const parsed = new URL(url.trim());
+    return parsed.protocol === 'https:' || parsed.protocol === 'http:'
+      ? parsed.toString()
+      : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
+const linkClass =
+  'rounded-sm text-sky-300 underline decoration-sky-400/50 underline-offset-2 hover:text-sky-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400';
+
 const SHORTCUT_ROWS: readonly [string, string][] = [
   ['H', 'Hide selected structure'],
   ['I', 'Isolate selected structure'],
@@ -16,7 +31,7 @@ const SHORTCUT_ROWS: readonly [string, string][] = [
 
 /** Accessible modal dialog displaying project overview, medical disclaimer, credits, and keyboard shortcuts. */
 export function AboutDialog({ trigger }: { trigger: ReactNode }): JSX.Element {
-  const repoUrl = getRepoUrl();
+  const repoUrl = safeHref(getRepoUrl());
 
   return (
     <Dialog.Root>
@@ -75,7 +90,7 @@ export function AboutDialog({ trigger }: { trigger: ReactNode }): JSX.Element {
                   href="https://github.com/LluisV/Z-Anatomy"
                   target="_blank"
                   rel="noreferrer noopener"
-                  className="text-sky-300 underline decoration-sky-400/50 underline-offset-2 hover:text-sky-200"
+                  className={linkClass}
                 >
                   Z-Anatomy
                 </a>{' '}
@@ -91,7 +106,7 @@ export function AboutDialog({ trigger }: { trigger: ReactNode }): JSX.Element {
                   href="https://en.wikipedia.org"
                   target="_blank"
                   rel="noreferrer noopener"
-                  className="text-sky-300 underline decoration-sky-400/50 underline-offset-2 hover:text-sky-200"
+                  className={linkClass}
                 >
                   Wikipedia
                 </a>{' '}
@@ -100,7 +115,7 @@ export function AboutDialog({ trigger }: { trigger: ReactNode }): JSX.Element {
                   href="https://openstax.org/books/anatomy-and-physiology-2e/pages/1-introduction"
                   target="_blank"
                   rel="noreferrer noopener"
-                  className="text-sky-300 underline decoration-sky-400/50 underline-offset-2 hover:text-sky-200"
+                  className={linkClass}
                 >
                   OpenStax
                 </a>{' '}
@@ -143,7 +158,7 @@ export function AboutDialog({ trigger }: { trigger: ReactNode }): JSX.Element {
                 href={repoUrl}
                 target="_blank"
                 rel="noreferrer noopener"
-                className="text-sky-300 underline decoration-sky-400/50 underline-offset-2 hover:text-sky-200"
+                className={linkClass}
               >
                 Source code on GitHub
               </a>

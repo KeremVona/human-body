@@ -2,6 +2,7 @@ import type { MeshId } from '../data/ids';
 import { selected } from '../features/selection/selectionSlice';
 import type { CameraController } from '../scene/camera';
 import type { MeshRegistry } from '../scene/meshRegistry';
+import { pointerPosition } from '../scene/pointerPosition';
 import type { AppDispatch, AppStore, RootState } from './store';
 
 export type AtlasTestApi = {
@@ -9,6 +10,7 @@ export type AtlasTestApi = {
   meshIds(): MeshId[];
   readonly ready: boolean;
   select(ids: MeshId[]): void;
+  setPointer(x: number, y: number): void;
   getState(): RootState;
   dispatch: AppDispatch;
   screenPointOf(id: MeshId): { x: number; y: number } | null;
@@ -32,6 +34,9 @@ export function installTestHooks(api: {
     },
     select: (ids) => {
       api.store.dispatch(selected(ids));
+    },
+    setPointer: (x, y) => {
+      pointerPosition.set(x, y);
     },
     getState: () => api.store.getState(),
     dispatch: api.store.dispatch,

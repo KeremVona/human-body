@@ -11,7 +11,7 @@ Our target design budgets (`docs/superpowers/specs/2026-11-21-anatomy-atlas-desi
 
 ## Pipeline Design
 
-Rather than exporting meshes manually from Blender's GUI—an error-prone process impossible to reproduce across contributors—we built a five-stage CLI under `pipeline/`:
+Rather than exporting meshes manually from Blender's GUI—an error-prone process impossible to reproduce across contributors—we built a CLI (`pipeline/cli.ts`) with four commands (`inventory`, `namemap`, `build`, `verify`) orchestrating five internal stages:
 
 1. **`inventory` (`pipeline/cli.ts inventory`):** Runs Blender `5.3.0` headless (`--factory-startup --disable-autoexec`, bypassing Z-Anatomy's bundled startup add-on) to dump every object's type, vertex/polygon count, collections, modifiers, materials, and world bounds into `pipeline/out/inventory.json`.
 2. **`select` (`pipeline/src/select.ts`):** Evaluates declarative allowlist rules (`pipeline/config.json`) per bundle, matching explicit collection trees (`1: Skeletal system`, `4: Muscular system`, `5: Cardiovascular system`, plus `6:`–`8:` organ collections), filtering out excluded names, helper suffixes, and unverified models.
@@ -29,7 +29,7 @@ While Z-Anatomy itself is `CC-BY-SA 4.0` (derived from DBCLS BodyParts3D under `
 
 ### 2. Paired Objects vs. Midline `MIRROR` Modifiers
 
-It would be easy to assume bilateral anatomy relies on Blender `MIRROR` modifiers and try splitting mirrored geometry into `.l` and `.r` meshes during export. Inspection showed the exact opposite: across `1: Skeletal system`, all `118` left/right bone pairs already exist as separate `.l` and `.r` objects, while all `42` `MIRROR` modifiers sit on **unpaired midline** structures (`Xiphoid process`, `Thyroid gland`, `Soft palate`, spinal cord tracts). Setting `export_apply=True` without splitting loose parts preserves symmetrical midline anatomy cleanly.
+It would be easy to assume bilateral anatomy relies on Blender `MIRROR` modifiers and try splitting mirrored geometry into `.l` and `.r` meshes during export. Inspection showed the exact opposite: across `1: Skeletal system`, all `115` left/right anatomical pairs (plus `3` excluded ethmoid cutter pairs, `118` pairs total) already exist as separate `.l` and `.r` objects, while all `42` `MIRROR` modifiers sit on **unpaired midline** structures (`Xiphoid process`, `Thyroid gland`, `Soft palate`, spinal cord tracts). Setting `export_apply=True` without splitting loose parts preserves symmetrical midline anatomy cleanly.
 
 ### 3. Helper Meshes, Boolean Cutters, and Beveled Curves
 
