@@ -13,7 +13,7 @@
         "latin": "Aorta abdominalis",
         "synonyms": []
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "abdominal-part-of-pectoralis-major",
@@ -251,7 +251,7 @@
         "latin": "Ramus interventricularis anterior",
         "synonyms": ["LAD", "left anterior descending artery"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "anterior-jugular-vein",
@@ -337,7 +337,7 @@
         "latin": "Arcus aortae",
         "synonyms": []
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "arytenoid-cartilage",
@@ -534,7 +534,7 @@
         "latin": "Arteria brachialis",
         "synonyms": []
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "brachial-veins",
@@ -800,7 +800,7 @@
         "latin": "Arteria iliaca communis",
         "synonyms": []
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "common-iliac-vein",
@@ -1855,7 +1855,7 @@
         "latin": "Arteria femoralis",
         "synonyms": []
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "femoral-nerve",
@@ -2402,7 +2402,7 @@
         "latin": "Vena saphena magna",
         "synonyms": []
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "hamate-bone",
@@ -2883,7 +2883,7 @@
         "latin": "Vena cava inferior (pars abdominalis)",
         "synonyms": ["IVC"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "inferior-vena-cava-thoracic",
@@ -3037,7 +3037,7 @@
         "latin": "Vena jugularis interna",
         "synonyms": []
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "internal-thoracic-artery",
@@ -3264,7 +3264,7 @@
         "latin": "Atrium sinistrum",
         "synonyms": []
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "left-brachiocephalic-vein",
@@ -3292,7 +3292,7 @@
         "latin": "Arteria carotis communis sinistra",
         "synonyms": []
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "left-coronary-artery",
@@ -3523,7 +3523,7 @@
         "latin": "Ventriculus sinister",
         "synonyms": []
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "lens",
@@ -5281,7 +5281,7 @@
         "latin": "Truncus pulmonalis",
         "synonyms": []
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "pyramidalis-muscle",
@@ -5351,7 +5351,7 @@
         "latin": "Arteria radialis",
         "synonyms": []
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "radial-head-of-flexor-digitorum-superficialis",
@@ -5563,7 +5563,7 @@
         "latin": "Atrium dextrum",
         "synonyms": []
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "right-brachiocephalic-vein",
@@ -5605,7 +5605,7 @@
         "latin": "Arteria coronaria dextra",
         "synonyms": ["RCA"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "right-coronary-leaflet",
@@ -5837,7 +5837,7 @@
         "latin": "Ventriculus dexter",
         "synonyms": []
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "risorius-muscle",
@@ -6899,7 +6899,7 @@
         "latin": "Sinus sagittalis superior",
         "synonyms": []
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "superior-tarsus",
@@ -6941,7 +6941,7 @@
         "latin": "Vena cava superior",
         "synonyms": ["SVC"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "supinator",
@@ -7194,7 +7194,7 @@
         "latin": "Aorta thoracica",
         "synonyms": []
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "thoraco-acromial-artery",

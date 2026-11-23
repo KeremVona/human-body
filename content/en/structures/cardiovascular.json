@@ -1,0 +1,491 @@
+{
+  "system": "cardiovascular",
+  "entries": [
+    {
+      "id": "left-ventricle",
+      "overview": "The thick-walled lower left pumping chamber of the heart, forming the pointed tip (apex) of the heart.",
+      "function": "Receives oxygen-rich blood from the left atrium and pumps it through the aortic valve to the entire body.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Has the thickest muscular wall of any heart chamber because it pushes blood against high systemic pressure.",
+          "Separates from the left atrium via the mitral valve and exits through the aortic valve.",
+          "Shares a thick muscular divider called the interventricular septum with the right ventricle."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Internal Structure of the Heart",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/19-1-heart-anatomy#fs-id1987886",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Ventricle (heart)",
+          "url": "https://en.wikipedia.org/wiki/Ventricle_(heart)",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "right-ventricle",
+      "overview": "The triangular lower right heart chamber sitting behind the breastbone on the front of the heart.",
+      "function": "Pumps oxygen-poor blood upward through the pulmonary valve into the lungs to pick up fresh oxygen.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Generates roughly one-sixth the pressure of the left ventricle because the lung vessels offer low resistance.",
+          "Receives blood from the right atrium across the tricuspid valve.",
+          "Tapers upward into a smooth outflow cone leading to the pulmonary trunk."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Internal Structure of the Heart",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/19-1-heart-anatomy#fs-id1987886",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Ventricle (heart)",
+          "url": "https://en.wikipedia.org/wiki/Ventricle_(heart)",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "left-atrium",
+      "overview": "The upper back chamber of the heart perched behind the pulmonary trunk and facing the esophagus.",
+      "function": "Collects freshly oxygenated blood returning from both lungs via four pulmonary veins and fills the left ventricle.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Forms most of the posterior base of the heart.",
+          "Contains mostly smooth interior walls except inside its small ear-like appendage (left auricle).",
+          "Contracts at the end of ventricular filling to top off left ventricular volume before each beat."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Internal Structure of the Heart",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/19-1-heart-anatomy#fs-id1987886",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Atrium (heart)",
+          "url": "https://en.wikipedia.org/wiki/Atrium_(heart)",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "right-atrium",
+      "overview": "The upper right receiving chamber forming the right outer border of the heart.",
+      "function": "Gathers oxygen-poor venous blood from the upper and lower body as well as from the heart wall itself.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Receives blood from the superior vena cava, inferior vena cava, and coronary sinus.",
+          "Houses the sinoatrial node, the natural pacemaker that initiates every heartbeat.",
+          "Delivers blood downward into the right ventricle through the tricuspid valve."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Internal Structure of the Heart",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/19-1-heart-anatomy#fs-id1987886",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Atrium (heart)",
+          "url": "https://en.wikipedia.org/wiki/Atrium_(heart)",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "aortic-arch",
+      "overview": "The curved upper loop of the body’s largest artery arching backward over the left main airway.",
+      "function": "Routes oxygenated blood from the ascending aorta downward toward the chest while feeding three major head and arm trunks.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Branches in order into the brachiocephalic trunk, left common carotid artery, and left subclavian artery.",
+          "Contains stretch sensors (baroreceptors) that help regulate blood pressure.",
+          "Continues behind the left lung root as the descending thoracic aorta."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — The Aorta and Its Major Branches",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/20-5-circulatory-pathways#fs-id2153789",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Aortic arch",
+          "url": "https://en.wikipedia.org/wiki/Aortic_arch",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "thoracic-aorta",
+      "overview": "The chest segment of the descending aorta running along the left side of the spine down to the diaphragm.",
+      "function": "Supplies oxygenated blood to the chest wall, intercostal spaces, bronchial airways, and esophagus.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Gives off paired posterior intercostal arteries that travel between the ribs.",
+          "Passes through the aortic opening of the diaphragm at vertebral level T12 to become the abdominal aorta."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — The Aorta and Its Major Branches",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/20-5-circulatory-pathways#fs-id2153789",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Thoracic aorta",
+          "url": "https://en.wikipedia.org/wiki/Thoracic_aorta",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "abdominal-aorta",
+      "overview": "The largest artery in the abdomen, descending along the front of the lower spine behind the digestive organs.",
+      "function": "Distributes oxygenated blood to the stomach, liver, intestines, kidneys, and lower trunk before splitting into the pelvis.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Gives off three unpaired digestive trunks: the celiac trunk, superior mesenteric, and inferior mesenteric arteries.",
+          "Sends paired renal arteries directly outward to each kidney.",
+          "Splits near lumbar vertebra L4 into the left and right common iliac arteries."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — The Aorta and Its Major Branches",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/20-5-circulatory-pathways#fs-id2153789",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Abdominal aorta",
+          "url": "https://en.wikipedia.org/wiki/Abdominal_aorta",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "pulmonary-trunk",
+      "overview": "A short, wide arterial vessel arching upward from the top of the right ventricle inside the chest.",
+      "function": "Carries oxygen-poor blood out of the heart and splits into the left and right pulmonary arteries to the lungs.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Unique among systemic trunks because it carries deoxygenated blood.",
+          "Divides beneath the aortic arch into left and right pulmonary arteries entering each lung."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Pulmonary Circulation",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/20-5-circulatory-pathways#fs-id2677637",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Pulmonary artery",
+          "url": "https://en.wikipedia.org/wiki/Pulmonary_artery",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "superior-vena-cava",
+      "overview": "A short, wide vertical vein entering the top back of the right atrium inside the upper chest.",
+      "function": "Returns oxygen-poor venous blood from the head, neck, arms, and upper chest wall back to the heart.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Forms where the left and right brachiocephalic veins merge behind the first rib.",
+          "Has no internal venous valves, relying on gravity and breathing pressure to assist blood flow."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Systemic Veins",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/20-5-circulatory-pathways#fs-id1254092",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Superior vena cava",
+          "url": "https://en.wikipedia.org/wiki/Superior_vena_cava",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "inferior-vena-cava-abdominal",
+      "overview": "The large central vein rising along the right side of the lumbar spine inside the back of the abdomen.",
+      "function": "Drains venous blood from the legs, pelvis, kidneys, liver, and abdominal wall upward toward the heart.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Forms near the fifth lumbar vertebra from the merger of both common iliac veins.",
+          "Receives renal veins directly and passes behind the liver before piercing the diaphragm."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Systemic Veins",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/20-5-circulatory-pathways#fs-id1254092",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Inferior vena cava",
+          "url": "https://en.wikipedia.org/wiki/Inferior_vena_cava",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "anterior-interventricular-artery",
+      "overview": "A major branch of the left coronary artery running down the front groove between the heart’s two ventricles.",
+      "function": "Delivers roughly half of the oxygenated blood feeding the thick pumping wall of the left ventricle.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Often called the left anterior descending (LAD) artery in clinical medicine.",
+          "Feeds the front wall of both ventricles and the front two-thirds of the interventricular septum."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Coronary Circulation",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/19-1-heart-anatomy#fs-id3334501",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Left anterior descending artery",
+          "url": "https://en.wikipedia.org/wiki/Left_anterior_descending_artery",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "right-coronary-artery",
+      "overview": "A main heart-wall artery branching from the base of the aorta and coursing along the right border of the heart.",
+      "function": "Supplies oxygenated blood to the right atrium, most of the right ventricle, and the heart’s pacemaker tissue.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Travels in the groove between the right atrium and right ventricle toward the back of the heart.",
+          "In most people, feeds both the sinoatrial node and atrioventricular node."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Coronary Circulation",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/19-1-heart-anatomy#fs-id3334501",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Right coronary artery",
+          "url": "https://en.wikipedia.org/wiki/Right_coronary_artery",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "left-common-carotid-artery",
+      "overview": "A major ascending neck artery rising directly from the aortic arch beside the windpipe.",
+      "function": "Delivers high-pressure oxygenated blood up the left side of the neck to feed the brain, face, and scalp.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Travels inside the protective carotid sheath alongside the internal jugular vein.",
+          "Splits near the upper edge of the larynx into the internal and external carotid arteries."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — The Aorta and Its Major Branches",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/20-5-circulatory-pathways#fs-id2153789",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Common carotid artery",
+          "url": "https://en.wikipedia.org/wiki/Common_carotid_artery",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "internal-jugular-vein",
+      "overview": "A deep, wide neck vein descending vertically from the base of the skull inside the carotid sheath.",
+      "function": "Drains venous blood from the brain’s dural sinuses along with the face and deep neck back toward the chest.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Begins at the jugular foramen of the skull and joins the subclavian vein behind the collarbone.",
+          "Visible pressure pulsations in the lower neck reflect pressure inside the right atrium."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Systemic Veins",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/20-5-circulatory-pathways#fs-id1254092",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Internal jugular vein",
+          "url": "https://en.wikipedia.org/wiki/Internal_jugular_vein",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "superior-sagittal-sinus",
+      "overview": "A large, midline blood-filled channel tucked within the tough upper fold of dura mater along the skull roof.",
+      "function": "Collects used venous blood and absorbed cerebrospinal fluid from the top of both cerebral hemispheres.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Unlike ordinary veins, dural sinuses have rigid fibrous walls with no muscle or valves.",
+          "Empties at the back of the skull into the transverse sinuses leading to the internal jugular veins."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Systemic Veins",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/20-5-circulatory-pathways#fs-id1254092",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Superior sagittal sinus",
+          "url": "https://en.wikipedia.org/wiki/Superior_sagittal_sinus",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "brachial-artery",
+      "overview": "The main arterial trunk descending along the inner front side of the upper arm.",
+      "function": "Supplies oxygenated blood to upper arm muscles before dividing below the elbow to feed the forearm and hand.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Continues directly from the axillary artery and splits at the elbow crease into the radial and ulnar arteries.",
+          "Its pulse is easily felt just medial to the biceps tendon and is the standard site for cuff blood-pressure measurement."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Upper Limb Arteries",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/20-5-circulatory-pathways#fs-id2395924",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Brachial artery",
+          "url": "https://en.wikipedia.org/wiki/Brachial_artery",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "radial-artery",
+      "overview": "The thumb-side forearm artery running close to the skin near the outer edge of the wrist.",
+      "function": "Brings oxygenated blood along the thumb side of the forearm into the deep palmar arch supplying the hand.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Lies directly over the flat front surface of the radius bone at the wrist, making it the classic spot to check a radial pulse.",
+          "Loops across the base of the thumb to meet branches from the ulnar artery inside the palm."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Upper Limb Arteries",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/20-5-circulatory-pathways#fs-id2395924",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Radial artery",
+          "url": "https://en.wikipedia.org/wiki/Radial_artery",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "common-iliac-artery",
+      "overview": "A paired pelvic artery formed where the abdominal aorta forks just above the brim of the pelvis.",
+      "function": "Channels oxygenated blood outward and downward to supply both the pelvic organs and the lower limbs.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Each common iliac artery divides near the sacroiliac joint into an internal and an external iliac artery.",
+          "The internal branch feeds the pelvis and gluteal muscles while the external branch continues into the thigh."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Lower Limb Arteries",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/20-5-circulatory-pathways#fs-id1992319",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Common iliac artery",
+          "url": "https://en.wikipedia.org/wiki/Common_iliac_artery",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "femoral-artery",
+      "overview": "The major artery entering the front upper thigh right below the crease of the groin.",
+      "function": "Supplies the powerful muscles and tissues of the thigh and continues behind the knee to feed the leg and foot.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Passes superficially through the femoral triangle in the groin before diving deep along the inner thigh.",
+          "Gives off the deep femoral artery to nourish the thigh before becoming the popliteal artery behind the knee."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Lower Limb Arteries",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/20-5-circulatory-pathways#fs-id1992319",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Femoral artery",
+          "url": "https://en.wikipedia.org/wiki/Femoral_artery",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "great-saphenous-vein",
+      "overview": "The longest vein in the human body, running just beneath the skin from the inner foot all the way to the groin.",
+      "function": "Returns venous blood from the superficial tissues of the foot, lower leg, and inner thigh to the femoral vein.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Begins in front of the inner ankle bone and ascends along the medial leg and thigh.",
+          "Contains one-way valves and is frequently harvested for coronary or peripheral arterial bypass grafts."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Systemic Veins",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/20-5-circulatory-pathways#fs-id1254092",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Great saphenous vein",
+          "url": "https://en.wikipedia.org/wiki/Great_saphenous_vein",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    }
+  ]
+}
