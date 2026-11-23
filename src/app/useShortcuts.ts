@@ -40,23 +40,29 @@ export function useShortcuts(onContextMenu?: () => void): void {
       });
       if (!cmd) return;
 
-      const selectedIds = store.getState().selection.selectedIds;
+      const state = store.getState();
+      const selectedIds = state.selection.selectedIds;
+      const quizActive = state.quiz.status !== 'off';
 
       switch (cmd) {
         case 'hide':
-          if (selectedIds.length > 0) dispatch(hide(selectedIds));
+          if (!quizActive && selectedIds.length > 0) {
+            dispatch(hide(selectedIds));
+          }
           break;
         case 'isolate':
-          if (selectedIds.length > 0) {
+          if (!quizActive && selectedIds.length > 0) {
             dispatch(isolate(selectedIds));
             void cameraApi.focusMeshes(selectedIds);
           }
           break;
         case 'fade':
-          if (selectedIds.length > 0) dispatch(fadeOthers(selectedIds));
+          if (!quizActive && selectedIds.length > 0) {
+            dispatch(fadeOthers(selectedIds));
+          }
           break;
         case 'focus':
-          if (selectedIds.length > 0) {
+          if (!quizActive && selectedIds.length > 0) {
             void cameraApi.focusMeshes(selectedIds);
           }
           break;

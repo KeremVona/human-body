@@ -3,19 +3,21 @@ import { APP_NAME } from '../../app/brand';
 import { IconButton } from '../../ui/IconButton';
 import { AboutDialog } from './AboutDialog';
 
-/** Floating header displaying the atlas brand, reserved Phase 2 search slot, and About trigger. */
+/** Floating header displaying the atlas brand, search slot, optional right controls, and About trigger. */
 export function TopBar({
   searchSlot,
+  rightSlot,
 }: {
   searchSlot?: ReactNode;
+  rightSlot?: ReactNode;
 }): JSX.Element {
   return (
     <header
       aria-label="Application header"
-      className="pointer-events-none fixed inset-x-0 top-0 z-20 flex h-14 items-center justify-between gap-3 px-3 sm:px-4"
+      className="pointer-events-none fixed inset-x-0 top-0 z-20 flex h-14 items-center justify-between gap-2 px-3 sm:gap-3 sm:px-4"
     >
-      <div className="pointer-events-auto flex items-center rounded-xl border border-white/10 bg-slate-900/75 px-3 py-1.5 shadow-lg backdrop-blur-md">
-        <span className="text-sm font-semibold tracking-tight text-white">
+      <div className="pointer-events-auto flex shrink-0 items-center rounded-xl border border-white/10 bg-slate-900/75 px-3 py-1.5 shadow-lg backdrop-blur-md">
+        <span className="text-xs font-semibold tracking-tight text-white sm:text-sm">
           {APP_NAME}
         </span>
       </div>
@@ -24,7 +26,8 @@ export function TopBar({
         {searchSlot ?? null}
       </div>
 
-      <div className="pointer-events-auto flex items-center rounded-xl border border-white/10 bg-slate-900/75 p-0.5 shadow-lg backdrop-blur-md">
+      <div className="pointer-events-auto flex shrink-0 items-center gap-1.5 rounded-xl border border-white/10 bg-slate-900/75 p-0.5 shadow-lg backdrop-blur-md">
+        {rightSlot ?? null}
         <AboutDialog
           trigger={
             <IconButton label="About this atlas" className="h-8 w-8">

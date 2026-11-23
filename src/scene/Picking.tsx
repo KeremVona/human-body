@@ -10,6 +10,7 @@ import { useStore } from 'react-redux';
 import { useAppDispatch } from '../app/hooks';
 import type { RootState } from '../app/store';
 import type { MeshId } from '../data/ids';
+import { answerQuiz } from '../features/quiz/thunks';
 import {
   hovered,
   selected,
@@ -105,7 +106,7 @@ export function Picking({
         timer: null,
       };
 
-      if (p.pointerType !== 'mouse') {
+      if (p.pointerType !== 'mouse' && store.getState().quiz.status === 'off') {
         press.timer = window.setTimeout(() => {
           if (pressRef.current === press) {
             press.longPressFired = true;
@@ -121,7 +122,7 @@ export function Picking({
 
       pressRef.current = press;
     },
-    [clearPress],
+    [clearPress, store],
   );
 
   useEffect(() => {
@@ -190,22 +191,32 @@ export function Picking({
         ms: performance.now() - press.startT,
       });
 
+      const quizStatus = store.getState().quiz.status;
       if (release === 'click') {
-        if (press.meshId) {
-          dispatch(selected([press.meshId]));
-          if (
-            tapTrackerRef.current?.tap({
-              x: ev.clientX,
-              y: ev.clientY,
-              t: performance.now(),
-            }) === 'double'
-          ) {
-            void cameraApi.focusMeshes([press.meshId]);
+        if (quizStatus === 'asking') {
+          if (press.meshId) {
+            dispatch(answerQuiz(press.meshId));
           }
-        } else if (press.pointerType !== 'mouse' || press.button === 0) {
-          dispatch(selectionCleared());
+        } else if (quizStatus === 'off') {
+          if (press.meshId) {
+            dispatch(selected([press.meshId]));
+            if (
+              tapTrackerRef.current?.tap({
+                x: ev.clientX,
+                y: ev.clientY,
+                t: performance.now(),
+              }) === 'double'
+            ) {
+              void cameraApi.focusMeshes([press.meshId]);
+            }
+          } else if (press.pointerType !== 'mouse' || press.button === 0) {
+            dispatch(selectionCleared());
+          }
         }
-      } else if (release === 'context' || release === 'long-press') {
+      } else if (
+        quizStatus === 'off' &&
+        (release === 'context' || release === 'long-press')
+      ) {
         onContextRequestRef.current({
           x: ev.clientX,
           y: ev.clientY,
@@ -227,12 +238,18 @@ export function Picking({
       window.removeEventListener('pointerup', handleUp);
       window.removeEventListener('pointercancel', handleCancel);
     };
-  }, [dispatch, cameraApi, gl, clearPress, beginPress]);
+  }, [dispatch, store, cameraApi, gl, clearPress, beginPress]);
 
   const handlePointerMove = (e: ThreeEvent<PointerEvent>) => {
     e.stopPropagation();
     pointerPosition.set(e.clientX, e.clientY);
     if (toPointerKind(e.pointerType) !== 'mouse') return;
+    if (store.getState().quiz.status !== 'off') {
+      if (store.getState().selection.hoveredId !== null) {
+        dispatch(hovered(null));
+      }
+      return;
+    }
     if (e.buttons !== 0) {
       if (store.getState().selection.hoveredId !== null) {
         dispatch(hovered(null));
@@ -266,6 +283,7 @@ export function Picking({
 
   const handlePointerOut = (e: ThreeEvent<PointerEvent>) => {
     if (toPointerKind(e.pointerType) !== 'mouse') return;
+    if (store.getState().quiz.status !== 'off') return;
 
     const next = pickMeshId(e.intersections);
     if (next !== store.getState().selection.hoveredId) {

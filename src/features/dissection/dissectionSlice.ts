@@ -157,6 +157,22 @@ const dissectionSlice = createSlice({
         past: state.past.slice(0, -1).map(snapshotOf),
       };
     },
+    dissectionRestored(state, action: PayloadAction<DissectionSnapshot>) {
+      return {
+        hidden: [...action.payload.hidden],
+        isolated: action.payload.isolated ? [...action.payload.isolated] : null,
+        faded: action.payload.faded ? [...action.payload.faded] : null,
+        fadeOpacity: state.fadeOpacity,
+        past: state.past,
+      };
+    },
+    dissectionPastTruncated(state, action: PayloadAction<number>) {
+      if (state.past.length <= action.payload) return state;
+      return {
+        ...state,
+        past: state.past.slice(0, Math.max(0, action.payload)),
+      };
+    },
   },
 });
 
@@ -171,6 +187,8 @@ export const {
   reveal,
   unhide,
   undo,
+  dissectionRestored,
+  dissectionPastTruncated,
 } = dissectionSlice.actions;
 
 /** True when at least one undo snapshot is recorded. */

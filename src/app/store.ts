@@ -7,6 +7,7 @@ import {
 import { assetsReducer } from '../features/assets/assetsSlice';
 import { contentReducer } from '../features/content/contentSlice';
 import { dissectionReducer } from '../features/dissection/dissectionSlice';
+import { quizReducer } from '../features/quiz/quizSlice';
 import { selectionReducer } from '../features/selection/selectionSlice';
 import { systemsReducer } from '../features/systems/systemsSlice';
 import type { CameraApi } from '../scene/camera';
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   systems: systemsReducer,
   dissection: dissectionReducer,
   selection: selectionReducer,
+  quiz: quizReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

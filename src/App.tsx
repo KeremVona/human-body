@@ -23,6 +23,9 @@ import type { ContextMenuTarget } from './features/dissection/DissectionMenu';
 import { ExitChips } from './features/dissection/ExitChips';
 import { Toolbar } from './features/dissection/Toolbar';
 import { FirstRunHint } from './features/onboarding/FirstRunHint';
+import { QuizBanner } from './features/quiz/QuizBanner';
+import { QuizSummary } from './features/quiz/QuizSummary';
+import { startQuiz } from './features/quiz/thunks';
 import { SearchBox } from './features/search/SearchBox';
 import { HoverLabel } from './features/selection/HoverLabel';
 import { SelectionAnnouncer } from './features/selection/SelectionAnnouncer';
@@ -73,6 +76,8 @@ function AtlasShell({
   );
   const [meshCount, setMeshCount] = useState(0);
   const [debugStats, setDebugStats] = useState<RenderStats | null>(null);
+  const [emptyPoolAlert, setEmptyPoolAlert] = useState(false);
+  const quizActive = useAppSelector((s) => s.quiz.status !== 'off');
   const [contextMenu, setContextMenu] = useState<ContextMenuTarget | null>(
     null,
   );
@@ -219,10 +224,38 @@ function AtlasShell({
         </div>
       ) : null}
 
-      <TopBar searchSlot={boot === 'ready' ? <SearchBox /> : null} />
+      <TopBar
+        searchSlot={boot === 'ready' && !quizActive ? <SearchBox /> : null}
+        rightSlot={
+          boot === 'ready' && !quizActive ? (
+            <button
+              type="button"
+              onClick={() => {
+                const res = dispatch(startQuiz());
+                setEmptyPoolAlert(res === 'empty-pool');
+              }}
+              className="rounded-lg px-2.5 py-1 text-xs font-medium text-slate-100 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400"
+            >
+              Start quiz
+            </button>
+          ) : null
+        }
+      />
+      {emptyPoolAlert ? (
+        <div className="pointer-events-none fixed inset-x-0 top-16 z-20 flex justify-center px-4">
+          <p
+            role="alert"
+            className="pointer-events-auto rounded-lg bg-amber-950/90 px-4 py-2 text-xs text-amber-100 shadow-lg ring-1 ring-amber-400/40 backdrop-blur"
+          >
+            Turn on a body system with featured parts to start the quiz.
+          </p>
+        </div>
+      ) : null}
       {debug ? <DebugStats stats={debugStats} meshCount={meshCount} /> : null}
       {boot === 'ready' ? (
         <>
+          <QuizBanner />
+          <QuizSummary />
           <LeftPanel />
           {hasSelection ? (
             <Suspense fallback={null}>

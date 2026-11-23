@@ -107,10 +107,11 @@ function DetailsSection({ details }: { details: Details }): JSX.Element {
 export function Inspector(): JSX.Element | null {
   const dispatch = useAppDispatch();
   const cameraApi = useCameraApi();
+  const quizStatus = useAppSelector((s) => s.quiz.status);
   const model = useAppSelector(selectInspectorModel);
   const layout = useInspectorLayout();
 
-  if (!model) {
+  if (quizStatus !== 'off' || !model) {
     return null;
   }
 

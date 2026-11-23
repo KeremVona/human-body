@@ -7,6 +7,7 @@ import { selectStructureLookup } from '../content/contentSlice';
 /** Pointer-following DOM tooltip showing hovered structure name and anatomical side. */
 export function HoverLabel(): JSX.Element | null {
   const hoveredId = useAppSelector((s) => s.selection.hoveredId);
+  const quizStatus = useAppSelector((s) => s.quiz.status);
   const lookup = useAppSelector(selectStructureLookup);
   const pos = useSyncExternalStore(
     pointerPosition.subscribe,
@@ -18,7 +19,12 @@ export function HoverLabel(): JSX.Element | null {
     typeof window.matchMedia === 'function' &&
     window.matchMedia('(pointer: coarse)').matches;
 
-  if (!hoveredId || isCoarsePointer || !isMeshId(hoveredId)) {
+  if (
+    quizStatus !== 'off' ||
+    !hoveredId ||
+    isCoarsePointer ||
+    !isMeshId(hoveredId)
+  ) {
     return null;
   }
 
