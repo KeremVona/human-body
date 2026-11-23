@@ -125,7 +125,7 @@
         "latin": "Pars acromialis musculi deltoidei",
         "synonyms": ["deltoid", "shoulder muscle"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "adductor-brevis",
@@ -153,7 +153,7 @@
         "latin": "Musculus adductor longus",
         "synonyms": ["groin muscle"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "adductor-magnus",
@@ -167,7 +167,7 @@
         "latin": "Musculus adductor magnus",
         "synonyms": ["inner thigh"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "adductor-minimus",
@@ -562,7 +562,7 @@
         "latin": "Musculus brachialis",
         "synonyms": []
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "brachiocephalic-trunk",
@@ -590,7 +590,7 @@
         "latin": "Musculus brachioradialis",
         "synonyms": []
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "buccinator",
@@ -1236,7 +1236,7 @@
         "latin": "Pars descendens musculi trapezii",
         "synonyms": ["traps", "trapezius"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "diaphragm",
@@ -1250,7 +1250,7 @@
         "latin": "Diaphragma",
         "synonyms": ["breathing muscle"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "diaphragmatic-fascia",
@@ -1714,7 +1714,7 @@
         "latin": "Musculus obliquus externus abdominis",
         "synonyms": ["obliques"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "external-anal-sphincter",
@@ -1784,7 +1784,7 @@
         "latin": "Musculi intercostales externi",
         "synonyms": []
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "external-jugular-vein",
@@ -2079,7 +2079,7 @@
         "latin": "Musculus flexor carpi radialis",
         "synonyms": []
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "flexor-digiti-minimi-of-foot",
@@ -2247,7 +2247,7 @@
         "latin": "Venter frontalis musculi occipitofrontalis",
         "synonyms": ["forehead muscle"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "gallbladder",
@@ -2332,7 +2332,7 @@
         "latin": "Musculus gluteus maximus",
         "synonyms": ["glutes"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "gluteus-medius-muscle",
@@ -2346,7 +2346,7 @@
         "latin": "Musculus gluteus medius",
         "synonyms": ["glutes"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "gluteus-minimus-muscle",
@@ -2911,7 +2911,7 @@
         "latin": "Musculus infraspinatus",
         "synonyms": ["rotator cuff"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "innermost-intercostal-muscles",
@@ -2967,7 +2967,7 @@
         "latin": "Musculus obliquus internus abdominis",
         "synonyms": ["obliques"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "internal-carotid-artery",
@@ -3249,7 +3249,7 @@
         "latin": "Musculus latissimus dorsi",
         "synonyms": ["lats"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "left-atrium",
@@ -3693,7 +3693,7 @@
         "latin": "Caput longum musculi bicipitis brachii",
         "synonyms": ["biceps"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "long-head-of-biceps-femoris",
@@ -3707,7 +3707,7 @@
         "latin": "Caput longum musculi bicipitis femoris",
         "synonyms": ["hamstring"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "long-head-of-triceps-brachii",
@@ -3721,7 +3721,7 @@
         "latin": "Caput longum musculi tricipitis brachii",
         "synonyms": ["triceps"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "longissimus-capitis-muscle",
@@ -3763,7 +3763,7 @@
         "latin": "Musculus longissimus thoracis",
         "synonyms": ["erector spinae"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "longus-capitis-muscle",
@@ -4043,7 +4043,7 @@
         "latin": "Caput mediale musculi gastrocnemii",
         "synonyms": ["calf muscle"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "medial-head-of-triceps-brachii",
@@ -4675,7 +4675,7 @@
         "latin": "Musculus orbicularis oris",
         "synonyms": []
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "orbital-part-of-orbicularis-oculi",
@@ -4846,7 +4846,7 @@
         "latin": "Musculus pectoralis minor",
         "synonyms": []
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "piriformis-muscle",
@@ -4930,7 +4930,7 @@
         "latin": "Platysma",
         "synonyms": []
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "popliteal-artery",
@@ -5239,7 +5239,7 @@
         "latin": "Musculus psoas major",
         "synonyms": ["hip flexor"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "pubo-analis-muscle",
@@ -5267,7 +5267,7 @@
         "latin": "Musculus pubococcygeus",
         "synonyms": []
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "pulmonary-trunk",
@@ -5323,7 +5323,7 @@
         "latin": "Musculus quadratus lumborum",
         "synonyms": ["QL"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "quadratus-plantae-muscle",
@@ -5421,7 +5421,7 @@
         "latin": "Musculus rectus abdominis",
         "synonyms": ["abs", "six-pack muscle"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "rectus-anterior-capitis-muscle",
@@ -5449,7 +5449,7 @@
         "latin": "Musculus rectus femoris",
         "synonyms": ["quadriceps", "quads"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "rectus-lateralis-capitis-muscle",
@@ -5534,7 +5534,7 @@
         "latin": "Musculus rhomboideus major",
         "synonyms": ["rhomboids"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "rhomboid-minor-muscle",
@@ -5893,7 +5893,7 @@
         "latin": "Musculus sartorius",
         "synonyms": ["tailor's muscle"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "scalenus-anterior-muscle",
@@ -6104,7 +6104,7 @@
         "latin": "Musculus semitendinosus",
         "synonyms": ["hamstring"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "septal-branches-of-anterior-interventricular-artery",
@@ -6162,7 +6162,7 @@
         "latin": "Musculus serratus anterior",
         "synonyms": ["boxer's muscle"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "serratus-posterior-inferior-muscle",
@@ -6332,7 +6332,7 @@
         "latin": "Musculus soleus",
         "synonyms": ["calf muscle"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "sphenoid-bone",
@@ -6502,7 +6502,7 @@
         "latin": "Musculus sternocleidomastoideus",
         "synonyms": ["SCM"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "sternocostal-head-of-pectoralis-major-muscle",
@@ -6516,7 +6516,7 @@
         "latin": "Pars sternocostalis musculi pectoralis majoris",
         "synonyms": ["chest muscle", "pecs"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "sternohyoid-muscle",
@@ -6687,7 +6687,7 @@
         "latin": "Musculus subscapularis",
         "synonyms": ["rotator cuff"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "superficial-head-of-flexor-pollicis-brevis",
@@ -6743,7 +6743,7 @@
         "latin": "Pars superficialis musculi masseteris",
         "synonyms": ["jaw muscle"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "superficial-temporal-artery",
@@ -6997,7 +6997,7 @@
         "latin": "Musculus supraspinatus",
         "synonyms": ["rotator cuff"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "sympathetic-trunk",
@@ -7053,7 +7053,7 @@
         "latin": "Musculus temporalis",
         "synonyms": ["temple muscle"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "temporoparietalis-muscle",
@@ -7278,7 +7278,7 @@
         "latin": "Musculus tibialis anterior",
         "synonyms": ["shin muscle"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "tibialis-posterior-muscle",
@@ -7407,7 +7407,7 @@
         "latin": "Musculus transversus abdominis",
         "synonyms": ["TVA", "core muscle"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "transversus-thoracis-muscle",
@@ -7761,7 +7761,7 @@
         "latin": "Musculus vastus lateralis",
         "synonyms": ["quadriceps", "quads"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "vastus-medialis-muscle",
@@ -7775,7 +7775,7 @@
         "latin": "Musculus vastus medialis",
         "synonyms": ["quadriceps", "quads", "VMO"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "ventral-parts-of-lateral-intertransversarii-lumborum-muscles",
@@ -8196,7 +8196,7 @@
         "latin": "Musculus zygomaticus major",
         "synonyms": ["smile muscle"]
       },
-      "featured": false
+      "featured": true
     },
     {
       "id": "zygomaticus-minor-muscle",

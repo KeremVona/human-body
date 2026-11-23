@@ -1,0 +1,1130 @@
+{
+  "system": "muscular",
+  "entries": [
+    {
+      "id": "frontalis-muscle",
+      "overview": "A broad, thin muscle sheet covering the forehead just beneath the skin.",
+      "function": "Pulls the scalp forward and lifts the eyebrows to wrinkle the forehead in surprise or focus.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Tendon sheet over the top of the skull (epicranial aponeurosis)",
+        "insertion": "Skin of the eyebrows and circular eye muscle (orbicularis oculi)",
+        "innervation": "Facial nerve (cranial nerve VII, temporal branch)",
+        "bloodSupply": "Supraorbital and supratrochlear arteries",
+        "action": "Raises the eyebrows and wrinkles the forehead"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles of Facial Expression",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-3-axial-muscles-of-the-head-neck-and-back#fs-id1637749",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Frontalis muscle",
+          "url": "https://en.wikipedia.org/wiki/Frontalis_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "orbicularis-oris-muscle",
+      "overview": "A ring-shaped sphincter muscle encircling the mouth inside the upper and lower lips.",
+      "function": "Closes, purses, and protrudes the lips during speaking, whistling, eating, and kissing.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Upper jaw (maxilla), lower jaw (mandible), and surrounding facial muscles",
+        "insertion": "Skin and corners around the lips",
+        "innervation": "Facial nerve (cranial nerve VII, buccal branch)",
+        "bloodSupply": "Superior and inferior labial arteries",
+        "action": "Closes, compresses, and puckers the lips"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles of Facial Expression",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-3-axial-muscles-of-the-head-neck-and-back#fs-id1637749",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Orbicularis oris muscle",
+          "url": "https://en.wikipedia.org/wiki/Orbicularis_oris_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "zygomaticus-major-muscle",
+      "overview": "A diagonal strap muscle running from the cheekbone down to the corner of the mouth.",
+      "function": "Draws the corners of the mouth upward and outward to create a broad smile.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Front surface of the cheekbone (zygomatic bone)",
+        "insertion": "Corner of the mouth (modiolus)",
+        "innervation": "Facial nerve (cranial nerve VII, zygomatic and buccal branches)",
+        "bloodSupply": "Facial artery",
+        "action": "Pulls the mouth corners upward and outward"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles of Facial Expression",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-3-axial-muscles-of-the-head-neck-and-back#fs-id1637749",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Zygomaticus major muscle",
+          "url": "https://en.wikipedia.org/wiki/Zygomaticus_major_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "temporalis-muscle",
+      "overview": "A large, fan-shaped chewing muscle filling the shallow temple hollow on each side of the skull.",
+      "function": "Pulls the lower jaw upward and backward to clamp the teeth shut and retract the chin.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Temple lines on the side skull bone (parietal bone) and sphenoid bone",
+        "insertion": "Front bony projection (coronoid process) of the lower jawbone (mandible)",
+        "innervation": "Deep temporal branches of the mandibular nerve (cranial nerve V3)",
+        "bloodSupply": "Deep temporal arteries",
+        "action": "Elevates and retracts the lower jaw"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles That Move the Lower Jaw",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-3-axial-muscles-of-the-head-neck-and-back#fs-id2518486",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Temporalis muscle",
+          "url": "https://en.wikipedia.org/wiki/Temporalis_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "superficial-part-of-masseter",
+      "overview": "The thick, rectangular outer layer of the main jaw-closing muscle over the side of the cheek.",
+      "function": "Generates strong biting force by lifting and slightly thrusting forward the lower jaw.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Cheekbone arch (zygomatic arch) and front cheekbone (zygomatic bone)",
+        "insertion": "Outer angle and rear vertical part (ramus) of the lower jawbone (mandible)",
+        "innervation": "Mandibular nerve (cranial nerve V3)",
+        "bloodSupply": "Masseteric artery",
+        "action": "Elevates and protrudes the lower jaw during chewing"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles That Move the Lower Jaw",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-3-axial-muscles-of-the-head-neck-and-back#fs-id2518486",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Masseter muscle",
+          "url": "https://en.wikipedia.org/wiki/Masseter_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "platysma",
+      "overview": "A broad, paper-thin sheet of superficial muscle draped across the front and sides of the neck.",
+      "function": "Tenses the neck skin and pulls the corners of the mouth and lower lip downward.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Connective tissue over the upper chest and front shoulder just below the collarbone (clavicle)",
+        "insertion": "Lower rim of the lower jawbone (mandible), cheek skin, and corners of the mouth",
+        "innervation": "Facial nerve (cranial nerve VII, cervical branch)",
+        "bloodSupply": "Branches of the submental and suprascapular arteries",
+        "action": "Depresses the mouth corners and lower lip while tensing the neck skin"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles of Facial Expression",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-3-axial-muscles-of-the-head-neck-and-back#fs-id1637749",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Platysma muscle",
+          "url": "https://en.wikipedia.org/wiki/Platysma_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "sternocleidomastoid-muscle",
+      "overview": "A prominent, two-headed cord running diagonally from the top of the chest to behind each ear.",
+      "function": "Turns the head toward the opposite shoulder when one side contracts, or nods the head forward together.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Top of the breastbone (manubrium of sternum) and inner third of the collarbone (clavicle)",
+        "insertion": "Bony bump behind the ear (mastoid process of temporal bone) and rear skull ridge",
+        "innervation": "Spinal accessory nerve (cranial nerve XI, motor) and C2–C3 cervical nerves",
+        "bloodSupply": "Occipital and superior thyroid arteries",
+        "action": "Turns the head to the opposite side, tilts the neck to the same side, and flexes the neck"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles That Move the Head",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-3-axial-muscles-of-the-head-neck-and-back#fs-id2468950",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Sternocleidomastoid muscle",
+          "url": "https://en.wikipedia.org/wiki/Sternocleidomastoid_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "descending-part-of-trapezius-muscle",
+      "overview": "The broad, triangular upper portion of the trapezius spanning from the base of the skull to the shoulder.",
+      "function": "Shrugs and raises the shoulder blade upward and helps tilt the head backward.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Back of the skull (occipital bone), nuchal ligament, and spinous processes of neck vertebrae",
+        "insertion": "Outer third of the collarbone (clavicle), shoulder tip (acromion), and spine of the shoulder blade (scapula)",
+        "innervation": "Accessory nerve (cranial nerve XI) and C3–C4 spinal nerves",
+        "bloodSupply": "Transverse cervical artery",
+        "action": "Elevates and rotates the shoulder blade upward and assists neck extension"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles That Position the Pectoral Girdle",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-5-muscles-of-the-pectoral-girdle-and-upper-limbs#fs-id1865841",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Trapezius",
+          "url": "https://en.wikipedia.org/wiki/Trapezius",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "latissimus-dorsi-muscle",
+      "overview": "A wide, fan-shaped muscle covering the middle and lower back and tapering up into the armpit.",
+      "function": "Pulls the raised arm downward and backward during climbing, swimming, and rowing.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Spinous processes of T7–L5 vertebrae, lower 4 ribs, hip crest (iliac crest), and shoulder blade tip",
+        "insertion": "Front groove near the top of the upper arm bone (humerus)",
+        "innervation": "Thoracodorsal nerve (C6–C8)",
+        "bloodSupply": "Thoracodorsal branch of the subscapular artery",
+        "action": "Extends, adducts, and internally rotates the arm at the shoulder"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles That Move the Humerus",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-5-muscles-of-the-pectoral-girdle-and-upper-limbs#fs-id2505955",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Latissimus dorsi muscle",
+          "url": "https://en.wikipedia.org/wiki/Latissimus_dorsi_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "rhomboid-major-muscle",
+      "overview": "A flat, diamond-shaped upper-back muscle lying beneath the trapezius between the spine and shoulder blade.",
+      "function": "Squeezes the shoulder blades together toward the spine and holds them flat against the ribcage.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Spinous processes of thoracic vertebrae T2–T5",
+        "insertion": "Inner border of the shoulder blade (scapula)",
+        "innervation": "Dorsal scapular nerve (C5)",
+        "bloodSupply": "Dorsal scapular artery",
+        "action": "Retracts, stabilizes, and rotates the shoulder blade downward"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles That Position the Pectoral Girdle",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-5-muscles-of-the-pectoral-girdle-and-upper-limbs#fs-id1865841",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Rhomboid major muscle",
+          "url": "https://en.wikipedia.org/wiki/Rhomboid_major_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "longissimus-thoracis-muscle",
+      "overview": "The middle, longest column of the deep back extensors running along the thoracic spine and lower ribs.",
+      "function": "Keeps the spine upright against gravity, extends the back, and bends the trunk sideways.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Lumbar vertebrae transverse processes and deep lower back tendon sheet (thoracolumbar fascia)",
+        "insertion": "Transverse processes of all thoracic vertebrae and the lower nine or ten ribs",
+        "innervation": "Posterior branches of thoracic and lumbar spinal nerves",
+        "bloodSupply": "Segmental branches of posterior intercostal, lumbar, and lateral sacral arteries",
+        "action": "Extends the vertebral column and bends the trunk to the same side"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles of the Posterior Neck and Back",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-3-axial-muscles-of-the-head-neck-and-back#fs-id2009136",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Longissimus",
+          "url": "https://en.wikipedia.org/wiki/Longissimus",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "sternocostal-head-of-pectoralis-major-muscle",
+      "overview": "The large, fan-shaped chest portion of the pectoralis major running from the breastbone to the upper arm.",
+      "function": "Brings the arm across the chest, rotates the arm inward, and pulls a raised arm forcefully downward.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Front of the breastbone (sternum), upper six rib cartilages, and abdominal tendon sheet",
+        "insertion": "Outer ridge of the upper groove of the upper arm bone (humerus)",
+        "innervation": "Medial and lateral pectoral nerves (C7–T1)",
+        "bloodSupply": "Pectoral branch of the thoracoacromial trunk",
+        "action": "Adducts, extends from flexion, and internally rotates the arm"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles That Move the Humerus",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-5-muscles-of-the-pectoral-girdle-and-upper-limbs#fs-id2505955",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Pectoralis major",
+          "url": "https://en.wikipedia.org/wiki/Pectoralis_major",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "pectoralis-minor-muscle",
+      "overview": "A thin, triangular chest muscle hidden directly behind the larger pectoralis major.",
+      "function": "Draws the shoulder blade forward and downward around the ribcage and helps lift the ribs when inhaling.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Outer front surfaces of ribs 3–5 near their cartilage junctions",
+        "insertion": "Front hook-like projection (coracoid process) of the shoulder blade (scapula)",
+        "innervation": "Medial pectoral nerve (C8–T1)",
+        "bloodSupply": "Pectoral branch of the thoracoacromial trunk",
+        "action": "Protracts and depresses the shoulder blade and assists deep inhalation"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles That Position the Pectoral Girdle",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-5-muscles-of-the-pectoral-girdle-and-upper-limbs#fs-id1865841",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Pectoralis minor",
+          "url": "https://en.wikipedia.org/wiki/Pectoralis_minor",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "serratus-anterior-muscle",
+      "overview": "A saw-toothed muscle wrapping from the side of the upper ribcage backward beneath the shoulder blade.",
+      "function": "Pulls the shoulder blade forward during punching or pushing and rotates it upward to raise the arm overhead.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Outer surfaces of the upper ribs 1–9 along the side of the chest",
+        "insertion": "Inner front edge of the shoulder blade (scapula)",
+        "innervation": "Long thoracic nerve (C5–C7)",
+        "bloodSupply": "Lateral thoracic, superior thoracic, and thoracodorsal arteries",
+        "action": "Protracts, stabilizes, and upwardly rotates the shoulder blade"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles That Position the Pectoral Girdle",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-5-muscles-of-the-pectoral-girdle-and-upper-limbs#fs-id1865841",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Serratus anterior muscle",
+          "url": "https://en.wikipedia.org/wiki/Serratus_anterior_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "diaphragm",
+      "overview": "A broad, dome-shaped internal sheet of skeletal muscle separating the chest cavity from the abdomen.",
+      "function": "Serves as the primary muscle of breathing by flattening downward to draw air into the lungs.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Lower tip of breastbone (xiphoid process), lower ribs 6–12, and lumbar vertebrae L1–L3",
+        "insertion": "Central dome tendon in the middle of the chest floor (central tendon of diaphragm)",
+        "innervation": "Phrenic nerves (C3–C5) and lower intercostal nerves",
+        "bloodSupply": "Pericardiacophrenic, musculophrenic, and inferior phrenic arteries",
+        "action": "Flattens on contraction to expand chest volume during inhalation"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles of the Thorax",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-4-axial-muscles-of-the-abdominal-wall-and-thorax#fs-id2311297",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Thoracic diaphragm",
+          "url": "https://en.wikipedia.org/wiki/Thoracic_diaphragm",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "external-intercostal-muscles",
+      "overview": "Eleven pairs of thin muscular sheets slanting downward and forward between neighboring ribs.",
+      "function": "Lift the ribcage upward and outward during breathing in, widening the chest cavity.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Lower border of each rib above",
+        "insertion": "Upper border of the next rib below",
+        "innervation": "Intercostal nerves",
+        "bloodSupply": "Posterior and anterior intercostal arteries",
+        "action": "Elevates the ribs to expand the chest during inhalation"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles of the Thorax",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-4-axial-muscles-of-the-abdominal-wall-and-thorax#fs-id2311297",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — External intercostal muscles",
+          "url": "https://en.wikipedia.org/wiki/External_intercostal_muscles",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "rectus-abdominis-muscle",
+      "overview": "A paired strap muscle running vertically along the front of the belly wall, divided by fibrous bands.",
+      "function": "Curls the ribcage toward the pelvis during sit-ups and stabilizes the lower spine against arching.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Front upper ridge of the pubic bone (hip bone)",
+        "insertion": "Cartilages of ribs 5–7 and lower tip of the breastbone (xiphoid process)",
+        "innervation": "Thoracoabdominal nerves (T7–T11) and subcostal nerve (T12)",
+        "bloodSupply": "Superior and inferior epigastric arteries",
+        "action": "Flexes the lumbar spine and compresses the abdominal wall"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles of the Abdomen",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-4-axial-muscles-of-the-abdominal-wall-and-thorax#fs-id2133048",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Rectus abdominis muscle",
+          "url": "https://en.wikipedia.org/wiki/Rectus_abdominis_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "external-abdominal-oblique-muscle",
+      "overview": "The largest and most superficial of the three layered flank muscles wrapping the sides of the abdomen.",
+      "function": "Compresses the abdomen, bends the torso sideways, and twists the chest toward the opposite hip.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Outer surfaces of the lower eight ribs (ribs 5–12)",
+        "insertion": "Midline abdominal tendon (linea alba), pubic crest, and outer front hip crest (iliac crest)",
+        "innervation": "Thoracoabdominal nerves (T7–T11) and subcostal nerve (T12)",
+        "bloodSupply": "Lower intercostal, deep circumflex iliac, and iliolumbar arteries",
+        "action": "Flexes the trunk, twists the torso to the opposite side, and compresses the abdomen"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles of the Abdomen",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-4-axial-muscles-of-the-abdominal-wall-and-thorax#fs-id2133048",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Abdominal external oblique muscle",
+          "url": "https://en.wikipedia.org/wiki/Abdominal_external_oblique_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "internal-abdominal-oblique-muscle",
+      "overview": "The middle sheet of the side abdominal wall, whose fibers fan upward at right angles to the outer oblique.",
+      "function": "Supports the abdominal organs, bends the waist sideways, and rotates the torso toward the same side.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Groin ligament (inguinal ligament), hip crest (iliac crest), and lower back fascia",
+        "insertion": "Lower ribs 10–12, midline abdominal tendon (linea alba), and pubic crest",
+        "innervation": "Thoracoabdominal (T7–T11), subcostal (T12), iliohypogastric, and ilioinguinal nerves",
+        "bloodSupply": "Subcostal and lower intercostal arteries",
+        "action": "Compresses abdominal contents and rotates the trunk toward the same side"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles of the Abdomen",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-4-axial-muscles-of-the-abdominal-wall-and-thorax#fs-id2133048",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Abdominal internal oblique muscle",
+          "url": "https://en.wikipedia.org/wiki/Abdominal_internal_oblique_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "transversus-abdominis-muscle",
+      "overview": "The deepest layer of the belly wall, running horizontally around the midsection like a built-in corset.",
+      "function": "Draws the belly inward to increase core stiffness before movement and protect the lower back.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Hip crest (iliac crest), groin ligament, lower back fascia, and costal cartilages 7–12",
+        "insertion": "Midline abdominal tendon (linea alba), lower breastbone tip, and pubic crest",
+        "innervation": "Thoracoabdominal (T6–T11), subcostal (T12), iliohypogastric, and ilioinguinal nerves",
+        "bloodSupply": "Subcostal and deep circumflex iliac arteries",
+        "action": "Compresses the abdominal cavity and stabilizes the core"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles of the Abdomen",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-4-axial-muscles-of-the-abdominal-wall-and-thorax#fs-id2133048",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Transverse abdominal muscle",
+          "url": "https://en.wikipedia.org/wiki/Transverse_abdominal_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "quadratus-lumborum-muscle",
+      "overview": "A thick, four-sided deep lower-back muscle bridging the back of the pelvis to the lowest rib.",
+      "function": "Hikes one hip upward, bends the lower spine sideways, and anchors the twelfth rib during deep breaths.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Back inner border of the hip bone crest (iliac crest)",
+        "insertion": "Lower edge of the twelfth rib and transverse processes of lumbar vertebrae L1–L4",
+        "innervation": "Subcostal nerve (T12) and anterior branches of lumbar nerves L1–L4",
+        "bloodSupply": "Lumbar arteries and lumbar branch of the iliolumbar artery",
+        "action": "Side-bends the lumbar spine and stabilizes the twelfth rib"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles of the Abdomen",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-4-axial-muscles-of-the-abdominal-wall-and-thorax#fs-id2133048",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Quadratus lumborum muscle",
+          "url": "https://en.wikipedia.org/wiki/Quadratus_lumborum_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "pubococcygeus-muscle",
+      "overview": "A hammock-like band of the pelvic floor stretching from the front pubic bone back toward the tailbone.",
+      "function": "Cradles the bladder, uterus, or prostate and tightens around pelvic openings to maintain continence.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Inner back surface of the pubic bone (hip bone) inside the pelvis",
+        "insertion": "Tailbone (coccyx) and central pelvic ligament line",
+        "innervation": "Levator ani nerve (S4) and inferior rectal branch of pudendal nerve (S3–S4)",
+        "bloodSupply": "Inferior gluteal and internal pudendal arteries",
+        "action": "Supports pelvic organs and helps control bladder and bowel outlets"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles of the Pelvic Floor",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-4-axial-muscles-of-the-abdominal-wall-and-thorax#fs-id2981812",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Levator ani",
+          "url": "https://en.wikipedia.org/wiki/Levator_ani#Pubococcygeus_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "acromial-part-of-deltoid-muscle",
+      "overview": "The thick, rounded middle portion of the shoulder cap muscle spanning directly over the top of the joint.",
+      "function": "Serves as the main mover that lifts the entire arm straight out to the side after the first few degrees.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Outer bony roof of the shoulder tip (acromion of scapula)",
+        "insertion": "Mid-outer bump on the upper arm bone (deltoid tuberosity of humerus)",
+        "innervation": "Axillary nerve (C5–C6)",
+        "bloodSupply": "Thoracoacromial and posterior circumflex humeral arteries",
+        "action": "Abducts the arm outward away from the torso"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles That Move the Humerus",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-5-muscles-of-the-pectoral-girdle-and-upper-limbs#fs-id2505955",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Deltoid muscle",
+          "url": "https://en.wikipedia.org/wiki/Deltoid_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "supraspinatus-muscle",
+      "overview": "A deep rotator-cuff muscle resting in the top trough on the back of the shoulder blade.",
+      "function": "Starts lifting the arm out to the side and pulls the ball of the arm bone snugly into its socket.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Upper hollow above the spine on the back of the shoulder blade (scapula)",
+        "insertion": "Topmost facet on the outer knob of the upper arm bone (greater tubercle of humerus)",
+        "innervation": "Suprascapular nerve (C5–C6)",
+        "bloodSupply": "Suprascapular artery",
+        "action": "Initiates arm abduction and stabilizes the shoulder joint"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles That Move the Humerus",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-5-muscles-of-the-pectoral-girdle-and-upper-limbs#fs-id2505955",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Supraspinatus muscle",
+          "url": "https://en.wikipedia.org/wiki/Supraspinatus_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "infraspinatus-muscle",
+      "overview": "A thick, triangular rotator-cuff muscle filling the broad hollow below the ridge of the shoulder blade.",
+      "function": "Rotates the arm outward and prevents the shoulder head from sliding forward during throwing or reaching.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Broad lower hollow on the back of the shoulder blade (scapula)",
+        "insertion": "Middle facet on the outer knob of the upper arm bone (greater tubercle of humerus)",
+        "innervation": "Suprascapular nerve (C5–C6)",
+        "bloodSupply": "Suprascapular and circumflex scapular arteries",
+        "action": "Externally rotates the arm and stabilizes the shoulder joint"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles That Move the Humerus",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-5-muscles-of-the-pectoral-girdle-and-upper-limbs#fs-id2505955",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Infraspinatus muscle",
+          "url": "https://en.wikipedia.org/wiki/Infraspinatus_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "subscapularis-muscle",
+      "overview": "A large, flat rotator-cuff muscle lining the front ribs-facing surface of the shoulder blade.",
+      "function": "Twists the upper arm inward and acts as a muscular shield stabilizing the front of the shoulder socket.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Smooth front hollow facing the ribs on the shoulder blade (scapula)",
+        "insertion": "Front knob on the upper arm bone (lesser tubercle of humerus)",
+        "innervation": "Upper and lower subscapular nerves (C5–C6)",
+        "bloodSupply": "Subscapular artery",
+        "action": "Internally rotates and adducts the arm while stabilizing the shoulder"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles That Move the Humerus",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-5-muscles-of-the-pectoral-girdle-and-upper-limbs#fs-id2505955",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Subscapularis muscle",
+          "url": "https://en.wikipedia.org/wiki/Subscapularis_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "long-head-of-biceps-brachii",
+      "overview": "The outer belly of the prominent two-headed muscle along the front of the upper arm.",
+      "function": "Bends the elbow, turns the forearm palm-up, and steadies the top of the arm bone inside the shoulder.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Small bump just above the shoulder socket on the shoulder blade (scapula)",
+        "insertion": "Upper bump of the forearm radius bone and forearm fascia",
+        "innervation": "Musculocutaneous nerve (C5–C7)",
+        "bloodSupply": "Brachial artery",
+        "action": "Flexes the elbow, supinates the forearm, and assists shoulder flexion"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles That Move the Forearm",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-5-muscles-of-the-pectoral-girdle-and-upper-limbs#fs-id2716122",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Biceps",
+          "url": "https://en.wikipedia.org/wiki/Biceps",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "brachialis-muscle",
+      "overview": "A powerful muscle lying deep beneath the biceps across the lower half of the front upper arm.",
+      "function": "Acts as the strongest pure flexor of the elbow regardless of whether the palm faces up or down.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Lower half of the front surface of the upper arm bone (humerus)",
+        "insertion": "Front hook and rough bump near the top of the inner forearm bone (ulna)",
+        "innervation": "Musculocutaneous nerve (C5–C7) and a small branch of the radial nerve",
+        "bloodSupply": "Brachial and radial recurrent arteries",
+        "action": "Flexes the elbow joint"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles That Move the Forearm",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-5-muscles-of-the-pectoral-girdle-and-upper-limbs#fs-id2716122",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Brachialis muscle",
+          "url": "https://en.wikipedia.org/wiki/Brachialis_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "long-head-of-triceps-brachii",
+      "overview": "The inner, longest head of the three-part muscle filling the back of the upper arm.",
+      "function": "Straightens the bent elbow and pulls the raised upper arm backward toward the ribs.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Bony bump just beneath the shoulder socket on the shoulder blade (scapula)",
+        "insertion": "Point of the elbow at the top back of the inner forearm bone (olecranon of ulna)",
+        "innervation": "Radial nerve (C6–C8)",
+        "bloodSupply": "Deep brachial and posterior circumflex humeral arteries",
+        "action": "Extends the elbow and assists extension and adduction at the shoulder"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles That Move the Forearm",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-5-muscles-of-the-pectoral-girdle-and-upper-limbs#fs-id2716122",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Triceps",
+          "url": "https://en.wikipedia.org/wiki/Triceps",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "brachioradialis-muscle",
+      "overview": "A long muscle bridging the outer lower upper arm and the thumb side of the forearm.",
+      "function": "Bends the elbow forcefully when the hand is held in a neutral thumbs-up handshake position.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Lower outer ridge of the upper arm bone (humerus)",
+        "insertion": "Thumb-side tip near the wrist end of the outer forearm bone (radius)",
+        "innervation": "Radial nerve (C5–C7)",
+        "bloodSupply": "Radial recurrent artery",
+        "action": "Flexes the elbow and brings a rotated forearm back toward mid-position"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles That Move the Forearm",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-5-muscles-of-the-pectoral-girdle-and-upper-limbs#fs-id2716122",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Brachioradialis",
+          "url": "https://en.wikipedia.org/wiki/Brachioradialis",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "flexor-carpi-radialis",
+      "overview": "A slender superficial muscle running diagonally down the palm side of the forearm toward the thumb side.",
+      "function": "Bends the wrist forward toward the palm and tilts the hand toward the thumb side.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Inner bony bump near the elbow end of the upper arm bone (humerus)",
+        "insertion": "Bases of the second and third hand bones (metacarpals)",
+        "innervation": "Median nerve (C6–C7)",
+        "bloodSupply": "Radial and ulnar arteries",
+        "action": "Flexes and abducts the wrist toward the thumb side"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles That Move the Wrist, Hand, and Fingers",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-5-muscles-of-the-pectoral-girdle-and-upper-limbs#fs-id2145937",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Flexor carpi radialis muscle",
+          "url": "https://en.wikipedia.org/wiki/Flexor_carpi_radialis_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "psoas-major",
+      "overview": "A deep, spindle-shaped muscle running alongside the lower spine across the front of the hip joint.",
+      "function": "Lifts the thigh forward when walking or climbing stairs and tilts the lower back forward when standing.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Sides and discs of thoracic vertebra T12 through lumbar vertebrae L1–L5",
+        "insertion": "Inner upper knob near the top of the thigh bone (lesser trochanter of femur)",
+        "innervation": "Anterior branches of lumbar spinal nerves L1–L3",
+        "bloodSupply": "Lumbar branch of the iliolumbar artery",
+        "action": "Flexes the hip joint and helps stabilize the lumbar spine"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Gluteal and Thigh Muscles",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-6-appendicular-muscles-of-the-pelvic-girdle-and-lower-limbs#fs-id3033610",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Psoas major muscle",
+          "url": "https://en.wikipedia.org/wiki/Psoas_major_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "gluteus-maximus-muscle",
+      "overview": "The largest and outermost muscle of the buttock, shaping the rear contour of the hip.",
+      "function": "Drives the thigh backward when standing up from a chair, climbing stairs, or sprinting.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Rear outer blade of the hip bone (ilium), sacrum, tailbone (coccyx), and sacrotuberous ligament",
+        "insertion": "Upper rear ridge of the thigh bone (femur) and outer thigh band (iliotibial tract)",
+        "innervation": "Inferior gluteal nerve (L5–S2)",
+        "bloodSupply": "Superior and inferior gluteal arteries",
+        "action": "Extends and externally rotates the thigh at the hip"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Gluteal and Thigh Muscles",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-6-appendicular-muscles-of-the-pelvic-girdle-and-lower-limbs#fs-id3033610",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Gluteus maximus",
+          "url": "https://en.wikipedia.org/wiki/Gluteus_maximus",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "gluteus-medius-muscle",
+      "overview": "A broad, fan-shaped muscle covering the outer side of the pelvis, partly hidden under gluteus maximus.",
+      "function": "Lifts the leg out to the side and keeps the pelvis level on the standing leg with every step.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Outer side surface of the upper hip bone (ilium)",
+        "insertion": "Outer hip knob at the top of the thigh bone (greater trochanter of femur)",
+        "innervation": "Superior gluteal nerve (L4–S1)",
+        "bloodSupply": "Superior gluteal artery",
+        "action": "Abducts the thigh and stabilizes the pelvis during walking"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Gluteal and Thigh Muscles",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-6-appendicular-muscles-of-the-pelvic-girdle-and-lower-limbs#fs-id3033610",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Gluteus medius",
+          "url": "https://en.wikipedia.org/wiki/Gluteus_medius",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "adductor-longus",
+      "overview": "A flat, triangular inner-thigh muscle spanning from the front pelvis down to the middle thigh shaft.",
+      "function": "Squeezes the thighs together and assists bringing the leg forward during kicking or striding.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Front body of the pubic bone just below the pubic crest (hip bone)",
+        "insertion": "Middle third of the rear ridge along the thigh bone (linea aspera of femur)",
+        "innervation": "Anterior branch of the obturator nerve (L2–L4)",
+        "bloodSupply": "Deep femoral artery",
+        "action": "Adducts and assists flexion at the hip"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Gluteal and Thigh Muscles",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-6-appendicular-muscles-of-the-pelvic-girdle-and-lower-limbs#fs-id3033610",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Adductor longus muscle",
+          "url": "https://en.wikipedia.org/wiki/Adductor_longus_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "adductor-magnus",
+      "overview": "A massive, fan-shaped muscle forming the deep muscular bulk of the inner thigh.",
+      "function": "Draws the thigh forcefully inward while its rear portion helps extend the hip during standing and running.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Lower pubic rim and sitting bone (ischial tuberosity of hip bone)",
+        "insertion": "Rear ridge and lower inner bump of the thigh bone (femur)",
+        "innervation": "Posterior branch of the obturator nerve and tibial part of the sciatic nerve",
+        "bloodSupply": "Deep femoral and obturator arteries",
+        "action": "Adducts the thigh and assists both hip flexion and hip extension"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Gluteal and Thigh Muscles",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-6-appendicular-muscles-of-the-pelvic-girdle-and-lower-limbs#fs-id3033610",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Adductor magnus muscle",
+          "url": "https://en.wikipedia.org/wiki/Adductor_magnus_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "sartorius-muscle",
+      "overview": "The longest muscle in the human body, curving diagonally like a ribbon across the front of the thigh.",
+      "function": "Flexes, lifts out, and turns out the hip while bending the knee to sit cross-legged.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Front upper corner of the hip bone (anterior superior iliac spine)",
+        "insertion": "Upper inner front surface of the shinbone (tibia)",
+        "innervation": "Femoral nerve (L2–L3)",
+        "bloodSupply": "Femoral artery",
+        "action": "Flexes, abducts, and externally rotates the hip and flexes the knee"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Gluteal and Thigh Muscles",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-6-appendicular-muscles-of-the-pelvic-girdle-and-lower-limbs#fs-id3033610",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Sartorius muscle",
+          "url": "https://en.wikipedia.org/wiki/Sartorius_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "rectus-femoris-muscle",
+      "overview": "The central, straight muscle of the quadriceps group running straight down the front of the thigh.",
+      "function": "Straightens the knee when kicking and helps lift the straight leg forward at the hip.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Front hip notch (anterior inferior iliac spine) and upper hip socket rim (hip bone)",
+        "insertion": "Kneecap (patella) and upper shinbone bump (tibial tuberosity) via the quadriceps tendon",
+        "innervation": "Femoral nerve (L2–L4)",
+        "bloodSupply": "Descending branch of the lateral femoral circumflex artery",
+        "action": "Extends the knee and flexes the thigh at the hip"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Gluteal and Thigh Muscles",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-6-appendicular-muscles-of-the-pelvic-girdle-and-lower-limbs#fs-id3033610",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Rectus femoris muscle",
+          "url": "https://en.wikipedia.org/wiki/Rectus_femoris_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "vastus-lateralis-muscle",
+      "overview": "The largest and outermost muscle of the four-part quadriceps along the outer front thigh.",
+      "function": "Powers knee extension during walking, jumping, squatting, and rising from a seated position.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Upper outer hip knob (greater trochanter) and outer rear shaft of the thigh bone (femur)",
+        "insertion": "Kneecap (patella) and upper shinbone (tibia) through the quadriceps tendon",
+        "innervation": "Femoral nerve (L2–L4)",
+        "bloodSupply": "Lateral femoral circumflex artery",
+        "action": "Extends and stabilizes the knee joint"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Gluteal and Thigh Muscles",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-6-appendicular-muscles-of-the-pelvic-girdle-and-lower-limbs#fs-id3033610",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Vastus lateralis muscle",
+          "url": "https://en.wikipedia.org/wiki/Vastus_lateralis_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "vastus-medialis-muscle",
+      "overview": "A teardrop-shaped quadriceps muscle hugging the inner lower front of the thigh just above the knee.",
+      "function": "Straightens the knee through the final degrees of locking and keeps the kneecap tracking centrally.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Inner line and shaft of the thigh bone (femur)",
+        "insertion": "Inner upper border of the kneecap (patella) and quadriceps tendon",
+        "innervation": "Femoral nerve (L2–L4)",
+        "bloodSupply": "Femoral artery",
+        "action": "Extends the knee and stabilizes kneecap tracking"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Gluteal and Thigh Muscles",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-6-appendicular-muscles-of-the-pelvic-girdle-and-lower-limbs#fs-id3033610",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Vastus medialis",
+          "url": "https://en.wikipedia.org/wiki/Vastus_medialis",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "long-head-of-biceps-femoris",
+      "overview": "The long outer hamstring muscle stretching down the back of the thigh from the sitting bone to the knee.",
+      "function": "Drives the thigh backward at the hip and bends and slightly turns outward the bent knee.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Lower sitting bone bump of the pelvis (ischial tuberosity of hip bone)",
+        "insertion": "Head of the outer lower leg bone (fibula)",
+        "innervation": "Tibial division of the sciatic nerve (L5–S2)",
+        "bloodSupply": "Perforating branches of the deep femoral artery",
+        "action": "Extends the hip, flexes the knee, and laterally rotates the flexed knee"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Gluteal and Thigh Muscles",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-6-appendicular-muscles-of-the-pelvic-girdle-and-lower-limbs#fs-id3033610",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Biceps femoris muscle",
+          "url": "https://en.wikipedia.org/wiki/Biceps_femoris_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "semitendinosus-muscle",
+      "overview": "A fusiform inner hamstring muscle along the back of the thigh whose lower half tapers into a long cord-like tendon.",
+      "function": "Extends the hip backward while running and bends and rotates inward the flexed knee.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Lower sitting bone bump of the pelvis (ischial tuberosity of hip bone)",
+        "insertion": "Upper inner front surface of the shinbone (tibia)",
+        "innervation": "Tibial division of the sciatic nerve (L5–S2)",
+        "bloodSupply": "Inferior gluteal and perforating arteries",
+        "action": "Flexes the knee, medially rotates the flexed knee, and extends the hip"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Gluteal and Thigh Muscles",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-6-appendicular-muscles-of-the-pelvic-girdle-and-lower-limbs#fs-id3033610",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Semitendinosus muscle",
+          "url": "https://en.wikipedia.org/wiki/Semitendinosus_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "medial-head-of-gastrocnemius",
+      "overview": "The prominent inner belly of the superficial calf muscle forming the upper contour behind the lower leg.",
+      "function": "Points the toes downward to push off during walking, running, and jumping, and assists knee bending.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Back surface above the inner lower knob of the thigh bone (medial condyle of femur)",
+        "insertion": "Heel bone (calcaneus) via the Achilles tendon",
+        "innervation": "Tibial nerve (S1–S2)",
+        "bloodSupply": "Sural branches of the popliteal artery",
+        "action": "Plantar flexes the ankle and assists knee flexion"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles That Move the Feet and Toes",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-6-appendicular-muscles-of-the-pelvic-girdle-and-lower-limbs#fs-id2368362",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Gastrocnemius muscle",
+          "url": "https://en.wikipedia.org/wiki/Gastrocnemius_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "soleus-muscle",
+      "overview": "A broad, flat calf muscle lying directly beneath the gastrocnemius from just below the knee to the heel.",
+      "function": "Provides steady downward ankle power for standing upright and pushing off at every walking stride.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Back upper shaft of both the shinbone (tibia) and outer lower leg bone (fibula)",
+        "insertion": "Heel bone (calcaneus) via the Achilles tendon",
+        "innervation": "Tibial nerve (L5–S2)",
+        "bloodSupply": "Popliteal, posterior tibial, and fibular arteries",
+        "action": "Plantar flexes the ankle and steadies the leg over the foot"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles That Move the Feet and Toes",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-6-appendicular-muscles-of-the-pelvic-girdle-and-lower-limbs#fs-id2368362",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Soleus muscle",
+          "url": "https://en.wikipedia.org/wiki/Soleus_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "tibialis-anterior-muscle",
+      "overview": "The fleshy muscle running right beside the sharp front crest on the outer side of the shinbone.",
+      "function": "Pulls the front of the foot upward so the toes clear the ground during each forward step.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Upper outer shaft of the shinbone (tibia) and connecting membrane",
+        "insertion": "Inner arch bones of the midfoot (medial cuneiform and first metatarsal)",
+        "innervation": "Deep fibular nerve (L4–L5)",
+        "bloodSupply": "Anterior tibial artery",
+        "action": "Lifts the foot upward (dorsiflexion) and turns the sole inward (inversion)"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles That Move the Feet and Toes",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-6-appendicular-muscles-of-the-pelvic-girdle-and-lower-limbs#fs-id2368362",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Tibialis anterior muscle",
+          "url": "https://en.wikipedia.org/wiki/Tibialis_anterior_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    }
+  ]
+}
