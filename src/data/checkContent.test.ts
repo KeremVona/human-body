@@ -44,7 +44,11 @@ function makeFixture() {
     paired: true,
     kind: 'bone',
     tissue: 'bone',
-    names: { common: 'Femur', latin: 'Os femoris', synonyms: [] },
+    names: {
+      common: 'Femur',
+      latin: 'Os femoris',
+      synonyms: [] as string[],
+    } as { common: string; latin?: string; synonyms: string[] },
     featured: true,
   };
 
@@ -55,7 +59,11 @@ function makeFixture() {
     paired: false,
     kind: 'bone',
     tissue: 'bone',
-    names: { common: 'Sternum', synonyms: [] },
+    names: { common: 'Sternum', synonyms: [] as string[] } as {
+      common: string;
+      latin?: string;
+      synonyms: string[];
+    },
     featured: false,
   };
 
@@ -508,7 +516,7 @@ it('featured bone needs bone details and featured muscle needs muscle details', 
     id: 'biceps',
     system: 'muscular',
     region: 'upper-limb',
-    paired: false,
+    paired: true,
     kind: 'muscle',
     tissue: 'muscle',
     names: {
@@ -524,7 +532,6 @@ it('featured bone needs bone details and featured muscle needs muscle details', 
     triangles: 10,
     sizeClass: 'medium',
   };
-  (muscleCase.index.structures[2] as { paired: boolean }).paired = true;
   muscleCase.structureFiles['structures/muscular.json'] = {
     system: 'muscular',
     entries: [
