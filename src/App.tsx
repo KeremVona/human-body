@@ -16,6 +16,7 @@ import { useShortcuts } from './app/useShortcuts';
 import { bundleUrl, loadManifest } from './data/manifest';
 import { bundleFailed, bundleReady } from './features/assets/assetsSlice';
 import { preloadGltf } from './scene/gltfCache';
+import { TopBar } from './features/about/TopBar';
 import { BundleScheduler } from './features/assets/BundleScheduler';
 import { bootstrap } from './features/content/contentSlice';
 import type { ContextMenuTarget } from './features/dissection/DissectionMenu';
@@ -189,7 +190,7 @@ function AtlasShell({
       ) : null}
 
       {boot === 'error' ? (
-        <div className="fixed inset-x-0 top-4 z-20 flex justify-center px-4">
+        <div className="fixed inset-x-0 top-16 z-20 flex justify-center px-4">
           <p
             role="alert"
             className="rounded-lg bg-red-950/90 px-4 py-2 text-sm text-red-100 shadow-lg ring-1 ring-red-500/40 backdrop-blur"
@@ -200,7 +201,7 @@ function AtlasShell({
       ) : null}
 
       {failedBundles.length > 0 ? (
-        <div className="pointer-events-none fixed inset-x-0 top-4 z-20 flex flex-col items-center gap-2">
+        <div className="pointer-events-none fixed inset-x-0 top-16 z-20 flex flex-col items-center gap-2">
           {failedBundles.map((bundleId) => (
             <p
               key={bundleId}
@@ -213,6 +214,7 @@ function AtlasShell({
         </div>
       ) : null}
 
+      <TopBar />
       {debug ? <DebugStats stats={debugStats} meshCount={meshCount} /> : null}
       {boot === 'ready' ? (
         <>

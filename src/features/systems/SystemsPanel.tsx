@@ -57,7 +57,7 @@ export function SystemsPanel(): JSX.Element | null {
   return (
     <section
       aria-label="Body systems"
-      className="fixed top-3 left-3 z-10 sm:top-4 sm:left-4"
+      className="fixed top-14 left-3 z-10 sm:top-16 sm:left-4"
     >
       <Panel
         side="left"

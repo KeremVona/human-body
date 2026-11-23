@@ -126,7 +126,7 @@ export function Inspector(): JSX.Element | null {
   const containerClass =
     layout === 'sheet'
       ? 'fixed inset-x-0 bottom-0 z-30 flex max-h-[55dvh] flex-col rounded-t-2xl border-t border-white/10 bg-slate-900/90 text-slate-100 shadow-2xl backdrop-blur-md'
-      : 'fixed top-3 right-3 bottom-16 z-20 flex w-80 flex-col rounded-xl border border-white/10 bg-slate-900/75 text-slate-100 shadow-2xl backdrop-blur-md sm:top-4 sm:right-4';
+      : 'fixed top-14 right-3 bottom-16 z-20 flex w-80 flex-col rounded-xl border border-white/10 bg-slate-900/75 text-slate-100 shadow-2xl backdrop-blur-md sm:top-16 sm:right-4';
 
   const breadcrumb = [model.systemLabel, model.regionLabel, model.groupLabel]
     .filter(Boolean)

@@ -63,7 +63,7 @@ export function DebugStats({
     <aside
       aria-label="Renderer statistics"
       aria-live="off"
-      className="pointer-events-none fixed left-1/2 top-3 z-20 -translate-x-1/2 rounded-md bg-slate-950/80 px-3 py-1.5 font-mono text-xs text-slate-200 ring-1 ring-white/10 backdrop-blur"
+      className="pointer-events-none fixed top-14 left-1/2 z-20 -translate-x-1/2 rounded-md bg-slate-950/80 px-3 py-1.5 font-mono text-xs text-slate-200 ring-1 ring-white/10 backdrop-blur"
     >
       fps {stats.fps} · draw calls {stats.calls} · triangles{' '}
       {formatTriangles(stats.triangles)} · meshes {meshCount}
