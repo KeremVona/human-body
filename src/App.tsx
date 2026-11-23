@@ -27,7 +27,7 @@ import { SearchBox } from './features/search/SearchBox';
 import { HoverLabel } from './features/selection/HoverLabel';
 import { SelectionAnnouncer } from './features/selection/SelectionAnnouncer';
 import { selected } from './features/selection/selectionSlice';
-import { SystemsPanel } from './features/systems/SystemsPanel';
+import { LeftPanel } from './features/tree/LeftPanel';
 import type { CanvasBundle } from './scene/AtlasCanvas';
 import {
   CameraApiContext,
@@ -223,7 +223,7 @@ function AtlasShell({
       {debug ? <DebugStats stats={debugStats} meshCount={meshCount} /> : null}
       {boot === 'ready' ? (
         <>
-          <SystemsPanel />
+          <LeftPanel />
           {hasSelection ? (
             <Suspense fallback={null}>
               <Inspector />
