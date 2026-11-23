@@ -40,10 +40,12 @@ describe('shortcutFor', () => {
     expect(k('z', { metaKey: true })).toBe('undo');
     expect(k('F10', { shiftKey: true })).toBe('context-menu');
     expect(k('z')).toBeNull();
+    expect(k('/')).toBe('focus-search');
   });
 
   it('ignores typing and Alt', () => {
     expect(k('h', { targetTag: 'INPUT' })).toBeNull();
+    expect(k('/', { targetTag: 'INPUT' })).toBeNull();
     expect(k('h', { targetTag: 'TEXTAREA' })).toBeNull();
     expect(k('h', { targetTag: 'SELECT' })).toBeNull();
     expect(k('h', { targetEditable: true })).toBeNull();

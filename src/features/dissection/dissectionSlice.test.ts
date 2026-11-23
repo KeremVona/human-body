@@ -11,6 +11,7 @@ import {
   selectHasDissection,
   showAll,
   undo,
+  unhide,
   type DissectionState,
 } from './dissectionSlice';
 
@@ -102,4 +103,12 @@ it('selectors reflect undo availability and active dissection state', () => {
   const cleared = r(hidden, showAll());
   expect(selectCanUndo({ dissection: cleared })).toBe(true);
   expect(selectHasDissection({ dissection: cleared })).toBe(false);
+});
+
+it('unhide removes only requested hidden ids and ignores no-ops', () => {
+  const hidden = r(s0, hide(['a', 'b']));
+  const next = r(hidden, unhide(['a']));
+  expect(next.hidden).toEqual(['b']);
+  expect(next.past).toHaveLength(hidden.past.length + 1);
+  expect(r(hidden, unhide(['zz']))).toBe(hidden);
 });

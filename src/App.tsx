@@ -10,7 +10,7 @@ import {
 } from 'react';
 import { Provider } from 'react-redux';
 import { useAppDispatch, useAppSelector } from './app/hooks';
-import { makeStore, type AppStore } from './app/store';
+import { makeStore, type AppStore, type CameraRef } from './app/store';
 import { installTestHooks } from './app/testHooks';
 import { useShortcuts } from './app/useShortcuts';
 import { bundleUrl, loadManifest } from './data/manifest';
@@ -23,12 +23,17 @@ import type { ContextMenuTarget } from './features/dissection/DissectionMenu';
 import { ExitChips } from './features/dissection/ExitChips';
 import { Toolbar } from './features/dissection/Toolbar';
 import { FirstRunHint } from './features/onboarding/FirstRunHint';
+import { SearchBox } from './features/search/SearchBox';
 import { HoverLabel } from './features/selection/HoverLabel';
 import { SelectionAnnouncer } from './features/selection/SelectionAnnouncer';
 import { selected } from './features/selection/selectionSlice';
 import { SystemsPanel } from './features/systems/SystemsPanel';
 import type { CanvasBundle } from './scene/AtlasCanvas';
-import { CameraApiContext, CameraApiProvider } from './scene/camera';
+import {
+  CameraApiContext,
+  CameraApiProvider,
+  createCameraController,
+} from './scene/camera';
 
 const loadAtlasCanvas = () =>
   import('./scene/AtlasCanvas').then((m) => ({ default: m.AtlasCanvas }));
@@ -214,7 +219,7 @@ function AtlasShell({
         </div>
       ) : null}
 
-      <TopBar />
+      <TopBar searchSlot={boot === 'ready' ? <SearchBox /> : null} />
       {debug ? <DebugStats stats={debugStats} meshCount={meshCount} /> : null}
       {boot === 'ready' ? (
         <>
@@ -246,13 +251,17 @@ function AtlasShell({
 }
 
 export default function App({ store }: { store?: AppStore } = {}): JSX.Element {
-  const [defaultStore] = useState(() => store ?? makeStore());
+  const [cameraRef] = useState<CameraRef>(() => ({ current: null }));
+  const [cameraController] = useState(() => createCameraController(cameraRef));
+  const [defaultStore] = useState(
+    () => store ?? makeStore(undefined, { camera: cameraRef }),
+  );
   const [registry] = useState(() => createMeshRegistry());
 
   return (
     <Provider store={defaultStore}>
       <MeshRegistryProvider registry={registry}>
-        <CameraApiProvider>
+        <CameraApiProvider controller={cameraController}>
           <BundleScheduler />
           <AtlasShell registry={registry} store={defaultStore} />
         </CameraApiProvider>

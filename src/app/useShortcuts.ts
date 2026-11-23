@@ -71,6 +71,14 @@ export function useShortcuts(onContextMenu?: () => void): void {
           e.preventDefault();
           onContextMenu?.();
           break;
+        case 'focus-search': {
+          e.preventDefault();
+          const input = document.querySelector<HTMLElement>(
+            '[role="combobox"][aria-label="Search structures"]',
+          );
+          input?.focus();
+          break;
+        }
         case 'zoom-in':
           cameraApi.zoom(1);
           break;

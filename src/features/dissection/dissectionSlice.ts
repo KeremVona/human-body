@@ -139,6 +139,13 @@ const dissectionSlice = createSlice({
         return { hidden, isolated, faded };
       });
     },
+    unhide(state, action: PayloadAction<MeshId[]>) {
+      const targets = new Set(action.payload);
+      return withHistory(state, (prev) => ({
+        ...prev,
+        hidden: prev.hidden.filter((id) => !targets.has(id)),
+      }));
+    },
     undo(state) {
       if (state.past.length === 0) {
         return state;
@@ -162,6 +169,7 @@ export const {
   exitIsolate,
   exitFade,
   reveal,
+  unhide,
   undo,
 } = dissectionSlice.actions;
 

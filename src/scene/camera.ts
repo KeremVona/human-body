@@ -153,7 +153,9 @@ export type CameraController = {
   waitIdle(): Promise<void>;
 };
 
-export function createCameraController(): CameraController {
+export function createCameraController(cameraRef?: {
+  current: CameraApi | null;
+}): CameraController {
   let impl: CameraApi | null = null;
   let probeImpl: CameraDebugProbe | null = null;
   const api: CameraApi = {
@@ -176,10 +178,16 @@ export function createCameraController(): CameraController {
     bind(next, nextProbe) {
       impl = next;
       probeImpl = nextProbe ?? null;
+      if (cameraRef) {
+        cameraRef.current = next;
+      }
       return () => {
         if (impl === next) {
           impl = null;
           probeImpl = null;
+          if (cameraRef && cameraRef.current === next) {
+            cameraRef.current = null;
+          }
         }
       };
     },
