@@ -1,4 +1,5 @@
-import { Color, MeshPhysicalMaterial, type Material } from 'three';
+import { Color, Material, MeshPhysicalMaterial } from 'three';
+import type { ResolvedQuality } from '../features/settings/quality';
 import type { SystemId, Tissue } from '../data/schema';
 import type { MeshState } from './resolveMeshState';
 
@@ -30,7 +31,7 @@ export const TISSUE_LOOKS: Record<
     clearcoat: 0.15,
     sheen: 0.45,
   },
-  muscle: { color: '#9e3434', roughness: 0.55, clearcoat: 0.1, sheen: 0.25 },
+  muscle: { color: '#9e3434', roughness: 0.55, clearcoat: 0.1, sheen: 0.4 },
   tendon: { color: '#d8dadf', roughness: 0.55, clearcoat: 0.05, sheen: 0.5 },
   ligament: { color: '#cfcac0', roughness: 0.6, clearcoat: 0.05, sheen: 0.4 },
   artery: { color: '#c92a2a', roughness: 0.3, clearcoat: 0.6, sheen: 0 },
@@ -57,17 +58,32 @@ export function materialStateFor(state: MeshState): MaterialState {
 }
 
 const SELECTED_EMISSIVE = '#6FA8FF';
+const defaultOnBeforeCompile = Material.prototype.onBeforeCompile;
+const defaultProgramCacheKey = Material.prototype.customProgramCacheKey;
+
+const ghostFresnelOnBeforeCompile: Material['onBeforeCompile'] = (shader) => {
+  shader.fragmentShader = shader.fragmentShader.replace(
+    '#include <opaque_fragment>',
+    'vec3 viewDir = normalize(vViewPosition);\ndiffuseColor.a = diffuseColor.a * mix(0.35, 1.0, pow(1.0 - clamp(abs(dot(normal, viewDir)), 0.0, 1.0), 2.0));\n#include <opaque_fragment>',
+  );
+};
+
+const ghostFresnelCacheKey = () => 'atlas-ghost-fresnel-high';
 
 /** Creates a cached MeshPhysicalMaterial pool keyed by system|tissue|color|state. */
 export function createMaterialLibrary(fadeOpacity: number): {
   get(key: MaterialKey): Material;
   setSystemOpacity(system: SystemId, opacity: number): void;
+  setQuality(quality: ResolvedQuality): void;
   fallback(): Material;
   dispose(): void;
 } {
   const cache = new Map<string, MeshPhysicalMaterial>();
   const systemOpacities = new Map<SystemId, number>();
   const materialsBySystem = new Map<SystemId, MeshPhysicalMaterial[]>();
+  const muscleMaterials: MeshPhysicalMaterial[] = [];
+  const ghostMaterials: MeshPhysicalMaterial[] = [];
+  let quality: ResolvedQuality = 'high';
   let fallbackMaterial: MeshPhysicalMaterial | null = null;
 
   function buildMaterial(key: MaterialKey): MeshPhysicalMaterial {
@@ -85,7 +101,8 @@ export function createMaterialLibrary(fadeOpacity: number): {
       metalness: 0,
       clearcoat: look.clearcoat,
       clearcoatRoughness: 0.25,
-      sheen: look.sheen,
+      sheen:
+        key.tissue === 'muscle' ? (quality === 'high' ? 0.4 : 0) : look.sheen,
       sheenRoughness: 0.6,
       sheenColor: new Color('#ffffff'),
       transparent,
@@ -102,7 +119,16 @@ export function createMaterialLibrary(fadeOpacity: number): {
     }
 
     const material = new MeshPhysicalMaterial(params);
-    if (!isGhost) {
+    if (key.tissue === 'muscle') {
+      muscleMaterials.push(material);
+    }
+    if (isGhost) {
+      ghostMaterials.push(material);
+      if (quality === 'high') {
+        material.onBeforeCompile = ghostFresnelOnBeforeCompile;
+        material.customProgramCacheKey = ghostFresnelCacheKey;
+      }
+    } else {
       let list = materialsBySystem.get(key.system);
       if (!list) {
         list = [];
@@ -139,6 +165,29 @@ export function createMaterialLibrary(fadeOpacity: number): {
         }
       }
     },
+    setQuality(nextQuality) {
+      quality = nextQuality;
+      const nextSheen = nextQuality === 'high' ? 0.4 : 0;
+      for (const mat of muscleMaterials) {
+        if (mat.sheen !== nextSheen) {
+          mat.sheen = nextSheen;
+          mat.needsUpdate = true;
+        }
+      }
+      const nextCompile =
+        nextQuality === 'high'
+          ? ghostFresnelOnBeforeCompile
+          : defaultOnBeforeCompile;
+      const nextCacheKey =
+        nextQuality === 'high' ? ghostFresnelCacheKey : defaultProgramCacheKey;
+      for (const mat of ghostMaterials) {
+        if (mat.onBeforeCompile !== nextCompile) {
+          mat.onBeforeCompile = nextCompile;
+          mat.customProgramCacheKey = nextCacheKey;
+          mat.needsUpdate = true;
+        }
+      }
+    },
     fallback() {
       if (!fallbackMaterial) {
         fallbackMaterial = new MeshPhysicalMaterial({
@@ -156,6 +205,8 @@ export function createMaterialLibrary(fadeOpacity: number): {
       cache.clear();
       systemOpacities.clear();
       materialsBySystem.clear();
+      muscleMaterials.length = 0;
+      ghostMaterials.length = 0;
       fallbackMaterial?.dispose();
       fallbackMaterial = null;
     },

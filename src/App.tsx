@@ -30,6 +30,7 @@ import { SearchBox } from './features/search/SearchBox';
 import { HoverLabel } from './features/selection/HoverLabel';
 import { SelectionAnnouncer } from './features/selection/SelectionAnnouncer';
 import { selected } from './features/selection/selectionSlice';
+import { SettingsMenu } from './features/settings/SettingsMenu';
 import { LeftPanel } from './features/tree/LeftPanel';
 import type { CanvasBundle } from './scene/AtlasCanvas';
 import {
@@ -227,18 +228,21 @@ function AtlasShell({
       <TopBar
         searchSlot={boot === 'ready' && !quizActive ? <SearchBox /> : null}
         rightSlot={
-          boot === 'ready' && !quizActive ? (
-            <button
-              type="button"
-              onClick={() => {
-                const res = dispatch(startQuiz());
-                setEmptyPoolAlert(res === 'empty-pool');
-              }}
-              className="rounded-lg px-2.5 py-1 text-xs font-medium text-slate-100 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400"
-            >
-              Start quiz
-            </button>
-          ) : null
+          <>
+            {boot === 'ready' && !quizActive ? (
+              <button
+                type="button"
+                onClick={() => {
+                  const res = dispatch(startQuiz());
+                  setEmptyPoolAlert(res === 'empty-pool');
+                }}
+                className="rounded-lg px-2.5 py-1 text-xs font-medium text-slate-100 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400"
+              >
+                Start quiz
+              </button>
+            ) : null}
+            <SettingsMenu />
+          </>
         }
       />
       {emptyPoolAlert ? (

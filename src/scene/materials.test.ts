@@ -183,4 +183,38 @@ describe('createMaterialLibrary', () => {
     expect(laterSelected.depthWrite).toBe(false);
     expect(laterSelected.opacity).toBe(0.4);
   });
+
+  it('setQuality configures Fresnel ghost rim and muscle sheen', () => {
+    const lib = createMaterialLibrary(0.15);
+    const muscle = lib.get({
+      system: 'muscular',
+      tissue: 'muscle',
+      state: 'base',
+    }) as MeshPhysicalMaterial;
+    const ghost = lib.get({
+      system: 'muscular',
+      tissue: 'muscle',
+      state: 'ghost',
+    }) as MeshPhysicalMaterial;
+
+    lib.setQuality('high');
+    expect(muscle.sheen).toBe(0.4);
+    expect(ghost.onBeforeCompile).not.toBe(Material.prototype.onBeforeCompile);
+
+    const highMuscleVersion = muscle.version;
+    const highGhostVersion = ghost.version;
+
+    lib.setQuality('low');
+    expect(muscle.sheen).toBe(0);
+    expect(ghost.onBeforeCompile).toBe(Material.prototype.onBeforeCompile);
+    expect(muscle.version).toBeGreaterThan(highMuscleVersion);
+    expect(ghost.version).toBeGreaterThan(highGhostVersion);
+
+    const laterMuscle = lib.get({
+      system: 'muscular',
+      tissue: 'muscle',
+      state: 'hovered',
+    }) as MeshPhysicalMaterial;
+    expect(laterMuscle.sheen).toBe(0);
+  });
 });

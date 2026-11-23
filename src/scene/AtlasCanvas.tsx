@@ -13,6 +13,7 @@ import { BundleModel } from './BundleModel';
 import { CameraApiContext, CameraApiProvider } from './camera';
 import { CameraRig } from './CameraRig';
 import { DebugStatsProbe, type RenderStats } from './DebugStats';
+import { Effects } from './Effects';
 import { Lights } from './Lights';
 import { MeshRegistryProvider, useMeshRegistry } from './meshRegistry';
 import { Picking, type ContextRequest } from './Picking';
@@ -102,6 +103,8 @@ export function AtlasCanvas({
                   </BundleErrorBoundary>
                 ))}
               </Picking>
+
+              <Effects />
 
               {debug && onDebugSample ? (
                 <DebugStatsProbe onSample={onDebugSample} />

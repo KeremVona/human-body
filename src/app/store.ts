@@ -9,6 +9,7 @@ import { contentReducer } from '../features/content/contentSlice';
 import { dissectionReducer } from '../features/dissection/dissectionSlice';
 import { quizReducer } from '../features/quiz/quizSlice';
 import { selectionReducer } from '../features/selection/selectionSlice';
+import { uiReducer } from '../features/settings/uiSlice';
 import { systemsReducer } from '../features/systems/systemsSlice';
 import type { CameraApi } from '../scene/camera';
 import { listenerMiddleware } from './listeners';
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
   dissection: dissectionReducer,
   selection: selectionReducer,
   quiz: quizReducer,
+  ui: uiReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

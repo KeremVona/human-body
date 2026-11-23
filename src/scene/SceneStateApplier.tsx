@@ -4,6 +4,10 @@ import { useStore } from 'react-redux';
 import type { RootState } from '../app/store';
 import { isMeshId, parseMeshId, type MeshId } from '../data/ids';
 import { selectStructureLookup } from '../features/content/contentSlice';
+import {
+  resolveQuality,
+  type ResolvedQuality,
+} from '../features/settings/quality';
 import { applyMeshStates } from './applyMeshStates';
 import { createMaterialLibrary } from './materials';
 import { useMeshRegistry } from './meshRegistry';
@@ -17,6 +21,7 @@ export function SceneStateApplier(): null {
 
   const prevStatesRef = useRef<Map<MeshId, MeshState>>(new Map());
   const prevOpacitiesRef = useRef<Map<string, number>>(new Map());
+  const prevQualityRef = useRef<ResolvedQuality | null>(null);
   const libraryRef = useRef<{
     fadeOpacity: number;
     lib: ReturnType<typeof createMaterialLibrary>;
@@ -37,6 +42,7 @@ export function SceneStateApplier(): null {
         libraryRef.current.lib.dispose();
         prevStatesRef.current = new Map();
         prevOpacitiesRef.current = new Map();
+        prevQualityRef.current = null;
       }
       const lib = createMaterialLibrary(fadeOpacity);
       libraryRef.current = { fadeOpacity, lib };
@@ -52,6 +58,14 @@ export function SceneStateApplier(): null {
       const next = selectResolvedMeshStates(state, meshIds);
       const structureLookup = selectStructureLookup(state);
       const library = getLibrary(state.dissection.fadeOpacity);
+
+      const resolvedQuality = resolveQuality(state.ui.quality);
+      let qualityChanged = false;
+      if (prevQualityRef.current !== resolvedQuality) {
+        library.setQuality(resolvedQuality);
+        prevQualityRef.current = resolvedQuality;
+        qualityChanged = true;
+      }
 
       let opacityChanged = false;
       for (const [sysId, sysState] of Object.entries(state.systems)) {
@@ -78,7 +92,7 @@ export function SceneStateApplier(): null {
       });
 
       prevStatesRef.current = next;
-      if (changed > 0 || opacityChanged) {
+      if (changed > 0 || opacityChanged || qualityChanged) {
         invalidate();
       }
     };
@@ -92,11 +106,13 @@ export function SceneStateApplier(): null {
     applyNow();
     const unsubStore = store.subscribe(scheduleApply);
     const unsubRegistry = registry.subscribe(scheduleApply);
+    window.addEventListener('resize', scheduleApply);
 
     return () => {
       disposed = true;
       unsubStore();
       unsubRegistry();
+      window.removeEventListener('resize', scheduleApply);
       libraryRef.current?.lib.dispose();
       libraryRef.current = null;
       prevStatesRef.current = new Map();
