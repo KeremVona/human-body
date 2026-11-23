@@ -88,6 +88,8 @@ Plan 1's Global Constraints all still apply. In addition:
     - spleen → lymphatic
 
     Each organ also gets `tissue: "organ"`, `kind: "organ"` and a distinct `color`. The exact hues are the builder's choice (§12).
+
+    **Licensing:** ship kidney meshes only if Plan 1's "Excluded for licensing" survey shows they are BodyParts3D or Z-Anatomy geometry, not the CC-BY-NC "Kidney by lissiecowley" model. The same applies to inner-ear, Brainder and white-matter objects. If they can't ship, leave them out and note it in `pipeline/README.md`.
 - [ ] **Step 2: Run** `npm run assets:namemap`, then hand-curate the new entries to English common-name ids, as in Plan 1 Task 6. Re-run. Expected: `0 added`, with no needs-review entries left.
 - [ ] **Step 3: Run** `npm run assets:build`.
   - Expected: exit 0. Four hashed GLBs plus `manifest.json` in `public/models/`, and no budget, orientation or content-check problems.

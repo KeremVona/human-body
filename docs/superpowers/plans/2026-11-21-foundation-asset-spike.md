@@ -29,6 +29,18 @@ These downloads need the owner's go-ahead or the owner's own hands:
   - Fallback: the Blender application template `Z-Anatomy.zip` from https://github.com/Z-Anatomy/Models-of-human-anatomy. Unzip it and use the atlas `.blend` inside.
   - Open the file once in Blender to confirm that the full body appears.
 
+**Status on 2026-11-21: the prerequisites are done.**
+- `.env.local` points at Blender 5.3 (`C:\Program Files\Blender Foundation\Blender 5.3\blender.exe`).
+- `pipeline/source/Z-Anatomy.blend` is the `Startup.blend` from the Drive download (`Z-Anatomy_Template.zip` → `Z-Anatomy.zip`).
+  - Size: 304,817,801 bytes.
+  - SHA-256: `9de642d94eb00ffe19c2f1e1ae27f2042269951d86e6689a7eb925369b32a86d`.
+- The upstream license text is copied next to it as `pipeline/source/Z-Anatomy-License.txt`. That file names the NC models: "Anatomy of the Inner Ear" (CC-BY-NC-SA 4.0) and "Kidney by lissiecowley" (CC-BY-NC 4.0). "Brainder" and "White matter" have no license stated, so treat them as excluded too.
+- A first headless probe found 7,184 objects, 4,569 of them meshes.
+  - Top-level collections: `1: Skeletal system` … `9: Regions of human body`, plus a large `Bonus collection`.
+  - Object names are **English** with suffixes `.l`, `.r`, `.j`, `.t`, `.g`, `.ol` and `.or`. Some names are in parentheses or start with a space.
+  - Task 5's survey must work out what each suffix means. `.t`, `.j` and `.g` look like label or group variants, not anatomy geometry.
+- The `.blend` embeds a `z-anatomy.py` script. Always run Blender with `--disable-autoexec`.
+
 **GitHub:** the repo is https://github.com/KeremVona/human-body. It was empty when this plan was written, and the Pages base path will be `/human-body/`.
 
 ## Global Constraints
@@ -354,7 +366,7 @@ it('ships a valid taxonomy with nine systems and the Major Organs group', () => 
   - `type Inventory = { blenderVersion: string; sourceFile: string; objects: InventoryObject[] }`
   - `runBlender(args: { blend: string; script: string; scriptArgs: string[] }): Promise<void>`
     - Spawns `BLENDER_PATH` (read from `process.env`, loading `.env.local` with Node's `process.loadEnvFile` if present), falling back to `blender`.
-    - Arguments: `-b <blend> --factory-startup --python-exit-code 1 -P <script> -- ...scriptArgs`.
+    - Arguments: `-b <blend> --factory-startup --disable-autoexec --python-exit-code 1 -P <script> -- ...scriptArgs`.
     - Streams output, and rejects with an error that includes the exit code.
   - Command `npm run assets:inventory` writes `pipeline/out/inventory.json`.
 
