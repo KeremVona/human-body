@@ -9,9 +9,21 @@ import {
   type IndexFile,
   type Kind,
   type Manifest,
+  type StructureEntry,
   type StructureFile,
   type Taxonomy,
 } from './schema';
+
+const TARGET_FEATURED = 125;
+const MAX_OVERVIEW = 400;
+const MAX_FUNCTION = 600;
+const MARKUP_RE = /<\/?[a-z][^>]*>|\*\*|\[[^\]]+\]\([^)]+\)/i;
+const Z_ANATOMY_RE = /z-anatomy/i;
+
+/** Returns true when a source URL refers only to the upstream Z-Anatomy model. */
+export function isZAnatomySourceUrl(url: string): boolean {
+  return Z_ANATOMY_RE.test(url);
+}
 
 /** Result of validating content schemas and cross-file consistency. */
 export type ContentReport = {
@@ -168,11 +180,73 @@ function checkManifestMeshes(
   }
 }
 
+function detailsTextFields(details: Details): [string, string][] {
+  if (details.kind === 'muscle') {
+    return [
+      ['origin', details.origin],
+      ['insertion', details.insertion],
+      ['innervation', details.innervation],
+      ['bloodSupply', details.bloodSupply],
+      ['action', details.action],
+    ];
+  }
+  if (details.kind === 'bone') {
+    return [['boneType', details.boneType]];
+  }
+  return details.facts.map((fact) => ['facts', fact]);
+}
+
+function checkEntryQuality(
+  fileName: string,
+  entry: StructureEntry,
+  byId: Map<StructureId, IndexEntry>,
+  errors: string[],
+): void {
+  if (entry.overview && entry.overview.length > MAX_OVERVIEW) {
+    errors.push(
+      `${fileName}: "${entry.id}" overview is ${entry.overview.length} characters (max ${MAX_OVERVIEW})`,
+    );
+  }
+  if (entry.function && entry.function.length > MAX_FUNCTION) {
+    errors.push(
+      `${fileName}: "${entry.id}" function is ${entry.function.length} characters (max ${MAX_FUNCTION})`,
+    );
+  }
+
+  const textFields: [string, string][] = [];
+  if (entry.overview) textFields.push(['overview', entry.overview]);
+  if (entry.function) textFields.push(['function', entry.function]);
+  if (entry.details) textFields.push(...detailsTextFields(entry.details));
+
+  const flagged = new Set<string>();
+  for (const [field, value] of textFields) {
+    if (!flagged.has(field) && MARKUP_RE.test(value)) {
+      flagged.add(field);
+      errors.push(`${fileName}: "${entry.id}" ${field} contains markup`);
+    }
+  }
+
+  if (entry.details?.kind === 'bone') {
+    for (const other of entry.details.articulatesWith) {
+      if (!byId.has(other)) {
+        errors.push(
+          `${fileName}: "${entry.id}" articulates with unknown "${other}"`,
+        );
+      }
+    }
+  }
+}
+
 function checkStructureFiles(
   structureFiles: [string, StructureFile][],
   byId: Map<StructureId, IndexEntry>,
   errors: string[],
-): void {
+): Map<StructureId, { fileName: string; entry: StructureEntry }> {
+  const entriesById = new Map<
+    StructureId,
+    { fileName: string; entry: StructureEntry }
+  >();
+
   for (const [fileName, file] of structureFiles) {
     const seen = new Set<StructureId>();
     for (const entry of file.entries) {
@@ -191,6 +265,8 @@ function checkStructureFiles(
         errors.push(
           `${fileName}: "${entry.id}" belongs to system "${structure.system}"`,
         );
+      } else if (!entriesById.has(entry.id)) {
+        entriesById.set(entry.id, { fileName, entry });
       }
       if (entry.details) {
         const expected = expectedDetailsKind(structure.kind);
@@ -200,7 +276,68 @@ function checkStructureFiles(
           );
         }
       }
+      checkEntryQuality(fileName, entry, byId, errors);
     }
+  }
+
+  return entriesById;
+}
+
+function checkFeaturedStructures(
+  byId: Map<StructureId, IndexEntry>,
+  entriesById: Map<StructureId, { fileName: string; entry: StructureEntry }>,
+  errors: string[],
+  warnings: string[],
+): void {
+  let featuredCount = 0;
+
+  for (const structure of byId.values()) {
+    if (!structure.featured) continue;
+    featuredCount++;
+
+    if (!structure.names.latin?.trim()) {
+      errors.push(`index.json: featured "${structure.id}" has no Latin name`);
+    }
+
+    const located = entriesById.get(structure.id);
+    if (!located) {
+      errors.push(
+        `index.json: featured "${structure.id}" has no entry in structures/${structure.system}.json`,
+      );
+      continue;
+    }
+
+    const { fileName, entry } = located;
+    if (!entry.overview?.trim()) {
+      errors.push(
+        `${fileName}: featured "${structure.id}" is missing overview`,
+      );
+    }
+    if (!entry.function?.trim()) {
+      errors.push(
+        `${fileName}: featured "${structure.id}" is missing function`,
+      );
+    }
+    if (!entry.sources.some((src) => !isZAnatomySourceUrl(src.url))) {
+      errors.push(
+        `${fileName}: featured "${structure.id}" needs a source other than Z-Anatomy`,
+      );
+    }
+    if (structure.kind === 'muscle' && entry.details?.kind !== 'muscle') {
+      errors.push(
+        `${fileName}: featured muscle "${structure.id}" has no muscle details`,
+      );
+    } else if (structure.kind === 'bone' && entry.details?.kind !== 'bone') {
+      errors.push(
+        `${fileName}: featured bone "${structure.id}" has no bone details`,
+      );
+    }
+  }
+
+  if (featuredCount !== TARGET_FEATURED) {
+    warnings.push(
+      `index.json: ${featuredCount} featured structures (target ${TARGET_FEATURED})`,
+    );
   }
 }
 
@@ -255,7 +392,8 @@ export function checkContent(input: {
   const warnings: string[] = [];
   const byId = indexStructures(indexResult.data, taxonomyResult.data, errors);
   checkManifestMeshes(manifestResult.data, byId, errors, warnings);
-  checkStructureFiles(parsedStructureFiles, byId, errors);
+  const entriesById = checkStructureFiles(parsedStructureFiles, byId, errors);
+  checkFeaturedStructures(byId, entriesById, errors, warnings);
 
   return { errors, warnings };
 }

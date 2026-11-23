@@ -77,6 +77,8 @@ function makeFixture() {
         {
           id: 'femur',
           overview: 'The longest bone in the human body.',
+          function:
+            'Supports body weight during standing, walking, and running.',
           details: {
             kind: 'bone',
             boneType: 'long',
@@ -91,14 +93,18 @@ function makeFixture() {
   return { manifest, taxonomy, index, structureFiles, femur, sternum, source };
 }
 
-it('passes on consistent content', () => {
+it('passes without errors on consistent content', () => {
   const { manifest, taxonomy: tax, index, structureFiles } = makeFixture();
-  expect(
-    checkContent({ manifest, taxonomy: tax, index, structureFiles }),
-  ).toEqual({
-    errors: [],
-    warnings: [],
+  const report = checkContent({
+    manifest,
+    taxonomy: tax,
+    index,
+    structureFiles,
   });
+  expect(report.errors).toEqual([]);
+  expect(report.warnings).toEqual([
+    'index.json: 1 featured structures (target 125)',
+  ]);
 });
 
 it('reports duplicate index ids', () => {
@@ -316,7 +322,7 @@ it('accepts facts details for non-muscle/non-bone kinds and rejects mismatched d
     kind: 'organ',
     tissue: 'organ',
     names: { common: 'Heart', synonyms: [] },
-    featured: true,
+    featured: false,
   });
   structureFiles['structures/cardiovascular.json'] = {
     system: 'cardiovascular',
@@ -329,8 +335,8 @@ it('accepts facts details for non-muscle/non-bone kinds and rejects mismatched d
     ],
   };
   expect(
-    checkContent({ manifest, taxonomy: tax, index, structureFiles }),
-  ).toEqual({ errors: [], warnings: [] });
+    checkContent({ manifest, taxonomy: tax, index, structureFiles }).errors,
+  ).toEqual([]);
 
   structureFiles['structures/cardiovascular.json'] = {
     system: 'cardiovascular',
@@ -390,5 +396,229 @@ it('reports bundle.meshIds and manifest.meshes mismatches', () => {
     }).errors,
   ).toContain(
     'manifest: mesh "sternum" lists bundle "muscular" but appears in bundle "skeletal"',
+  );
+});
+
+it('featured content passes when complete', () => {
+  const { manifest, taxonomy: tax, index, structureFiles } = makeFixture();
+  const report = checkContent({
+    manifest,
+    taxonomy: tax,
+    index,
+    structureFiles,
+  });
+  expect(report.errors).toEqual([]);
+});
+
+it('featured needs a Latin name', () => {
+  const { manifest, taxonomy: tax, index, structureFiles } = makeFixture();
+  delete (index.structures[0].names as { latin?: string }).latin;
+  const report = checkContent({
+    manifest,
+    taxonomy: tax,
+    index,
+    structureFiles,
+  });
+  expect(report.errors).toContain(
+    'index.json: featured "femur" has no Latin name',
+  );
+});
+
+it('featured needs an entry', () => {
+  const { manifest, taxonomy: tax, index, structureFiles } = makeFixture();
+  (
+    structureFiles['structures/skeletal.json'] as { entries: unknown[] }
+  ).entries = [];
+  const report = checkContent({
+    manifest,
+    taxonomy: tax,
+    index,
+    structureFiles,
+  });
+  expect(report.errors).toContain(
+    'index.json: featured "femur" has no entry in structures/skeletal.json',
+  );
+});
+
+it('featured needs overview and function', () => {
+  const { manifest, taxonomy: tax, index, structureFiles } = makeFixture();
+  const file = structureFiles['structures/skeletal.json'] as {
+    entries: Array<{ overview?: string; function?: string }>;
+  };
+  delete file.entries[0].overview;
+  delete file.entries[0].function;
+  const report = checkContent({
+    manifest,
+    taxonomy: tax,
+    index,
+    structureFiles,
+  });
+  expect(report.errors).toContain(
+    'structures/skeletal.json: featured "femur" is missing overview',
+  );
+  expect(report.errors).toContain(
+    'structures/skeletal.json: featured "femur" is missing function',
+  );
+});
+
+it('featured needs a non-Z-Anatomy source', () => {
+  const { manifest, taxonomy: tax, index, structureFiles } = makeFixture();
+  const file = structureFiles['structures/skeletal.json'] as {
+    entries: Array<{ sources: unknown[] }>;
+  };
+  file.entries[0].sources = [
+    {
+      title: 'Z-Anatomy',
+      url: 'https://github.com/LluisV/Z-Anatomy',
+      license: 'CC-BY-SA-4.0',
+    },
+  ];
+  const report = checkContent({
+    manifest,
+    taxonomy: tax,
+    index,
+    structureFiles,
+  });
+  expect(report.errors).toContain(
+    'structures/skeletal.json: featured "femur" needs a source other than Z-Anatomy',
+  );
+});
+
+it('featured bone needs bone details and featured muscle needs muscle details', () => {
+  const { manifest, taxonomy: tax, index, structureFiles } = makeFixture();
+  const file = structureFiles['structures/skeletal.json'] as {
+    entries: Array<{ details?: unknown }>;
+  };
+  delete file.entries[0].details;
+  const boneReport = checkContent({
+    manifest,
+    taxonomy: tax,
+    index,
+    structureFiles,
+  });
+  expect(boneReport.errors).toContain(
+    'structures/skeletal.json: featured bone "femur" has no bone details',
+  );
+
+  const muscleCase = makeFixture();
+  muscleCase.manifest.meshes['biceps--l'] =
+    muscleCase.manifest.meshes['femur--l'];
+  muscleCase.manifest.bundles[0].meshIds.push('biceps--l');
+  muscleCase.index.structures.push({
+    id: 'biceps',
+    system: 'muscular',
+    region: 'upper-limb',
+    paired: false,
+    kind: 'muscle',
+    tissue: 'muscle',
+    names: {
+      common: 'Biceps brachii',
+      latin: 'Musculus biceps brachii',
+      synonyms: [],
+    },
+    featured: true,
+  });
+  muscleCase.manifest.meshes['biceps--l'] = {
+    bundle: 'skeletal',
+    bounds: { min: [0, 0, 0], max: [0.1, 0.2, 0.1] },
+    triangles: 10,
+    sizeClass: 'medium',
+  };
+  (muscleCase.index.structures[2] as { paired: boolean }).paired = true;
+  muscleCase.structureFiles['structures/muscular.json'] = {
+    system: 'muscular',
+    entries: [
+      {
+        id: 'biceps',
+        overview: 'Muscle at the front of the upper arm.',
+        function: 'Flexes the elbow and supinates the forearm.',
+        sources: [muscleCase.source],
+      },
+    ],
+  };
+  const muscleReport = checkContent({
+    manifest: muscleCase.manifest,
+    taxonomy: muscleCase.taxonomy,
+    index: muscleCase.index,
+    structureFiles: muscleCase.structureFiles,
+  });
+  expect(muscleReport.errors).toContain(
+    'structures/muscular.json: featured muscle "biceps" has no muscle details',
+  );
+});
+
+it('enforces length limits', () => {
+  const { manifest, taxonomy: tax, index, structureFiles } = makeFixture();
+  const file = structureFiles['structures/skeletal.json'] as {
+    entries: Array<{ overview?: string; function?: string }>;
+  };
+  file.entries[0].overview = 'x'.repeat(401);
+  file.entries[0].function = 'y'.repeat(601);
+  const report = checkContent({
+    manifest,
+    taxonomy: tax,
+    index,
+    structureFiles,
+  });
+  expect(report.errors).toContain(
+    'structures/skeletal.json: "femur" overview is 401 characters (max 400)',
+  );
+  expect(report.errors).toContain(
+    'structures/skeletal.json: "femur" function is 601 characters (max 600)',
+  );
+});
+
+it('rejects markup in text fields', () => {
+  for (const snippet of [
+    'The <b>femur</b> bone.',
+    '**long** bone.',
+    'See [ref](https://x.y).',
+  ]) {
+    const { manifest, taxonomy: tax, index, structureFiles } = makeFixture();
+    const file = structureFiles['structures/skeletal.json'] as {
+      entries: Array<{ overview?: string }>;
+    };
+    file.entries[0].overview = snippet;
+    const report = checkContent({
+      manifest,
+      taxonomy: tax,
+      index,
+      structureFiles,
+    });
+    expect(report.errors).toContain(
+      'structures/skeletal.json: "femur" overview contains markup',
+    );
+  }
+});
+
+it('rejects unknown articulation ids', () => {
+  const { manifest, taxonomy: tax, index, structureFiles } = makeFixture();
+  const file = structureFiles['structures/skeletal.json'] as {
+    entries: Array<{
+      details: { kind: 'bone'; boneType: string; articulatesWith: string[] };
+    }>;
+  };
+  file.entries[0].details.articulatesWith = ['tibiaa'];
+  const report = checkContent({
+    manifest,
+    taxonomy: tax,
+    index,
+    structureFiles,
+  });
+  expect(report.errors).toContain(
+    'structures/skeletal.json: "femur" articulates with unknown "tibiaa"',
+  );
+});
+
+it('warns when featured count is off target', () => {
+  const { manifest, taxonomy: tax, index, structureFiles } = makeFixture();
+  const report = checkContent({
+    manifest,
+    taxonomy: tax,
+    index,
+    structureFiles,
+  });
+  expect(report.warnings).toContain(
+    'index.json: 1 featured structures (target 125)',
   );
 });

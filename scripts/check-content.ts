@@ -1,33 +1,9 @@
-import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { checkContent } from '../src/data/checkContent';
+import { loadContentInput } from './load-content';
 
 const root = path.resolve(import.meta.dirname, '..');
-
-function readJson(filePath: string): unknown {
-  return JSON.parse(readFileSync(filePath, 'utf8'));
-}
-
-function loadStructureFiles(structuresDir: string): Record<string, unknown> {
-  if (!existsSync(structuresDir)) return {};
-  const files = readdirSync(structuresDir)
-    .filter((name) => name.endsWith('.json'))
-    .sort();
-  const result: Record<string, unknown> = {};
-  for (const name of files) {
-    result[`structures/${name}`] = readJson(path.join(structuresDir, name));
-  }
-  return result;
-}
-
-const report = checkContent({
-  manifest: readJson(path.join(root, 'public', 'models', 'manifest.json')),
-  taxonomy: readJson(path.join(root, 'content', 'taxonomy.json')),
-  index: readJson(path.join(root, 'content', 'en', 'index.json')),
-  structureFiles: loadStructureFiles(
-    path.join(root, 'content', 'en', 'structures'),
-  ),
-});
+const report = checkContent(loadContentInput(root));
 
 for (const warning of report.warnings) {
   console.warn(`WARN  ${warning}`);
