@@ -39,6 +39,7 @@ export function SharePopover({
   const systems = useAppSelector((s) => s.systems);
   const dissection = useAppSelector((s) => s.dissection);
   const selectedIds = useAppSelector((s) => s.selection.selectedIds);
+  const section = useAppSelector((s) => s.section);
   const pins = useAppSelector((s) => s.pins.items);
 
   useEffect(() => {
@@ -65,6 +66,7 @@ export function SharePopover({
     systems,
     dissection,
     selectedIds,
+    section,
     pins,
   ]);
 

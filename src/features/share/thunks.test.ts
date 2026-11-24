@@ -6,6 +6,7 @@ import { hide } from '../dissection/dissectionSlice';
 import { pinAdded } from '../pins/pinsSlice';
 import { selected } from '../selection/selectionSlice';
 import { opacitySet, systemToggled } from '../systems/systemsSlice';
+import { sectionSet } from '../section/sectionSlice';
 import { bootShare } from './bootShare';
 import { encodeViewState } from './codec';
 import { applyViewState, captureViewState } from './thunks';
@@ -243,5 +244,49 @@ describe('share thunks & bootShare', () => {
 
     expect(store.getState().dissection.hidden).toEqual(['femur--l']);
     expect(store.getState().selection.selectedIds).toEqual(['sternum']);
+  });
+
+  it('captures the cross-section in x when enabled and omits it when off', () => {
+    const { store } = setupStore();
+    expect(
+      store.dispatch(captureViewState({ includePins: false })).x,
+    ).toBeUndefined();
+
+    store.dispatch(
+      sectionSet({ enabled: true, axis: 'sagittal', t: 0.3, flip: true }),
+    );
+    expect(store.dispatch(captureViewState({ includePins: false })).x).toEqual([
+      1, 0.3, 1,
+    ]);
+  });
+
+  it('applies the cross-section from x and disables it when x is absent', async () => {
+    const { store } = setupStore();
+
+    await store.dispatch(
+      applyViewState({
+        c: [0, 0, 3, 0, 0, 0],
+        s: ['skeletal'],
+        h: [],
+        sel: [],
+        x: [2, 0.7, 0],
+      }),
+    );
+    expect(store.getState().section).toEqual({
+      enabled: true,
+      axis: 'coronal',
+      t: 0.7,
+      flip: false,
+    });
+
+    await store.dispatch(
+      applyViewState({
+        c: [0, 0, 3, 0, 0, 0],
+        s: ['skeletal'],
+        h: [],
+        sel: [],
+      }),
+    );
+    expect(store.getState().section.enabled).toBe(false);
   });
 });

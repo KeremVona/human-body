@@ -2,9 +2,17 @@ import { useThree } from '@react-three/fiber';
 import { useEffect, useRef } from 'react';
 import { Plane } from 'three';
 import { useAppSelector } from '../app/hooks';
-import { sectionPlane, presetForSection, type SectionAxis } from '../features/section/sectionPlane';
+import {
+  sectionPlane,
+  presetForSection,
+  type SectionAxis,
+} from '../features/section/sectionPlane';
 import { bodyBounds, useCameraApi, type Bounds } from './camera';
-import { sectionMaterialLibrary, sectionPlaneStore } from './sectionPlaneStore';
+import {
+  consumeSuppressedSectionPreset,
+  sectionMaterialLibrary,
+  sectionPlaneStore,
+} from './sectionPlaneStore';
 
 const DEFAULT_BODY_BOUNDS: Bounds = {
   min: [-0.3, -0.9, -0.15],
@@ -72,8 +80,16 @@ export function SectionController(): null {
     }
 
     const prevView = prevViewRef.current;
-    if (!wasEnabled || !prevView || prevView.axis !== axis || prevView.flip !== flip) {
-      void cameraApi.goToPreset(presetForSection(axis, flip));
+    const viewKey = `${enabled}|${axis}|${flip}`;
+    if (
+      !wasEnabled ||
+      !prevView ||
+      prevView.axis !== axis ||
+      prevView.flip !== flip
+    ) {
+      if (!consumeSuppressedSectionPreset(viewKey)) {
+        void cameraApi.goToPreset(presetForSection(axis, flip));
+      }
     }
     prevEnabledRef.current = true;
     prevViewRef.current = { axis, flip };

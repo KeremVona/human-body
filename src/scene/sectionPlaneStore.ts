@@ -15,7 +15,22 @@ export type SectionMaterialLibrary = {
 
 let activePlane: Plane | null = null;
 let activeLibrary: SectionMaterialLibrary | null = null;
-const libraryListeners = new Set<(lib: SectionMaterialLibrary | null) => void>();
+let suppressedViewKey: string | null = null;
+const libraryListeners = new Set<
+  (lib: SectionMaterialLibrary | null) => void
+>();
+
+/** Suppresses the automatic camera preset once when applying a shared section view key. */
+export function suppressSectionPreset(key: string): void {
+  suppressedViewKey = key;
+}
+
+/** Returns and clears the matching suppressed section-preset key, if any. */
+export function consumeSuppressedSectionPreset(key: string): boolean {
+  if (suppressedViewKey !== key) return false;
+  suppressedViewKey = null;
+  return true;
+}
 
 /** Holds the shared active THREE.Plane instance when cross-sectioning, or null when off. */
 export const sectionPlaneStore = {
@@ -38,7 +53,9 @@ export const sectionMaterialLibrary = {
       listener(lib);
     }
   },
-  subscribe(listener: (lib: SectionMaterialLibrary | null) => void): () => void {
+  subscribe(
+    listener: (lib: SectionMaterialLibrary | null) => void,
+  ): () => void {
     libraryListeners.add(listener);
     return () => {
       libraryListeners.delete(listener);

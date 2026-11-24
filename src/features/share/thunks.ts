@@ -6,6 +6,7 @@ import {
   presetPose,
   type Pose,
 } from '../../scene/camera';
+import { suppressSectionPreset } from '../../scene/sectionPlaneStore';
 import {
   bundlesRequested,
   selectBundlesForSystem,
@@ -13,9 +14,18 @@ import {
 import { dissectionBaselineSet } from '../dissection/dissectionSlice';
 import { sharedPinsLoaded } from '../pins/pinsSlice';
 import { waitForBundles } from '../search/revealAndFocus';
+import type { SectionAxis } from '../section/sectionPlane';
+import { sectionSet } from '../section/sectionSlice';
 import { selected, selectionCleared } from '../selection/selectionSlice';
 import { opacitySet, systemsSet } from '../systems/systemsSlice';
 import type { SharedPin, ViewStateV1 } from './viewState';
+
+const SECTION_AXES: readonly SectionAxis[] = ['axial', 'sagittal', 'coronal'];
+const AXIS_TO_INDEX: Record<SectionAxis, 0 | 1 | 2> = {
+  axial: 0,
+  sagittal: 1,
+  coronal: 2,
+};
 
 function round3(n: number): number {
   const r = Math.round(n * 1000) / 1000;
@@ -78,6 +88,13 @@ export function captureViewState(opts: {
     if (state.dissection.faded !== null) {
       view.f = [...state.dissection.faded].sort();
     }
+    if (state.section.enabled) {
+      view.x = [
+        AXIS_TO_INDEX[state.section.axis],
+        round3(state.section.t),
+        state.section.flip ? 1 : 0,
+      ];
+    }
     if (opts.includePins) {
       const ownPins: SharedPin[] = state.pins.items
         .filter((p) => !p.shared)
@@ -138,6 +155,16 @@ export function applyViewState(view: ViewStateV1): AppThunk<Promise<void>> {
     }
 
     dispatch(sharedPinsLoaded(view.p ?? []));
+
+    if (view.x) {
+      const axis = SECTION_AXES[view.x[0]] ?? 'axial';
+      const t = view.x[1];
+      const flip = view.x[2] === 1;
+      suppressSectionPreset(`true|${axis}|${flip}`);
+      dispatch(sectionSet({ enabled: true, axis, t, flip }));
+    } else {
+      dispatch(sectionSet({ enabled: false }));
+    }
 
     await extra.camera.current?.setPose(
       {
