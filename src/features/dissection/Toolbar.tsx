@@ -7,6 +7,7 @@ import {
   type KeyboardEvent,
 } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { useT, type MessageKey } from '../../i18n/t';
 import { useCameraApi, type Preset } from '../../scene/camera';
 import {
   selectCanUndo,
@@ -21,13 +22,41 @@ const SectionPopover = lazy(() =>
   })),
 );
 
-const PRESETS: readonly { preset: Preset; label: string; short: string }[] = [
-  { preset: 'anterior', label: 'Anterior view', short: 'Ant' },
-  { preset: 'posterior', label: 'Posterior view', short: 'Post' },
-  { preset: 'left', label: 'Left lateral view', short: 'L' },
-  { preset: 'right', label: 'Right lateral view', short: 'R' },
-  { preset: 'superior', label: 'Superior view', short: 'Sup' },
-  { preset: 'inferior', label: 'Inferior view', short: 'Inf' },
+const PRESETS: readonly {
+  preset: Preset;
+  labelKey: MessageKey;
+  shortKey: MessageKey;
+}[] = [
+  {
+    preset: 'anterior',
+    labelKey: 'toolbar.anteriorLabel',
+    shortKey: 'toolbar.anteriorShort',
+  },
+  {
+    preset: 'posterior',
+    labelKey: 'toolbar.posteriorLabel',
+    shortKey: 'toolbar.posteriorShort',
+  },
+  {
+    preset: 'left',
+    labelKey: 'toolbar.leftLabel',
+    shortKey: 'toolbar.leftShort',
+  },
+  {
+    preset: 'right',
+    labelKey: 'toolbar.rightLabel',
+    shortKey: 'toolbar.rightShort',
+  },
+  {
+    preset: 'superior',
+    labelKey: 'toolbar.superiorLabel',
+    shortKey: 'toolbar.superiorShort',
+  },
+  {
+    preset: 'inferior',
+    labelKey: 'toolbar.inferiorLabel',
+    shortKey: 'toolbar.inferiorShort',
+  },
 ];
 
 const btnClass =
@@ -36,6 +65,7 @@ const btnClass =
 /** Bottom-centre toolbar with anatomical view presets, reset, undo, and show all. */
 export function Toolbar(): JSX.Element {
   const dispatch = useAppDispatch();
+  const tr = useT();
   const cameraApi = useCameraApi();
   const canUndo = useAppSelector(selectCanUndo);
   const hasDissection = useAppSelector(selectHasDissection);
@@ -87,22 +117,25 @@ export function Toolbar(): JSX.Element {
     <>
       <div
         role="toolbar"
-        aria-label="Viewer controls"
+        aria-label={tr('toolbar.ariaLabel')}
         onKeyDown={handleKeyDown}
         className="fixed bottom-3 left-1/2 z-10 flex max-w-[calc(100vw-1.5rem)] -translate-x-1/2 items-center gap-1 overflow-x-auto rounded-xl border border-white/10 bg-slate-900/70 p-1 text-slate-100 shadow-xl backdrop-blur-md [scrollbar-width:none]"
       >
-        {PRESETS.map((item) => (
-          <button
-            key={item.preset}
-            type="button"
-            title={item.label}
-            onClick={() => void cameraApi.goToPreset(item.preset)}
-            className={btnClass}
-          >
-            <span aria-hidden="true">{item.short}</span>
-            <span className="sr-only">{item.label}</span>
-          </button>
-        ))}
+        {PRESETS.map((item) => {
+          const label = tr(item.labelKey);
+          return (
+            <button
+              key={item.preset}
+              type="button"
+              title={label}
+              onClick={() => void cameraApi.goToPreset(item.preset)}
+              className={btnClass}
+            >
+              <span aria-hidden="true">{tr(item.shortKey)}</span>
+              <span className="sr-only">{label}</span>
+            </button>
+          );
+        })}
 
         <div
           aria-hidden="true"
@@ -111,34 +144,34 @@ export function Toolbar(): JSX.Element {
 
         <button
           type="button"
-          aria-label="Reset view"
-          title="Reset view"
+          aria-label={tr('toolbar.resetLabel')}
+          title={tr('toolbar.resetLabel')}
           onClick={() => void cameraApi.resetView()}
           className={btnClass}
         >
-          Reset
+          {tr('toolbar.resetShort')}
         </button>
 
         <button
           type="button"
-          aria-label="Undo"
-          title="Undo"
+          aria-label={tr('toolbar.undo')}
+          title={tr('toolbar.undo')}
           disabled={!canUndo || quizActive}
           onClick={() => dispatch(undo())}
           className={btnClass}
         >
-          Undo
+          {tr('toolbar.undo')}
         </button>
 
         <button
           type="button"
-          aria-label="Show all"
-          title="Show all"
+          aria-label={tr('toolbar.showAll')}
+          title={tr('toolbar.showAll')}
           disabled={!hasDissection || quizActive}
           onClick={() => dispatch(showAll())}
           className={btnClass}
         >
-          Show all
+          {tr('toolbar.showAll')}
         </button>
 
         <div
@@ -149,7 +182,7 @@ export function Toolbar(): JSX.Element {
         <button
           ref={sectionButtonRef}
           type="button"
-          title="Cross-section"
+          title={tr('toolbar.crossSection')}
           aria-pressed={sectionEnabled}
           aria-expanded={sectionOpen}
           aria-haspopup="dialog"
@@ -160,7 +193,7 @@ export function Toolbar(): JSX.Element {
           }}
           className={`${btnClass} ${sectionEnabled ? 'bg-sky-600/35 text-sky-200 ring-1 ring-sky-400/50' : ''}`}
         >
-          Cross-section
+          {tr('toolbar.crossSection')}
         </button>
       </div>
 

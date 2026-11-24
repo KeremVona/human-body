@@ -1,4 +1,5 @@
 import { useState, type JSX } from 'react';
+import { useT } from '../../i18n/t';
 
 const HINT_KEY = 'atlas.hintDismissed';
 
@@ -28,6 +29,7 @@ function isCoarsePointer(): boolean {
 
 /** Dismissible first-run interaction hint persisted in localStorage. */
 export function FirstRunHint(): JSX.Element | null {
+  const tr = useT();
   const [dismissed, setDismissed] = useState(isAlreadyDismissed);
 
   if (dismissed) {
@@ -35,8 +37,8 @@ export function FirstRunHint(): JSX.Element | null {
   }
 
   const copy = isCoarsePointer()
-    ? 'Drag · Pinch · Tap'
-    : 'Drag to rotate · Scroll to zoom · Click any part';
+    ? tr('onboarding.touch')
+    : tr('onboarding.mouse');
 
   return (
     <div className="pointer-events-auto flex max-w-[calc(100vw-2rem)] items-center gap-3 rounded-full border border-white/10 bg-slate-900/75 px-4 py-1.5 text-xs text-slate-200 shadow-lg backdrop-blur-md">
@@ -49,7 +51,7 @@ export function FirstRunHint(): JSX.Element | null {
         }}
         className="shrink-0 rounded-full bg-white/15 px-2.5 py-0.5 font-medium text-white hover:bg-white/25 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400"
       >
-        Got it
+        {tr('onboarding.gotIt')}
       </button>
     </div>
   );

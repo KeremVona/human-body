@@ -5,7 +5,7 @@ import {
   type MeshId,
   type StructureId,
 } from '../../data/ids';
-import type { Details, Source } from '../../data/schema';
+import type { Details, RegionId, Source, SystemId } from '../../data/schema';
 import {
   selectStructureLookup,
   type ContentState,
@@ -19,8 +19,10 @@ export type InspectorModel = {
   paired: boolean;
   common: string;
   latin?: string;
+  systemId: SystemId;
   systemLabel: string;
   systemColor: string;
+  regionId: RegionId;
   regionLabel: string;
   groupLabel?: string;
   overview?: string;
@@ -89,8 +91,10 @@ export const selectInspectorModel = createSelector(
       paired: indexEntry.paired,
       common: indexEntry.names.common,
       latin: indexEntry.names.latin,
+      systemId: indexEntry.system,
       systemLabel: sysMeta?.label ?? indexEntry.system,
       systemColor: sysMeta?.color ?? '#94A3B8',
+      regionId: indexEntry.region,
       regionLabel: regionMeta?.label ?? indexEntry.region,
       groupLabel: indexEntry.group,
       overview: contentEntry?.overview,

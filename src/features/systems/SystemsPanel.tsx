@@ -4,6 +4,7 @@ import { useId, useState, type JSX } from 'react';
 import { useStore } from 'react-redux';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import type { RootState } from '../../app/store';
+import { getActiveLocale, useT, type MessageKey } from '../../i18n/t';
 import { Panel } from '../../ui/Panel';
 import { retryBundle, selectBundlesForSystem } from '../assets/assetsSlice';
 import { selectToggleRows, type ToggleRow } from './selectors';
@@ -20,6 +21,8 @@ function startsCollapsed(): boolean {
 /** Renders system-visibility toggles, loading/retry state, and opacity sliders. */
 export function SystemsList(): JSX.Element | null {
   const dispatch = useAppDispatch();
+  const tr = useT();
+  const locale = getActiveLocale();
   const store = useStore<RootState>();
   const rows = useAppSelector(selectToggleRows);
   const uiGroups = useAppSelector((s) => s.content.taxonomy?.uiGroups ?? []);
@@ -60,6 +63,10 @@ export function SystemsList(): JSX.Element | null {
         const switchId = `${baseId}-${row.id}`;
         const labelId = `${baseId}-${row.id}-label`;
         const pct = Math.round(row.opacity * 100);
+        const rowLabel =
+          locale === 'en' || row.systems.length !== 1
+            ? row.label
+            : tr(`systems.names.${row.systems[0]}` as MessageKey);
 
         return (
           <li key={row.id} className="space-y-1 py-0.5">
@@ -75,7 +82,7 @@ export function SystemsList(): JSX.Element | null {
                   htmlFor={switchId}
                   className="cursor-pointer truncate text-sm text-slate-100 select-none"
                 >
-                  {row.label}
+                  {rowLabel}
                 </label>
               </div>
 
@@ -83,7 +90,7 @@ export function SystemsList(): JSX.Element | null {
                 {row.status === 'loading' ? (
                   <span
                     role="status"
-                    aria-label={`Loading ${row.label}`}
+                    aria-label={tr('systems.loadingAria', { label: rowLabel })}
                     className="inline-block h-3.5 w-3.5 animate-spin rounded-full border-2 border-slate-500 border-t-sky-400 motion-reduce:animate-none"
                   />
                 ) : null}
@@ -91,11 +98,11 @@ export function SystemsList(): JSX.Element | null {
                 {row.status === 'error' ? (
                   <button
                     type="button"
-                    aria-label={`Retry ${row.label}`}
+                    aria-label={tr('systems.retryAria', { label: rowLabel })}
                     onClick={() => handleRetryRow(row)}
                     className="rounded bg-red-900/70 px-1.5 py-0.5 text-xs font-medium text-red-100 hover:bg-red-800/80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400"
                   >
-                    Retry
+                    {tr('systems.retry')}
                   </button>
                 ) : null}
 
@@ -131,7 +138,7 @@ export function SystemsList(): JSX.Element | null {
                   <Slider.Range className="absolute h-full rounded-full bg-sky-400" />
                 </Slider.Track>
                 <Slider.Thumb
-                  aria-label={`${row.label} opacity`}
+                  aria-label={tr('systems.opacityAria', { label: rowLabel })}
                   className="block h-3 w-3 rounded-full bg-white shadow ring-1 ring-slate-900/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400"
                 />
               </Slider.Root>
@@ -148,6 +155,7 @@ export function SystemsList(): JSX.Element | null {
 
 /** Floating system-visibility toggles with bundle loading spinners and retry controls. */
 export function SystemsPanel(): JSX.Element | null {
+  const tr = useT();
   const rows = useAppSelector(selectToggleRows);
   const [collapsed, setCollapsed] = useState(startsCollapsed);
 
@@ -157,12 +165,12 @@ export function SystemsPanel(): JSX.Element | null {
 
   return (
     <section
-      aria-label="Body systems"
+      aria-label={tr('leftPanel.bodySystemsHeading')}
       className="fixed top-14 left-3 z-10 sm:top-16 sm:left-4"
     >
       <Panel
         side="left"
-        label="Body systems"
+        label={tr('leftPanel.bodySystemsHeading')}
         collapsed={collapsed}
         onToggle={() => setCollapsed((c) => !c)}
         className={

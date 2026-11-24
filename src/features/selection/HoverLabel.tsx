@@ -1,11 +1,13 @@
 import { useSyncExternalStore, type JSX } from 'react';
 import { useAppSelector } from '../../app/hooks';
 import { isMeshId, parseMeshId } from '../../data/ids';
+import { useT } from '../../i18n/t';
 import { pointerPosition } from '../../scene/pointerPosition';
 import { selectStructureLookup } from '../content/contentSlice';
 
 /** Pointer-following DOM tooltip showing hovered structure name and anatomical side. */
 export function HoverLabel(): JSX.Element | null {
+  const tr = useT();
   const hoveredId = useAppSelector((s) => s.selection.hoveredId);
   const quizStatus = useAppSelector((s) => s.quiz.status);
   const lookup = useAppSelector(selectStructureLookup);
@@ -34,7 +36,14 @@ export function HoverLabel(): JSX.Element | null {
     return null;
   }
 
-  const label = side ? `${entry.names.common} (${side})` : entry.names.common;
+  const sideText = side
+    ? side === 'left'
+      ? tr('selection.sideLeftShort')
+      : tr('selection.sideRightShort')
+    : null;
+  const label = sideText
+    ? `${entry.names.common} (${sideText})`
+    : entry.names.common;
   const vw = typeof window !== 'undefined' ? window.innerWidth : 1024;
   const vh = typeof window !== 'undefined' ? window.innerHeight : 768;
   const estWidth = Math.min(260, Math.max(96, label.length * 8 + 24));

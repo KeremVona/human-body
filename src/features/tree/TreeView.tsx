@@ -9,6 +9,7 @@ import {
 } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { isMeshId, parseMeshId } from '../../data/ids';
+import { getActiveLocale, useT, type MessageKey } from '../../i18n/t';
 import { hide, unhide } from '../dissection/dissectionSlice';
 import { revealAndFocus } from '../search/revealAndFocus';
 import {
@@ -58,16 +59,35 @@ export function TreeView({
   initialExpanded?: string[];
 }): JSX.Element | null {
   const dispatch = useAppDispatch();
+  const tr = useT();
+  const locale = getActiveLocale();
   const taxonomy = useAppSelector((s) => s.content.taxonomy);
   const index = useAppSelector((s) => s.content.index);
   const manifest = useAppSelector((s) => s.assets.manifest);
   const hidden = useAppSelector((s) => s.dissection.hidden);
   const selectedIds = useAppSelector((s) => s.selection.selectedIds);
 
+  const localizedTaxonomy = useMemo(() => {
+    if (!taxonomy || locale === 'en') return taxonomy;
+    return {
+      ...taxonomy,
+      systems: taxonomy.systems.map((s) => ({
+        ...s,
+        label: tr(`systems.names.${s.id}` as MessageKey),
+      })),
+      regions: taxonomy.regions.map((r) => ({
+        ...r,
+        label: tr(`regions.names.${r.id}` as MessageKey),
+      })),
+    };
+  }, [taxonomy, locale, tr]);
+
   const tree = useMemo(
     () =>
-      taxonomy && index && manifest ? buildTree(taxonomy, index, manifest) : [],
-    [taxonomy, index, manifest],
+      localizedTaxonomy && index && manifest
+        ? buildTree(localizedTaxonomy, index, manifest)
+        : [],
+    [localizedTaxonomy, index, manifest],
   );
 
   const [manualExpanded, setManualExpanded] = useState<string[]>(() => {
@@ -147,8 +167,9 @@ export function TreeView({
   const expandedSet = useMemo(() => new Set(manualExpanded), [manualExpanded]);
 
   const systemLabels = useMemo(
-    () => new Map((taxonomy?.systems ?? []).map((s) => [s.id, s.label])),
-    [taxonomy],
+    () =>
+      new Map((localizedTaxonomy?.systems ?? []).map((s) => [s.id, s.label])),
+    [localizedTaxonomy],
   );
   const structureSystems = useMemo(
     () => new Map((index?.structures ?? []).map((s) => [s.id, s.system])),
@@ -223,7 +244,9 @@ export function TreeView({
         await dispatch(revealAndFocus(target.structureId, target.side));
       } catch {
         const sysId = structureSystems.get(target.structureId);
-        const label = sysId ? (systemLabels.get(sysId) ?? sysId) : 'requested';
+        const label = sysId
+          ? (systemLabels.get(sysId) ?? sysId)
+          : tr('tree.requestedFallback');
         setErrorSystem(label);
       }
       return;
@@ -294,10 +317,10 @@ export function TreeView({
           role="alert"
           className="flex items-center justify-between gap-2 rounded-md bg-red-950/90 px-2.5 py-1.5 text-xs text-red-100 ring-1 ring-red-500/40"
         >
-          <span>Couldn&apos;t load the {errorSystem} model.</span>
+          <span>{tr('tree.errorPrefix', { system: errorSystem })}</span>
           <button
             type="button"
-            aria-label="Dismiss error"
+            aria-label={tr('tree.dismissError')}
             onClick={() => setErrorSystem(null)}
             className="shrink-0 rounded px-1 text-red-200 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-sky-400"
           >
@@ -315,7 +338,7 @@ export function TreeView({
         >
           <div
             role="tree"
-            aria-label="Anatomy hierarchy"
+            aria-label={tr('tree.hierarchyAria')}
             className="relative min-w-0 flex-1"
           >
             {virtualItems.map((vItem) => {
@@ -376,7 +399,7 @@ export function TreeView({
 
           <div
             role="group"
-            aria-label="Visibility toggles"
+            aria-label={tr('tree.visibilityAria')}
             className="relative w-7 shrink-0"
           >
             {virtualItems.map((vItem) => {
@@ -388,9 +411,15 @@ export function TreeView({
                   key={row.key}
                   type="button"
                   aria-label={
-                    anyHidden ? `Show ${row.label}` : `Hide ${row.label}`
+                    anyHidden
+                      ? tr('tree.showAria', { label: row.label })
+                      : tr('tree.hideAria', { label: row.label })
                   }
-                  title={anyHidden ? `Show ${row.label}` : `Hide ${row.label}`}
+                  title={
+                    anyHidden
+                      ? tr('tree.showAria', { label: row.label })
+                      : tr('tree.hideAria', { label: row.label })
+                  }
                   style={{
                     position: 'absolute',
                     top: 0,

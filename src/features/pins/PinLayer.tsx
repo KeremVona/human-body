@@ -1,11 +1,13 @@
 import { useMemo, useSyncExternalStore, type JSX } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { useT } from '../../i18n/t';
 import { pinScreens } from './pinProjection';
 import { focusPinRequested } from './pinsSlice';
 
 /** Screen-space overlay drawing projected 16 px circular buttons for visible surface pins. */
 export function PinLayer(): JSX.Element | null {
   const dispatch = useAppDispatch();
+  const tr = useT();
   const pins = useAppSelector((s) => s.pins.items);
   const quizActive = useAppSelector((s) => s.quiz.status !== 'off');
   const screens = useSyncExternalStore(pinScreens.subscribe, pinScreens.get);
@@ -18,7 +20,7 @@ export function PinLayer(): JSX.Element | null {
 
   return (
     <div
-      aria-label="Anatomy pins"
+      aria-label={tr('pins.layerAria')}
       className="pointer-events-none fixed inset-0 z-10 overflow-hidden"
     >
       {screens.map((screen) => {
@@ -28,7 +30,7 @@ export function PinLayer(): JSX.Element | null {
           <button
             key={screen.id}
             type="button"
-            aria-label={`Pin: ${pin.label}`}
+            aria-label={tr('pins.pinAria', { label: pin.label })}
             title={pin.label}
             style={{
               left: `${screen.x}px`,

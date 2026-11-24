@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState, type JSX } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { parseMeshId } from '../../data/ids';
+import { useT } from '../../i18n/t';
 import { useCameraApi } from '../../scene/camera';
 import { useMeshRegistry } from '../../scene/meshRegistry';
 import { selectStructureLookup } from '../content/contentSlice';
@@ -24,6 +25,7 @@ function isCoarsePointer(): boolean {
 /** Pins list panel with newest-first ordering, Go to, Edit, Delete/Undo, and Save shared pins. */
 export function PinsPanel(): JSX.Element {
   const dispatch = useAppDispatch();
+  const tr = useT();
   const cameraApi = useCameraApi();
   const registry = useMeshRegistry();
   const items = useAppSelector((s) => s.pins.items);
@@ -83,7 +85,7 @@ export function PinsPanel(): JSX.Element {
           onClick={() => dispatch(sharedPinsSaved())}
           className="w-full rounded-lg bg-sky-700 px-2.5 py-1.5 font-medium text-white hover:bg-sky-600 focus-visible:outline-2 focus-visible:outline-sky-300"
         >
-          Save shared pins
+          {tr('pins.saveShared')}
         </button>
       ) : null}
 
@@ -92,7 +94,7 @@ export function PinsPanel(): JSX.Element {
           role="status"
           className="flex items-center justify-between gap-2 rounded-lg border border-white/10 bg-slate-800/80 px-2.5 py-1.5"
         >
-          <span>Pin deleted</span>
+          <span>{tr('pins.deleted')}</span>
           <button
             type="button"
             onClick={() => {
@@ -105,16 +107,14 @@ export function PinsPanel(): JSX.Element {
             }}
             className="rounded px-1.5 py-0.5 font-medium text-sky-300 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-sky-400"
           >
-            Undo
+            {tr('pins.undo')}
           </button>
         </div>
       ) : null}
 
       {sortedPins.length === 0 ? (
         <p className="py-3 text-slate-400">
-          {isCoarsePointer()
-            ? 'No pins yet. Long-press a part and choose Add pin.'
-            : 'No pins yet. Right-click a part and choose Add pin.'}
+          {isCoarsePointer() ? tr('pins.emptyTouch') : tr('pins.emptyMouse')}
         </p>
       ) : (
         <ul className="flex flex-col gap-2">
@@ -136,7 +136,7 @@ export function PinsPanel(): JSX.Element {
                   </span>
                   {pin.shared ? (
                     <span className="shrink-0 rounded bg-amber-500/20 px-1.5 py-0.5 text-[10px] font-medium text-amber-200">
-                      Shared pin
+                      {tr('pins.sharedBadge')}
                     </span>
                   ) : null}
                 </div>
@@ -159,7 +159,7 @@ export function PinsPanel(): JSX.Element {
                     }}
                     className="rounded bg-white/10 px-2 py-0.5 font-medium text-slate-100 hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-sky-400"
                   >
-                    Go to
+                    {tr('pins.goTo')}
                   </button>
                   {!pin.shared ? (
                     <button
@@ -167,7 +167,7 @@ export function PinsPanel(): JSX.Element {
                       onClick={() => dispatch(editorOpened(pin.id))}
                       className="rounded bg-white/10 px-2 py-0.5 font-medium text-slate-100 hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-sky-400"
                     >
-                      Edit
+                      {tr('pins.edit')}
                     </button>
                   ) : null}
                   <button
@@ -175,7 +175,7 @@ export function PinsPanel(): JSX.Element {
                     onClick={() => handleDelete(pin.id)}
                     className="rounded bg-white/10 px-2 py-0.5 font-medium text-red-200 hover:bg-red-900/50 focus-visible:outline-2 focus-visible:outline-sky-400"
                   >
-                    Delete
+                    {tr('pins.delete')}
                   </button>
                 </div>
               </li>

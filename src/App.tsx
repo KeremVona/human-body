@@ -18,6 +18,8 @@ import { bundleUrl, loadManifest } from './data/manifest';
 import { bundleFailed, bundleReady } from './features/assets/assetsSlice';
 import { preloadGltf } from './scene/gltfCache';
 import { TopBar } from './features/about/TopBar';
+import { applyHtmlLang } from './i18n/locale';
+import { loadMessages, useT } from './i18n/t';
 import { BundleScheduler } from './features/assets/BundleScheduler';
 import { bootstrap } from './features/content/contentSlice';
 import type { ContextMenuTarget } from './features/dissection/DissectionMenu';
@@ -90,6 +92,8 @@ function AtlasShell({
   store: AppStore;
 }): JSX.Element {
   const dispatch = useAppDispatch();
+  const tr = useT();
+  const locale = useAppSelector((s) => s.ui.locale);
   const cameraController = useContext(CameraApiContext);
   const boot = useAppSelector((s) => s.assets.boot);
   const manifest = useAppSelector((s) => s.assets.manifest);
@@ -193,6 +197,11 @@ function AtlasShell({
   }, []);
 
   useEffect(() => {
+    applyHtmlLang(locale);
+    void loadMessages(locale);
+  }, [locale]);
+
+  useEffect(() => {
     installTestHooks({
       registry,
       store,
@@ -256,7 +265,7 @@ function AtlasShell({
 
   return (
     <main
-      aria-label="Anatomy viewer"
+      aria-label={tr('app.viewerAria')}
       className="relative h-dvh w-full overflow-hidden bg-[radial-gradient(ellipse_at_center,#2a3038_0%,#14171c_100%)]"
     >
       {boot === 'ready' ? (
@@ -287,7 +296,7 @@ function AtlasShell({
             role="alert"
             className="rounded-lg bg-red-950/90 px-4 py-2 text-sm text-red-100 shadow-lg ring-1 ring-red-500/40 backdrop-blur"
           >
-            Couldn&apos;t start the atlas. Please reload.
+            {tr('app.bootError')}
           </p>
         </div>
       ) : null}
@@ -300,7 +309,7 @@ function AtlasShell({
               role="alert"
               className="rounded-lg bg-red-950/90 px-4 py-2 text-sm text-red-100 shadow-lg ring-1 ring-red-500/40 backdrop-blur"
             >
-              Couldn&apos;t load the {bundleId} model.
+              {tr('app.bundleError', { bundle: bundleId })}
             </p>
           ))}
         </div>
@@ -323,14 +332,14 @@ function AtlasShell({
                   }}
                   className="rounded-lg px-2 py-1 text-xs font-medium text-slate-100 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400"
                 >
-                  Share view
+                  {tr('topbar.shareView')}
                 </button>
                 <button
                   type="button"
                   onClick={() => dispatch(startQuiz())}
                   className="rounded-lg px-2 py-1 text-xs font-medium text-slate-100 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400"
                 >
-                  Start quiz
+                  {tr('topbar.startQuiz')}
                 </button>
               </>
             ) : null}
@@ -353,17 +362,14 @@ function AtlasShell({
             role="alert"
             className="pointer-events-auto flex items-center gap-2 rounded-lg bg-amber-950/90 px-4 py-2 text-xs text-amber-100 shadow-lg ring-1 ring-amber-400/40 backdrop-blur"
           >
-            <span>
-              Turn on a visible body system with featured parts to start the
-              quiz.
-            </span>
+            <span>{tr('app.emptyPoolAlert')}</span>
             <button
               type="button"
-              aria-label="Dismiss alert"
+              aria-label={tr('app.dismissAlert')}
               onClick={() => dispatch(emptyPoolDismissed())}
               className="rounded px-1.5 py-0.5 text-amber-200 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-sky-400"
             >
-              Dismiss
+              {tr('app.dismiss')}
             </button>
           </div>
         </div>
@@ -383,10 +389,10 @@ function AtlasShell({
                   role="status"
                   className="pointer-events-auto flex items-center gap-2 rounded-lg bg-amber-950/90 px-4 py-2 text-xs text-amber-100 shadow-lg ring-1 ring-amber-400/40 backdrop-blur"
                 >
-                  <span>Pins can&apos;t be saved on this device.</span>
+                  <span>{tr('app.pinsStorageError')}</span>
                   <button
                     type="button"
-                    aria-label="Dismiss storage notice"
+                    aria-label={tr('app.dismissStorageNotice')}
                     onClick={() => {
                       void import('./features/pins/pinsSlice').then(
                         ({ storageNoticeShown }) =>
@@ -395,7 +401,7 @@ function AtlasShell({
                     }}
                     className="rounded px-1.5 py-0.5 text-amber-200 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-sky-400"
                   >
-                    Dismiss
+                    {tr('app.dismiss')}
                   </button>
                 </div>
               ) : null}

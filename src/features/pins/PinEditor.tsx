@@ -1,6 +1,7 @@
 import * as Popover from '@radix-ui/react-popover';
 import { useId, useState, useSyncExternalStore, type JSX } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { useT } from '../../i18n/t';
 import { pinScreens } from './pinProjection';
 import {
   editorClosed,
@@ -22,6 +23,7 @@ function PinEditorForm({
   onSave: (label: string, note: string) => void;
   onCancel: () => void;
 }): JSX.Element {
+  const tr = useT();
   const [label, setLabel] = useState(pin.label);
   const [note, setNote] = useState(pin.note);
   const labelId = useId();
@@ -45,7 +47,9 @@ function PinEditorForm({
       </Popover.Trigger>
       <Popover.Portal>
         <Popover.Content
-          aria-label={isNew ? 'Add pin' : 'Edit pin'}
+          aria-label={
+            isNew ? tr('pins.editorAddAria') : tr('pins.editorEditAria')
+          }
           sideOffset={10}
           collisionPadding={12}
           className="z-50 w-72 rounded-xl border border-white/10 bg-slate-900/95 p-3.5 text-slate-100 shadow-2xl backdrop-blur-md focus:outline-none"
@@ -63,7 +67,7 @@ function PinEditorForm({
                 htmlFor={labelId}
                 className="text-xs font-medium text-slate-300"
               >
-                Label
+                {tr('pins.labelField')}
               </label>
               <input
                 id={labelId}
@@ -81,7 +85,7 @@ function PinEditorForm({
                 htmlFor={noteId}
                 className="text-xs font-medium text-slate-300"
               >
-                Note
+                {tr('pins.noteField')}
               </label>
               <textarea
                 id={noteId}
@@ -99,14 +103,14 @@ function PinEditorForm({
                 onClick={onCancel}
                 className="rounded-lg bg-white/10 px-3 py-1 text-xs font-medium text-slate-200 hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-sky-400"
               >
-                Cancel
+                {tr('pins.cancel')}
               </button>
               <button
                 type="submit"
                 disabled={!canSave}
                 className="rounded-lg bg-sky-700 px-3 py-1 text-xs font-medium text-white hover:bg-sky-600 focus-visible:outline-2 focus-visible:outline-sky-300 disabled:pointer-events-none disabled:opacity-40"
               >
-                Save
+                {tr('pins.save')}
               </button>
             </div>
           </form>

@@ -9,6 +9,7 @@ import {
   type JSX,
 } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { getActiveLocale, useT, type MessageKey } from '../../i18n/t';
 import { motionPhase } from './motionPhase';
 import {
   motionPaused,
@@ -27,6 +28,8 @@ const SPEEDS: readonly { value: '0.5' | '1'; label: string }[] = [
 /** Lazy-loaded Motion tab panel listing anatomical motion demos and playback controls. */
 export function MotionPanel(): JSX.Element {
   const dispatch = useAppDispatch();
+  const tr = useT();
+  const locale = getActiveLocale();
   const { defs, loadStatus, activeId, playing, speed, scrubPhase } =
     useAppSelector((s) => s.motion);
   const quizActive = useAppSelector((s) => s.quiz.status !== 'off');
@@ -62,15 +65,21 @@ export function MotionPanel(): JSX.Element {
 
   let statusMessage = '';
   if (activeDef) {
-    statusMessage = playing ? `Playing ${activeDef.label}.` : 'Paused.';
+    const activeLabel =
+      locale === 'en'
+        ? activeDef.label
+        : tr(`motion.demos.${activeDef.id}` as MessageKey);
+    statusMessage = playing
+      ? tr('motion.playing', { label: activeLabel })
+      : tr('motion.paused');
   } else if (stoppedAnnouncement) {
-    statusMessage = 'Stopped.';
+    statusMessage = tr('motion.stopped');
   }
 
   const sliderBlock = (
     <div key="slider" className="flex flex-col gap-1.5">
       <div className="flex items-center justify-between text-xs">
-        <span className="text-slate-300">Motion position</span>
+        <span className="text-slate-300">{tr('motion.position')}</span>
         <span className="text-slate-200 tabular-nums">{pct}%</span>
       </div>
       <Slider.Root
@@ -93,7 +102,7 @@ export function MotionPanel(): JSX.Element {
           <Slider.Range className="absolute h-full rounded-full bg-sky-400" />
         </Slider.Track>
         <Slider.Thumb
-          aria-label="Motion position"
+          aria-label={tr('motion.position')}
           className="block h-3.5 w-3.5 rounded-full bg-white shadow ring-1 ring-slate-900/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400"
         />
       </Slider.Root>
@@ -113,7 +122,7 @@ export function MotionPanel(): JSX.Element {
         }}
         className="rounded-lg bg-sky-500/25 px-2.5 py-1.5 font-medium text-white hover:bg-sky-500/35 focus-visible:outline-2 focus-visible:outline-sky-400"
       >
-        {playing ? 'Pause' : 'Play'}
+        {playing ? tr('motion.pause') : tr('motion.play')}
       </button>
       <button
         type="button"
@@ -123,7 +132,7 @@ export function MotionPanel(): JSX.Element {
         }}
         className="rounded-lg bg-white/10 px-2.5 py-1.5 font-medium text-slate-100 hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-sky-400"
       >
-        Stop
+        {tr('motion.stop')}
       </button>
     </div>
   );
@@ -134,7 +143,7 @@ export function MotionPanel(): JSX.Element {
         id={speedHeadingId}
         className="text-[11px] font-semibold tracking-wide text-slate-400 uppercase"
       >
-        Speed
+        {tr('motion.speed')}
       </span>
       <RadioGroup.Root
         aria-labelledby={speedHeadingId}
@@ -153,12 +162,20 @@ export function MotionPanel(): JSX.Element {
           >
             <RadioGroup.Item
               value={option.value}
-              aria-label={option.label}
+              aria-label={
+                option.value === '0.5'
+                  ? tr('motion.halfSpeed')
+                  : tr('motion.normalSpeed')
+              }
               className="flex h-3 w-3 shrink-0 items-center justify-center rounded-full border border-slate-400 bg-slate-950 focus-visible:outline-2 focus-visible:outline-sky-400 data-[state=checked]:border-sky-400"
             >
               <RadioGroup.Indicator className="h-1.5 w-1.5 rounded-full bg-sky-400" />
             </RadioGroup.Item>
-            <span>{option.label}</span>
+            <span>
+              {option.value === '0.5'
+                ? tr('motion.halfSpeed')
+                : tr('motion.normalSpeed')}
+            </span>
           </label>
         ))}
       </RadioGroup.Root>
@@ -172,33 +189,40 @@ export function MotionPanel(): JSX.Element {
       </p>
 
       {loadStatus === 'loading' && !defs ? (
-        <p className="text-slate-400">Loading demos…</p>
+        <p className="text-slate-400">{tr('motion.loading')}</p>
       ) : null}
 
       {loadStatus === 'error' ? (
         <div className="flex items-center justify-between gap-2 rounded-lg border border-amber-400/30 bg-amber-950/40 px-2.5 py-2 text-amber-200">
-          <span>Could not load motion demos.</span>
+          <span>{tr('motion.error')}</span>
           <button
             type="button"
             onClick={() => void dispatch(loadMotions())}
             className="rounded bg-white/10 px-2 py-1 font-medium text-white hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-sky-400"
           >
-            Retry
+            {tr('motion.retry')}
           </button>
         </div>
       ) : null}
 
       {defs && defs.length > 0 ? (
-        <ul className="flex flex-col gap-1.5" aria-label="Motion demos">
+        <ul
+          className="flex flex-col gap-1.5"
+          aria-label={tr('motion.demosAria')}
+        >
           {defs.map((def) => {
             const isActive = activeId === def.id;
+            const label =
+              locale === 'en'
+                ? def.label
+                : tr(`motion.demos.${def.id}` as MessageKey);
             return (
               <li key={def.id}>
                 <button
                   type="button"
                   aria-pressed={isActive}
                   disabled={quizActive}
-                  title={quizActive ? 'Finish the quiz first' : undefined}
+                  title={quizActive ? tr('motion.finishQuizTitle') : undefined}
                   onClick={() => {
                     setStoppedAnnouncement(false);
                     void dispatch(startMotion(def.id));
@@ -209,7 +233,7 @@ export function MotionPanel(): JSX.Element {
                       : 'border-white/10 bg-white/5 text-slate-200 hover:bg-white/10'
                   }`}
                 >
-                  {def.label}
+                  {label}
                 </button>
               </li>
             );
@@ -226,7 +250,7 @@ export function MotionPanel(): JSX.Element {
       ) : null}
 
       <p className="text-[11px] leading-snug text-slate-400">
-        Illustrative motion — real joints and hearts move in more complex ways.
+        {tr('motion.caption')}
       </p>
     </div>
   );

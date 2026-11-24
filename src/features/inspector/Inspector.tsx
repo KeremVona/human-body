@@ -2,6 +2,7 @@ import { useEffect, useState, type JSX } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { toMeshId } from '../../data/ids';
 import type { Details } from '../../data/schema';
+import { getActiveLocale, useT, type MessageKey } from '../../i18n/t';
 import { useCameraApi } from '../../scene/camera';
 import { Chip } from '../../ui/Chip';
 import { IconButton } from '../../ui/IconButton';
@@ -52,14 +53,16 @@ function safeHref(url: string): string | undefined {
 
 function DetailsSection({ details }: { details: Details }): JSX.Element {
   const lookup = useAppSelector(selectStructureLookup);
+  const tr = useT();
+  const locale = getActiveLocale();
 
   if (details.kind === 'muscle') {
     const rows = [
-      ['Origin', details.origin],
-      ['Insertion', details.insertion],
-      ['Innervation', details.innervation],
-      ['Blood supply', details.bloodSupply],
-      ['Primary action', details.action],
+      [tr('inspector.origin'), details.origin],
+      [tr('inspector.insertion'), details.insertion],
+      [tr('inspector.innervation'), details.innervation],
+      [tr('inspector.bloodSupply'), details.bloodSupply],
+      [tr('inspector.primaryAction'), details.action],
     ] as const;
 
     return (
@@ -78,14 +81,22 @@ function DetailsSection({ details }: { details: Details }): JSX.Element {
     const articulatesNames = details.articulatesWith.map(
       (id) => lookup.get(id)?.names.common ?? id,
     );
+    const boneTypeLabel =
+      locale === 'en'
+        ? details.boneType
+        : tr(`inspector.boneTypes.${details.boneType}` as MessageKey);
     return (
       <dl className="space-y-2 rounded-lg bg-white/5 p-3 text-xs">
         <div>
-          <dt className="font-semibold text-slate-300">Type</dt>
-          <dd className="capitalize text-slate-100">{details.boneType}</dd>
+          <dt className="font-semibold text-slate-300">
+            {tr('inspector.type')}
+          </dt>
+          <dd className="capitalize text-slate-100">{boneTypeLabel}</dd>
         </div>
         <div>
-          <dt className="font-semibold text-slate-300">Articulates with</dt>
+          <dt className="font-semibold text-slate-300">
+            {tr('inspector.articulatesWith')}
+          </dt>
           <dd className="break-words text-slate-100">
             {articulatesNames.length > 0 ? articulatesNames.join(', ') : '—'}
           </dd>
@@ -106,6 +117,8 @@ function DetailsSection({ details }: { details: Details }): JSX.Element {
 /** Structure details panel rendered as a right drawer (>=768px) or bottom sheet (<768px). */
 export function Inspector(): JSX.Element | null {
   const dispatch = useAppDispatch();
+  const tr = useT();
+  const locale = getActiveLocale();
   const cameraApi = useCameraApi();
   const quizStatus = useAppSelector((s) => s.quiz.status);
   const model = useAppSelector(selectInspectorModel);
@@ -117,25 +130,34 @@ export function Inspector(): JSX.Element | null {
 
   const sideBadgeLabel =
     model.side === 'Left'
-      ? 'Left side'
+      ? tr('inspector.leftSide')
       : model.side === 'Right'
-        ? 'Right side'
+        ? tr('inspector.rightSide')
         : model.side === 'Both'
-          ? 'Both sides'
+          ? tr('inspector.bothSides')
           : null;
+
+  const systemLabel =
+    locale === 'en'
+      ? model.systemLabel
+      : tr(`systems.names.${model.systemId}` as MessageKey);
+  const regionLabel =
+    locale === 'en'
+      ? model.regionLabel
+      : tr(`regions.names.${model.regionId}` as MessageKey);
 
   const containerClass =
     layout === 'sheet'
       ? 'fixed inset-x-0 bottom-0 z-30 flex max-h-[55dvh] flex-col rounded-t-2xl border-t border-white/10 bg-slate-900/90 text-slate-100 shadow-2xl backdrop-blur-md'
       : 'fixed top-14 right-3 bottom-16 z-20 flex w-80 flex-col rounded-xl border border-white/10 bg-slate-900/75 text-slate-100 shadow-2xl backdrop-blur-md sm:top-16 sm:right-4';
 
-  const breadcrumb = [model.systemLabel, model.regionLabel, model.groupLabel]
+  const breadcrumb = [systemLabel, regionLabel, model.groupLabel]
     .filter(Boolean)
     .join(' › ');
 
   return (
     <aside
-      aria-label="Structure details"
+      aria-label={tr('inspector.ariaLabel')}
       data-layout={layout}
       className={containerClass}
     >
@@ -152,7 +174,7 @@ export function Inspector(): JSX.Element | null {
             ) : null}
           </div>
           <IconButton
-            label="Close details"
+            label={tr('inspector.closeAria')}
             onClick={() => dispatch(selectionCleared())}
             className="h-7 w-7"
           >
@@ -173,7 +195,7 @@ export function Inspector(): JSX.Element | null {
         </div>
 
         <div className="mt-2 flex flex-wrap items-center gap-1.5">
-          <Chip swatchColor={model.systemColor}>{model.systemLabel}</Chip>
+          <Chip swatchColor={model.systemColor}>{systemLabel}</Chip>
           {sideBadgeLabel ? <Chip>{sideBadgeLabel}</Chip> : null}
         </div>
 
@@ -183,7 +205,7 @@ export function Inspector(): JSX.Element | null {
           <div
             className="mt-2.5 flex items-center gap-1.5"
             role="group"
-            aria-label="Side selector"
+            aria-label={tr('inspector.sideGroupAria')}
           >
             <Chip
               active={model.side === 'Left'}
@@ -191,7 +213,7 @@ export function Inspector(): JSX.Element | null {
                 dispatch(selected([toMeshId(model.structureId, 'left')]))
               }
             >
-              Left
+              {tr('inspector.left')}
             </Chip>
             <Chip
               active={model.side === 'Right'}
@@ -199,7 +221,7 @@ export function Inspector(): JSX.Element | null {
                 dispatch(selected([toMeshId(model.structureId, 'right')]))
               }
             >
-              Right
+              {tr('inspector.right')}
             </Chip>
             <Chip
               active={model.side === 'Both'}
@@ -212,7 +234,7 @@ export function Inspector(): JSX.Element | null {
                 )
               }
             >
-              Both
+              {tr('inspector.both')}
             </Chip>
           </div>
         ) : null}
@@ -223,7 +245,7 @@ export function Inspector(): JSX.Element | null {
             onClick={() => void cameraApi.focusMeshes(model.meshIds)}
             className="rounded-lg bg-white/10 px-2.5 py-1.5 text-xs font-medium text-white hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400"
           >
-            Focus
+            {tr('inspector.focus')}
           </button>
           <button
             type="button"
@@ -233,21 +255,21 @@ export function Inspector(): JSX.Element | null {
             }}
             className="rounded-lg bg-white/10 px-2.5 py-1.5 text-xs font-medium text-white hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400"
           >
-            Isolate
+            {tr('inspector.isolate')}
           </button>
           <button
             type="button"
             onClick={() => dispatch(hide(model.meshIds))}
             className="rounded-lg bg-white/10 px-2.5 py-1.5 text-xs font-medium text-white hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400"
           >
-            Hide
+            {tr('inspector.hide')}
           </button>
           <button
             type="button"
             onClick={() => dispatch(fadeOthers(model.meshIds))}
             className="rounded-lg bg-white/10 px-2.5 py-1.5 text-xs font-medium text-white hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400"
           >
-            Fade others
+            {tr('inspector.fadeOthers')}
           </button>
         </div>
       </div>
@@ -255,7 +277,7 @@ export function Inspector(): JSX.Element | null {
       <div className="min-h-0 flex-1 space-y-4 overflow-y-auto p-4 text-sm">
         {model.contentStatus === 'loading' ? (
           <div
-            aria-label="Loading structure details"
+            aria-label={tr('inspector.loadingAria')}
             className="space-y-2 animate-pulse motion-reduce:animate-none"
           >
             <div className="h-3 w-3/4 rounded bg-slate-700/60" />
@@ -266,17 +288,17 @@ export function Inspector(): JSX.Element | null {
           <>
             <section className="space-y-1">
               <h3 className="text-xs font-semibold tracking-wider text-slate-300 uppercase">
-                Overview
+                {tr('inspector.overview')}
               </h3>
               <p className="text-slate-100">
-                {model.overview ?? 'Description coming soon.'}
+                {model.overview ?? tr('inspector.overviewFallback')}
               </p>
             </section>
 
             {model.function ? (
               <section className="space-y-1">
                 <h3 className="text-xs font-semibold tracking-wider text-slate-300 uppercase">
-                  Function
+                  {tr('inspector.function')}
                 </h3>
                 <p className="text-slate-100">{model.function}</p>
               </section>
@@ -285,7 +307,7 @@ export function Inspector(): JSX.Element | null {
             {model.details ? (
               <section className="space-y-1.5">
                 <h3 className="text-xs font-semibold tracking-wider text-slate-300 uppercase">
-                  Details
+                  {tr('inspector.details')}
                 </h3>
                 <DetailsSection details={model.details} />
               </section>
@@ -294,7 +316,7 @@ export function Inspector(): JSX.Element | null {
             {model.sources.length > 0 ? (
               <section className="space-y-1">
                 <h3 className="text-xs font-semibold tracking-wider text-slate-300 uppercase">
-                  Sources
+                  {tr('inspector.sources')}
                 </h3>
                 <ul className="space-y-1 text-xs">
                   {model.sources.map((src) => {

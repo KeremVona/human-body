@@ -2,6 +2,7 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import type { JSX } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import type { MeshId } from '../../data/ids';
+import { useT } from '../../i18n/t';
 import { useCameraApi } from '../../scene/camera';
 import {
   fadeOthers,
@@ -30,6 +31,7 @@ export function DissectionMenu({
   onClose: () => void;
 }): JSX.Element {
   const dispatch = useAppDispatch();
+  const tr = useT();
   const cameraApi = useCameraApi();
   const hasDissection = useAppSelector(selectHasDissection);
   const quizStatus = useAppSelector((s) => s.quiz.status);
@@ -56,7 +58,7 @@ export function DissectionMenu({
 
       <DropdownMenu.Portal>
         <DropdownMenu.Content
-          aria-label="Dissection actions"
+          aria-label={tr('dissection.menuAria')}
           align="start"
           sideOffset={4}
           collisionPadding={8}
@@ -70,7 +72,7 @@ export function DissectionMenu({
                   void cameraApi.focusMeshes(meshIds);
                 }}
               >
-                <span>Focus</span>
+                <span>{tr('dissection.focus')}</span>
                 <kbd className="text-[10px] text-slate-400">F</kbd>
               </DropdownMenu.Item>
               <DropdownMenu.Item
@@ -80,7 +82,7 @@ export function DissectionMenu({
                   void cameraApi.focusMeshes(meshIds);
                 }}
               >
-                <span>Isolate</span>
+                <span>{tr('dissection.isolate')}</span>
                 <kbd className="text-[10px] text-slate-400">I</kbd>
               </DropdownMenu.Item>
               <DropdownMenu.Item
@@ -89,7 +91,7 @@ export function DissectionMenu({
                   dispatch(hide(meshIds));
                 }}
               >
-                <span>Hide</span>
+                <span>{tr('dissection.hide')}</span>
                 <kbd className="text-[10px] text-slate-400">H</kbd>
               </DropdownMenu.Item>
               <DropdownMenu.Item
@@ -98,7 +100,7 @@ export function DissectionMenu({
                   dispatch(fadeOthers(meshIds));
                 }}
               >
-                <span>Fade others</span>
+                <span>{tr('dissection.fadeOthers')}</span>
                 <kbd className="text-[10px] text-slate-400">G</kbd>
               </DropdownMenu.Item>
               <DropdownMenu.Item
@@ -116,7 +118,7 @@ export function DissectionMenu({
                   );
                 }}
               >
-                <span>Add pin</span>
+                <span>{tr('dissection.addPin')}</span>
                 <kbd className="text-[10px] text-slate-400">P</kbd>
               </DropdownMenu.Item>
             </>
@@ -129,7 +131,7 @@ export function DissectionMenu({
                   dispatch(showAll());
                 }}
               >
-                <span>Show all</span>
+                <span>{tr('dissection.showAll')}</span>
               </DropdownMenu.Item>
               <DropdownMenu.Item
                 className={itemClass}
@@ -137,7 +139,7 @@ export function DissectionMenu({
                   void cameraApi.resetView();
                 }}
               >
-                <span>Reset view</span>
+                <span>{tr('dissection.resetView')}</span>
                 <kbd className="text-[10px] text-slate-400">0</kbd>
               </DropdownMenu.Item>
             </>

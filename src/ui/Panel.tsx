@@ -1,4 +1,5 @@
 import type { JSX, ReactNode } from 'react';
+import { useT } from '../i18n/t';
 import { IconButton } from './IconButton';
 
 export type PanelProps = {
@@ -41,6 +42,7 @@ export function Panel({
   children,
   className = '',
 }: PanelProps): JSX.Element {
+  const tr = useT();
   const collapseDirection = side === 'left' ? 'left' : 'right';
   const expandDirection = side === 'left' ? 'right' : 'left';
 
@@ -50,7 +52,7 @@ export function Panel({
         className={`inline-flex flex-col items-center rounded-xl border border-white/10 bg-slate-900/60 p-1 text-slate-100 shadow-xl backdrop-blur-md ${className}`}
       >
         <IconButton
-          label="Expand panel"
+          label={tr('panel.expand')}
           aria-expanded={false}
           onClick={onToggle}
         >
@@ -69,7 +71,7 @@ export function Panel({
           {label}
         </h2>
         <IconButton
-          label="Collapse panel"
+          label={tr('panel.collapse')}
           aria-expanded={true}
           onClick={onToggle}
           className="h-7 w-7"

@@ -9,6 +9,7 @@ import {
   type RefObject,
 } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { useT } from '../../i18n/t';
 import { encodeViewState } from './codec';
 import { captureViewState } from './thunks';
 
@@ -29,6 +30,7 @@ export function SharePopover({
   encode?: typeof encodeViewState;
 }): JSX.Element {
   const dispatch = useAppDispatch();
+  const tr = useT();
   const [includePins, setIncludePins] = useState(false);
   const [link, setLink] = useState('');
   const [copied, setCopied] = useState(false);
@@ -98,7 +100,7 @@ export function SharePopover({
         <Popover.Content
           align="end"
           sideOffset={8}
-          aria-label="Share view"
+          aria-label={tr('share.dialogAria')}
           onInteractOutside={(e) => {
             if (
               triggerRef?.current &&
@@ -121,7 +123,7 @@ export function SharePopover({
               htmlFor={inputId}
               className="text-xs font-semibold text-slate-300"
             >
-              Share link
+              {tr('share.label')}
             </label>
             <div className="flex items-center gap-1.5">
               <input
@@ -138,7 +140,7 @@ export function SharePopover({
                 disabled={!link}
                 className="shrink-0 rounded-lg bg-sky-700 px-3 py-1.5 font-medium text-white hover:bg-sky-600 focus-visible:outline-2 focus-visible:outline-sky-300 disabled:pointer-events-none disabled:opacity-40"
               >
-                Copy link
+                {tr('share.copyLink')}
               </button>
             </div>
 
@@ -153,19 +155,17 @@ export function SharePopover({
                 onChange={(e) => setIncludePins(e.target.checked)}
                 className="h-3.5 w-3.5 accent-sky-500"
               />
-              <span>Include my pins</span>
+              <span>{tr('share.includePins')}</span>
             </label>
 
             {copied ? (
               <p role="status" className="text-emerald-300">
-                Link copied
+                {tr('share.copied')}
               </p>
             ) : null}
 
             {link.length > LONG_LINK_LIMIT ? (
-              <p className="text-amber-200">
-                This link is long and some apps may cut it off.
-              </p>
+              <p className="text-amber-200">{tr('share.longLink')}</p>
             ) : null}
           </div>
         </Popover.Content>

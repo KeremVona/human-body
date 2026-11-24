@@ -4,6 +4,7 @@ import * as Slider from '@radix-ui/react-slider';
 import * as Switch from '@radix-ui/react-switch';
 import { useId, type JSX, type RefObject } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { useT, type MessageKey } from '../../i18n/t';
 import type { SectionAxis } from './sectionPlane';
 import {
   sectionAxisSet,
@@ -12,10 +13,10 @@ import {
   sectionToggled,
 } from './sectionSlice';
 
-const AXES: readonly { value: SectionAxis; label: string }[] = [
-  { value: 'axial', label: 'Axial' },
-  { value: 'sagittal', label: 'Sagittal' },
-  { value: 'coronal', label: 'Coronal' },
+const AXES: readonly { value: SectionAxis; key: MessageKey }[] = [
+  { value: 'axial', key: 'section.axial' },
+  { value: 'sagittal', key: 'section.sagittal' },
+  { value: 'coronal', key: 'section.coronal' },
 ];
 
 /** Lazy-loaded toolbar popover controlling cross-section axis, slice position, and flip. */
@@ -29,6 +30,7 @@ export function SectionPopover({
   triggerRef?: RefObject<HTMLButtonElement | null>;
 }): JSX.Element {
   const dispatch = useAppDispatch();
+  const tr = useT();
   const { enabled, axis, t, flip } = useAppSelector((s) => s.section);
   const switchId = useId();
   const labelId = useId();
@@ -48,7 +50,7 @@ export function SectionPopover({
         <Popover.Content
           side="top"
           sideOffset={8}
-          aria-label="Cross-section"
+          aria-label={tr('section.dialogAria')}
           onInteractOutside={(e) => {
             if (
               triggerRef?.current &&
@@ -73,7 +75,7 @@ export function SectionPopover({
                 htmlFor={switchId}
                 className="cursor-pointer text-sm font-medium text-white select-none"
               >
-                Cross-section
+                {tr('section.title')}
               </label>
               <Switch.Root
                 id={switchId}
@@ -91,7 +93,7 @@ export function SectionPopover({
                 id={axisHeadingId}
                 className="text-[11px] font-semibold tracking-wide text-slate-400 uppercase"
               >
-                Plane
+                {tr('section.planeHeading')}
               </span>
               <RadioGroup.Root
                 aria-labelledby={axisHeadingId}
@@ -108,32 +110,37 @@ export function SectionPopover({
                 }}
                 className="grid grid-cols-3 gap-1.5"
               >
-                {AXES.map((option) => (
-                  <label
-                    key={option.value}
-                    className={`flex items-center justify-center gap-1.5 rounded-lg border px-2 py-1.5 text-xs font-medium transition-colors ${
-                      enabled
-                        ? 'cursor-pointer border-white/10 hover:bg-white/10'
-                        : 'cursor-not-allowed border-white/5 opacity-45'
-                    }`}
-                  >
-                    <RadioGroup.Item
-                      value={option.value}
-                      aria-label={option.label}
-                      disabled={!enabled}
-                      className="flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full border border-slate-400 bg-slate-950 focus-visible:outline-2 focus-visible:outline-sky-400 data-[state=checked]:border-sky-400"
+                {AXES.map((option) => {
+                  const axisLabel = tr(option.key);
+                  return (
+                    <label
+                      key={option.value}
+                      className={`flex items-center justify-center gap-1.5 rounded-lg border px-2 py-1.5 text-xs font-medium transition-colors ${
+                        enabled
+                          ? 'cursor-pointer border-white/10 hover:bg-white/10'
+                          : 'cursor-not-allowed border-white/5 opacity-45'
+                      }`}
                     >
-                      <RadioGroup.Indicator className="h-1.5 w-1.5 rounded-full bg-sky-400" />
-                    </RadioGroup.Item>
-                    <span>{option.label}</span>
-                  </label>
-                ))}
+                      <RadioGroup.Item
+                        value={option.value}
+                        aria-label={axisLabel}
+                        disabled={!enabled}
+                        className="flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full border border-slate-400 bg-slate-950 focus-visible:outline-2 focus-visible:outline-sky-400 data-[state=checked]:border-sky-400"
+                      >
+                        <RadioGroup.Indicator className="h-1.5 w-1.5 rounded-full bg-sky-400" />
+                      </RadioGroup.Item>
+                      <span>{axisLabel}</span>
+                    </label>
+                  );
+                })}
               </RadioGroup.Root>
             </div>
 
             <div className="flex flex-col gap-1.5">
               <div className="flex items-center justify-between text-xs">
-                <span className="text-slate-300">Section position</span>
+                <span className="text-slate-300">
+                  {tr('section.positionLabel')}
+                </span>
                 <span className="text-slate-200 tabular-nums">{pct}%</span>
               </div>
               <Slider.Root
@@ -153,7 +160,7 @@ export function SectionPopover({
                   <Slider.Range className="absolute h-full rounded-full bg-sky-400" />
                 </Slider.Track>
                 <Slider.Thumb
-                  aria-label="Section position"
+                  aria-label={tr('section.positionLabel')}
                   className="block h-3.5 w-3.5 rounded-full bg-white shadow ring-1 ring-slate-900/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400"
                 />
               </Slider.Root>
@@ -166,7 +173,7 @@ export function SectionPopover({
               onClick={() => dispatch(sectionFlipped())}
               className="rounded-lg bg-white/10 px-3 py-1.5 font-medium text-slate-100 hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-sky-400 disabled:pointer-events-none disabled:opacity-45"
             >
-              Flip side
+              {tr('section.flipSide')}
             </button>
           </div>
         </Popover.Content>

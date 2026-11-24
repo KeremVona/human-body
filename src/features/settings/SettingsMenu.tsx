@@ -2,29 +2,30 @@ import * as Popover from '@radix-ui/react-popover';
 import * as RadioGroup from '@radix-ui/react-radio-group';
 import type { JSX } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { useT, type MessageKey } from '../../i18n/t';
 import { IconButton } from '../../ui/IconButton';
 import type { QualitySetting } from './quality';
 import { qualitySet } from './uiSlice';
 
 const OPTIONS: readonly {
   value: QualitySetting;
-  label: string;
-  hint: string;
+  labelKey: MessageKey;
+  hintKey: MessageKey;
 }[] = [
   {
     value: 'auto',
-    label: 'Auto',
-    hint: 'Adapts to device speed and screen size',
+    labelKey: 'settings.auto',
+    hintKey: 'settings.autoHint',
   },
   {
     value: 'high',
-    label: 'High',
-    hint: 'Ambient occlusion, selection outline, Fresnel ghosts',
+    labelKey: 'settings.high',
+    hintKey: 'settings.highHint',
   },
   {
     value: 'low',
-    label: 'Low',
-    hint: 'Faster rendering without post-processing',
+    labelKey: 'settings.low',
+    hintKey: 'settings.lowHint',
   },
 ];
 
@@ -32,11 +33,12 @@ const OPTIONS: readonly {
 export function SettingsMenu(): JSX.Element {
   const quality = useAppSelector((s) => s.ui.quality);
   const dispatch = useAppDispatch();
+  const tr = useT();
 
   return (
     <Popover.Root>
       <Popover.Trigger asChild>
-        <IconButton label="Settings" className="h-8 w-8">
+        <IconButton label={tr('topbar.settingsTrigger')} className="h-8 w-8">
           <svg
             aria-hidden="true"
             viewBox="0 0 20 20"
@@ -63,14 +65,14 @@ export function SettingsMenu(): JSX.Element {
         <Popover.Content
           align="end"
           sideOffset={8}
-          aria-label="Settings"
+          aria-label={tr('settings.title')}
           className="z-40 w-64 rounded-xl border border-white/10 bg-slate-900/95 p-3 text-slate-100 shadow-2xl backdrop-blur-md focus:outline-none"
         >
           <p
             id="graphics-quality-heading"
             className="mb-2 text-xs font-semibold tracking-wide text-slate-300 uppercase"
           >
-            Graphics quality
+            {tr('settings.qualityHeading')}
           </p>
           <RadioGroup.Root
             aria-labelledby="graphics-quality-heading"
@@ -82,26 +84,30 @@ export function SettingsMenu(): JSX.Element {
             }}
             className="flex flex-col gap-1.5"
           >
-            {OPTIONS.map((option) => (
-              <label
-                key={option.value}
-                className="flex cursor-pointer items-start gap-2.5 rounded-lg px-2 py-1.5 hover:bg-white/5"
-              >
-                <RadioGroup.Item
-                  value={option.value}
-                  aria-label={option.label}
-                  className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full border border-slate-400 bg-slate-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400 data-[state=checked]:border-sky-400"
+            {OPTIONS.map((option) => {
+              const label = tr(option.labelKey);
+              const hint = tr(option.hintKey);
+              return (
+                <label
+                  key={option.value}
+                  className="flex cursor-pointer items-start gap-2.5 rounded-lg px-2 py-1.5 hover:bg-white/5"
                 >
-                  <RadioGroup.Indicator className="h-2 w-2 rounded-full bg-sky-400" />
-                </RadioGroup.Item>
-                <span className="flex flex-col">
-                  <span className="text-sm font-medium text-white">
-                    {option.label}
+                  <RadioGroup.Item
+                    value={option.value}
+                    aria-label={label}
+                    className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full border border-slate-400 bg-slate-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400 data-[state=checked]:border-sky-400"
+                  >
+                    <RadioGroup.Indicator className="h-2 w-2 rounded-full bg-sky-400" />
+                  </RadioGroup.Item>
+                  <span className="flex flex-col">
+                    <span className="text-sm font-medium text-white">
+                      {label}
+                    </span>
+                    <span className="text-xs text-slate-400">{hint}</span>
                   </span>
-                  <span className="text-xs text-slate-400">{option.hint}</span>
-                </span>
-              </label>
-            ))}
+                </label>
+              );
+            })}
           </RadioGroup.Root>
         </Popover.Content>
       </Popover.Portal>

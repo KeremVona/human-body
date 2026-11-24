@@ -8,12 +8,15 @@ import {
   type KeyboardEvent,
 } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { getActiveLocale, useT, type MessageKey } from '../../i18n/t';
 import { revealAndFocus } from './revealAndFocus';
 import { buildSearchIndex, type SearchHit } from './searchIndex';
 
 /** Top-bar autocomplete combobox searching anatomy names, Latin terms, and lay synonyms. */
 export function SearchBox(): JSX.Element | null {
   const dispatch = useAppDispatch();
+  const tr = useT();
+  const locale = getActiveLocale();
   const index = useAppSelector((s) => s.content.index);
   const taxonomy = useAppSelector((s) => s.content.taxonomy);
   const [query, setQuery] = useState('');
@@ -53,11 +56,14 @@ export function SearchBox(): JSX.Element | null {
       try {
         await dispatch(revealAndFocus(hit.structureId, 'both'));
       } catch {
-        const label = systemMeta.get(hit.system)?.label ?? hit.system;
+        const label =
+          locale === 'en'
+            ? (systemMeta.get(hit.system)?.label ?? hit.system)
+            : tr(`systems.names.${hit.system}` as MessageKey);
         setErrorSystem(label);
       }
     },
-    [dispatch, systemMeta],
+    [dispatch, locale, systemMeta, tr],
   );
 
   if (!index) {
@@ -121,7 +127,7 @@ export function SearchBox(): JSX.Element | null {
           ref={inputRef}
           type="search"
           role="combobox"
-          aria-label="Search structures"
+          aria-label={tr('search.ariaLabel')}
           aria-expanded={showList}
           aria-controls={showList ? listboxId : undefined}
           aria-autocomplete="list"
@@ -130,7 +136,7 @@ export function SearchBox(): JSX.Element | null {
               ? `${optionPrefix}-${hits[clampedActive].structureId}`
               : undefined
           }
-          placeholder="Search anatomy (/)"
+          placeholder={tr('search.placeholder')}
           value={query}
           onChange={(e) => {
             setQuery(e.target.value);
@@ -153,7 +159,7 @@ export function SearchBox(): JSX.Element | null {
         <ul
           id={listboxId}
           role="listbox"
-          aria-label="Search results"
+          aria-label={tr('search.resultsAria')}
           className="absolute inset-x-0 top-10 z-30 max-h-72 overflow-y-auto rounded-xl border border-white/10 bg-slate-900/95 p-1 text-xs text-slate-100 shadow-2xl backdrop-blur-md"
         >
           {hits.length === 0 ? (
@@ -162,12 +168,16 @@ export function SearchBox(): JSX.Element | null {
               aria-selected={false}
               className="px-3 py-2 text-slate-400"
             >
-              No matches
+              {tr('search.noMatches')}
             </li>
           ) : (
             hits.map((hit, idx) => {
               const active = idx === clampedActive;
               const sys = systemMeta.get(hit.system);
+              const sysLabel =
+                locale === 'en'
+                  ? (sys?.label ?? hit.system)
+                  : tr(`systems.names.${hit.system}` as MessageKey);
               return (
                 <li
                   key={hit.structureId}
@@ -199,7 +209,7 @@ export function SearchBox(): JSX.Element | null {
                       className="h-1.5 w-1.5 rounded-full"
                       style={{ backgroundColor: sys?.color ?? '#94A3B8' }}
                     />
-                    {sys?.label ?? hit.system}
+                    {sysLabel}
                   </span>
                 </li>
               );
@@ -213,7 +223,7 @@ export function SearchBox(): JSX.Element | null {
           role="alert"
           className="mt-1.5 rounded-lg bg-red-950/90 px-3 py-1.5 text-xs text-red-100 shadow-lg ring-1 ring-red-500/40 backdrop-blur"
         >
-          Couldn&apos;t load {errorSystem}.
+          {tr('search.errorPrefix', { system: errorSystem })}
         </p>
       ) : null}
     </div>
