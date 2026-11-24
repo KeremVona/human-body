@@ -55,6 +55,8 @@ export const TissueSchema = z.enum([
   'vein',
   'nerve',
   'organ',
+  'skin',
+  'lymph',
   'other',
 ]);
 export type Tissue = z.infer<typeof TissueSchema>;

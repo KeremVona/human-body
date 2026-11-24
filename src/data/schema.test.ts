@@ -66,6 +66,12 @@ it('rejects an unknown tissue', () => {
   expect(IndexEntrySchema.safeParse({ ...entry, tissue: 'bone' }).success).toBe(
     true,
   );
+  expect(IndexEntrySchema.safeParse({ ...entry, tissue: 'skin' }).success).toBe(
+    true,
+  );
+  expect(
+    IndexEntrySchema.safeParse({ ...entry, tissue: 'lymph' }).success,
+  ).toBe(true);
 });
 
 it('requires all five muscle detail fields', () => {

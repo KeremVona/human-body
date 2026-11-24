@@ -52,7 +52,13 @@ describe('TISSUE_LOOKS', () => {
     const colours = Object.values(TISSUE_LOOKS).map((t) =>
       t.color.toLowerCase(),
     );
+    expect(colours).toHaveLength(12);
     expect(new Set(colours).size).toBe(colours.length);
+    expect(TISSUE_LOOKS.skin.roughness).toBeGreaterThanOrEqual(0.7);
+    expect(TISSUE_LOOKS.skin.clearcoat).toBe(0);
+    expect(TISSUE_LOOKS.skin.sheen).toBe(0.2);
+    expect(TISSUE_LOOKS.lymph.roughness).toBe(0.45);
+    expect(TISSUE_LOOKS.lymph.clearcoat).toBe(0.3);
   });
 });
 

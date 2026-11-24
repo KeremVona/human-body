@@ -46,6 +46,8 @@ export const TISSUE_LOOKS: Record<
   vein: { color: '#2b5fa8', roughness: 0.3, clearcoat: 0.6, sheen: 0 },
   nerve: { color: '#dfb848', roughness: 0.4, clearcoat: 0.2, sheen: 0.2 },
   organ: { color: '#b55d5b', roughness: 0.4, clearcoat: 0.45, sheen: 0 },
+  skin: { color: '#e6bfa5', roughness: 0.78, clearcoat: 0, sheen: 0.2 },
+  lymph: { color: '#66b87a', roughness: 0.45, clearcoat: 0.3, sheen: 0 },
   other: { color: '#8e95a0', roughness: 0.6, clearcoat: 0, sheen: 0 },
 };
 
