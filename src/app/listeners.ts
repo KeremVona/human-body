@@ -11,9 +11,11 @@ import {
 } from '../features/assets/assetsSlice';
 import {
   loadStructures,
+  reloadLocaleContent,
   selectStructureLookup,
   type ContentState,
 } from '../features/content/contentSlice';
+import { localeSet, type UiState } from '../features/settings/uiSlice';
 import {
   motionStopped,
   type MotionState,
@@ -42,10 +44,20 @@ type ListenerState = {
   systems: SystemsState;
   pins: PinsState;
   motion: MotionState;
+  ui?: UiState;
 };
 
 /** App-wide Redux listener middleware for bundle cache clearing and lazy structure loading. */
 export const listenerMiddleware = createListenerMiddleware<ListenerState>();
+
+listenerMiddleware.startListening({
+  actionCreator: localeSet,
+  effect: (action, listenerApi) => {
+    if (listenerApi.getState().content.index) {
+      void listenerApi.dispatch(reloadLocaleContent(action.payload));
+    }
+  },
+});
 
 listenerMiddleware.startListening({
   actionCreator: bundleRetry,

@@ -1,4 +1,8 @@
-import { isZAnatomySourceUrl, type checkContent } from './checkContent';
+import {
+  isZAnatomySourceUrl,
+  type checkContent,
+  type LocaleContentInput,
+} from './checkContent';
 import type { StructureId } from './ids';
 import {
   IndexFileSchema,
@@ -97,4 +101,79 @@ export function contentReport(
   }
 
   return orderedSystems.map((id) => rows.get(id)!);
+}
+
+export type LocaleCoverageRow = {
+  locale: string;
+  namesTranslated: number;
+  namesTotal: number;
+  featuredTranslated: number;
+  featuredTotal: number;
+};
+
+/** Summarizes translated index name and featured structure entry coverage per non-en locale. */
+export function contentLocaleReport(input: {
+  index: unknown;
+  locales?: Record<string, LocaleContentInput>;
+}): LocaleCoverageRow[] {
+  const enIndex = IndexFileSchema.parse(input.index);
+  const locales = input.locales ?? {};
+  const featured = enIndex.structures.filter((s) => s.featured);
+  const enIds = new Set(enIndex.structures.map((s) => s.id));
+
+  return Object.entries(locales)
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([locale, locInput]) => {
+      const locIndexRes = IndexFileSchema.safeParse(locInput.index);
+      const translatedNameIds = new Set<StructureId>();
+      if (locIndexRes.success) {
+        for (const s of locIndexRes.data.structures) {
+          if (enIds.has(s.id) && s.names.common.trim()) {
+            translatedNameIds.add(s.id);
+          }
+        }
+      }
+
+      const locEntriesBySystem = new Map<
+        SystemId,
+        Map<StructureId, StructureEntry>
+      >();
+      for (const raw of Object.values(locInput.structureFiles)) {
+        const parsed = StructureFileSchema.safeParse(raw);
+        if (!parsed.success) continue;
+        let map = locEntriesBySystem.get(parsed.data.system);
+        if (!map) {
+          map = new Map();
+          locEntriesBySystem.set(parsed.data.system, map);
+        }
+        for (const entry of parsed.data.entries) {
+          map.set(entry.id, entry);
+        }
+      }
+
+      let featuredTranslated = 0;
+      for (const s of featured) {
+        const entry = locEntriesBySystem.get(s.system)?.get(s.id);
+        if (!entry) continue;
+        const hasOverview = Boolean(entry.overview?.trim());
+        const hasFn = Boolean(entry.function?.trim());
+        const hasSrc = entry.sources.some(
+          (src) => !isZAnatomySourceUrl(src.url),
+        );
+        const hasDetails =
+          (s.kind !== 'muscle' || entry.details?.kind === 'muscle') &&
+          (s.kind !== 'bone' || entry.details?.kind === 'bone');
+        if (hasOverview && hasFn && hasSrc && hasDetails) {
+          featuredTranslated++;
+        }
+      }
+
+      return {
+        locale,
+        namesTranslated: translatedNameIds.size,
+        namesTotal: enIndex.structures.length,
+        featuredTranslated,
+        featuredTotal: featured.length,
+      };
+    });
 }

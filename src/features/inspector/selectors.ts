@@ -30,11 +30,13 @@ export type InspectorModel = {
   details?: Details;
   sources: Source[];
   contentStatus: 'loading' | 'ready';
+  notTranslated: boolean;
 };
 
 type InspectorSliceInput = {
   content: ContentState;
   selection: SelectionState;
+  ui?: { locale: string };
 };
 
 /** Derives a single-structure InspectorViewModel from the current selection, or null. */
@@ -44,8 +46,18 @@ export const selectInspectorModel = createSelector(
     selectStructureLookup,
     (state: InspectorSliceInput) => state.content.taxonomy,
     (state: InspectorSliceInput) => state.content.structures,
+    (state: InspectorSliceInput) => state.content.fallback,
+    (state: InspectorSliceInput) =>
+      state.ui?.locale ?? state.content.locale ?? 'en',
   ],
-  (selectedIds, lookup, taxonomy, structures): InspectorModel | null => {
+  (
+    selectedIds,
+    lookup,
+    taxonomy,
+    structures,
+    fallback,
+    locale,
+  ): InspectorModel | null => {
     if (selectedIds.length === 0) return null;
 
     let structureId: StructureId | null = null;
@@ -83,6 +95,11 @@ export const selectInspectorModel = createSelector(
     const contentEntry = systemStructures?.entries[structureId];
     const contentStatus: InspectorModel['contentStatus'] =
       systemStructures?.status === 'ready' ? 'ready' : 'loading';
+    const indexFallback = fallback?.index?.includes(structureId) ?? false;
+    const structuresFallback =
+      fallback?.structures?.[indexEntry.system]?.includes(structureId) ?? false;
+    const notTranslated =
+      locale !== 'en' && (indexFallback || structuresFallback);
 
     return {
       structureId,
@@ -102,6 +119,7 @@ export const selectInspectorModel = createSelector(
       details: contentEntry?.details,
       sources: contentEntry?.sources ?? [],
       contentStatus,
+      notTranslated,
     };
   },
 );

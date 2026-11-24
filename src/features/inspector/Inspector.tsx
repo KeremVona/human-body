@@ -200,6 +200,11 @@ export function Inspector(): JSX.Element | null {
         </div>
 
         <p className="mt-2 text-xs text-slate-400">{breadcrumb}</p>
+        {model.notTranslated ? (
+          <p className="mt-1.5 text-[11px] text-slate-400 italic">
+            {tr('content.notTranslated')}
+          </p>
+        ) : null}
 
         {model.paired ? (
           <div

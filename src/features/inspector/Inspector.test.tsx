@@ -67,6 +67,7 @@ const mockCameraApi: CameraApi = {
 };
 
 afterEach(() => {
+  localStorage.clear();
   vi.restoreAllMocks();
 });
 
@@ -209,5 +210,31 @@ describe('Inspector', () => {
     expect(
       screen.getByRole('complementary', { name: 'Structure details' }),
     ).toHaveAttribute('data-layout', 'drawer');
+  });
+
+  it('shows the muted not-translated note when non-en locale fell back to English', async () => {
+    const { localeSet } = await import('../settings/uiSlice');
+    const store = makeStore();
+    store.dispatch(localeSet('tr'));
+    store.dispatch(
+      bootstrap.fulfilled(
+        {
+          manifest,
+          taxonomy,
+          index: { locale: 'tr', structures },
+          locale: 'tr',
+          fallbackIndexIds: ['femur'],
+        },
+        'req-1',
+        undefined,
+      ),
+    );
+    store.dispatch(loadStructures.fulfilled({}, 'req-2', 'skeletal'));
+    store.dispatch(selected(['femur--l']));
+
+    renderInspector(store);
+    expect(await screen.findByText('Henüz çevrilmedi')).toBeInTheDocument();
+
+    store.dispatch(localeSet('en'));
   });
 });

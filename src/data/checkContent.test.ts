@@ -692,3 +692,70 @@ it('check:content reports unknown motion meshes and moving/ghost overlaps while 
     'motions.json: "elbow-flexion" lists "femur--l" as both moving and ghost',
   );
 });
+
+it('validates non-en locale folders for unknown ids and mismatched systems while allowing missing translations', () => {
+  const { manifest, taxonomy: tax, index, structureFiles } = makeFixture();
+  const source = {
+    title: 'OpenStax Anatomy and Physiology 2e',
+    url: 'https://openstax.org/books/anatomy-and-physiology-2e',
+    license: 'CC-BY-4.0',
+  };
+
+  const incomplete = checkContent({
+    manifest,
+    taxonomy: tax,
+    index,
+    structureFiles,
+    locales: {
+      tr: {
+        index: { locale: 'tr', structures: [] },
+        structureFiles: {},
+      },
+    },
+  });
+  expect(incomplete.errors).toEqual([]);
+
+  const badLocale = checkContent({
+    manifest,
+    taxonomy: tax,
+    index,
+    structureFiles,
+    locales: {
+      tr: {
+        index: {
+          locale: 'tr',
+          structures: [
+            {
+              id: 'nonexistent-bone',
+              system: 'skeletal',
+              region: 'thorax',
+              paired: false,
+              kind: 'bone',
+              tissue: 'bone',
+              names: { common: 'Yok Kemik', synonyms: [] },
+              featured: false,
+            },
+          ],
+        },
+        structureFiles: {
+          'structures/muscular.json': {
+            system: 'muscular',
+            entries: [
+              {
+                id: 'femur',
+                overview: 'Yanlış sistemde.',
+                sources: [source],
+              },
+            ],
+          },
+        },
+      },
+    },
+  });
+  expect(badLocale.errors).toContain(
+    'content/tr/index.json: "nonexistent-bone" is not in content/en/index.json',
+  );
+  expect(badLocale.errors).toContain(
+    'content/tr/structures/muscular.json: "femur" belongs to system "skeletal"',
+  );
+});

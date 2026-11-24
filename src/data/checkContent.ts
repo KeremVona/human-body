@@ -390,13 +390,85 @@ function checkMotions(
   }
 }
 
-/** Validates schemas and cross-references across manifest, taxonomy, index, structure files, and optional motions. */
+export type LocaleContentInput = {
+  index: unknown;
+  structureFiles: Record<string, unknown>;
+};
+
+function checkLocaleFolder(
+  locale: string,
+  locInput: LocaleContentInput,
+  enById: Map<StructureId, IndexEntry>,
+  errors: string[],
+): void {
+  const indexLabel = `content/${locale}/index.json`;
+  const locIndexRes = IndexFileSchema.safeParse(locInput.index);
+  if (!locIndexRes.success) {
+    errors.push(...formatSchemaErrors(indexLabel, locIndexRes.error));
+  } else {
+    const seenIndex = new Set<StructureId>();
+    for (const entry of locIndexRes.data.structures) {
+      if (seenIndex.has(entry.id)) {
+        errors.push(`${indexLabel}: duplicate structure id "${entry.id}"`);
+        continue;
+      }
+      seenIndex.add(entry.id);
+      if (!enById.has(entry.id)) {
+        errors.push(
+          `${indexLabel}: "${entry.id}" is not in content/en/index.json`,
+        );
+      }
+    }
+  }
+
+  for (const [fileName, raw] of Object.entries(locInput.structureFiles)) {
+    const fileLabel = `content/${locale}/${fileName}`;
+    const res = StructureFileSchema.safeParse(raw);
+    if (!res.success) {
+      errors.push(...formatSchemaErrors(fileLabel, res.error));
+      continue;
+    }
+    const seen = new Set<StructureId>();
+    for (const entry of res.data.entries) {
+      if (seen.has(entry.id)) {
+        errors.push(`${fileLabel}: duplicate structure id "${entry.id}"`);
+        continue;
+      }
+      seen.add(entry.id);
+
+      const enStructure = enById.get(entry.id);
+      if (!enStructure) {
+        errors.push(
+          `${fileLabel}: "${entry.id}" is not in content/en/index.json`,
+        );
+        continue;
+      }
+      if (enStructure.system !== res.data.system) {
+        errors.push(
+          `${fileLabel}: "${entry.id}" belongs to system "${enStructure.system}"`,
+        );
+      }
+      if (entry.details) {
+        const expected = expectedDetailsKind(enStructure.kind);
+        if (entry.details.kind !== expected) {
+          errors.push(
+            `${fileLabel}: "${entry.id}" has ${entry.details.kind} details but kind "${enStructure.kind}"`,
+          );
+        }
+      }
+      checkEntryQuality(fileLabel, entry, enById, errors);
+    }
+  }
+}
+
+/** Validates schemas and cross-references across manifest, taxonomy, index, structure files, optional motions, and extra locale folders. */
 export function checkContent(input: {
   manifest: unknown;
   taxonomy: unknown;
   index: unknown;
   structureFiles: Record<string, unknown>;
   motions?: unknown;
+  locales?: Record<string, LocaleContentInput>;
 }): ContentReport {
   const schemaErrors: string[] = [];
 
@@ -457,6 +529,11 @@ export function checkContent(input: {
   checkFeaturedStructures(byId, entriesById, errors, warnings);
   if (motionsResult?.success) {
     checkMotions(motionsResult.data, manifestResult.data, errors);
+  }
+  if (input.locales) {
+    for (const [locale, locInput] of Object.entries(input.locales)) {
+      checkLocaleFolder(locale, locInput, byId, errors);
+    }
   }
 
   return { errors, warnings };

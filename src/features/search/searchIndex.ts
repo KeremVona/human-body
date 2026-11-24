@@ -14,6 +14,7 @@ type SearchDoc = {
   common: string;
   latin: string;
   synonyms: string;
+  enNames: string;
   system: SystemId;
   hasLatin: boolean;
 };
@@ -29,29 +30,49 @@ function processTerm(term: string): string | null {
   return cleaned.length > 0 ? cleaned : null;
 }
 
-/** Builds an in-memory MiniSearch index over common, Latin, and lay synonym names. */
-export function buildSearchIndex(index: IndexFile): {
+/** Builds an in-memory MiniSearch index over common, Latin, lay synonyms, and optional English fallback names. */
+export function buildSearchIndex(
+  index: IndexFile,
+  enIndex?: IndexFile | null,
+): {
   search(q: string, limit?: number): SearchHit[];
 } {
-  const docs: SearchDoc[] = index.structures.map((s) => ({
-    id: s.id,
-    common: s.names.common,
-    latin: s.names.latin ?? '',
-    synonyms: s.names.synonyms.join(' '),
-    system: s.system,
-    hasLatin: s.names.latin !== undefined,
-  }));
+  const enById = new Map(
+    (enIndex?.structures ?? []).map((entry) => [entry.id, entry]),
+  );
+
+  const docs: SearchDoc[] = index.structures.map((s) => {
+    const enEntry = enById.get(s.id);
+    const enNames = enEntry
+      ? [
+          enEntry.names.common,
+          enEntry.names.latin ?? '',
+          ...enEntry.names.synonyms,
+        ]
+          .filter(Boolean)
+          .join(' ')
+      : '';
+    return {
+      id: s.id,
+      common: s.names.common,
+      latin: s.names.latin ?? '',
+      synonyms: s.names.synonyms.join(' '),
+      enNames,
+      system: s.system,
+      hasLatin: s.names.latin !== undefined,
+    };
+  });
 
   const byId = new Map(docs.map((d) => [d.id, d]));
 
   const mini = new MiniSearch<SearchDoc>({
-    fields: ['common', 'latin', 'synonyms'],
+    fields: ['common', 'latin', 'synonyms', 'enNames'],
     storeFields: ['common', 'system'],
     processTerm,
     searchOptions: {
       prefix: true,
       fuzzy: (term) => (term.length > 3 ? 0.2 : false),
-      boost: { common: 3, latin: 2, synonyms: 1.5 },
+      boost: { common: 3, latin: 2, synonyms: 1.5, enNames: 1.5 },
     },
   });
 

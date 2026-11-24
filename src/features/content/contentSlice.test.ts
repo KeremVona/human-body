@@ -49,6 +49,7 @@ function okJson(payload: unknown): Response {
 }
 
 afterEach(() => {
+  localStorage.clear();
   vi.unstubAllGlobals();
   vi.restoreAllMocks();
 });
@@ -184,4 +185,123 @@ it('loadStructures treats 404 as empty and rejects mismatched system files', asy
     status: 'ready',
     entries: {},
   });
+});
+
+it('falls back gracefully to English without boot error when non-en locale files are 404 or invalid', async () => {
+  vi.resetModules();
+  vi.stubGlobal(
+    'fetch',
+    vi.fn(async (input: RequestInfo | URL) => {
+      const url = String(input);
+      if (url.endsWith('models/manifest.json')) return okJson(sampleManifest);
+      if (url.endsWith('content/taxonomy.json')) return okJson(taxonomy);
+      if (url.endsWith('content/en/index.json')) return okJson(sampleIndex);
+      if (url.endsWith('content/tr/index.json')) {
+        return okJson({ invalid: true });
+      }
+      return new Response(null, { status: 404 });
+    }),
+  );
+
+  const { makeStore } = await import('../../app/store');
+  const { localeSet } = await import('../settings/uiSlice');
+  const { bootstrap, loadStructures } = await import('./contentSlice');
+
+  const store = makeStore();
+  store.dispatch(localeSet('tr'));
+  await store.dispatch(bootstrap());
+
+  expect(store.getState().assets.boot).toBe('ready');
+  expect(store.getState().content.index?.structures[0]?.names.common).toBe(
+    'Femur',
+  );
+  expect(store.getState().content.fallback?.index).toContain('femur');
+
+  await store.dispatch(loadStructures('skeletal'));
+  expect(store.getState().content.structures.skeletal?.status).toBe('ready');
+});
+
+it('reloads index and ready system structures when locale switches', async () => {
+  vi.resetModules();
+  const trIndex: IndexFile = {
+    locale: 'tr',
+    structures: [
+      {
+        ...sampleIndex.structures[0]!,
+        names: { common: 'Uyluk kemiği', synonyms: [] },
+      },
+    ],
+  };
+  const enSkeletal: StructureFile = {
+    system: 'skeletal',
+    entries: [
+      {
+        id: 'femur',
+        overview: 'Thigh bone.',
+        sources: [
+          {
+            title: 'OpenStax',
+            url: 'https://openstax.org/books/anatomy-and-physiology-2e',
+            license: 'CC-BY-4.0',
+          },
+        ],
+      },
+    ],
+  };
+  const trSkeletal: StructureFile = {
+    system: 'skeletal',
+    entries: [
+      {
+        id: 'femur',
+        overview: 'Uyluk kemiği özeti.',
+        sources: [
+          {
+            title: 'OpenStax',
+            url: 'https://openstax.org/books/anatomy-and-physiology-2e',
+            license: 'CC-BY-4.0',
+          },
+        ],
+      },
+    ],
+  };
+
+  vi.stubGlobal(
+    'fetch',
+    vi.fn(async (input: RequestInfo | URL) => {
+      const url = String(input);
+      if (url.endsWith('models/manifest.json')) return okJson(sampleManifest);
+      if (url.endsWith('content/taxonomy.json')) return okJson(taxonomy);
+      if (url.endsWith('content/en/index.json')) return okJson(sampleIndex);
+      if (url.endsWith('content/tr/index.json')) return okJson(trIndex);
+      if (url.endsWith('content/en/structures/skeletal.json')) {
+        return okJson(enSkeletal);
+      }
+      if (url.endsWith('content/tr/structures/skeletal.json')) {
+        return okJson(trSkeletal);
+      }
+      return new Response(null, { status: 404 });
+    }),
+  );
+
+  const { makeStore } = await import('../../app/store');
+  const { localeSet } = await import('../settings/uiSlice');
+  const { bootstrap, loadStructures } = await import('./contentSlice');
+
+  const store = makeStore();
+  await store.dispatch(bootstrap());
+  await store.dispatch(loadStructures('skeletal'));
+  expect(store.getState().content.index?.structures[0]?.names.common).toBe(
+    'Femur',
+  );
+
+  store.dispatch(localeSet('tr'));
+  await vi.waitFor(() => {
+    expect(store.getState().content.index?.structures[0]?.names.common).toBe(
+      'Uyluk kemiği',
+    );
+    expect(
+      store.getState().content.structures.skeletal?.entries.femur?.overview,
+    ).toBe('Uyluk kemiği özeti.');
+  });
+  store.dispatch(localeSet('en'));
 });

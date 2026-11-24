@@ -76,4 +76,19 @@ describe('buildSearchIndex', () => {
     expect(many.search('rib')).toHaveLength(8);
     expect(new Set(many.search('rib').map((h) => h.structureId)).size).toBe(8);
   });
+
+  it('indexes both localized and English names when English fallback index is supplied', () => {
+    const trIndex: IndexFile = {
+      locale: 'tr',
+      structures: [
+        entry('femur', 'Uyluk kemiği', {
+          latin: 'Os femoris',
+          synonyms: ['kalça kemiği'],
+        }),
+      ],
+    };
+    const localized = buildSearchIndex(trIndex, fixtureIndex);
+    expect(localized.search('uyluk')[0]?.common).toBe('Uyluk kemiği');
+    expect(localized.search('thigh bone')[0]?.common).toBe('Uyluk kemiği');
+  });
 });

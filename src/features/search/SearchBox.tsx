@@ -18,6 +18,7 @@ export function SearchBox(): JSX.Element | null {
   const tr = useT();
   const locale = getActiveLocale();
   const index = useAppSelector((s) => s.content.index);
+  const enIndex = useAppSelector((s) => s.content.enIndex);
   const taxonomy = useAppSelector((s) => s.content.taxonomy);
   const [query, setQuery] = useState('');
   const [open, setOpen] = useState(false);
@@ -28,8 +29,9 @@ export function SearchBox(): JSX.Element | null {
   const optionPrefix = useId();
 
   const searchEngine = useMemo(
-    () => (index ? buildSearchIndex(index) : null),
-    [index],
+    () =>
+      index ? buildSearchIndex(index, locale !== 'en' ? enIndex : null) : null,
+    [index, enIndex, locale],
   );
 
   const systemMeta = useMemo(

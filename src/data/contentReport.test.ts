@@ -117,4 +117,64 @@ describe('contentReport', () => {
       gaps: [{ id: 'femur', missing: ['function'] }],
     });
   });
+
+  it('summarizes translated names and featured coverage per locale', async () => {
+    const { contentLocaleReport } = await import('./contentReport');
+    const fixture = makeFixture();
+    const rows = contentLocaleReport({
+      ...fixture,
+      locales: {
+        tr: {
+          index: {
+            locale: 'tr',
+            structures: [
+              {
+                id: 'femur',
+                system: 'skeletal',
+                region: 'lower-limb',
+                paired: true,
+                kind: 'bone',
+                tissue: 'bone',
+                names: { common: 'Uyluk kemiği', synonyms: [] },
+                featured: true,
+              },
+            ],
+          },
+          structureFiles: {
+            'structures/skeletal.json': {
+              system: 'skeletal',
+              entries: [
+                {
+                  id: 'femur',
+                  overview: 'Vücuttaki en uzun kemik.',
+                  function: 'Vücut ağırlığını taşır.',
+                  details: {
+                    kind: 'bone',
+                    boneType: 'long',
+                    articulatesWith: [],
+                  },
+                  sources: [
+                    {
+                      title: 'OpenStax Anatomy and Physiology 2e',
+                      url: 'https://openstax.org/books/anatomy-and-physiology-2e',
+                      license: 'CC-BY-4.0',
+                    },
+                  ],
+                },
+              ],
+            },
+          },
+        },
+      },
+    });
+    expect(rows).toEqual([
+      {
+        locale: 'tr',
+        namesTranslated: 1,
+        namesTotal: 2,
+        featuredTranslated: 1,
+        featuredTotal: 1,
+      },
+    ]);
+  });
 });

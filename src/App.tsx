@@ -19,7 +19,7 @@ import { bundleFailed, bundleReady } from './features/assets/assetsSlice';
 import { preloadGltf } from './scene/gltfCache';
 import { TopBar } from './features/about/TopBar';
 import { applyHtmlLang } from './i18n/locale';
-import { loadMessages, useT } from './i18n/t';
+import { loadMessages, setActiveLocale, useT } from './i18n/t';
 import { BundleScheduler } from './features/assets/BundleScheduler';
 import { bootstrap } from './features/content/contentSlice';
 import type { ContextMenuTarget } from './features/dissection/DissectionMenu';
@@ -198,6 +198,7 @@ function AtlasShell({
 
   useEffect(() => {
     applyHtmlLang(locale);
+    setActiveLocale(locale);
     void loadMessages(locale);
   }, [locale]);
 
