@@ -7,6 +7,7 @@ import {
 import { assetsReducer } from '../features/assets/assetsSlice';
 import { contentReducer } from '../features/content/contentSlice';
 import { dissectionReducer } from '../features/dissection/dissectionSlice';
+import { motionReducer } from '../features/motion/motionSlice';
 import { pinsReducer } from '../features/pins/pinsSlice';
 import { quizReducer } from '../features/quiz/quizSlice';
 import { sectionReducer } from '../features/section/sectionSlice';
@@ -37,6 +38,7 @@ const rootReducer = combineReducers({
   share: shareReducer,
   pins: pinsReducer,
   section: sectionReducer,
+  motion: motionReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

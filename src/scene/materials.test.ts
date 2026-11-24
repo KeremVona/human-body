@@ -74,6 +74,22 @@ describe('materialStateFor', () => {
     expect(
       materialStateFor({ ...base, ghost: true, highlight: 'selected' }),
     ).toBe('selected');
+    expect(
+      materialStateFor({
+        ...base,
+        active: true,
+        ghost: true,
+        highlight: 'none',
+      }),
+    ).toBe('active');
+    expect(
+      materialStateFor({
+        ...base,
+        active: true,
+        ghost: true,
+        highlight: 'hovered',
+      }),
+    ).toBe('hovered');
   });
 });
 
@@ -380,5 +396,23 @@ describe('createMaterialLibrary', () => {
     expect(ghostA.customProgramCacheKey()).toBe(ghostB.customProgramCacheKey());
     expect(baseA.side).toBe(baseB.side);
     expect(ghostA.side).toBe(ghostB.side);
+  });
+
+  it('setActivePulse updates only active materials emissiveIntensity', () => {
+    const lib = createMaterialLibrary(0.15);
+    const active = lib.get({
+      system: 'muscular',
+      tissue: 'muscle',
+      state: 'active',
+    }) as MeshPhysicalMaterial;
+    const baseMat = lib.get({
+      system: 'muscular',
+      tissue: 'muscle',
+      state: 'base',
+    }) as MeshPhysicalMaterial;
+
+    lib.setActivePulse(0.55);
+    expect(active.emissiveIntensity).toBeCloseTo(0.55, 6);
+    expect(baseMat.emissiveIntensity).toBe(1);
   });
 });

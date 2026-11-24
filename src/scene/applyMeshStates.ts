@@ -47,7 +47,8 @@ function sameMeshState(a: MeshState, b: MeshState): boolean {
     a.opacity === b.opacity &&
     a.ghost === b.ghost &&
     a.highlight === b.highlight &&
-    a.pickable === b.pickable
+    a.pickable === b.pickable &&
+    Boolean(a.active) === Boolean(b.active)
   );
 }
 

@@ -24,6 +24,9 @@ import { SectionController } from './SectionController';
 const PinProbe = lazy(() =>
   import('./PinProbe').then((m) => ({ default: m.PinProbe })),
 );
+const MotionPlayer = lazy(() =>
+  import('./MotionPlayer').then((m) => ({ default: m.MotionPlayer })),
+);
 
 export type CanvasBundle = {
   id: string;
@@ -53,6 +56,7 @@ export function AtlasCanvas({
   const store = useStore<RootState>();
   const dispatch = useAppDispatch();
   const hasPins = useAppSelector((s) => s.pins.items.length > 0);
+  const hasMotion = useAppSelector((s) => s.motion.activeId !== null);
   const registry = useMeshRegistry();
   const cameraController = useContext(CameraApiContext);
 
@@ -123,6 +127,12 @@ export function AtlasCanvas({
               {hasPins ? (
                 <Suspense fallback={null}>
                   <PinProbe />
+                </Suspense>
+              ) : null}
+
+              {hasMotion ? (
+                <Suspense fallback={null}>
+                  <MotionPlayer />
                 </Suspense>
               ) : null}
 

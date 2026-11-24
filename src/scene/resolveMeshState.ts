@@ -8,6 +8,10 @@ import type {
   DissectionSnapshot,
   DissectionState,
 } from '../features/dissection/dissectionSlice';
+import {
+  selectMotionOverrides,
+  type MotionState,
+} from '../features/motion/motionSlice';
 import type { SelectionState } from '../features/selection/selectionSlice';
 import type { SystemsState } from '../features/systems/systemsSlice';
 
@@ -18,6 +22,7 @@ export type MeshState = {
   ghost: boolean;
   highlight: 'none' | 'hovered' | 'selected';
   pickable: boolean;
+  active?: boolean;
 };
 
 export type ResolveMeshStateInput = {
@@ -27,6 +32,8 @@ export type ResolveMeshStateInput = {
   dissection: DissectionSnapshot & { fadeOpacity: number };
   selectedIds: MeshId[];
   hoveredId: MeshId | null;
+  motionGhost?: ReadonlySet<MeshId>;
+  motionActive?: ReadonlySet<MeshId>;
 };
 
 type CompiledDissectionSets = {
@@ -36,6 +43,8 @@ type CompiledDissectionSets = {
   fadeOpacity: number;
   selected: Set<MeshId>;
   hoveredId: MeshId | null;
+  motionGhost: ReadonlySet<MeshId>;
+  motionActive: ReadonlySet<MeshId>;
 };
 
 function resolveWithSets(
@@ -50,8 +59,11 @@ function resolveWithSets(
     !sets.hidden.has(meshId) &&
     (sets.isolated === null || sets.isolated.has(meshId));
 
-  const ghost = sets.faded !== null && !sets.faded.has(meshId);
+  const motionGhosted = visible && sets.motionGhost.has(meshId);
+  const ghost =
+    (sets.faded !== null && !sets.faded.has(meshId)) || motionGhosted;
   const opacity = ghost ? sets.fadeOpacity : systemOpacity;
+  const active = visible && sets.motionActive.has(meshId);
 
   let highlight: MeshState['highlight'] = 'none';
   if (visible) {
@@ -67,9 +79,12 @@ function resolveWithSets(
     opacity,
     ghost,
     highlight,
-    pickable: visible && opacity >= 0.5,
+    pickable: visible && opacity >= 0.5 && !motionGhosted,
+    active,
   };
 }
+
+const EMPTY_MOTION_SET: ReadonlySet<MeshId> = new Set();
 
 /** Resolves effective visibility, opacity, highlight, and pickability for a single mesh per §6.3. */
 export function resolveMeshState({
@@ -79,6 +94,8 @@ export function resolveMeshState({
   dissection,
   selectedIds,
   hoveredId,
+  motionGhost = EMPTY_MOTION_SET,
+  motionActive = EMPTY_MOTION_SET,
 }: ResolveMeshStateInput): MeshState {
   return resolveWithSets(meshId, systemEnabled, systemOpacity, {
     hidden: new Set(dissection.hidden),
@@ -87,6 +104,8 @@ export function resolveMeshState({
     fadeOpacity: dissection.fadeOpacity,
     selected: new Set(selectedIds),
     hoveredId,
+    motionGhost,
+    motionActive,
   });
 }
 
@@ -95,6 +114,7 @@ type ResolvedStateSlice = {
   systems: SystemsState;
   dissection: DissectionState;
   selection: SelectionState;
+  motion?: MotionState;
 };
 
 const selectDissectionSets = createSelector(
@@ -102,14 +122,22 @@ const selectDissectionSets = createSelector(
     (state: ResolvedStateSlice) => state.dissection,
     (state: ResolvedStateSlice) => state.selection.selectedIds,
     (state: ResolvedStateSlice) => state.selection.hoveredId,
+    selectMotionOverrides,
   ],
-  (dissection, selectedIds, hoveredId): CompiledDissectionSets => ({
+  (
+    dissection,
+    selectedIds,
+    hoveredId,
+    motionOverrides,
+  ): CompiledDissectionSets => ({
     hidden: new Set(dissection.hidden),
     isolated: dissection.isolated ? new Set(dissection.isolated) : null,
     faded: dissection.faded ? new Set(dissection.faded) : null,
     fadeOpacity: dissection.fadeOpacity,
     selected: new Set(selectedIds),
     hoveredId,
+    motionGhost: motionOverrides.ghost,
+    motionActive: motionOverrides.active,
   }),
 );
 

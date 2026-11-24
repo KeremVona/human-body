@@ -24,7 +24,8 @@ export const RENDER_ORDER: Record<SystemId, number> = {
 };
 
 /** Visual state variant used to select cached tissue materials. */
-export type MaterialState = 'base' | 'hovered' | 'selected' | 'ghost';
+export type MaterialState =
+  'base' | 'hovered' | 'selected' | 'ghost' | 'active';
 
 /** PBR look preset per anatomical tissue from §5.2. */
 export const TISSUE_LOOKS: Record<
@@ -56,10 +57,11 @@ export type MaterialKey = {
   state: MaterialState;
 };
 
-/** Maps a resolved MeshState to its material variant: selected > hovered > ghost > base. */
+/** Maps a resolved MeshState to its material variant: selected > hovered > active > ghost > base. */
 export function materialStateFor(state: MeshState): MaterialState {
   if (state.highlight === 'selected') return 'selected';
   if (state.highlight === 'hovered') return 'hovered';
+  if (state.active) return 'active';
   if (state.ghost) return 'ghost';
   return 'base';
 }
@@ -108,6 +110,7 @@ export function createMaterialLibrary(fadeOpacity: number): {
   setSystemOpacity(system: SystemId, opacity: number): void;
   setQuality(quality: ResolvedQuality): void;
   setClipPlane(plane: Plane | null): void;
+  setActivePulse(intensity: number): void;
   fallback(): Material;
   dispose(): void;
 } {
@@ -116,9 +119,11 @@ export function createMaterialLibrary(fadeOpacity: number): {
   const materialsBySystem = new Map<SystemId, MeshPhysicalMaterial[]>();
   const muscleMaterials: MeshPhysicalMaterial[] = [];
   const ghostMaterials: MeshPhysicalMaterial[] = [];
+  const activeMaterials: MeshPhysicalMaterial[] = [];
   const metaMap = new WeakMap<Material, MaterialMeta>();
   let quality: ResolvedQuality = 'high';
   let clipPlane: Plane | null = null;
+  let activePulse = 0.25;
   let fallbackMaterial: MeshPhysicalMaterial | null = null;
 
   function syncMaterialClip(mat: MeshPhysicalMaterial): void {
@@ -181,6 +186,9 @@ export function createMaterialLibrary(fadeOpacity: number): {
     } else if (key.state === 'selected') {
       params.emissive = new Color(SELECTED_EMISSIVE);
       params.emissiveIntensity = 0.6;
+    } else if (key.state === 'active') {
+      params.emissive = new Color(baseColor);
+      params.emissiveIntensity = activePulse;
     }
 
     const material = new MeshPhysicalMaterial(params);
@@ -192,6 +200,9 @@ export function createMaterialLibrary(fadeOpacity: number): {
     });
     if (key.tissue === 'muscle') {
       muscleMaterials.push(material);
+    }
+    if (key.state === 'active') {
+      activeMaterials.push(material);
     }
     if (isGhost) {
       ghostMaterials.push(material);
@@ -271,6 +282,12 @@ export function createMaterialLibrary(fadeOpacity: number): {
         syncMaterialClip(fallbackMaterial);
       }
     },
+    setActivePulse(intensity) {
+      activePulse = intensity;
+      for (const mat of activeMaterials) {
+        mat.emissiveIntensity = intensity;
+      }
+    },
     fallback() {
       if (!fallbackMaterial) {
         fallbackMaterial = new MeshPhysicalMaterial({
@@ -299,6 +316,7 @@ export function createMaterialLibrary(fadeOpacity: number): {
       materialsBySystem.clear();
       muscleMaterials.length = 0;
       ghostMaterials.length = 0;
+      activeMaterials.length = 0;
       fallbackMaterial?.dispose();
       fallbackMaterial = null;
     },

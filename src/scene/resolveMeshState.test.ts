@@ -227,4 +227,21 @@ describe('selectResolvedMeshStates', () => {
     const second = selectResolvedMeshStates(state, ['femur--l', 'femur--r']);
     expect(second).toBe(first);
   });
+
+  it('marks motionGhost unpickable and preserves active highlight', () => {
+    const ghostOnly = resolveWith({
+      motionGhost: new Set(['femur--l']),
+    });
+    expect(ghostOnly.ghost).toBe(true);
+    expect(ghostOnly.pickable).toBe(false);
+    expect(ghostOnly.opacity).toBe(0.15);
+
+    const ghostAndActive = resolveWith({
+      motionGhost: new Set(['femur--l']),
+      motionActive: new Set(['femur--l']),
+    });
+    expect(ghostAndActive.ghost).toBe(true);
+    expect(ghostAndActive.active).toBe(true);
+    expect(ghostAndActive.pickable).toBe(false);
+  });
 });

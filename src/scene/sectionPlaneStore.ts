@@ -9,6 +9,7 @@ export type SectionMaterialLibrary = {
   setSystemOpacity(system: SystemId, opacity: number): void;
   setQuality(quality: ResolvedQuality): void;
   setClipPlane(plane: Plane | null): void;
+  setActivePulse(intensity: number): void;
   fallback(): Material;
   dispose(): void;
 };
