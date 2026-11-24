@@ -17,13 +17,15 @@ function loadStructureFiles(structuresDir: string): Record<string, unknown> {
   return result;
 }
 
-/** Loads manifest, taxonomy, English index, and structure JSON files from disk. */
+/** Loads manifest, taxonomy, English index, structure JSON files, and optional motions file from disk. */
 export function loadContentInput(root: string): {
   manifest: unknown;
   taxonomy: unknown;
   index: unknown;
   structureFiles: Record<string, unknown>;
+  motions?: unknown;
 } {
+  const motionsPath = path.join(root, 'content', 'motions.json');
   return {
     manifest: readJson(path.join(root, 'public', 'models', 'manifest.json')),
     taxonomy: readJson(path.join(root, 'content', 'taxonomy.json')),
@@ -31,5 +33,6 @@ export function loadContentInput(root: string): {
     structureFiles: loadStructureFiles(
       path.join(root, 'content', 'en', 'structures'),
     ),
+    motions: existsSync(motionsPath) ? readJson(motionsPath) : undefined,
   };
 }

@@ -629,3 +629,66 @@ it('warns when featured count is off target', () => {
     'index.json: 1 featured structures (target 125)',
   );
 });
+
+it('check:content reports unknown motion meshes and moving/ghost overlaps while staying backward compatible when omitted', () => {
+  const { manifest, taxonomy: tax, index, structureFiles } = makeFixture();
+  expect(
+    checkContent({ manifest, taxonomy: tax, index, structureFiles }).errors,
+  ).toEqual([]);
+
+  const badUnknown = checkContent({
+    manifest,
+    taxonomy: tax,
+    index,
+    structureFiles,
+    motions: {
+      motions: [
+        {
+          id: 'elbow-flexion',
+          kind: 'hinge',
+          label: 'Elbow',
+          view: 'left',
+          systems: ['skeletal'],
+          moving: ['gone--l'],
+          ghost: ['femur--l'],
+          agonists: { flex: [], extend: [] },
+          pivot: { mesh: 'sternum', anchor: [0.5, 0.5, 0.5] },
+          axis: [-1, 0, 0],
+          range: [0, 145],
+          periodS: 4,
+        },
+      ],
+    },
+  });
+  expect(badUnknown.errors).toContain(
+    'motions.json: "elbow-flexion" references unknown mesh "gone--l"',
+  );
+
+  const overlap = checkContent({
+    manifest,
+    taxonomy: tax,
+    index,
+    structureFiles,
+    motions: {
+      motions: [
+        {
+          id: 'elbow-flexion',
+          kind: 'hinge',
+          label: 'Elbow',
+          view: 'left',
+          systems: ['skeletal'],
+          moving: ['femur--l'],
+          ghost: ['femur--l'],
+          agonists: { flex: [], extend: [] },
+          pivot: { mesh: 'sternum', anchor: [0.5, 0.5, 0.5] },
+          axis: [-1, 0, 0],
+          range: [0, 145],
+          periodS: 4,
+        },
+      ],
+    },
+  });
+  expect(overlap.errors).toContain(
+    'motions.json: "elbow-flexion" lists "femur--l" as both moving and ghost',
+  );
+});

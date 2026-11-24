@@ -1,4 +1,5 @@
 import { parseMeshId, type MeshId, type Side, type StructureId } from './ids';
+import { MotionsFileSchema, type MotionsFile } from '../features/motion/schema';
 import {
   IndexFileSchema,
   ManifestSchema,
@@ -341,12 +342,61 @@ function checkFeaturedStructures(
   }
 }
 
-/** Validates schemas and cross-references across manifest, taxonomy, index, and structure files. */
+function checkMotions(
+  motionsFile: MotionsFile,
+  manifest: Manifest,
+  errors: string[],
+): void {
+  const knownMeshes = new Set(Object.keys(manifest.meshes));
+  const checkMesh = (motionId: string, meshId: MeshId) => {
+    if (!knownMeshes.has(meshId)) {
+      errors.push(
+        `motions.json: "${motionId}" references unknown mesh "${meshId}"`,
+      );
+    }
+  };
+
+  for (const def of motionsFile.motions) {
+    if (def.kind === 'hinge') {
+      const movingSet = new Set(def.moving);
+      for (const meshId of def.moving) {
+        checkMesh(def.id, meshId);
+      }
+      for (const meshId of def.ghost) {
+        checkMesh(def.id, meshId);
+        if (movingSet.has(meshId)) {
+          errors.push(
+            `motions.json: "${def.id}" lists "${meshId}" as both moving and ghost`,
+          );
+        }
+      }
+      for (const meshId of def.agonists.flex) {
+        checkMesh(def.id, meshId);
+      }
+      for (const meshId of def.agonists.extend) {
+        checkMesh(def.id, meshId);
+      }
+      checkMesh(def.id, def.pivot.mesh);
+    } else {
+      for (const group of def.groups) {
+        for (const meshId of group.meshes) {
+          checkMesh(def.id, meshId);
+        }
+      }
+      if (def.center) {
+        checkMesh(def.id, def.center.mesh);
+      }
+    }
+  }
+}
+
+/** Validates schemas and cross-references across manifest, taxonomy, index, structure files, and optional motions. */
 export function checkContent(input: {
   manifest: unknown;
   taxonomy: unknown;
   index: unknown;
   structureFiles: Record<string, unknown>;
+  motions?: unknown;
 }): ContentReport {
   const schemaErrors: string[] = [];
 
@@ -379,11 +429,22 @@ export function checkContent(input: {
     }
   }
 
+  const motionsResult =
+    input.motions !== undefined
+      ? MotionsFileSchema.safeParse(input.motions)
+      : null;
+  if (motionsResult && !motionsResult.success) {
+    schemaErrors.push(
+      ...formatSchemaErrors('motions.json', motionsResult.error),
+    );
+  }
+
   if (
     schemaErrors.length > 0 ||
     !manifestResult.success ||
     !taxonomyResult.success ||
-    !indexResult.success
+    !indexResult.success ||
+    (motionsResult && !motionsResult.success)
   ) {
     return { errors: schemaErrors, warnings: [] };
   }
@@ -394,6 +455,9 @@ export function checkContent(input: {
   checkManifestMeshes(manifestResult.data, byId, errors, warnings);
   const entriesById = checkStructureFiles(parsedStructureFiles, byId, errors);
   checkFeaturedStructures(byId, entriesById, errors, warnings);
+  if (motionsResult?.success) {
+    checkMotions(motionsResult.data, manifestResult.data, errors);
+  }
 
   return { errors, warnings };
 }
