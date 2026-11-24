@@ -1,4 +1,11 @@
-import { Color, Material, MeshPhysicalMaterial } from 'three';
+import {
+  Color,
+  DoubleSide,
+  FrontSide,
+  Material,
+  MeshPhysicalMaterial,
+  type Plane,
+} from 'three';
 import type { ResolvedQuality } from '../features/settings/quality';
 import type { SystemId, Tissue } from '../data/schema';
 import type { MeshState } from './resolveMeshState';
@@ -70,11 +77,37 @@ const ghostFresnelOnBeforeCompile: Material['onBeforeCompile'] = (shader) => {
 
 const ghostFresnelCacheKey = () => 'atlas-ghost-fresnel-high';
 
+type MaterialMeta = {
+  isGhost: boolean;
+  capColor: Color;
+  onBeforeCompile: Material['onBeforeCompile'];
+  customProgramCacheKey: Material['customProgramCacheKey'];
+};
+
+function makeCapOnBeforeCompile(
+  capColor: Color,
+  prevCompile: Material['onBeforeCompile'],
+): Material['onBeforeCompile'] {
+  return function capCompile(this: Material, shader, renderer) {
+    if (prevCompile !== defaultOnBeforeCompile) {
+      prevCompile.call(this, shader, renderer);
+    }
+    shader.uniforms.capColor = { value: capColor };
+    shader.fragmentShader =
+      'uniform vec3 capColor;\n' +
+      shader.fragmentShader.replace(
+        '#include <opaque_fragment>',
+        'if (!gl_FrontFacing) { outgoingLight = capColor; }\n#include <opaque_fragment>',
+      );
+  };
+}
+
 /** Creates a cached MeshPhysicalMaterial pool keyed by system|tissue|color|state. */
 export function createMaterialLibrary(fadeOpacity: number): {
   get(key: MaterialKey): Material;
   setSystemOpacity(system: SystemId, opacity: number): void;
   setQuality(quality: ResolvedQuality): void;
+  setClipPlane(plane: Plane | null): void;
   fallback(): Material;
   dispose(): void;
 } {
@@ -83,8 +116,38 @@ export function createMaterialLibrary(fadeOpacity: number): {
   const materialsBySystem = new Map<SystemId, MeshPhysicalMaterial[]>();
   const muscleMaterials: MeshPhysicalMaterial[] = [];
   const ghostMaterials: MeshPhysicalMaterial[] = [];
+  const metaMap = new WeakMap<Material, MaterialMeta>();
   let quality: ResolvedQuality = 'high';
+  let clipPlane: Plane | null = null;
   let fallbackMaterial: MeshPhysicalMaterial | null = null;
+
+  function syncMaterialClip(mat: MeshPhysicalMaterial): void {
+    const meta = metaMap.get(mat);
+    if (!meta) return;
+    mat.clippingPlanes = clipPlane ? [clipPlane] : null;
+    if (meta.isGhost) {
+      mat.side = FrontSide;
+      mat.onBeforeCompile =
+        quality === 'high' ? ghostFresnelOnBeforeCompile : defaultOnBeforeCompile;
+      mat.customProgramCacheKey =
+        quality === 'high' ? ghostFresnelCacheKey : defaultProgramCacheKey;
+    } else if (clipPlane) {
+      mat.side = DoubleSide;
+      mat.onBeforeCompile = makeCapOnBeforeCompile(
+        meta.capColor,
+        meta.onBeforeCompile,
+      );
+      mat.customProgramCacheKey = () => {
+        const prevKey = meta.customProgramCacheKey.call(mat);
+        return prevKey ? `${prevKey}|atlas-cap` : 'atlas-cap';
+      };
+    } else {
+      mat.side = FrontSide;
+      mat.onBeforeCompile = meta.onBeforeCompile;
+      mat.customProgramCacheKey = meta.customProgramCacheKey;
+    }
+    mat.needsUpdate = true;
+  }
 
   function buildMaterial(key: MaterialKey): MeshPhysicalMaterial {
     const look = TISSUE_LOOKS[key.tissue];
@@ -119,6 +182,12 @@ export function createMaterialLibrary(fadeOpacity: number): {
     }
 
     const material = new MeshPhysicalMaterial(params);
+    metaMap.set(material, {
+      isGhost,
+      capColor: new Color(baseColor).multiplyScalar(0.55),
+      onBeforeCompile: material.onBeforeCompile,
+      customProgramCacheKey: material.customProgramCacheKey,
+    });
     if (key.tissue === 'muscle') {
       muscleMaterials.push(material);
     }
@@ -135,6 +204,9 @@ export function createMaterialLibrary(fadeOpacity: number): {
         materialsBySystem.set(key.system, list);
       }
       list.push(material);
+    }
+    if (clipPlane) {
+      syncMaterialClip(material);
     }
     return material;
   }
@@ -188,6 +260,15 @@ export function createMaterialLibrary(fadeOpacity: number): {
         }
       }
     },
+    setClipPlane(plane) {
+      clipPlane = plane;
+      for (const mat of cache.values()) {
+        syncMaterialClip(mat);
+      }
+      if (fallbackMaterial) {
+        syncMaterialClip(fallbackMaterial);
+      }
+    },
     fallback() {
       if (!fallbackMaterial) {
         fallbackMaterial = new MeshPhysicalMaterial({
@@ -195,6 +276,15 @@ export function createMaterialLibrary(fadeOpacity: number): {
           roughness: TISSUE_LOOKS.other.roughness,
           metalness: 0,
         });
+        metaMap.set(fallbackMaterial, {
+          isGhost: false,
+          capColor: new Color(TISSUE_LOOKS.other.color).multiplyScalar(0.55),
+          onBeforeCompile: fallbackMaterial.onBeforeCompile,
+          customProgramCacheKey: fallbackMaterial.customProgramCacheKey,
+        });
+        if (clipPlane) {
+          syncMaterialClip(fallbackMaterial);
+        }
       }
       return fallbackMaterial;
     },

@@ -1,4 +1,12 @@
-import { Color, Material, MeshPhysicalMaterial } from 'three';
+import {
+  Color,
+  DoubleSide,
+  FrontSide,
+  Material,
+  MeshPhysicalMaterial,
+  Plane,
+  Vector3,
+} from 'three';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import {
   RENDER_ORDER,
@@ -216,5 +224,145 @@ describe('createMaterialLibrary', () => {
       state: 'hovered',
     }) as MeshPhysicalMaterial;
     expect(laterMuscle.sheen).toBe(0);
+  });
+
+  it('applies the clip plane to all materials, including later ones', () => {
+    const lib = createMaterialLibrary(0.15);
+    const base = lib.get({
+      system: 'skeletal',
+      tissue: 'bone',
+      state: 'base',
+    });
+    const ghost = lib.get({
+      system: 'skeletal',
+      tissue: 'bone',
+      state: 'ghost',
+    });
+
+    const p = new Plane(new Vector3(0, -1, 0), 0);
+    lib.setClipPlane(p);
+
+    expect(base.clippingPlanes?.[0]).toBe(p);
+    expect(ghost.clippingPlanes?.[0]).toBe(p);
+
+    const later = lib.get({
+      system: 'muscular',
+      tissue: 'muscle',
+      state: 'selected',
+    });
+    expect(later.clippingPlanes?.[0]).toBe(p);
+  });
+
+  it('caps only opaque variants while keeping ghost FrontSide without cap key', () => {
+    const lib = createMaterialLibrary(0.15);
+    const base = lib.get({
+      system: 'skeletal',
+      tissue: 'bone',
+      state: 'base',
+    });
+    const hovered = lib.get({
+      system: 'skeletal',
+      tissue: 'bone',
+      state: 'hovered',
+    });
+    const selected = lib.get({
+      system: 'skeletal',
+      tissue: 'bone',
+      state: 'selected',
+    });
+    const ghost = lib.get({
+      system: 'skeletal',
+      tissue: 'bone',
+      state: 'ghost',
+    });
+
+    lib.setClipPlane(new Plane(new Vector3(0, -1, 0), 0));
+
+    for (const mat of [base, hovered, selected]) {
+      expect(mat.side).toBe(DoubleSide);
+      expect(mat.customProgramCacheKey()).toContain('atlas-cap');
+    }
+    expect(ghost.side).toBe(FrontSide);
+    expect(ghost.customProgramCacheKey()).not.toContain('atlas-cap');
+  });
+
+  it('setClipPlane(null) restores originals including ghost fresnel and cache keys', () => {
+    const lib = createMaterialLibrary(0.15);
+    lib.setQuality('high');
+
+    const base = lib.get({
+      system: 'skeletal',
+      tissue: 'bone',
+      state: 'base',
+    });
+    const ghost = lib.get({
+      system: 'muscular',
+      tissue: 'muscle',
+      state: 'ghost',
+    });
+
+    const baseKeyBefore = base.customProgramCacheKey();
+    const ghostKeyBefore = ghost.customProgramCacheKey();
+    const ghostCompileBefore = ghost.onBeforeCompile;
+
+    lib.setClipPlane(new Plane(new Vector3(0, -1, 0), 0));
+    lib.setClipPlane(null);
+
+    expect(base.side).toBe(FrontSide);
+    expect(base.clippingPlanes).toBeNull();
+    expect(ghost.clippingPlanes).toBeNull();
+    expect(ghost.onBeforeCompile).toBe(ghostCompileBefore);
+    expect(base.customProgramCacheKey()).toBe(baseKeyBefore);
+    expect(ghost.customProgramCacheKey()).toBe(ghostKeyBefore);
+  });
+
+  it('cap shader injects back-face branch with base color * 0.55', () => {
+    const lib = createMaterialLibrary(0.15);
+    const bone = lib.get({
+      system: 'skeletal',
+      tissue: 'bone',
+      state: 'base',
+    }) as MeshPhysicalMaterial;
+    lib.setClipPlane(new Plane(new Vector3(0, -1, 0), 0));
+
+    const fakeShader = {
+      fragmentShader: 'x\n#include <opaque_fragment>',
+      uniforms: {} as Record<string, { value: unknown }>,
+    };
+    bone.onBeforeCompile(
+      fakeShader as unknown as Parameters<Material['onBeforeCompile']>[0],
+      undefined as unknown as Parameters<Material['onBeforeCompile']>[1],
+    );
+
+    expect(fakeShader.fragmentShader).toContain('gl_FrontFacing');
+    expect(fakeShader.fragmentShader).toContain('capColor');
+    const expectedColor = new Color(TISSUE_LOOKS.bone.color).multiplyScalar(
+      0.55,
+    );
+    const capVal = fakeShader.uniforms.capColor.value as Color;
+    expect(capVal.r).toBeCloseTo(expectedColor.r, 6);
+    expect(capVal.g).toBeCloseTo(expectedColor.g, 6);
+    expect(capVal.b).toBeCloseTo(expectedColor.b, 6);
+  });
+
+  it('setClipPlane and setQuality compose in either order', () => {
+    const p = new Plane(new Vector3(0, -1, 0), 0);
+
+    const libA = createMaterialLibrary(0.15);
+    const baseA = libA.get({ system: 'muscular', tissue: 'muscle', state: 'base' });
+    const ghostA = libA.get({ system: 'muscular', tissue: 'muscle', state: 'ghost' });
+    libA.setQuality('high');
+    libA.setClipPlane(p);
+
+    const libB = createMaterialLibrary(0.15);
+    const baseB = libB.get({ system: 'muscular', tissue: 'muscle', state: 'base' });
+    const ghostB = libB.get({ system: 'muscular', tissue: 'muscle', state: 'ghost' });
+    libB.setClipPlane(p);
+    libB.setQuality('high');
+
+    expect(baseA.customProgramCacheKey()).toBe(baseB.customProgramCacheKey());
+    expect(ghostA.customProgramCacheKey()).toBe(ghostB.customProgramCacheKey());
+    expect(baseA.side).toBe(baseB.side);
+    expect(ghostA.side).toBe(ghostB.side);
   });
 });
