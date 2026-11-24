@@ -6,6 +6,7 @@ import {
   isolate,
   undo,
 } from '../features/dissection/dissectionSlice';
+import { sectionToggled } from '../features/section/sectionSlice';
 import { selectionCleared } from '../features/selection/selectionSlice';
 import { useCameraApi, type Preset } from '../scene/camera';
 import { useAppDispatch } from './hooks';
@@ -75,6 +76,11 @@ export function useShortcuts(onContextMenu?: () => void): void {
             void import('../features/pins/thunks').then(({ addPinAtPointer }) =>
               dispatch(addPinAtPointer()),
             );
+          }
+          break;
+        case 'toggle-section':
+          if (!quizActive) {
+            dispatch(sectionToggled());
           }
           break;
         case 'deselect':

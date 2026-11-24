@@ -127,8 +127,28 @@ describe('useShortcuts', () => {
 
     await user.keyboard('{Escape}');
     await user.keyboard('{Control>}z{/Control}');
+    await user.keyboard('x');
 
     expect(store.getState().selection.selectedIds).toEqual(['femur--l']);
     expect(store.getState().dissection.hidden).toEqual(['sternum']);
+    expect(store.getState().section.enabled).toBe(false);
+  });
+
+  it('toggles cross-section on X outside quiz', async () => {
+    const user = userEvent.setup();
+    const store = makeStore();
+
+    render(
+      <Provider store={store}>
+        <CameraApiProvider value={noopCamera}>
+          <ShortcutMenuHarness initialMenu={null} />
+        </CameraApiProvider>
+      </Provider>,
+    );
+
+    await user.keyboard('x');
+    expect(store.getState().section.enabled).toBe(true);
+    await user.keyboard('X');
+    expect(store.getState().section.enabled).toBe(false);
   });
 });

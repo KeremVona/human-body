@@ -1,4 +1,11 @@
-import type { JSX, KeyboardEvent } from 'react';
+import {
+  lazy,
+  Suspense,
+  useRef,
+  useState,
+  type JSX,
+  type KeyboardEvent,
+} from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { useCameraApi, type Preset } from '../../scene/camera';
 import {
@@ -7,6 +14,12 @@ import {
   showAll,
   undo,
 } from './dissectionSlice';
+
+const SectionPopover = lazy(() =>
+  import('../section/SectionPopover').then((m) => ({
+    default: m.SectionPopover,
+  })),
+);
 
 const PRESETS: readonly { preset: Preset; label: string; short: string }[] = [
   { preset: 'anterior', label: 'Anterior view', short: 'Ant' },
@@ -27,6 +40,10 @@ export function Toolbar(): JSX.Element {
   const canUndo = useAppSelector(selectCanUndo);
   const hasDissection = useAppSelector(selectHasDissection);
   const quizActive = useAppSelector((s) => s.quiz.status !== 'off');
+  const sectionEnabled = useAppSelector((s) => s.section.enabled);
+  const [sectionOpen, setSectionOpen] = useState(false);
+  const [sectionLoaded, setSectionLoaded] = useState(false);
+  const sectionButtonRef = useRef<HTMLButtonElement>(null);
 
   const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
     if (
@@ -119,6 +136,38 @@ export function Toolbar(): JSX.Element {
       >
         Show all
       </button>
+
+      <div
+        aria-hidden="true"
+        className="mx-0.5 h-5 w-px shrink-0 bg-white/15"
+      />
+
+      <button
+        ref={sectionButtonRef}
+        type="button"
+        title="Cross-section"
+        aria-pressed={sectionEnabled}
+        aria-expanded={sectionOpen}
+        aria-haspopup="dialog"
+        disabled={quizActive}
+        onClick={() => {
+          setSectionLoaded(true);
+          setSectionOpen((o) => !o);
+        }}
+        className={`${btnClass} ${sectionEnabled ? 'bg-sky-600/35 text-sky-200 ring-1 ring-sky-400/50' : ''}`}
+      >
+        Cross-section
+      </button>
+
+      {sectionLoaded && !quizActive ? (
+        <Suspense fallback={null}>
+          <SectionPopover
+            open={sectionOpen}
+            onOpenChange={setSectionOpen}
+            triggerRef={sectionButtonRef}
+          />
+        </Suspense>
+      ) : null}
     </div>
   );
 }
