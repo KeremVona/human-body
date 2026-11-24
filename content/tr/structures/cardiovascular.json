@@ -1,0 +1,491 @@
+{
+  "system": "cardiovascular",
+  "entries": [
+    {
+      "id": "left-ventricle",
+      "overview": "Kalbin sivri ucunu (apeksi) oluşturan, kalın duvarlı sol alt pompalama odacığıdır.",
+      "function": "Sol kulakçıktan oksijence zengin kanı alır ve aort kapağı üzerinden tüm vücuda pompalar.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Yüksek sistemik basınca karşı kan pompaladığı için tüm kalp odacıkları arasında en kalın kas duvarına sahiptir.",
+          "Sol kulakçıktan mitral kapak ile ayrılır ve kanı aort kapağından dışarı gönderir.",
+          "Sağ karıncık ile karıncıklar arası bölme (interventriküler septum) adı verilen kalın kas duvarını paylaşır."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Internal Structure of the Heart",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/19-1-heart-anatomy#fs-id1987886",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Ventricle (heart)",
+          "url": "https://en.wikipedia.org/wiki/Ventricle_(heart)",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "right-ventricle",
+      "overview": "Kalbin ön yüzünde, göğüs kemiğinin arkasında yer alan üçgen biçimli sağ alt odacıktır.",
+      "function": "Oksijence fakir kanı pulmoner kapaktan yukarıya, taze oksijen alması için akciğerlere pompalar.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Akciğer damarlarının direnci düşük olduğu için sol karıncığın yaklaşık altıda biri kadar basınç üretir.",
+          "Sağ kulakçıktan gelen kanı triküspit kapak üzerinden alır.",
+          "Yukarıya doğru pulmoner gövdeye açılan düzgün bir çıkış konisi biçiminde daralır."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Internal Structure of the Heart",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/19-1-heart-anatomy#fs-id1987886",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Ventricle (heart)",
+          "url": "https://en.wikipedia.org/wiki/Ventricle_(heart)",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "left-atrium",
+      "overview": "Pulmoner gövdenin arkasında yer alan ve yemek borusuna bakan kalbin üst arka odacığıdır.",
+      "function": "Dört akciğer toplardamarıyla her iki akciğerden dönen oksijenlenmiş kanı toplar ve sol karıncığa doldurur.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Kalbin arka tabanının büyük bölümünü oluşturur.",
+          "Sol kulakçık çıkıntısı (sol aurikula) dışında iç duvarları çoğunlukla düzgündür.",
+          "Her atım öncesinde sol karıncık hacmini tamamlamak için dolum sonunda kasılır."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Internal Structure of the Heart",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/19-1-heart-anatomy#fs-id1987886",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Atrium (heart)",
+          "url": "https://en.wikipedia.org/wiki/Atrium_(heart)",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "right-atrium",
+      "overview": "Kalbin sağ dış sınırını oluşturan üst sağ alıcı odacığıdır.",
+      "function": "Vücudun üst ve alt bölümlerinden ve kalp duvarının kendisinden dönen oksijence fakir toplardamar kanını toplar.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Üst ana toplardamar, alt ana toplardamar ve koroner sinüsten kan alır.",
+          "Her kalp atışını başlatan doğal kalp pili olan sinoatriyal düğümü barındırır.",
+          "Kanı triküspit kapak aracılığıyla aşağıya, sağ karıncığa iletir."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Internal Structure of the Heart",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/19-1-heart-anatomy#fs-id1987886",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Atrium (heart)",
+          "url": "https://en.wikipedia.org/wiki/Atrium_(heart)",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "aortic-arch",
+      "overview": "Sol ana hava yolunun üzerinden geriye doğru kıvrılan, vücudun en büyük atardamarının üst kavisli bölümüdür.",
+      "function": "Oksijenli kanı çıkan aorttan göğse doğru aşağı yönlendirirken baş ve kolları besleyen üç ana dalı verir.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Sırasıyla brakiyosefalik gövde, sol ana karotis arteri ve sol subklavyen arter dallarını verir.",
+          "Kan basıncını düzenlemeye yardımcı gerim algılayıcıları (baroreseptörler) barındırır.",
+          "Sol akciğer kökünün arkasında inen göğüs aortu olarak devam eder."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — The Aorta and Its Major Branches",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/20-5-circulatory-pathways#fs-id2153789",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Aortic arch",
+          "url": "https://en.wikipedia.org/wiki/Aortic_arch",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "thoracic-aorta",
+      "overview": "Omurganın sol yanından diyaframa kadar inen, inen aortun göğüs bölümüdür.",
+      "function": "Göğüs duvarına, kaburgalar arası boşluklara, bronş hava yollarına ve yemek borusuna oksijenli kan sağlar.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Kaburgalar arasında uzanan çift arka interkostal arterleri verir.",
+          "T12 omuru düzeyinde diyaframın aort açıklığından geçerek karın aortuna dönüşür."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — The Aorta and Its Major Branches",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/20-5-circulatory-pathways#fs-id2153789",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Thoracic aorta",
+          "url": "https://en.wikipedia.org/wiki/Thoracic_aorta",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "abdominal-aorta",
+      "overview": "Sindirim organlarının arkasında, alt omurganın ön yüzü boyunca inen karnın en büyük atardamarıdır.",
+      "function": "Mide, karaciğer, bağırsaklar, böbrekler ve alt gövdeye oksijenli kan dağıttıktan sonra leğen bölgesinde ikiye ayrılır.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Üç tek sindirim dalı verir: çölyak gövde, üst mezenterik arter ve alt mezenterik arter.",
+          "Her böbreğe doğrudan dışa doğru uzanan çift böbrek (renal) arteri gönderir.",
+          "L4 bel omuru yakınında sağ ve sol ana iliyak arterlere ayrılır."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — The Aorta and Its Major Branches",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/20-5-circulatory-pathways#fs-id2153789",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Abdominal aorta",
+          "url": "https://en.wikipedia.org/wiki/Abdominal_aorta",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "pulmonary-trunk",
+      "overview": "Göğüs içinde sağ karıncığın tepesinden yukarıya doğru kavis yapan kısa ve geniş atardamar gövdesidir.",
+      "function": "Oksijence fakir kanı kalpten dışarı taşır ve akciğerlere giden sağ ile sol pulmoner arterlere ayrılır.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Oksijeni azalmış kan taşıdığı için büyük atardamar gövdeleri arasında benzersizdir.",
+          "Aort kavsinin altında her iki akciğere giren sağ ve sol akciğer atardamarlarına ayrılır."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Pulmonary Circulation",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/20-5-circulatory-pathways#fs-id2677637",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Pulmonary artery",
+          "url": "https://en.wikipedia.org/wiki/Pulmonary_artery",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "superior-vena-cava",
+      "overview": "Üst göğüs boşluğunda sağ kulakçığın üst arka kısmına dikey olarak giren kısa ve geniş toplardamardır.",
+      "function": "Baş, boyun, kollar ve üst göğüs duvarından dönen oksijence fakir toplardamar kanını kalbe geri taşır.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "İlk kaburganın arkasında sağ ve sol brakiyosefalik toplardamarların birleşmesiyle oluşur.",
+          "İçinde kapakçık bulunmaz; kan akışında yerçekimi ve solunum basıncından yararlanır."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Systemic Veins",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/20-5-circulatory-pathways#fs-id1254092",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Superior vena cava",
+          "url": "https://en.wikipedia.org/wiki/Superior_vena_cava",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "inferior-vena-cava-abdominal",
+      "overview": "Karnın arka kısmında bel omurgasının sağ yanı boyunca yükselen büyük merkez toplardamardır.",
+      "function": "Bacaklar, leğen bölgesi, böbrekler, karaciğer ve karın duvarından gelen toplardamar kanını kalbe doğru taşır.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Beşinci bel omuru yakınında iki ana iliyak toplardamarın birleşmesiyle oluşur.",
+          "Böbrek toplardamarlarını doğrudan alır ve diyaframı delmeden önce karaciğerin arkasından geçer."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Systemic Veins",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/20-5-circulatory-pathways#fs-id1254092",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Inferior vena cava",
+          "url": "https://en.wikipedia.org/wiki/Inferior_vena_cava",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "anterior-interventricular-artery",
+      "overview": "Kalbin iki karıncığı arasındaki ön olukta aşağı inen, sol koroner arterin başlıca dalıdır.",
+      "function": "Sol karıncığın kalın pompalama duvarını besleyen oksijenli kanın yaklaşık yarısını sağlar.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Tıpta sıklıkla sol ön inen arter (LAD) olarak adlandırılır.",
+          "Her iki karıncığın ön duvarını ve karıncıklar arası bölmenin ön üçte ikisini besler."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Coronary Circulation",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/19-1-heart-anatomy#fs-id3334501",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Left anterior descending artery",
+          "url": "https://en.wikipedia.org/wiki/Left_anterior_descending_artery",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "right-coronary-artery",
+      "overview": "Aort kökünden çıkıp kalbin sağ kenarı boyunca ilerleyen ana kalp duvarı atardamarıdır.",
+      "function": "Sağ kulakçığa, sağ karıncığın büyük bölümüne ve kalbin ileti düğümlerine oksijenli kan sağlar.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Sağ kulakçık ile sağ karıncık arasındaki olukta kalbin arka yüzüne doğru ilerler.",
+          "Çoğu insanda hem sinoatriyal düğümü hem de atriyoventriküler düğümü besler."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Coronary Circulation",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/19-1-heart-anatomy#fs-id3334501",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Right coronary artery",
+          "url": "https://en.wikipedia.org/wiki/Right_coronary_artery",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "left-common-carotid-artery",
+      "overview": "Soluk borusunun yanından doğrudan aort kavisinden yukarı doğru yükselen ana boyun atardamarıdır.",
+      "function": "Beyni, yüzü ve kafa derisini beslemek için boynun sol yanından yüksek basınçlı oksijenli kan taşır.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "İç şah toplardamarı ile birlikte koruyucu karotis kılıfı içinde seyreder.",
+          "Gırtlağın üst kenarı yakınında iç ve dış şah damarlarına ayrılır."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — The Aorta and Its Major Branches",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/20-5-circulatory-pathways#fs-id2153789",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Common carotid artery",
+          "url": "https://en.wikipedia.org/wiki/Common_carotid_artery",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "internal-jugular-vein",
+      "overview": "Kafatası tabanından başlayıp karotis kılıfı içinde dikey aşağı inen derin ve geniş boyun toplardamarıdır.",
+      "function": "Beynin dural sinüslerinden, yüz ve derin boyun dokularından gelen toplardamar kanını göğse geri taşır.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Kafatası tabanındaki juguler delikten başlar ve köprücük kemiği arkasında subklavyen toplardamarla birleşir.",
+          "Alt boyundaki basınç dalgalanmaları sağ kulakçık içi basıncı yansıtır."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Systemic Veins",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/20-5-circulatory-pathways#fs-id1254092",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Internal jugular vein",
+          "url": "https://en.wikipedia.org/wiki/Internal_jugular_vein",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "superior-sagittal-sinus",
+      "overview": "Kafatası çatısı boyunca dura materin sert üst kıvrımı içinde uzanan büyük orta hat kan kanalıdır.",
+      "function": "Her iki beyin yarım küresinin üst kısmından gelen toplardamar kanını ve emilen beyin-omurilik sıvısını toplar.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Sıradan toplardamarların aksine dural sinüslerin kas ya da kapakçık içermeyen sert lifli duvarları vardır.",
+          "Kafatasının arkasında iç şah toplardamarlarına açılan transvers sinüslere boşalır."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Systemic Veins",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/20-5-circulatory-pathways#fs-id1254092",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Superior sagittal sinus",
+          "url": "https://en.wikipedia.org/wiki/Superior_sagittal_sinus",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "brachial-artery",
+      "overview": "Üst kolun iç ön yüzü boyunca aşağı inen ana atardamar gövdesidir.",
+      "function": "Üst kol kaslarına oksijenli kan verir ve dirseğin altında ön kol ile eli beslemek üzere ikiye ayrılır.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Koltuk altı atardamarının doğrudan devamıdır ve dirsek kıvrımında radyal ve ulnar arterlere bölünür.",
+          "Nabzı pazı tendonunun hemen iç yanında hissedilir ve manşonlu tansiyon ölçümünde temel alınan noktadır."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Upper Limb Arteries",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/20-5-circulatory-pathways#fs-id2395924",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Brachial artery",
+          "url": "https://en.wikipedia.org/wiki/Brachial_artery",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "radial-artery",
+      "overview": "Ön kolun başparmak tarafında, el bileğinin dış kenarına yakın deri altında seyreden atardamardır.",
+      "function": "Ön kolun başparmak yanı boyunca ilerleyerek eli besleyen derin avuç içi kemerine oksijenli kan getirir.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "El bileğinde radius kemiğinin düz ön yüzeyi üzerinde yer aldığı için nabız yoklamada en sık kullanılan damardır.",
+          "Başparmağın tabanından kıvrılarak avuç içinde ulnar arter dallarıyla birleşir."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Upper Limb Arteries",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/20-5-circulatory-pathways#fs-id2395924",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Radial artery",
+          "url": "https://en.wikipedia.org/wiki/Radial_artery",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "common-iliac-artery",
+      "overview": "Karın aortunun leğen kenarının hemen üzerinde çatallanmasıyla oluşan çift leğen atardamarıdır.",
+      "function": "Oksijenli kanı hem leğen organlarını hem de bacakları beslemek üzere dışa ve aşağı yönlendirir.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Her ana iliyak arter sakroiliyak eklem yakınında iç ve dış iliyak arterlere ayrılır.",
+          "İç dal leğen boşluğu ile kalça kaslarını beslerken dış dal uyluğa devam eder."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Lower Limb Arteries",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/20-5-circulatory-pathways#fs-id1992319",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Common iliac artery",
+          "url": "https://en.wikipedia.org/wiki/Common_iliac_artery",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "femoral-artery",
+      "overview": "Kasık kıvrımının hemen altından ön üst uyluğa giren ana atardamardır.",
+      "function": "Uyluğun güçlü kaslarını ve dokularını besler; diz arkasında alt bacak ve ayağı beslemek üzere devam eder.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "İç uyluk boyunca derine dalmadan önce kasıkta femoral üçgenden yüzeyel olarak geçer.",
+          "Uyluğu besleyen derin femoral arteri verdikten sonra diz arkasında popliteal artere dönüşür."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Lower Limb Arteries",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/20-5-circulatory-pathways#fs-id1992319",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Femoral artery",
+          "url": "https://en.wikipedia.org/wiki/Femoral_artery",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "great-saphenous-vein",
+      "overview": "İç ayaktan kasığa kadar deri hemen altında uzanan insan vücudundaki en uzun toplardamardır.",
+      "function": "Ayağın, alt bacağın ve iç uyluğun yüzeyel dokularındaki toplardamar kanını femoral toplardamara taşır.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "İç ayak bileği kemiğinin önünden başlar ve bacak ile uyluğun iç yüzü boyunca yukarı çıkar.",
+          "Tek yönlü kapakçıklar içerir ve baypas damar nakillerinde sıklıkla kullanılır."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Systemic Veins",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/20-5-circulatory-pathways#fs-id1254092",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Great saphenous vein",
+          "url": "https://en.wikipedia.org/wiki/Great_saphenous_vein",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    }
+  ]
+}

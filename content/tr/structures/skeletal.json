@@ -1,0 +1,670 @@
+{
+  "system": "skeletal",
+  "entries": [
+    {
+      "id": "frontal-bone",
+      "overview": "Alın kemiği (frontal kemik), alnınızı, kafatası boşluğunun ön çatısını ve her iki göz çukurunun üst kemik kenarlarını oluşturur.",
+      "function": "Beynin ön loblarını darbelere karşı korur ve kaşları kaldıran alın kaslarına tutunma sırtları sağlar.",
+      "details": {
+        "kind": "bone",
+        "boneType": "flat",
+        "articulatesWith": [
+          "parietal-bone",
+          "sphenoid-bone",
+          "ethmoid-bone",
+          "nasal-bone",
+          "maxilla",
+          "lacrimal-bone",
+          "zygomatic-bone"
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Bones of the Brain Case",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-2-the-skull#fs-id2346875",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "parietal-bone",
+      "overview": "Sağ ve sol yan kafa kemikleri (parietal kemikler), kafatasının üst yanlarını ve çatısının büyük bölümünü oluşturan geniş kavisli plakalardır.",
+      "function": "Orta hat ekleminde birleşerek beyin kabuğunu koruyan bir kubbe oluşturur ve başın yanındaki çiğneme kaslarına tutunma yeri sağlar.",
+      "details": {
+        "kind": "bone",
+        "boneType": "flat",
+        "articulatesWith": [
+          "frontal-bone",
+          "occipital-bone",
+          "temporal-bone",
+          "sphenoid-bone"
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Bones of the Brain Case",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-2-the-skull#fs-id2346875",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "temporal-bone",
+      "overview": "Şakak kemikleri (temporal kemikler), kulağın çevresinde kafatasının alt yan duvarını oluşturur ve orta ile iç kulağa uzanan kanalı barındırır.",
+      "function": "İşitme ve denge organlarını korur, alt çene eklemi için yuva oluşturur ve kulak arkasında güçlü boyun kaslarına tutunur.",
+      "details": {
+        "kind": "bone",
+        "boneType": "irregular",
+        "articulatesWith": [
+          "parietal-bone",
+          "occipital-bone",
+          "sphenoid-bone",
+          "zygomatic-bone",
+          "mandible"
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Bones of the Brain Case",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-2-the-skull#fs-id2346875",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "occipital-bone",
+      "overview": "Artkafa kemiği (oksipital kemik), kafatasının arka ve alt arka tabanını oluşturur ve omuriliğin çıktığı büyük açıklığı çevreler.",
+      "function": "Beynin arka bölümünü ve beyinciği destekler, kafatasını ilk boyun omuruna bağlar ve başı dik tutan arka boyun kaslarına tutunur.",
+      "details": {
+        "kind": "bone",
+        "boneType": "flat",
+        "articulatesWith": [
+          "parietal-bone",
+          "temporal-bone",
+          "sphenoid-bone",
+          "atlas-c1"
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Bones of the Brain Case",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-2-the-skull#fs-id2346875",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "sphenoid-bone",
+      "overview": "Kanatlarını açmış bir kelebeği andıran kama kemik (sfenoid kemik), göz ve burnun arkasında kafatası tabanını enine geçer.",
+      "function": "Kafatası tabanının kilit taşı gibi neredeyse tüm kafa kemiklerini birbirine kenetler ve görme ile yüz sinirlerinin geçitlerini taşır.",
+      "details": {
+        "kind": "bone",
+        "boneType": "irregular",
+        "articulatesWith": [
+          "frontal-bone",
+          "parietal-bone",
+          "temporal-bone",
+          "occipital-bone",
+          "ethmoid-bone",
+          "zygomatic-bone",
+          "palatine-bone",
+          "vomer"
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Bones of the Brain Case",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-2-the-skull#fs-id2346875",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "zygomatic-bone",
+      "overview": "Elmacık kemiği (zigomatik kemik), her iki yanağın dış çıkıntısını ve göz çukurunun alt dış köşesini oluşturan çift kemiktir.",
+      "function": "Üst yüzü biçimlendirir, göz küresini yan darbelerden korur ve çiğneme kaslarının bağlandığı elmacık kemerini tamamlar.",
+      "details": {
+        "kind": "bone",
+        "boneType": "irregular",
+        "articulatesWith": [
+          "frontal-bone",
+          "sphenoid-bone",
+          "temporal-bone",
+          "maxilla"
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Facial Bones of the Skull",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-2-the-skull#fs-id1474296",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "maxilla",
+      "overview": "Üst çene kemikleri (maksilla), orta hatta birleşerek üst çeneyi, sert damağın ön kısmını ve göz çukuru tabanının büyük bölümünü oluşturur.",
+      "function": "Tüm üst dişleri taşır, güçlü çiğneme kuvvetlerine karşı koyar ve burun boşluğu yanındaki geniş maksiller sinüsleri barındırır.",
+      "details": {
+        "kind": "bone",
+        "boneType": "irregular",
+        "articulatesWith": [
+          "frontal-bone",
+          "ethmoid-bone",
+          "nasal-bone",
+          "zygomatic-bone",
+          "lacrimal-bone",
+          "inferior-nasal-concha-bone",
+          "palatine-bone",
+          "vomer"
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Facial Bones of the Skull",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-2-the-skull#fs-id1474296",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "mandible",
+      "overview": "Alt çene kemiği (mandibula), kafatasının serbestçe hareket edebilen tek kemiğidir ve kavisli gövdesinde tüm alt dişleri taşır.",
+      "function": "Kulakların hemen önünde şakak kemikleriyle eklem yaparak çiğneme kaslarının ısırma, öğütme ve konuşma hareketlerini mümkün kılar.",
+      "details": {
+        "kind": "bone",
+        "boneType": "irregular",
+        "articulatesWith": ["temporal-bone"]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Facial Bones of the Skull",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-2-the-skull#fs-id1474296",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "nasal-bone",
+      "overview": "Burun kemikleri, iki göz arasında burun köprüsünün üst kısmında yan yana duran küçük ve ince iki dikdörtgen kemiktir.",
+      "function": "Burnun sert üst kemik çatısını oluşturur ve burnun alt yarısını biçimlendiren esnek kıkırdaklara tutunma sağlar.",
+      "details": {
+        "kind": "bone",
+        "boneType": "flat",
+        "articulatesWith": ["frontal-bone", "ethmoid-bone", "maxilla"]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Facial Bones of the Skull",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-2-the-skull#fs-id1474296",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "hyoid-bone",
+      "overview": "Dil kemiği (hiyoid kemik), alt çenenin hemen altında boynun üst ön kısmında yer alan ve başka hiçbir kemiğe doğrudan değmeyen U biçimli kemiktir.",
+      "function": "Yalnızca kaslar ve bağlarla asılı durarak yutma ve konuşma sırasında yukarıda dil köküne, aşağıda ise gırtlağa hareketli bir dayanak sunar.",
+      "details": {
+        "kind": "bone",
+        "boneType": "irregular",
+        "articulatesWith": []
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Hyoid Bone",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-2-the-skull#fs-id1296982",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "atlas-c1",
+      "overview": "Atlas (C1), boynun en üstünde yer alan ve kafatasını doğrudan taşıyan halka biçimli birinci boyun omurudur.",
+      "function": "Derin üst eklem yuvaları kafatası tabanıyla birleşerek başı öne-arkaya eğmeyi sağlar; ön halkası ise alttaki C2 omuru ekseninde döner.",
+      "details": {
+        "kind": "bone",
+        "boneType": "irregular",
+        "articulatesWith": ["occipital-bone", "axis-c2"]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Regional Modifications of Vertebrae",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-3-the-vertebral-column#fs-id2125210",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "axis-c2",
+      "overview": "Eksen omuru (C2 / axis), gövdesinden yukarı doğru C1 halkasının içine uzanan dişsi çıkıntıya (dens) sahip ikinci boyun omurudur.",
+      "function": "Üstündeki atlas ve kafatası için dikey bir dönme mili görevi görerek başınızı sağa ve sola rahatça çevirmenizi sağlar.",
+      "details": {
+        "kind": "bone",
+        "boneType": "irregular",
+        "articulatesWith": ["atlas-c1", "vertebra-c3"]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Regional Modifications of Vertebrae",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-3-the-vertebral-column#fs-id2125210",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "vertebra-c7",
+      "overview": "Yedinci boyun omuru (C7), boynun tabanında yer alır ve deri altından kolayca hissedilebilen uzun bir arka çıkıntıya sahiptir.",
+      "function": "Esnek boyun omurgası ile kaburga taşıyan sırt omurgası arasında geçiş sağlar ve boyun bağlarına güçlü tutunma noktası verir.",
+      "details": {
+        "kind": "bone",
+        "boneType": "irregular",
+        "articulatesWith": ["vertebra-c6", "vertebra-t1"]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Regional Modifications of Vertebrae",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-3-the-vertebral-column#fs-id2125210",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "vertebra-t1",
+      "overview": "Birinci sırt omuru (T1), boynun hemen altında sırt omurgasının tepesinde yer alır ve ilk kaburga çiftini taşır.",
+      "function": "Baş ve boyun yükünü sırt omurgasına aktarırken üst göğsü çevreleyen göğüs kafesinin üst açıklığını çerçeveler.",
+      "details": {
+        "kind": "bone",
+        "boneType": "irregular",
+        "articulatesWith": [
+          "vertebra-c7",
+          "vertebra-t2",
+          "first-rib",
+          "second-rib"
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Regional Modifications of Vertebrae",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-3-the-vertebral-column#fs-id2125210",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "vertebra-t12",
+      "overview": "On ikinci sırt omuru (T12), belin hemen üzerinde yer alan ve on ikinci kaburga çiftini destekleyen en alt sırt omurudur.",
+      "function": "Omurga hareketini göğüs dönmesinden bel bükülmesine geçirir ve ağır üst gövde yükünü bel omurlarına iletir.",
+      "details": {
+        "kind": "bone",
+        "boneType": "irregular",
+        "articulatesWith": ["vertebra-t11", "vertebra-l1", "twelfth-rib"]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Regional Modifications of Vertebrae",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-3-the-vertebral-column#fs-id2125210",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "vertebra-l1",
+      "overview": "Birinci bel omuru (L1), kaburga kafesinin hemen altında beli oluşturan beş kalın bel omurunun en üstekidir.",
+      "function": "Kaburga bağlantısı olmadan gövde ağırlığını taşır, öne-arkaya eğilmeye izin verir ve omuriliğin alt ucunu korur.",
+      "details": {
+        "kind": "bone",
+        "boneType": "irregular",
+        "articulatesWith": ["vertebra-t12", "vertebra-l2"]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Regional Modifications of Vertebrae",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-3-the-vertebral-column#fs-id2125210",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "vertebra-l5",
+      "overview": "Beşinci bel omuru (L5), sakrumun hemen üzerinde yer alan omurganın en büyük tekil omurudur.",
+      "function": "Kama biçimli gövdesi üst vücut ağırlığının en büyük payını taşır ve bunu eğimli sakrum yüzeyine güvenle aktarır.",
+      "details": {
+        "kind": "bone",
+        "boneType": "irregular",
+        "articulatesWith": ["vertebra-l4", "sacrum"]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Regional Modifications of Vertebrae",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-3-the-vertebral-column#fs-id2125210",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "manubrium-of-sternum",
+      "overview": "Göğüs kemiği kabzası (manubrium), boynun tabanındaki çentiğin hemen altında yer alan göğüs kemiğinin geniş üst kalkan bölümüdür.",
+      "function": "Her iki köprücük kemiğini ve ilk kaburgaları bağlayarak üst uzuv iskeletini gövdeye bağlayan tek kemik dayanağı oluşturur.",
+      "details": {
+        "kind": "bone",
+        "boneType": "flat",
+        "articulatesWith": [
+          "clavicle",
+          "body-of-sternum",
+          "costal-cartilage-of-first-rib",
+          "costal-cartilage-of-second-rib"
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Sternum",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-4-the-thoracic-cage#fs-id2094432",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "body-of-sternum",
+      "overview": "Göğüs kemiği gövdesi (corpus sterni), kaburgalar arasında ön göğsün orta hattı boyunca inen uzun ve yassı kemik plakadır.",
+      "function": "Kalp ve büyük damarları doğrudan darbelerden korur, ikinciden yedinciye kaburga kıkırdaklarını ön göğüs kafesine bağlar.",
+      "details": {
+        "kind": "bone",
+        "boneType": "flat",
+        "articulatesWith": [
+          "manubrium-of-sternum",
+          "xiphoid-process",
+          "costal-cartilage-of-second-rib",
+          "costal-cartilage-of-third-rib",
+          "costal-cartilage-of-fourth-rib",
+          "costal-cartilage-of-fifth-rib",
+          "costal-cartilage-of-sixth-rib",
+          "costal-cartilage-of-seventh-rib"
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Sternum",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-4-the-thoracic-cage#fs-id2094432",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "first-rib",
+      "overview": "Birinci kaburga, göğüs kafesinin en tepesinde köprücük kemiğinin hemen altından kıvrılan en kısa, en geniş ve en eğri kaburgadır.",
+      "function": "Soluk borusu, yemek borusu ve büyük kol damarlarının geçtiği üst göğüs açıklığını çevreler ve boyun solunum kaslarına tutunur.",
+      "details": {
+        "kind": "bone",
+        "boneType": "flat",
+        "articulatesWith": ["vertebra-t1", "costal-cartilage-of-first-rib"]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Ribs",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-4-the-thoracic-cage#fs-id2310374",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "seventh-rib",
+      "overview": "Yedinci kaburga, göğüs duvarındaki en uzun kaburgadır ve kıkırdağı doğrudan göğüs kemiğine ulaşan yedi gerçek kaburganın sonuncusudur.",
+      "function": "Kalp ve alt akciğerleri sarar; nefes alırken yukarı ve dışa yükselerek göğüs hacmini genişletir.",
+      "details": {
+        "kind": "bone",
+        "boneType": "flat",
+        "articulatesWith": [
+          "vertebra-t6",
+          "vertebra-t7",
+          "costal-cartilage-of-seventh-rib"
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Ribs",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-4-the-thoracic-cage#fs-id2310374",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "twelfth-rib",
+      "overview": "On ikinci kaburga, yalnızca T12 sırt omuruna bağlı olan ve ön ucu karın arka duvarında serbest biten kısa bir yüzen kaburgadır.",
+      "function": "Üst arka karın boşluğu ile böbrekleri korur; diyafram ve derin bel kaslarına tutunma yeri sağlar.",
+      "details": {
+        "kind": "bone",
+        "boneType": "flat",
+        "articulatesWith": ["vertebra-t12"]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Ribs",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-4-the-thoracic-cage#fs-id2310374",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "clavicle",
+      "overview": "Köprücük kemiği (klavikula), göğsün üst ön kısmında birinci kaburganın hemen üzerinde yatay uzanan S eğrili ince uzun kemiktir.",
+      "function": "Kürek kemiğini göğüs kafesinden açıkta tutarak serbest kol salınımı sağlar ve koldan gelen itme kuvvetlerini göğüs kemiğine aktarır.",
+      "details": {
+        "kind": "bone",
+        "boneType": "long",
+        "articulatesWith": ["manubrium-of-sternum", "scapula"]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Clavicle",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/8-1-the-pectoral-girdle#fs-id1421107",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "scapula",
+      "overview": "Kürek kemiği (skapula), üst sırt kaburgaları üzerinde kayan ve üst kol için sığ bir eklem yuvası sunan üçgen biçimli yassı kemiktir.",
+      "function": "Omurgaya sabitlenmek yerine on yedi kasla desteklenerek omuza geniş hareket açıklığı kazandıran kayma ve dönme hareketleri yapar.",
+      "details": {
+        "kind": "bone",
+        "boneType": "flat",
+        "articulatesWith": ["clavicle", "humerus"]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Scapula",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/8-1-the-pectoral-girdle#fs-id1254545",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "humerus",
+      "overview": "Üst kol kemiği (humerus), küre-yuva biçimli omuz ekleminden menteşe biçimli dirsek eklemine kadar uzanan tek uzun kemiktir.",
+      "function": "Kaldırma, fırlatma ve uzanma için ana sert kol kaldıracı görevi görür ve ön kolu büken ile açan kaslara tutunma sağlar.",
+      "details": {
+        "kind": "bone",
+        "boneType": "long",
+        "articulatesWith": ["scapula", "radius", "ulna"]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Humerus",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/8-2-bones-of-the-upper-limb#fs-id1424173",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "radius",
+      "overview": "Ön kol dış kemiği (radius), ön kolun başparmak tarafında dirsekten el bileğinin geniş tabanına uzanan daha kısa kemiktir.",
+      "function": "Avucunuzu yukarı veya aşağı çevirdiğinizde ulna üzerinden rahatça çaprazlanır ve elden gelen yükün çoğunu el bileğine taşır.",
+      "details": {
+        "kind": "bone",
+        "boneType": "long",
+        "articulatesWith": ["humerus", "ulna", "scaphoid-bone", "lunate-bone"]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Radius",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/8-2-bones-of-the-upper-limb#fs-id1975588",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "ulna",
+      "overview": "Dirsek kemiği (ulna), ön kolun serçe parmak yanında yer alır ve dirsekte alt humerusu kavrayan derin C biçimli bir çentikle sonlanır.",
+      "function": "Dirseğin sivri kemik ucunu oluşturarak ön kolun bükülme ve açılmasını dengeler; radiusa etrafında döneceği sabit ekseni verir.",
+      "details": {
+        "kind": "bone",
+        "boneType": "long",
+        "articulatesWith": ["humerus", "radius"]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Ulna",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/8-2-bones-of-the-upper-limb#fs-id1349886",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "hip-bone",
+      "overview": "Kalça kemiği (koksa), erişkinlikte derin kalça eklem yuvası çevresinde üç kemiğin kaynaşmasıyla oluşan geniş ve kavisli leğen kemiğidir.",
+      "function": "Arkada sakrumla, önde eşiyle birleşerek alt organları koruyan sağlam bir leğen çanağı oluşturur ve vücut ağırlığını uyluklara iletir.",
+      "details": {
+        "kind": "bone",
+        "boneType": "irregular",
+        "articulatesWith": ["sacrum", "femur"]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Hip Bone",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/8-3-the-pelvic-girdle-and-pelvis#fs-id1632656",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "sacrum",
+      "overview": "Kuyruk sokumu üst kemiği (sakrum), beş kaynaşmış omurdan oluşan ve leğen arkasında iki kalça kemiği arasına yerleşen üçgen kemiktir.",
+      "function": "Omurganın tabanını leğen halkasına bağlar; gövde ağırlığını eşit biçimde sağa ve sola dağıtarak kalçalara iletir.",
+      "details": {
+        "kind": "bone",
+        "boneType": "irregular",
+        "articulatesWith": ["vertebra-l5", "coccyx", "hip-bone"]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Regions of the Vertebral Column",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-3-the-vertebral-column#fs-id1383461",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "coccyx",
+      "overview": "Kuyruk kemiği (koksiks), genellikle kaynaşmış dört küçük omurdan oluşan ve sakrumun alt ucunun altında sarkan küçük kama kemiktir.",
+      "function": "Ayaktayken yük taşımasa da geriye yaslanarak otururken üçüncü destek ayağı görevi görür ve leğen tabanı kaslarına tutunma sağlar.",
+      "details": {
+        "kind": "bone",
+        "boneType": "irregular",
+        "articulatesWith": ["sacrum"]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Regions of the Vertebral Column",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-3-the-vertebral-column#fs-id1383461",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "femur",
+      "overview": "Uyluk kemiği (femur), kalça eklem yuvasından dize kadar uzanan insan vücudunun en uzun, en ağır ve en güçlü kemiğidir.",
+      "function": "Ayakta dururken, yürürken ve zıplarken üst vücut ağırlığını bacağa aktarır ve güçlü uyluk kaslarına sağlam tutunma sağlar.",
+      "details": {
+        "kind": "bone",
+        "boneType": "long",
+        "articulatesWith": ["hip-bone", "patella", "tibia"]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Femur",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/8-4-bones-of-the-lower-limb#fs-id2661070",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "patella",
+      "overview": "Diz kapağı kemiği (patella), diz ekleminin tam üzerinde ön uyluk tendonunun içine gömülü pürüzsüz üçgen bir susamsı kemiktir.",
+      "function": "Femurun önündeki oluk içinde kayarak diz eklemini korur ve bacağı düzleştirirken dört başlı uyluk kasının kaldıraç gücünü artırır.",
+      "details": {
+        "kind": "bone",
+        "boneType": "sesamoid",
+        "articulatesWith": ["femur"]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Patella",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/8-4-bones-of-the-lower-limb#fs-id1632817",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "tibia",
+      "overview": "Kaval kemiği (tibia), dizden ayak bileğine uzanan ve kavalınızın ön tarafında derinin hemen altında bulunan kalın iç alt bacak kemiğidir.",
+      "function": "Uyluk ile ayak arasındaki vücut ağırlığının neredeyse tamamını taşır; alt ucu talus kemiğini dengeleyen iç ayak bileği çıkıntısını oluşturur.",
+      "details": {
+        "kind": "bone",
+        "boneType": "long",
+        "articulatesWith": ["femur", "fibula", "talus"]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Tibia",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/8-4-bones-of-the-lower-limb#fs-id2177045",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "fibula",
+      "overview": "Kamış kemiği (fibula), dizin hemen altından dış ayak bileğine kadar tibianın dış yanına paralel uzanan ince destek kemiğidir.",
+      "function": "Çok az ağırlık taşımasına karşın alt bacak kaslarına tutunma verir ve ayak bileğinin yana burkulmasını önleyen dış bilek çıkıntısını oluşturur.",
+      "details": {
+        "kind": "bone",
+        "boneType": "long",
+        "articulatesWith": ["tibia", "talus"]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Fibula",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/8-4-bones-of-the-lower-limb#fs-id1605143",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    {
+      "id": "calcaneus",
+      "overview": "Topuk kemiği (kalkaneus), ayak bileğinin altında arkaya doğru uzanarak topuğun sert ucunu oluşturan ayağın en büyük kemiğidir.",
+      "function": "Her adımda topuk çarpması darbesini emer ve baldır kaslarının sizi parmak ucuna kaldırması için Aşil tendonuna kaldıraç kolu sağlar.",
+      "details": {
+        "kind": "bone",
+        "boneType": "short",
+        "articulatesWith": ["talus", "cuboid-bone"]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Tarsal Bones",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/8-4-bones-of-the-lower-limb#fs-id1311342",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,126 @@
+{
+  "system": "respiratory",
+  "entries": [
+    {
+      "id": "trachea",
+      "overview": "Boynun ortasından aşağı inen, C biçimli kıkırdak halkalarla desteklenmiş esnek ve sağlam soluk borusudur.",
+      "function": "Gırtlağı sağ ve sol akciğerlere giden ana bronşlara bağlayan açık bir hava yolu sağlar.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Yaklaşık 10 ila 12 cm uzunluğundadır ve karina düzeyinde sağ ve sol ana bronşlara ayrılır.",
+          "Yarım kıkırdak halkalar hava yolunu açık tutarken arka kısımdaki yumuşak kas yemek borusunun yutma sırasında genişlemesine izin verir.",
+          "İç yüzeyindeki minik tüycükler (siller) toz ve mukusu yukarı doğru süpürür."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Conducting Zone",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/22-1-organs-and-structures-of-the-respiratory-system#fs-id1938446",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Trachea",
+          "url": "https://en.wikipedia.org/wiki/Trachea",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "left-main-bronchus",
+      "overview": "Soluk borusunun alt ucundan sola ayrılarak sol akciğerin köküne giren ana hava yoludur.",
+      "function": "Solunan ve verilen havayı soluk borusu ile sol akciğerin lob bronşları arasında taşır.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Aort kavsinin altından geçer; sağ ana bronşa göre daha uzun ve biraz daha dardır.",
+          "Sol akciğer içinde iki lobu besleyen üst ve alt lob bronşlarına ayrılır."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Conducting Zone",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/22-1-organs-and-structures-of-the-respiratory-system#fs-id1938446",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Bronchus",
+          "url": "https://en.wikipedia.org/wiki/Bronchus",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "superior-lobe-of-left-lung",
+      "overview": "Köprücük kemiğinin yukarısından üst göğsün ön yüzüne doğru uzanan sol akciğerin üst bölümüdür.",
+      "function": "Oksijenin kana geçtiği ve karbondioksitin atıldığı milyonlarca küçük alveole solunan havayı alır.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Ön kenarında göğüs içinde kalbe yer açan kardiyak çentiği içerir.",
+          "Eğik yarık (oblik fissür) adı verilen derin olukla sol alt lobdan ayrılır."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Respiratory Zone",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/22-1-organs-and-structures-of-the-respiratory-system#fs-id2875750",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Lung",
+          "url": "https://en.wikipedia.org/wiki/Lung",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "middle-lobe-of-right-lung",
+      "overview": "Yalnızca sağ akciğerde, yatay ve eğik yarıklar arasında yer alan kama biçimli ön-alt lobdur.",
+      "function": "Nefes alma sırasında genişleyerek ince alveol kılcal damarları boyunca gaz değişimini gerçekleştirir.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Sağ akciğer üç loba, sol akciğer iki loba sahip olduğu için orta lob yalnızca sağ akciğerde bulunur.",
+          "Sağ ana hava yolundan ayrılan sağ orta lob bronşu ile beslenir."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Respiratory Zone",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/22-1-organs-and-structures-of-the-respiratory-system#fs-id2875750",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Lung",
+          "url": "https://en.wikipedia.org/wiki/Lung",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "inferior-lobe-of-right-lung",
+      "overview": "Doğrudan diyaframın sağ kubbesi üzerine oturan, sağ akciğerin büyük alt-arka lobudur.",
+      "function": "Diyafram aşağı doğru çekildikçe derin nefes almada büyük havalanma hacmine katkı sağlar.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Sağ akciğerin arka göğüs yüzeyinin büyük bölümünü oluşturur.",
+          "Eğik yarık ile üst ve orta loblardan ayrılır."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Respiratory Zone",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/22-1-organs-and-structures-of-the-respiratory-system#fs-id2875750",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Lung",
+          "url": "https://en.wikipedia.org/wiki/Lung",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    }
+  ]
+}

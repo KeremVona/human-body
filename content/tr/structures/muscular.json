@@ -1,0 +1,1130 @@
+{
+  "system": "muscular",
+  "entries": [
+    {
+      "id": "frontalis-muscle",
+      "overview": "Alnın derisinin hemen altında yer alan geniş ve ince bir kas tabakasıdır.",
+      "function": "Saçlı deriyi öne çeker ve şaşkınlık ya da odaklanma sırasında alnı kırıştırarak kaşları kaldırır.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Kafatasının tepesindeki tendon tabakası (galea aponeurotica)",
+        "insertion": "Kaş derisi ve göz çevresi dairesel kası (orbicularis oculi)",
+        "innervation": "Yüz siniri (kraniyal sinir VII, şakak dalı)",
+        "bloodSupply": "Supraorbital ve supratroklear arterler",
+        "action": "Kaşları kaldırır ve alnı kırıştırır"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles of Facial Expression",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-3-axial-muscles-of-the-head-neck-and-back#fs-id1637749",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Frontalis muscle",
+          "url": "https://en.wikipedia.org/wiki/Frontalis_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "orbicularis-oris-muscle",
+      "overview": "Üst ve alt dudakların içinde ağzı çevreleyen halka biçimli bir büzücü kastır.",
+      "function": "Konuşma, ıslık çalma, yemek yeme ve öpme sırasında dudakları kapatır, büzer ve öne uzatır.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Üst çene (maksilla), alt çene (mandibula) ve çevre yüz kasları",
+        "insertion": "Dudak çevresi derisi ve ağız köşeleri",
+        "innervation": "Yüz siniri (kraniyal sinir VII, yanak dalı)",
+        "bloodSupply": "Üst ve alt dudak atardamarları",
+        "action": "Dudakları kapatır, sıkıştırır ve büzer"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles of Facial Expression",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-3-axial-muscles-of-the-head-neck-and-back#fs-id1637749",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Orbicularis oris muscle",
+          "url": "https://en.wikipedia.org/wiki/Orbicularis_oris_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "zygomaticus-major-muscle",
+      "overview": "Elmacık kemiğinden ağız köşesine doğru çapraz uzanan şerit biçimli bir yüz ifadesi kasıdır.",
+      "function": "Geniş bir gülümseme oluşturmak için ağız köşelerini yukarı ve dışa çeker.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Elmacık kemiğinin ön yüzü (zigomatik kemik)",
+        "insertion": "Ağız köşesi (modiolus)",
+        "innervation": "Yüz siniri (kraniyal sinir VII, zigomatik ve yanak dalları)",
+        "bloodSupply": "Yüz atardamarı (fasiyal arter)",
+        "action": "Ağız köşelerini yukarı ve dışa çeker"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles of Facial Expression",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-3-axial-muscles-of-the-head-neck-and-back#fs-id1637749",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Zygomaticus major muscle",
+          "url": "https://en.wikipedia.org/wiki/Zygomaticus_major_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "temporalis-muscle",
+      "overview": "Kafatasının her iki yanındaki sığ şakak çukurunu dolduran, yelpaze biçimli büyük çiğneme kasıdır.",
+      "function": "Dişleri sıkmak için alt çeneyi yukarı ve geriye doğru çeker.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Yan kafa kemiği (parietal kemik) ve kama kemikteki şakak çizgileri",
+        "insertion": "Alt çene kemiğinin (mandibula) ön kemik çıkıntısı (koronoid çıkıntı)",
+        "innervation": "Mandibular sinirin derin şakak dalları (kraniyal sinir V3)",
+        "bloodSupply": "Derin şakak atardamarları",
+        "action": "Alt çeneyi kaldırır ve geriye çeker"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles That Move the Lower Jaw",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-3-axial-muscles-of-the-head-neck-and-back#fs-id2518486",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Temporalis muscle",
+          "url": "https://en.wikipedia.org/wiki/Temporalis_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "superficial-part-of-masseter",
+      "overview": "Yanağın yan yüzünde yer alan ana çene kapama kasının kalın, dikdörtgen dış katmanıdır.",
+      "function": "Alt çeneyi yukarı kaldırıp hafifçe öne iterek güçlü ısırma kuvveti üretir.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Elmacık kemeri (zigomatik ark) ve ön elmacık kemiği",
+        "insertion": "Alt çene kemiğinin (mandibula) dış köşesi ve arka dik kolu",
+        "innervation": "Mandibular sinir (kraniyal sinir V3)",
+        "bloodSupply": "Masseterik arter",
+        "action": "Çiğneme sırasında alt çeneyi kaldırır ve öne iter"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles That Move the Lower Jaw",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-3-axial-muscles-of-the-head-neck-and-back#fs-id2518486",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Masseter muscle",
+          "url": "https://en.wikipedia.org/wiki/Masseter_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "platysma",
+      "overview": "Boynun ön ve yan yüzlerine yayılan, kâğıt inceliğinde geniş bir yüzeyel kas tabakasıdır.",
+      "function": "Boyun derisini gerer; ağız köşelerini ve alt dudağı aşağı doğru çeker.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Köprücük kemiğinin hemen altındaki üst göğüs ve ön omuz bağ dokusu",
+        "insertion": "Alt çene kemiğinin (mandibula) alt kenarı, yanak derisi ve ağız köşeleri",
+        "innervation": "Yüz siniri (kraniyal sinir VII, boyun dalı)",
+        "bloodSupply": "Submental ve supraskapular arter dalları",
+        "action": "Boyun derisini gererken ağız köşelerini ve alt dudağı aşağı çeker"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles of Facial Expression",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-3-axial-muscles-of-the-head-neck-and-back#fs-id1637749",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Platysma muscle",
+          "url": "https://en.wikipedia.org/wiki/Platysma_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "sternocleidomastoid-muscle",
+      "overview": "Göğsün tepesinden her iki kulağın arkasına çapraz uzanan belirgin, iki başlı boyun kasıdır.",
+      "function": "Tek tarafı kasıldığında başı karşı omza çevirir; iki taraf birlikte kasıldığında boynu öne eğer.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Göğüs kemiğinin üstü (manubrium sterni) ve köprücük kemiğinin iç üçte biri",
+        "insertion": "Kulak arkasındaki kemik çıkıntı (mastoid çıkıntı) ve arka kafatası sırtı",
+        "innervation": "Aksesuar sinir (kraniyal sinir XI) ve C2–C3 boyun sinirleri",
+        "bloodSupply": "Oksipital ve üst tiroid arterleri",
+        "action": "Başı karşı tarafa çevirir, boynu aynı yana eğer ve öne büker"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles That Move the Head",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-3-axial-muscles-of-the-head-neck-and-back#fs-id2468950",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Sternocleidomastoid muscle",
+          "url": "https://en.wikipedia.org/wiki/Sternocleidomastoid_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "descending-part-of-trapezius-muscle",
+      "overview": "Kafatası tabanından omuza uzanan trapez kasının geniş, üçgen üst bölümüdür.",
+      "function": "Kürek kemiğini yukarı kaldırır, omuzları silkme hareketini yapar ve başı geriye eğmeye yardımcı olur.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Artkafa kemiği (oksipital), ense bağı ve boyun omurlarının arka çıkıntıları",
+        "insertion": "Köprücük kemiğinin dış üçte biri, omuz ucu (akromiyon) ve kürek kemiği dikeni",
+        "innervation": "Aksesuar sinir (kraniyal sinir XI) ve C3–C4 omurilik sinirleri",
+        "bloodSupply": "Enine servikal arter",
+        "action": "Kürek kemiğini yukarı kaldırıp yukarı döndürür ve boyun gerilmesine yardım eder"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles That Position the Pectoral Girdle",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-5-muscles-of-the-pectoral-girdle-and-upper-limbs#fs-id1865841",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Trapezius",
+          "url": "https://en.wikipedia.org/wiki/Trapezius",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "latissimus-dorsi-muscle",
+      "overview": "Orta ve alt sırtı kaplayıp koltuk altına doğru daralan geniş, yelpaze biçimli bir kastır.",
+      "function": "Tırmanma, yüzme ve kürek çekme sırasında kalkmış kolu aşağı ve geriye doğru çeker.",
+      "details": {
+        "kind": "muscle",
+        "origin": "T7–L5 omur dikensi çıkıntıları, alt 4 kaburga, kalça kemiği tepesi ve kürek kemiği ucu",
+        "insertion": "Üst kol kemiğinin (humerus) üst ön oluğu",
+        "innervation": "Torakodorsal sinir (C6–C8)",
+        "bloodSupply": "Subskapular arterin torakodorsal dalı",
+        "action": "Kolu omuzda geriye çeker, gövdeye yaklaştırır ve içe döndürür"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles That Move the Humerus",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-5-muscles-of-the-pectoral-girdle-and-upper-limbs#fs-id2505955",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Latissimus dorsi muscle",
+          "url": "https://en.wikipedia.org/wiki/Latissimus_dorsi_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "rhomboid-major-muscle",
+      "overview": "Üst sırtta trapez kasının altında, omurga ile kürek kemiği arasında uzanan yassı eşkenar dörtgen kastır.",
+      "function": "Kürek kemiklerini omurgaya doğru birbirine yaklaştırır ve göğüs kafesine düz yaslı tutar.",
+      "details": {
+        "kind": "muscle",
+        "origin": "T2–T5 sırt omurlarının dikensi çıkıntıları",
+        "insertion": "Kürek kemiğinin (skapula) iç kenarı",
+        "innervation": "Dorsal skapular sinir (C5)",
+        "bloodSupply": "Dorsal skapular arter",
+        "action": "Kürek kemiğini geriye çeker, sabitler ve aşağı döndürür"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles That Position the Pectoral Girdle",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-5-muscles-of-the-pectoral-girdle-and-upper-limbs#fs-id1865841",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Rhomboid major muscle",
+          "url": "https://en.wikipedia.org/wiki/Rhomboid_major_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "longissimus-thoracis-muscle",
+      "overview": "Sırt omurgası ve alt kaburgalar boyunca uzanan derin sırt gerici kaslarının orta ve en uzun sütunudur.",
+      "function": "Omurgayı yerçekimine karşı dik tutar, sırtı geriye doğrultur ve gövdeyi yana eğer.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Bel omurlarının enine çıkıntıları ve derin bel tendon tabakası (torakolumbar fasya)",
+        "insertion": "Tüm sırt omurlarının enine çıkıntıları ve alt dokuz ya da on kaburga",
+        "innervation": "Göğüs ve bel omurilik sinirlerinin arka dalları",
+        "bloodSupply": "Arka interkostal, lumbar ve yan sakral arter dalları",
+        "action": "Omurgayı doğrultur ve gövdeyi aynı yana eğer"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles of the Posterior Neck and Back",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-3-axial-muscles-of-the-head-neck-and-back#fs-id2009136",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Longissimus",
+          "url": "https://en.wikipedia.org/wiki/Longissimus",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "sternocostal-head-of-pectoralis-major-muscle",
+      "overview": "Göğüs kemiğinden üst kola uzanan büyük göğüs kasının yelpaze biçimli ana göğüs bölümüdür.",
+      "function": "Kolu göğüs önünde içeri çeker, içe döndürür ve kalkmış kolu kuvvetle aşağı indirir.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Göğüs kemiği (sternum) ön yüzü, üst altı kaburga kıkırdağı ve karın tendon tabakası",
+        "insertion": "Üst kol kemiğinin (humerus) üst oluğunun dış kenarı",
+        "innervation": "Medial ve lateral pektoral sinirler (C7–T1)",
+        "bloodSupply": "Torakoakromiyal gövdenin pektoral dalı",
+        "action": "Kolu gövdeye yaklaştırır, içe döndürür ve bükülmüş konumdaki kolu indirir"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles That Move the Humerus",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-5-muscles-of-the-pectoral-girdle-and-upper-limbs#fs-id2505955",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Pectoralis major",
+          "url": "https://en.wikipedia.org/wiki/Pectoralis_major",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "pectoralis-minor-muscle",
+      "overview": "Büyük göğüs kasının hemen arkasında gizlenen ince, üçgen biçimli derin göğüs kasıdır.",
+      "function": "Kürek kemiğini göğüs kafesi çevresinde öne ve aşağı çeker; derin nefes alırken kaburgaları kaldırmaya yardım eder.",
+      "details": {
+        "kind": "muscle",
+        "origin": "3–5. kaburgaların kıkırdak birleşimine yakın ön dış yüzleri",
+        "insertion": "Kürek kemiğinin (skapula) ön kanca çıkıntısı (korakoid çıkıntı)",
+        "innervation": "Medial pektoral sinir (C8–T1)",
+        "bloodSupply": "Torakoakromiyal gövdenin pektoral dalı",
+        "action": "Kürek kemiğini öne ve aşağı çeker; derin nefes almaya yardım eder"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles That Position the Pectoral Girdle",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-5-muscles-of-the-pectoral-girdle-and-upper-limbs#fs-id1865841",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Pectoralis minor",
+          "url": "https://en.wikipedia.org/wiki/Pectoralis_minor",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "serratus-anterior-muscle",
+      "overview": "Üst göğüs kafesinin yanından geriye, kürek kemiğinin altına uzanan testere dişli kastır.",
+      "function": "Yumruk atarken veya iterken kürek kemiğini öne çeker ve kolu baş üstüne kaldırırken yukarı döndürür.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Göğsün yanındaki üst 1–9. kaburgaların dış yüzleri",
+        "insertion": "Kürek kemiğinin (skapula) iç ön kenarı",
+        "innervation": "Uzun torasik sinir (C5–C7)",
+        "bloodSupply": "Yan torasik, üst torasik ve torakodorsal arterler",
+        "action": "Kürek kemiğini öne çeker, sabitler ve yukarı döndürür"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles That Position the Pectoral Girdle",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-5-muscles-of-the-pectoral-girdle-and-upper-limbs#fs-id1865841",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Serratus anterior muscle",
+          "url": "https://en.wikipedia.org/wiki/Serratus_anterior_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "diaphragm",
+      "overview": "Göğüs boşluğunu karın boşluğundan ayıran kubbe biçimli geniş iç iskelet kası tabakasıdır.",
+      "function": "Aşağıya doğru düzleşip akciğerlere hava çekerek solunumun başlıca kası olarak görev yapar.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Göğüs kemiği alt ucu (ksifoid çıkıntı), 6–12. alt kaburgalar ve L1–L3 bel omurları",
+        "insertion": "Göğüs tabanı ortasındaki merkez tendon (diyafram merkez tendonu)",
+        "innervation": "Frenik sinirler (C3–C5) ve alt interkostal sinirler",
+        "bloodSupply": "Perikardiyakofrenik, muskulofrenik ve alt frenik arterler",
+        "action": "Kasıldığında düzleşerek nefes alma sırasında göğüs hacmini artırır"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles of the Thorax",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-4-axial-muscles-of-the-abdominal-wall-and-thorax#fs-id2311297",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Thoracic diaphragm",
+          "url": "https://en.wikipedia.org/wiki/Thoracic_diaphragm",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "external-intercostal-muscles",
+      "overview": "Komşu kaburgalar arasında aşağı ve öne doğru eğimli uzanan on bir çift ince kas tabakasıdır.",
+      "function": "Nefes alırken kaburga kafesini yukarı ve dışa kaldırarak göğüs boşluğunu genişletir.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Her üst kaburganın alt kenarı",
+        "insertion": "Bir alttaki kaburganın üst kenarı",
+        "innervation": "İnterkostal sinirler",
+        "bloodSupply": "Arka ve ön interkostal arterler",
+        "action": "Nefes alma sırasında kaburgaları yükselterek göğsü genişletir"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles of the Thorax",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-4-axial-muscles-of-the-abdominal-wall-and-thorax#fs-id2311297",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — External intercostal muscles",
+          "url": "https://en.wikipedia.org/wiki/External_intercostal_muscles",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "rectus-abdominis-muscle",
+      "overview": "Karın ön duvarı boyunca dikey uzanan ve lifli şeritlerle bölünmüş bir çift şerit kastır.",
+      "function": "Mekik çekerken göğüs kafesini leğene doğru büker ve bel omurgasını aşırı arkalanmaya karşı dengeler.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Pubis kemiğinin ön üst sırtı (kalça kemiği)",
+        "insertion": "5–7. kaburga kıkırdakları ve göğüs kemiğinin alt ucu (ksifoid çıkıntı)",
+        "innervation": "Torakoabdominal sinirler (T7–T11) ve subkostal sinir (T12)",
+        "bloodSupply": "Üst ve alt epigastrik arterler",
+        "action": "Bel omurgasını öne büker ve karın duvarını sıkıştırır"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles of the Abdomen",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-4-axial-muscles-of-the-abdominal-wall-and-thorax#fs-id2133048",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Rectus abdominis muscle",
+          "url": "https://en.wikipedia.org/wiki/Rectus_abdominis_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "external-abdominal-oblique-muscle",
+      "overview": "Karnın yanlarını saran üç katlı yan karın kaslarının en büyük ve en yüzeyel olanıdır.",
+      "function": "Karnı sıkıştırır, gövdeyi yana eğer ve göğsü karşı kalçaya doğru döndürür.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Alt sekiz kaburganın (5–12. kaburgalar) dış yüzleri",
+        "insertion": "Orta hat karın tendonu (linea alba), pubis sırtı ve dış ön kalça çıkıntısı",
+        "innervation": "Torakoabdominal sinirler (T7–T11) ve subkostal sinir (T12)",
+        "bloodSupply": "Alt interkostal, derin sirkumfleks iliyak ve iliyolumbar arterler",
+        "action": "Gövdeyi öne büker, karşı tarafa döndürür ve karnı sıkıştırır"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles of the Abdomen",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-4-axial-muscles-of-the-abdominal-wall-and-thorax#fs-id2133048",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Abdominal external oblique muscle",
+          "url": "https://en.wikipedia.org/wiki/Abdominal_external_oblique_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "internal-abdominal-oblique-muscle",
+      "overview": "Lifleri dış oblik kasa dik açıyla yukarı yelpazelenen yan karın duvarının orta kas tabakasıdır.",
+      "function": "Karın organlarını destekler, beli yana eğer ve gövdeyi aynı tarafa döndürür.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Kasık bağı (inguinal bağ), kalça tepesi (iliyak krest) ve bel fasyası",
+        "insertion": "10–12. alt kaburgalar, orta hat karın tendonu (linea alba) ve pubis sırtı",
+        "innervation": "Torakoabdominal (T7–T11), subkostal (T12), iliyohipogastrik ve iliyoinguinal sinirler",
+        "bloodSupply": "Subkostal ve alt interkostal arterler",
+        "action": "Karın içeriğini sıkıştırır ve gövdeyi aynı tarafa döndürür"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles of the Abdomen",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-4-axial-muscles-of-the-abdominal-wall-and-thorax#fs-id2133048",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Abdominal internal oblique muscle",
+          "url": "https://en.wikipedia.org/wiki/Abdominal_internal_oblique_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "transversus-abdominis-muscle",
+      "overview": "Doğal bir korse gibi bel çevresinde yatay uzanan karın duvarının en derin kas katmanıdır.",
+      "function": "Hareket öncesinde gövde merkezinin sertliğini artırıp beli korumak için karnı içeri çeker.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Kalça tepesi (iliyak krest), kasık bağı, bel fasyası ve 7–12. kaburga kıkırdakları",
+        "insertion": "Orta hat karın tendonu (linea alba), göğüs kemiği alt ucu ve pubis sırtı",
+        "innervation": "Torakoabdominal (T6–T11), subkostal (T12), iliyohipogastrik ve iliyoinguinal sinirler",
+        "bloodSupply": "Subkostal ve derin sirkumfleks iliyak arterler",
+        "action": "Karın boşluğunu sıkıştırır ve gövde merkezini sabitler"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles of the Abdomen",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-4-axial-muscles-of-the-abdominal-wall-and-thorax#fs-id2133048",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Transverse abdominal muscle",
+          "url": "https://en.wikipedia.org/wiki/Transverse_abdominal_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "quadratus-lumborum-muscle",
+      "overview": "Leğen arkasını en alt kaburgaya bağlayan kalın, dört kenarlı derin bel kasıdır.",
+      "function": "Bir kalçayı yukarı kaldırır, bel omurgasını yana eğer ve derin nefeste on ikinci kaburgayı sabitler.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Kalça kemiği tepesinin arka iç kenarı (iliyak krest)",
+        "insertion": "On ikinci kaburganın alt kenarı ve L1–L4 bel omurlarının enine çıkıntıları",
+        "innervation": "Subkostal sinir (T12) ve L1–L4 bel sinirlerinin ön dalları",
+        "bloodSupply": "Lumbar arterler ve iliyolumbar arterin lumbar dalı",
+        "action": "Bel omurgasını yana eğer ve on ikinci kaburgayı sabitler"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles of the Abdomen",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-4-axial-muscles-of-the-abdominal-wall-and-thorax#fs-id2133048",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Quadratus lumborum muscle",
+          "url": "https://en.wikipedia.org/wiki/Quadratus_lumborum_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "pubococcygeus-muscle",
+      "overview": "Ön pubis kemiğinden geriye kuyruk kemiğine doğru gerilen hamak biçimli leğen tabanı kasıdır.",
+      "function": "Mesane, rahim veya prostatı destekler ve idrar ile dışkı tutmayı sağlamak için leğen açıklıklarını sıkar.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Leğen içinde pubis kemiğinin (kalça kemiği) iç arka yüzeyi",
+        "insertion": "Kuyruk kemiği (koksiks) ve merkezi leğen bağ hattı",
+        "innervation": "Levator ani siniri (S4) ve pudendal sinirin alt rektal dalı (S3–S4)",
+        "bloodSupply": "Alt gluteal ve iç pudendal arterler",
+        "action": "Leğen organlarını destekler ve mesane ile bağırsak çıkışlarını denetler"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles of the Pelvic Floor",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-4-axial-muscles-of-the-abdominal-wall-and-thorax#fs-id2981812",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Levator ani",
+          "url": "https://en.wikipedia.org/wiki/Levator_ani#Pubococcygeus_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "acromial-part-of-deltoid-muscle",
+      "overview": "Omuz ekleminin tam tepesini saran omuz kası başlığının kalın ve yuvarlak orta bölümüdür.",
+      "function": "İlk birkaç dereceden sonra tüm kolu yana doğru düz kaldıran ana hareket ettirici kastır.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Omuz tepesinin dış kemik çatısı (skapula akromiyonu)",
+        "insertion": "Üst kol kemiğinin orta dış kabarıklığı (humerus deltoid tüberozitesi)",
+        "innervation": "Aksiller sinir (C5–C6)",
+        "bloodSupply": "Torakoakromiyal ve arka sirkumfleks humeral arterler",
+        "action": "Kolu gövdeden dışa doğru kaldırır (abduksiyon)"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles That Move the Humerus",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-5-muscles-of-the-pectoral-girdle-and-upper-limbs#fs-id2505955",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Deltoid muscle",
+          "url": "https://en.wikipedia.org/wiki/Deltoid_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "supraspinatus-muscle",
+      "overview": "Kürek kemiğinin arka yüzündeki üst olukta yer alan derin döndürücü manşet (rotator manşet) kasıdır.",
+      "function": "Kolu yana kaldırma hareketini başlatır ve kol kemiği başını omuz yuvasına sıkıca çeker.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Kürek kemiğinin (skapula) arka yüzündeki diken üstü çukuru",
+        "insertion": "Üst kol kemiği dış çıkıntısının en üst yüzeyi (humerus büyük tüberkülü)",
+        "innervation": "Supraskapular sinir (C5–C6)",
+        "bloodSupply": "Supraskapular arter",
+        "action": "Kolun yana açılmasını başlatır ve omuz eklemini sabitler"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles That Move the Humerus",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-5-muscles-of-the-pectoral-girdle-and-upper-limbs#fs-id2505955",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Supraspinatus muscle",
+          "url": "https://en.wikipedia.org/wiki/Supraspinatus_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "infraspinatus-muscle",
+      "overview": "Kürek kemiği sırtının altındaki geniş çukuru dolduran kalın, üçgen döndürücü manşet kasıdır.",
+      "function": "Kolu dışa doğru döndürür ve fırlatma ya da uzanma sırasında omuz başının öne kaymasını önler.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Kürek kemiğinin (skapula) arka yüzündeki geniş alt çukur",
+        "insertion": "Üst kol kemiği dış çıkıntısının orta yüzeyi (humerus büyük tüberkülü)",
+        "innervation": "Supraskapular sinir (C5–C6)",
+        "bloodSupply": "Supraskapular ve sirkumfleks skapular arterler",
+        "action": "Kolu dışa döndürür ve omuz eklemini sabitler"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles That Move the Humerus",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-5-muscles-of-the-pectoral-girdle-and-upper-limbs#fs-id2505955",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Infraspinatus muscle",
+          "url": "https://en.wikipedia.org/wiki/Infraspinatus_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "subscapularis-muscle",
+      "overview": "Kürek kemiğinin kaburgalara bakan ön yüzeyini kaplayan geniş ve yassı döndürücü manşet kasıdır.",
+      "function": "Üst kolu içe doğru çevirir ve omuz ekleminin ön tarafını destekleyen kaslı bir kalkan oluşturur.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Kürek kemiğinin (skapula) kaburgalara bakan düz ön çukuru",
+        "insertion": "Üst kol kemiğinin ön çıkıntısı (humerus küçük tüberkülü)",
+        "innervation": "Üst ve alt subskapular sinirler (C5–C6)",
+        "bloodSupply": "Subskapular arter",
+        "action": "Kolu içe döndürür, gövdeye yaklaştırır ve omuzu sabitler"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles That Move the Humerus",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-5-muscles-of-the-pectoral-girdle-and-upper-limbs#fs-id2505955",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Subscapularis muscle",
+          "url": "https://en.wikipedia.org/wiki/Subscapularis_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "long-head-of-biceps-brachii",
+      "overview": "Üst kolun ön yüzündeki iki başlı pazı kasının dış karnını oluşturan bölümdür.",
+      "function": "Dirseği büker, ön kolu avuç yukarı bakacak biçimde çevirir ve omuz başını yuva içinde dengeler.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Kürek kemiğinde (skapula) omuz eklem yuvasının hemen üzerindeki çıkıntı",
+        "insertion": "Ön kol dış kemiğinin (radius) üst kabarıklığı ve ön kol fasyası",
+        "innervation": "Muskulokütan sinir (C5–C7)",
+        "bloodSupply": "Brakiyal arter",
+        "action": "Dirseği büker, ön kolu supinasyona getirir ve omuz bükülmesine yardım eder"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles That Move the Forearm",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-5-muscles-of-the-pectoral-girdle-and-upper-limbs#fs-id2716122",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Biceps",
+          "url": "https://en.wikipedia.org/wiki/Biceps",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "brachialis-muscle",
+      "overview": "Üst kolun ön alt yarısında pazı kasının derininde yer alan güçlü kastır.",
+      "function": "Avuç yukarı ya da aşağı dönük olsa da dirseğin en güçlü saf bükücü kası olarak çalışır.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Üst kol kemiğinin (humerus) ön alt yarısı",
+        "insertion": "İç ön kol kemiğinin (ulna) üst ön kanca ve pürüzlü kabarıklığı",
+        "innervation": "Muskulokütan sinir (C5–C7) ve radyal sinirin küçük bir dalı",
+        "bloodSupply": "Brakiyal ve radyal rekürren arterler",
+        "action": "Dirsek eklemini büker"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles That Move the Forearm",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-5-muscles-of-the-pectoral-girdle-and-upper-limbs#fs-id2716122",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Brachialis muscle",
+          "url": "https://en.wikipedia.org/wiki/Brachialis_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "long-head-of-triceps-brachii",
+      "overview": "Üst kolun arka yüzünü kaplayan üç başlı arka kol kasının iç ve en uzun başıdır.",
+      "function": "Bükülü dirseği doğrultur ve kalkmış üst kolu kaburgalara doğru geriye çeker.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Kürek kemiğinde (skapula) omuz eklem yuvasının hemen altındaki kemik çıkıntısı",
+        "insertion": "Dirsek ucunda iç ön kol kemiğinin arka tepesi (ulna olekranonu)",
+        "innervation": "Radyal sinir (C6–C8)",
+        "bloodSupply": "Derin brakiyal ve arka sirkumfleks humeral arterler",
+        "action": "Dirseği doğrultur ve omuzun geriye çekilmesine yardım eder"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles That Move the Forearm",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-5-muscles-of-the-pectoral-girdle-and-upper-limbs#fs-id2716122",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Triceps",
+          "url": "https://en.wikipedia.org/wiki/Triceps",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "brachioradialis-muscle",
+      "overview": "Üst kolun alt dış yanını ön kolun başparmak yanına bağlayan uzun ön kol kasıdır.",
+      "function": "El tokalaşma konumundayken (başparmak yukarıda) dirseği kuvvetle büker.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Üst kol kemiğinin (humerus) alt dış kenarı",
+        "insertion": "Dış ön kol kemiğinin (radius) bilek ucundaki başparmak yanı çıkıntısı",
+        "innervation": "Radyal sinir (C5–C7)",
+        "bloodSupply": "Radyal rekürren arter",
+        "action": "Dirseği büker ve dönmüş ön kolu orta konuma getirir"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles That Move the Forearm",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-5-muscles-of-the-pectoral-girdle-and-upper-limbs#fs-id2716122",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Brachioradialis",
+          "url": "https://en.wikipedia.org/wiki/Brachioradialis",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "flexor-carpi-radialis",
+      "overview": "Ön kolun avuç içi yüzünden başparmak tarafına doğru çapraz inen ince yüzeyel kastır.",
+      "function": "El bileğini avuç içine doğru öne büker ve eli başparmak yönüne eğer.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Üst kol kemiğinin (humerus) dirsek ucundaki iç kemik çıkıntısı",
+        "insertion": "İkinci ve üçüncü el tarak kemiklerinin (metakarpal) tabanları",
+        "innervation": "Medyan sinir (C6–C7)",
+        "bloodSupply": "Radyal ve ulnar arterler",
+        "action": "El bileğini öne büker ve başparmak tarafına doğru açar"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles That Move the Wrist, Hand, and Fingers",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-5-muscles-of-the-pectoral-girdle-and-upper-limbs#fs-id2145937",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Flexor carpi radialis muscle",
+          "url": "https://en.wikipedia.org/wiki/Flexor_carpi_radialis_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "psoas-major",
+      "overview": "Bel omurgasının yanından kalça ekleminin önüne doğru uzanan derin, iğ biçimli kastır.",
+      "function": "Yürürken veya merdiven çıkarken uyluğu öne kaldırır; ayakta dururken beli öne doğru dengeler.",
+      "details": {
+        "kind": "muscle",
+        "origin": "T12 sırt omuru ile L1–L5 bel omurlarının yanları ve diskleri",
+        "insertion": "Uyluk kemiğinin (femur) üst iç çıkıntısı (küçük trokanter)",
+        "innervation": "L1–L3 bel omurilik sinirlerinin ön dalları",
+        "bloodSupply": "İliyolumbar arterin lumbar dalı",
+        "action": "Kalça eklemini öne büker ve bel omurgasının dengelenmesine yardım eder"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Gluteal and Thigh Muscles",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-6-appendicular-muscles-of-the-pelvic-girdle-and-lower-limbs#fs-id3033610",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Psoas major muscle",
+          "url": "https://en.wikipedia.org/wiki/Psoas_major_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "gluteus-maximus-muscle",
+      "overview": "Kalçanın arka biçimini oluşturan kaba etin en büyük ve en dış yüzeyel kasıdır.",
+      "function": "Sandalyeden kalkarken, merdiven çıkarken veya hızla koşarken uyluğu güçlü biçimde geriye iter.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Kalça kemiğinin (ilium) arka dış yüzü, sakrum, kuyruk kemiği ve sakrotuberöz bağ",
+        "insertion": "Uyluk kemiğinin (femur) üst arka sırtı ve dış uyluk bağı (iliyotibiyal bant)",
+        "innervation": "Alt gluteal sinir (L5–S2)",
+        "bloodSupply": "Üst ve alt gluteal arterler",
+        "action": "Kalçada uyluğu geriye çeker ve dışa döndürür"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Gluteal and Thigh Muscles",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-6-appendicular-muscles-of-the-pelvic-girdle-and-lower-limbs#fs-id3033610",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Gluteus maximus",
+          "url": "https://en.wikipedia.org/wiki/Gluteus_maximus",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "gluteus-medius-muscle",
+      "overview": "Kısmen büyük kalça kası altında kalan, leğenin dış yanını örten yelpaze biçimli geniş kastır.",
+      "function": "Bacağı yana açar ve her adımda basan bacak üzerinde leğen kemiğini yatay dengede tutar.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Üst kalça kemiğinin (ilium) dış yan yüzü",
+        "insertion": "Uyluk kemiğinin tepesindeki dış kalça çıkıntısı (büyük trokanter)",
+        "innervation": "Üst gluteal sinir (L4–S1)",
+        "bloodSupply": "Üst gluteal arter",
+        "action": "Uyluğu yana açar ve yürüyüş sırasında leğeni dengeler"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Gluteal and Thigh Muscles",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-6-appendicular-muscles-of-the-pelvic-girdle-and-lower-limbs#fs-id3033610",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Gluteus medius",
+          "url": "https://en.wikipedia.org/wiki/Gluteus_medius",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "adductor-longus",
+      "overview": "Ön leğen kemiğinden orta uyluk gövdesine uzanan yassı, üçgen iç uyluk kasıdır.",
+      "function": "Uylukları birbirine doğru yaklaştırır ve adım atarken ya da topa vururken bacağı öne getirmeye yardım eder.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Pubis kemiğinin ön gövdesi, pubis sırtının hemen altı",
+        "insertion": "Uyluk kemiği (femur) arka sırtının orta üçte biri",
+        "innervation": "Obturator sinirin ön dalı (L2–L4)",
+        "bloodSupply": "Derin femoral arter",
+        "action": "Uyluğu içe yaklaştırır ve kalça bükülmesine yardım eder"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Gluteal and Thigh Muscles",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-6-appendicular-muscles-of-the-pelvic-girdle-and-lower-limbs#fs-id3033610",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Adductor longus muscle",
+          "url": "https://en.wikipedia.org/wiki/Adductor_longus_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "adductor-magnus",
+      "overview": "İç uyluğun derin kas kütlesini oluşturan çok büyük, yelpaze biçimli bir kastır.",
+      "function": "Uyluğu kuvvetle içe çeker; arka bölümü ayakta durma ve koşma sırasında kalçayı geriye uzatmaya yardım eder.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Alt pubis kenarı ve oturma kemiği çıkıntısı (iskiyal tüberozite)",
+        "insertion": "Uyluk kemiğinin (femur) arka sırtı ve alt iç çıkıntısı",
+        "innervation": "Obturator sinirin arka dalı ve siyatik sinirin tibial bölümü",
+        "bloodSupply": "Derin femoral ve obturator arterler",
+        "action": "Uyluğu içe yaklaştırır; hem kalça bükülmesine hem açılmasına yardım eder"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Gluteal and Thigh Muscles",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-6-appendicular-muscles-of-the-pelvic-girdle-and-lower-limbs#fs-id3033610",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Adductor magnus muscle",
+          "url": "https://en.wikipedia.org/wiki/Adductor_magnus_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "sartorius-muscle",
+      "overview": "Uyluğun ön yüzünden bir kurdele gibi çapraz kıvrılan insan vücudundaki en uzun kastır.",
+      "function": "Bağdaş kurarak otururken kalçayı büker, dışa açar ve dışa döndürür; aynı anda dizi büker.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Kalça kemiğinin ön üst çıkıntısı (spina iliaca anterior superior)",
+        "insertion": "Kaval kemiğinin (tibia) üst iç ön yüzeyi",
+        "innervation": "Femoral sinir (L2–L3)",
+        "bloodSupply": "Femoral arter",
+        "action": "Kalçayı büker, dışa açıp dışa döndürür ve dizi büker"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Gluteal and Thigh Muscles",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-6-appendicular-muscles-of-the-pelvic-girdle-and-lower-limbs#fs-id3033610",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Sartorius muscle",
+          "url": "https://en.wikipedia.org/wiki/Sartorius_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "rectus-femoris-muscle",
+      "overview": "Ön uyluk boyunca dümdüz aşağı inen dört başlı uyluk kası grubunun merkezi kasıdır.",
+      "function": "Topa vururken dizi doğrultur ve düz bacağı kalçadan öne kaldırmaya yardım eder.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Kalça kemiği ön alt çıkıntısı ve kalça yuvasının üst kenarı",
+        "insertion": "Kuadriseps tendonu aracılığıyla diz kapağı (patella) ve üst kaval kemiği çıkıntısı",
+        "innervation": "Femoral sinir (L2–L4)",
+        "bloodSupply": "Dış femoral sirkumfleks arterin inen dalı",
+        "action": "Dizi doğrultur ve uyluğu kalçadan öne büker"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Gluteal and Thigh Muscles",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-6-appendicular-muscles-of-the-pelvic-girdle-and-lower-limbs#fs-id3033610",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Rectus femoris muscle",
+          "url": "https://en.wikipedia.org/wiki/Rectus_femoris_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "vastus-lateralis-muscle",
+      "overview": "Ön dış uyluk boyunca uzanan dört başlı uyluk kasının en büyük ve en dış parçasıdır.",
+      "function": "Yürüme, zıplama, çömelme ve oturur konumdan kalkma sırasında dizin doğrulmasını güçlendirir.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Uyluk kemiğinin (femur) üst dış kalça çıkıntısı (büyük trokanter) ve dış arka gövdesi",
+        "insertion": "Kuadriseps tendonu üzerinden diz kapağı (patella) ve üst kaval kemiği (tibia)",
+        "innervation": "Femoral sinir (L2–L4)",
+        "bloodSupply": "Dış femoral sirkumfleks arter",
+        "action": "Diz eklemini doğrultur ve dengeler"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Gluteal and Thigh Muscles",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-6-appendicular-muscles-of-the-pelvic-girdle-and-lower-limbs#fs-id3033610",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Vastus lateralis muscle",
+          "url": "https://en.wikipedia.org/wiki/Vastus_lateralis_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "vastus-medialis-muscle",
+      "overview": "Dizin hemen üzerinde alt iç uyluğu saran gözyaşı damlası biçimli dört başlı uyluk kasıdır.",
+      "function": "Dizin son kilitleme derecelerinde doğrulmasını tamamlar ve diz kapağının merkezde kaymasını korur.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Uyluk kemiğinin (femur) iç çizgisi ve gövdesi",
+        "insertion": "Diz kapağının (patella) iç üst kenarı ve kuadriseps tendonu",
+        "innervation": "Femoral sinir (L2–L4)",
+        "bloodSupply": "Femoral arter",
+        "action": "Dizi doğrultur ve diz kapağı hizasını sabitler"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Gluteal and Thigh Muscles",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-6-appendicular-muscles-of-the-pelvic-girdle-and-lower-limbs#fs-id3033610",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Vastus medialis",
+          "url": "https://en.wikipedia.org/wiki/Vastus_medialis",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "long-head-of-biceps-femoris",
+      "overview": "Oturma kemiğinden dize doğru uyluğun arka dış yanından inen uzun arka uyluk kasıdır.",
+      "function": "Kalçada uyluğu geriye çeker; bükülü dizi büker ve hafifçe dışa doğru döndürür.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Kalça kemiğinin alt oturma çıkıntısı (iskiyal tüberozite)",
+        "insertion": "Dış alt bacak kemiğinin (fibula) başı",
+        "innervation": "Siyatik sinirin tibial bölümü (L5–S2)",
+        "bloodSupply": "Derin femoral arterin delici dalları",
+        "action": "Kalçayı geriye uzatır, dizi büker ve bükülü dizi dışa döndürür"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Gluteal and Thigh Muscles",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-6-appendicular-muscles-of-the-pelvic-girdle-and-lower-limbs#fs-id3033610",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Biceps femoris muscle",
+          "url": "https://en.wikipedia.org/wiki/Biceps_femoris_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "semitendinosus-muscle",
+      "overview": "Alt yarısı uzun kordon benzeri bir tendona dönüşen, uyluk arkasındaki iğsi iç hamstring kasıdır.",
+      "function": "Koşarken kalçayı geriye iter; bükülü dizi büker ve içe doğru döndürür.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Kalça kemiğinin alt oturma çıkıntısı (iskiyal tüberozite)",
+        "insertion": "Kaval kemiğinin (tibia) üst iç ön yüzeyi",
+        "innervation": "Siyatik sinirin tibial bölümü (L5–S2)",
+        "bloodSupply": "Alt gluteal ve delici arterler",
+        "action": "Dizi büker, bükülü dizi içe döndürür ve kalçayı geriye uzatır"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Gluteal and Thigh Muscles",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-6-appendicular-muscles-of-the-pelvic-girdle-and-lower-limbs#fs-id3033610",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Semitendinosus muscle",
+          "url": "https://en.wikipedia.org/wiki/Semitendinosus_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "medial-head-of-gastrocnemius",
+      "overview": "Alt bacağın arkasındaki üst baldır kıvrımını oluşturan yüzeyel baldır kasının belirgin iç başıdır.",
+      "function": "Yürüme, koşma ve zıplamada yerden itme için ayak ucunu aşağı bastırır ve diz bükülmesine yardım eder.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Uyluk kemiğinin (femur) iç alt eklem çıkıntısı (medial kondil) üstü arka yüzeyi",
+        "insertion": "Aşil tendonu aracılığıyla topuk kemiği (kalkaneus)",
+        "innervation": "Tibial sinir (S1–S2)",
+        "bloodSupply": "Popliteal arterin sural dalları",
+        "action": "Ayak bileğini aşağı eğer (plantar fleksiyon) ve diz bükülmesine yardım eder"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles That Move the Feet and Toes",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-6-appendicular-muscles-of-the-pelvic-girdle-and-lower-limbs#fs-id2368362",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Gastrocnemius muscle",
+          "url": "https://en.wikipedia.org/wiki/Gastrocnemius_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "soleus-muscle",
+      "overview": "Dizin hemen altından topuğa kadar gastroknemius kasının doğrudan altında yer alan geniş, yassı baldır kasıdır.",
+      "function": "Dik durmak ve her yürüme adımında yerden itmek için ayak bileğine sürekli aşağı yönlü güç sağlar.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Hem kaval kemiğinin (tibia) hem de dış alt bacak kemiğinin (fibula) üst arka gövdesi",
+        "insertion": "Aşil tendonu aracılığıyla topuk kemiği (kalkaneus)",
+        "innervation": "Tibial sinir (L5–S2)",
+        "bloodSupply": "Popliteal, arka tibial ve fibular arterler",
+        "action": "Ayak bileğini aşağı eğer ve bacağı ayak üzerinde dengeler"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles That Move the Feet and Toes",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-6-appendicular-muscles-of-the-pelvic-girdle-and-lower-limbs#fs-id2368362",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Soleus muscle",
+          "url": "https://en.wikipedia.org/wiki/Soleus_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "tibialis-anterior-muscle",
+      "overview": "Kaval kemiğinin keskin ön kenarının hemen dış yanında uzanan etli ön bacak kasıdır.",
+      "function": "Her ileri adımda parmakların yere takılmaması için ayağın ön kısmını yukarı kaldırır.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Kaval kemiğinin (tibia) üst dış gövdesi ve kemikler arası zar",
+        "insertion": "Orta ayağın iç kemer kemikleri (medial küneiform ve birinci tarak kemiği)",
+        "innervation": "Derin fibular sinir (L4–L5)",
+        "bloodSupply": "Ön tibial arter",
+        "action": "Ayağı yukarı kaldırır (dorsifleksiyon) ve tabanı içe çevirir (inversiyon)"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Muscles That Move the Feet and Toes",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-6-appendicular-muscles-of-the-pelvic-girdle-and-lower-limbs#fs-id2368362",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Tibialis anterior muscle",
+          "url": "https://en.wikipedia.org/wiki/Tibialis_anterior_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    }
+  ]
+}

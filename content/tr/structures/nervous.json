@@ -1,0 +1,150 @@
+{
+  "system": "nervous",
+  "entries": [
+    {
+      "id": "falx-cerebri",
+      "overview": "Kafatasının iç orta çizgisi boyunca aşağı uzanan, orak biçimli sert bir dış beyin zarı (dura mater) kıvrımıdır.",
+      "function": "Sağ ve sol beyin yarım kürelerini birbirinden ayırır ve beynin yana doğru kaymasını engeller.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Üst kenarında üst sagittal sinüsü, alt kenarında ise alt sagittal sinüsü barındırır.",
+          "Önde burun kökü yakınında kafatasına tutunur, arkada ise tentorium cerebelli ile birleşir."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — The Central Nervous System",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/13-2-the-central-nervous-system#fs-id1488700",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Falx cerebri",
+          "url": "https://en.wikipedia.org/wiki/Falx_cerebri",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "cornea",
+      "overview": "Göz küresinin renkli irisini ve göz bebeğini örten, kubbe biçimli saydam ön penceresidir.",
+      "function": "Gelen ışık ışınlarını göz merceğine doğru kırar ve gözün ön kısmını toz ile mikroplardan korur.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Gözün toplam odaklama gücünün yaklaşık üçte ikisini sağlar.",
+          "Saydam kalabilmek için kan damarı içermez; oksijeni gözyaşından ve havadan doğrudan alır.",
+          "Dokunulduğunda koruyucu göz kırpma refleksini tetikleyen yoğun sinir uçlarına sahiptir."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Vision and Sensory Perception",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/14-1-sensory-perception#fs-id2489815",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Cornea",
+          "url": "https://en.wikipedia.org/wiki/Cornea",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "retina",
+      "overview": "Göz küresinin iç arka duvarını kaplayan, ışığa duyarlı çok ince sinir tabakasıdır.",
+      "function": "Odaklanan ışık örüntülerini görme siniri aracılığıyla beyne gönderilen elektriksel sinir sinyallerine dönüştürür.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Loş ışıkta görme için çubuk hücreleri, keskin renkli görme için koni hücrelerini içerir.",
+          "Merkezindeki fovea çukuru okuma ve yüz tanıma için en net ayrıntıyı sağlar."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Vision and Sensory Perception",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/14-1-sensory-perception#fs-id2489815",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Retina",
+          "url": "https://en.wikipedia.org/wiki/Retina",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "spinal-dura",
+      "overview": "Omurga kanalı içindeki omuriliği saran, lifli bağ dokusundan yapılmış sağlam dış kılıftır.",
+      "function": "Hassas omuriliği ve sinir köklerini korurken beyin-omurilik sıvısının yastık görevini sürdürmesini sağlar.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Kemik omurlardan yağ ve damarlarla dolu epidural boşluk ile ayrılır.",
+          "Omuriliğin bittiği seviyenin altına, sakrum kemiğine kadar uzanır."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — The Central Nervous System",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/13-2-the-central-nervous-system#fs-id1488700",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Dura mater",
+          "url": "https://en.wikipedia.org/wiki/Dura_mater",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "sciatic-nerve",
+      "overview": "Alt omurgadan başlayıp kalçanın derininden geçerek bacağa inen, vücudun en kalın ve en uzun siniridir.",
+      "function": "Arka uyluk ve alt bacak kaslarına hareket komutları taşırken bacak ve ayağın büyük bölümünden duyu alır.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "L4 ile S3 sinir köklerinden oluşur ve kalçada piriformis kası altından geçer.",
+          "Diz arkasının yukarısında tibial sinir ve ortak fibular sinir olarak ikiye ayrılır."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — The Peripheral Nervous System",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/13-4-the-peripheral-nervous-system#fs-id1942417",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Sciatic nerve",
+          "url": "https://en.wikipedia.org/wiki/Sciatic_nerve",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "median-nerve",
+      "overview": "Üst kol ve ön kolun orta hattından avuç içine doğru inen başlıca çevresel sinirlerden biridir.",
+      "function": "Bilek bükücü ön kol kaslarının çoğunu ve başparmak kaslarını yönetir; baş ve işaret parmaklarına dokunma duyusu verir.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "El bileğinde lifli bir bağın altındaki dar karpal tünelden geçer.",
+          "Avuç içinde başparmak, işaret, orta parmak ve yüzük parmağının yarısına duyu sağlar."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — The Peripheral Nervous System",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/13-4-the-peripheral-nervous-system#fs-id1942417",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Median nerve",
+          "url": "https://en.wikipedia.org/wiki/Median_nerve",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    }
+  ]
+}

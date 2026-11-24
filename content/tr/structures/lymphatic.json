@@ -1,0 +1,53 @@
+{
+  "system": "lymphatic",
+  "entries": [
+    {
+      "id": "spleen",
+      "overview": "Sol alt kaburgaların hemen altında, midenin yanında yer alan yumuşak, yumruk büyüklüğünde morumsu bir organdır.",
+      "function": "Yıpranmış alyuvarları kandan süzer ve kan yoluyla taşınan mikroplara karşı hızlı bağışıklık yanıtı başlatır.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Beyaz pulpa alanları kanı mikroplara karşı denetlerken kırmızı pulpa demiri ve eski alyuvarları geri dönüştürür.",
+          "Ek trombosit ve bağışıklık hücresi tutan bir acil durum deposu görevi görür."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Secondary Lymphoid Organs",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/21-1-anatomy-of-the-lymphatic-and-immune-systems#fs-id1971419",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Spleen",
+          "url": "https://en.wikipedia.org/wiki/Spleen",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "left-lobe-of-thymus",
+      "overview": "Üst göğüs kemiğinin hemen arkasında, büyük damarların önünde yer alan yassı lenfoid bezin iki yumuşak lobundan biridir.",
+      "function": "Olgunlaşmamış T lenfositlerinin tehditleri güvenle tanımayı öğrendiği özel eğitim alanını sağlar.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Çocuklukta en büyük boyutuna ulaşır, ergenlikten sonra giderek küçülerek yağ dokusuyla yer değiştirir.",
+          "T hücrelerini vücudun kendi sağlıklı dokularına saldırmadan yabancı etkenlere yanıt verecek biçimde eğitir."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Primary Lymphoid Organs",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/21-1-anatomy-of-the-lymphatic-and-immune-systems#fs-id1492060",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Thymus",
+          "url": "https://en.wikipedia.org/wiki/Thymus",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    }
+  ]
+}

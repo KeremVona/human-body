@@ -126,6 +126,7 @@ export function AboutDialog({ trigger }: { trigger: ReactNode }): JSX.Element {
                 <em>{tr('about.openstaxBook')}</em> (CC-BY 4.0).
               </li>
               <li>{tr('about.licensesSummary')}</li>
+              <li>{tr('about.translationNote')}</li>
             </ul>
           </section>
 

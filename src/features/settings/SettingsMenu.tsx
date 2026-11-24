@@ -1,11 +1,17 @@
 import * as Popover from '@radix-ui/react-popover';
 import * as RadioGroup from '@radix-ui/react-radio-group';
-import type { JSX } from 'react';
+import { useId, type JSX } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { type Locale } from '../../i18n/locale';
 import { useT, type MessageKey } from '../../i18n/t';
 import { IconButton } from '../../ui/IconButton';
 import type { QualitySetting } from './quality';
-import { qualitySet } from './uiSlice';
+import { localeSet, qualitySet } from './uiSlice';
+
+const LANGUAGE_OPTIONS: readonly { value: Locale; label: string }[] = [
+  { value: 'en', label: 'English' },
+  { value: 'tr', label: 'Türkçe' },
+];
 
 const OPTIONS: readonly {
   value: QualitySetting;
@@ -29,11 +35,14 @@ const OPTIONS: readonly {
   },
 ];
 
-/** Top-bar popover control for selecting graphics quality (`Auto`, `High`, `Low`). */
+/** Top-bar popover control for selecting graphics quality (`Auto`, `High`, `Low`) and language. */
 export function SettingsMenu(): JSX.Element {
   const quality = useAppSelector((s) => s.ui.quality);
+  const locale = useAppSelector((s) => s.ui.locale);
   const dispatch = useAppDispatch();
   const tr = useT();
+  const qualityHeadingId = useId();
+  const languageHeadingId = useId();
 
   return (
     <Popover.Root>
@@ -69,13 +78,13 @@ export function SettingsMenu(): JSX.Element {
           className="z-40 w-64 rounded-xl border border-white/10 bg-slate-900/95 p-3 text-slate-100 shadow-2xl backdrop-blur-md focus:outline-none"
         >
           <p
-            id="graphics-quality-heading"
+            id={qualityHeadingId}
             className="mb-2 text-xs font-semibold tracking-wide text-slate-300 uppercase"
           >
             {tr('settings.qualityHeading')}
           </p>
           <RadioGroup.Root
-            aria-labelledby="graphics-quality-heading"
+            aria-labelledby={qualityHeadingId}
             value={quality}
             onValueChange={(value) => {
               if (value === 'auto' || value === 'high' || value === 'low') {
@@ -108,6 +117,41 @@ export function SettingsMenu(): JSX.Element {
                 </label>
               );
             })}
+          </RadioGroup.Root>
+          <div className="my-3 border-t border-white/10" />
+          <p
+            id={languageHeadingId}
+            className="mb-2 text-xs font-semibold tracking-wide text-slate-300 uppercase"
+          >
+            {tr('settings.language')}
+          </p>
+          <RadioGroup.Root
+            aria-labelledby={languageHeadingId}
+            value={locale}
+            onValueChange={(value) => {
+              if (value === 'en' || value === 'tr') {
+                dispatch(localeSet(value));
+              }
+            }}
+            className="grid grid-cols-2 gap-1.5"
+          >
+            {LANGUAGE_OPTIONS.map((option) => (
+              <label
+                key={option.value}
+                className="flex cursor-pointer items-center gap-2 rounded-lg border border-white/10 px-2.5 py-1.5 hover:bg-white/5"
+              >
+                <RadioGroup.Item
+                  value={option.value}
+                  aria-label={option.label}
+                  className="flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full border border-slate-400 bg-slate-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400 data-[state=checked]:border-sky-400"
+                >
+                  <RadioGroup.Indicator className="h-1.5 w-1.5 rounded-full bg-sky-400" />
+                </RadioGroup.Item>
+                <span className="text-xs font-medium text-white">
+                  {option.label}
+                </span>
+              </label>
+            ))}
           </RadioGroup.Root>
         </Popover.Content>
       </Popover.Portal>

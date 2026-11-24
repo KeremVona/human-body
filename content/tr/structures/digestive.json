@@ -1,0 +1,222 @@
+{
+  "system": "digestive",
+  "entries": [
+    {
+      "id": "tongue",
+      "overview": "Ağız tabanına tutunan, üzeri tat algılayan küçük çıkıntılarla (papillalarla) kaplı hareketli bir kas organıdır.",
+      "function": "Konuşma seslerini biçimlendirir, tatları algılar ve çiğnenmiş besini yutmak için geriye, boğaza doğru iter.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Hem kendi şeklini değiştiren iç kasları hem de konumunu kaydıran dış kasları içerir.",
+          "Üst yüzeyindeki papillalar besini kavrar ve tat tomurcuklarını barındırır."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — The Tongue",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-3-the-mouth-pharynx-and-esophagus#fs-id1376256",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Tongue",
+          "url": "https://en.wikipedia.org/wiki/Tongue",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "esophagus",
+      "overview": "Göğüs boşluğu içinde soluk borusunun arkasından karına doğru inen yaklaşık 25 cm uzunluğunda esnek bir kas borusudur.",
+      "function": "Yutulan yiyecek ve sıvıları eşgüdümlü kas dalgalarıyla (peristaltizm) aşağıya, mideye iletir.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Midenin hemen üzerinde diyaframdaki küçük bir kas açıklığından geçer.",
+          "Üst ve alt uçlarında mide asidinin geri kaçmasını önlemeye yardımcı kas halkaları (sfinkterler) bulunur."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — The Esophagus",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-3-the-mouth-pharynx-and-esophagus#fs-id1897277",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Esophagus",
+          "url": "https://en.wikipedia.org/wiki/Esophagus",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "stomach",
+      "overview": "Sol kaburgaların altında, yemek borusu ile ince bağırsak arasında yer alan J biçimli kaslı bir kesedir.",
+      "function": "Alınan besinleri geçici olarak depolar, asitli sıvı karışımına (kimus) dönüştürür ve protein sindirimini başlatır.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "İç yüzeyindeki rüga adı verilen kıvrımlar büyük öğünlerden sonra midenin rahatça genişlemesini sağlar.",
+          "Mide bezleri hidroklorik asit ve protein sindiren pepsin salgılarken mukus tabakası duvarı korur."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Structure of the Stomach",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-4-the-stomach#fs-id1976396",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Stomach",
+          "url": "https://en.wikipedia.org/wiki/Stomach",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "liver",
+      "overview": "Sağ diyaframın ve alt kaburgaların altında yerleşmiş, vücudun en büyük iç salgı organıdır.",
+      "function": "Bağırsaktan gelen besinleri işler, yağ sindirimi için safra üretir, kanı arındırır ve temel plazma proteinlerini yapar.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Oksijence zengin hepatik arterden ve besince zengin portal toplardamardan çift kan akışı alır.",
+          "Fazla glukozu glikojen olarak depolar ve öğünler arasında kana geri verir.",
+          "Hasar sonrası dokusunu diğer katı organların çoğundan daha hızlı yenileyebilir."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — The Liver",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-6-accessory-organs-in-digestion-the-liver-pancreas-and-gallbladder#fs-id1858356",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Liver",
+          "url": "https://en.wikipedia.org/wiki/Liver",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "gallbladder",
+      "overview": "Karaciğerin alt yüzündeki sığ çukura yerleşmiş küçük, armut biçimli yeşil bir kesedir.",
+      "function": "Karaciğerin ürettiği safrayı depolar ve yoğunlaştırır; yağlı besinler geldiğinde bunu ince bağırsağa sıkar.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Öğünler arasında yaklaşık 30 ila 60 mililitre yoğunlaşmış safra tutar.",
+          "Sistik kanal üzerinden onikiparmak bağırsağına açılan ana safra kanalına bağlanır."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — The Gallbladder",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-6-accessory-organs-in-digestion-the-liver-pancreas-and-gallbladder#fs-id1845287",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Gallbladder",
+          "url": "https://en.wikipedia.org/wiki/Gallbladder",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "pancreas",
+      "overview": "Midenin arkasında yatay uzanan, baş kısmı onikiparmak bağırsağının kıvrımına oturan yumuşak ve uzun bir bezdir.",
+      "function": "İnce bağırsağa sindirim enzimleri gönderir ve kan şekerini dengelemek için insülin ile glukagon salgılar.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Hem dış salgı (sindirim) bezi hem de iç salgı (hormon) bezi olarak çalışır.",
+          "İnce bağırsağa geçen mide asidini nötrleştiren bikarbonatça zengin sıvı üretir."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — The Pancreas",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-6-accessory-organs-in-digestion-the-liver-pancreas-and-gallbladder#fs-id1938339",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Pancreas",
+          "url": "https://en.wikipedia.org/wiki/Pancreas",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "duodenum",
+      "overview": "Pankreasın başı etrafında C harfi çizerek kıvrılan, ince bağırsağın kısa ilk bölümüdür.",
+      "function": "Mide asidini nötrleştirir ve kimyasal sindirimi tamamlamak için kimusu safra ile pankreas enzimleriyle karıştırır.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Yaklaşık 25 cm (on iki parmak genişliği kadar) uzunluğundadır.",
+          "Demir emilimi ve mide asidinin dengelenmesi için temel bölgedir."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — The Small and Large Intestines",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-5-the-small-and-large-intestines#fs-id2176582",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Duodenum",
+          "url": "https://en.wikipedia.org/wiki/Duodenum",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "jejunum",
+      "overview": "Karın boşluğunun sol üst ve orta kısmını dolduran, ince bağırsağın kıvrımlı orta bölümüdür.",
+      "function": "Sindirilen şekerlerin, amino asitlerin ve yağların çoğunu parmak benzeri milyonlarca villus üzerinden emer.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Besin emilimini artıran daha yüksek dairesel kıvrımlara ve yoğun kan akışına sahiptir.",
+          "Onikiparmak bağırsağı ile ileum arasındaki ince bağırsağın yaklaşık beşte ikisini oluşturur."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — The Small and Large Intestines",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-5-the-small-and-large-intestines#fs-id2176582",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Jejunum",
+          "url": "https://en.wikipedia.org/wiki/Jejunum",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "ascending-colon",
+      "overview": "Karnın sağ yanından karaciğere kadar dikey yükselen, kalın bağırsağın ilk bölümüdür.",
+      "function": "İçerik yatay kolona ilerlerken sindirilmemiş kalıntılardan kalan su ve mineralleri emer.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Sağ kalça yakınındaki çekumun üzerinden başlar ve karaciğerin altında keskin biçimde kıvrılır.",
+          "Sindirim sırasında yerinde kalması için karın arka duvarına tutunur."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Large Intestine Anatomy",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-5-the-small-and-large-intestines#fs-id1905668",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Ascending colon",
+          "url": "https://en.wikipedia.org/wiki/Ascending_colon",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    }
+  ]
+}

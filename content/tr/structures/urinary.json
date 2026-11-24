@@ -1,0 +1,77 @@
+{
+  "system": "urinary",
+  "entries": [
+    {
+      "id": "ureter",
+      "overview": "Arka karın duvarı boyunca leğen boşluğuna inen, 25 ila 30 cm uzunluğunda ince kaslı bir çift borudur.",
+      "function": "Ritmik düz kas dalgalarıyla idrarı her iki böbrekten idrar kesesine düzenli biçimde aşağı taşır.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "İdrar kesesinin arka duvarına eğik açıyla girer; böylece dolum basıncı açıklığı kapatarak geri kaçışı önler.",
+          "İdrarı yalnızca yerçekimine bırakmadan aktif peristaltik dalgalarla ilerletir."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Ureters",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/25-2-gross-anatomy-of-urine-transport#fs-id2339546",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Ureter",
+          "url": "https://en.wikipedia.org/wiki/Ureter",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "urinary-bladder",
+      "overview": "Leğen tabanında, ön pubis kemiklerinin hemen arkasında yer alan içi boş, balon benzeri kaslı bir kesedir.",
+      "function": "İstemli sinyaller üretra yoluyla boşaltana kadar idrarı düşük basınçla rahatça depolar.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Hacim arttıkça düzleşen iç kıvrımlar ve esnek değişici epitel ile döşelidir.",
+          "İdrar yaparken düz kas duvarı (detrusor kası) kasılırken büzücü halkalar gevşer."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Bladder",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/25-2-gross-anatomy-of-urine-transport#fs-id1616433",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Bladder",
+          "url": "https://en.wikipedia.org/wiki/Bladder",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "urethra",
+      "overview": "İdrar kesesinin alt boynundan vücudun dışına uzanan ince duvarlı bir lifli-kaslı kanaldır.",
+      "function": "İdrar kesesinde biriken idrarı dışarı iletir; iç ve dış büzücü kaslar boşaltım zamanlamasını düzenler.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "İstemsiz düz kas iç sfinkteri ile istemli çizgili kas dış sfinkteri tarafından denetlenir.",
+          "Uzunluğu kadınlarda daha kısa (~4 cm), erkeklerde daha uzundur (~20 cm)."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Urethra",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/25-2-gross-anatomy-of-urine-transport#fs-id2447210",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Urethra",
+          "url": "https://en.wikipedia.org/wiki/Urethra",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    }
+  ]
+}

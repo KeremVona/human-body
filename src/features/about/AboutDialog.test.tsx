@@ -104,4 +104,16 @@ describe('AboutDialog and TopBar', () => {
     ).not.toBeInTheDocument();
     expect(trigger).toHaveFocus();
   });
+
+  it('discloses machine-assisted translation status in Credits', async () => {
+    const user = userEvent.setup();
+    render(<TopBar />);
+
+    await user.click(screen.getByRole('button', { name: 'About this atlas' }));
+
+    const dialog = screen.getByRole('dialog', { name: 'About Anatomy Atlas' });
+    expect(dialog).toHaveTextContent(
+      'Translations are machine-assisted drafts.',
+    );
+  });
 });
