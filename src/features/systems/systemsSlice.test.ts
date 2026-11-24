@@ -7,6 +7,7 @@ import {
   type Manifest,
 } from '../../data/schema';
 import {
+  DEFAULT_OPACITY,
   opacitySet,
   systemToggled,
   systemsReducer,
@@ -80,7 +81,10 @@ const fixtureIndex: IndexFile = {
 it('defaults to skeletal only', () => {
   const state = systemsReducer(undefined, { type: '@@init' });
   for (const id of SystemIdSchema.options) {
-    expect(state[id]).toEqual({ enabled: id === 'skeletal', opacity: 1 });
+    expect(state[id]).toEqual({
+      enabled: id === 'skeletal',
+      opacity: DEFAULT_OPACITY[id],
+    });
   }
 });
 
@@ -134,4 +138,11 @@ it('opacitySet clamps and rounds', () => {
     opacitySet({ systems: ['skeletal'], opacity: -1 }),
   );
   expect(state.skeletal.opacity).toBe(0);
+});
+
+it('skin defaults to 0.35 while other systems default to 1', () => {
+  const state = systemsReducer(undefined, { type: '@@init' });
+  expect(state.integumentary.opacity).toBe(0.35);
+  expect(state.skeletal.opacity).toBe(1);
+  expect(state.lymphatic.opacity).toBe(1);
 });

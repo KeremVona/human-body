@@ -192,6 +192,7 @@
       "tissue": "skin",
       "names": {
         "common": "Anal region",
+        "latin": "Regio analis",
         "synonyms": []
       },
       "featured": false
@@ -219,6 +220,7 @@
       "tissue": "skin",
       "names": {
         "common": "Angle of mouth",
+        "latin": "Angulus oris",
         "synonyms": []
       },
       "featured": false
@@ -231,8 +233,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Anterior axillary nodes",
-        "synonyms": []
+        "common": "Anterior axillary lymph nodes",
+        "latin": "Nodi lymphoidei axillares pectorales",
+        "synonyms": ["Anterior axillary nodes"]
       },
       "featured": false
     },
@@ -286,8 +289,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Anterior inferior jugular nodes",
-        "synonyms": []
+        "common": "Anterior inferior deep cervical lymph nodes",
+        "latin": "Nodi lymphoidei cervicales laterales profundi inferiores anteriores",
+        "synonyms": ["Anterior inferior jugular nodes"]
       },
       "featured": false
     },
@@ -328,6 +332,7 @@
       "tissue": "skin",
       "names": {
         "common": "Anterior notch of auricle",
+        "latin": "Incisura anterior auriculae",
         "synonyms": []
       },
       "featured": false
@@ -356,6 +361,7 @@
       "tissue": "skin",
       "names": {
         "common": "Anterior region of ankle",
+        "latin": "Regio talocruralis anterior",
         "synonyms": []
       },
       "featured": false
@@ -369,6 +375,7 @@
       "tissue": "skin",
       "names": {
         "common": "Anterior region of arm",
+        "latin": "Regio brachii anterior",
         "synonyms": []
       },
       "featured": false
@@ -382,6 +389,7 @@
       "tissue": "skin",
       "names": {
         "common": "Anterior region of elbow",
+        "latin": "Regio cubitalis anterior",
         "synonyms": []
       },
       "featured": false
@@ -395,6 +403,7 @@
       "tissue": "skin",
       "names": {
         "common": "Anterior region of forearm",
+        "latin": "Regio antebrachii anterior",
         "synonyms": []
       },
       "featured": false
@@ -408,6 +417,7 @@
       "tissue": "skin",
       "names": {
         "common": "Anterior region of knee",
+        "latin": "Regio genus anterior",
         "synonyms": []
       },
       "featured": false
@@ -421,6 +431,7 @@
       "tissue": "skin",
       "names": {
         "common": "Anterior region of leg",
+        "latin": "Regio cruris anterior",
         "synonyms": []
       },
       "featured": false
@@ -434,6 +445,7 @@
       "tissue": "skin",
       "names": {
         "common": "Anterior region of thigh",
+        "latin": "Regio femoris anterior",
         "synonyms": []
       },
       "featured": false
@@ -447,6 +459,7 @@
       "tissue": "skin",
       "names": {
         "common": "Anterior region of wrist",
+        "latin": "Regio carpalis anterior",
         "synonyms": []
       },
       "featured": false
@@ -488,8 +501,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "(Anterior tibial node)",
-        "synonyms": []
+        "common": "Anterior tibial lymph node",
+        "latin": "Nodus lymphoideus tibialis anterior",
+        "synonyms": ["Anterior tibial node"]
       },
       "featured": false
     },
@@ -516,6 +530,7 @@
       "tissue": "skin",
       "names": {
         "common": "Antihelix",
+        "latin": "Antihelix",
         "synonyms": []
       },
       "featured": false
@@ -529,6 +544,7 @@
       "tissue": "skin",
       "names": {
         "common": "Antitragus",
+        "latin": "Antitragus",
         "synonyms": []
       },
       "featured": false
@@ -556,6 +572,7 @@
       "tissue": "skin",
       "names": {
         "common": "Apex of auricle",
+        "latin": "Apex auriculae",
         "synonyms": []
       },
       "featured": false
@@ -568,8 +585,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Apical axillary nodes",
-        "synonyms": []
+        "common": "Apical axillary lymph nodes",
+        "latin": "Nodi lymphoidei axillares apicales",
+        "synonyms": ["Apical axillary nodes"]
       },
       "featured": false
     },
@@ -581,8 +599,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Appendicular nodes",
-        "synonyms": []
+        "common": "Appendicular lymph nodes",
+        "latin": "Nodi lymphoidei appendiculares",
+        "synonyms": ["Appendicular nodes"]
       },
       "featured": false
     },
@@ -666,6 +685,7 @@
       "tissue": "skin",
       "names": {
         "common": "Auricular region",
+        "latin": "Regio auricularis",
         "synonyms": []
       },
       "featured": false
@@ -679,6 +699,7 @@
       "tissue": "skin",
       "names": {
         "common": "Auricular tubercle",
+        "latin": "Tuberculum auriculare",
         "synonyms": []
       },
       "featured": false
@@ -817,8 +838,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Brachial nodes",
-        "synonyms": []
+        "common": "Brachial lymph nodes",
+        "latin": "Nodi lymphoidei axillares brachiales",
+        "synonyms": ["Brachial nodes"]
       },
       "featured": false
     },
@@ -858,8 +880,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Brachiocephalic nodes",
-        "synonyms": []
+        "common": "Brachiocephalic lymph nodes",
+        "latin": "Nodi lymphoidei brachiocephalici",
+        "synonyms": ["Brachiocephalic nodes"]
       },
       "featured": false
     },
@@ -900,6 +923,7 @@
       "tissue": "skin",
       "names": {
         "common": "Buccal region",
+        "latin": "Regio buccalis",
         "synonyms": []
       },
       "featured": false
@@ -926,8 +950,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Bucinator node",
-        "synonyms": []
+        "common": "Buccinator lymph node",
+        "latin": "Nodus lymphoideus buccinatorius",
+        "synonyms": ["Bucinator node"]
       },
       "featured": false
     },
@@ -982,6 +1007,7 @@
       "tissue": "skin",
       "names": {
         "common": "Carotid triangle",
+        "latin": "Trigonum caroticum",
         "synonyms": []
       },
       "featured": false
@@ -1009,6 +1035,7 @@
       "tissue": "skin",
       "names": {
         "common": "Cavity of concha",
+        "latin": "Cavitas conchae",
         "synonyms": []
       },
       "featured": false
@@ -1035,8 +1062,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Central axillary nodes",
-        "synonyms": []
+        "common": "Central axillary lymph nodes",
+        "latin": "Nodi lymphoidei axillares centrales",
+        "synonyms": ["Central axillary nodes"]
       },
       "featured": false
     },
@@ -1048,8 +1076,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Central superior mesenteric nodes",
-        "synonyms": []
+        "common": "Central superior mesenteric lymph nodes",
+        "latin": "Nodi lymphoidei mesenterici superiores centrales",
+        "synonyms": ["Central superior mesenteric nodes"]
       },
       "featured": false
     },
@@ -1159,8 +1188,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Coeliac nodes",
-        "synonyms": []
+        "common": "Celiac lymph nodes",
+        "latin": "Nodi lymphoidei coeliaci",
+        "synonyms": ["Coeliac nodes"]
       },
       "featured": false
     },
@@ -1229,6 +1259,7 @@
       "tissue": "skin",
       "names": {
         "common": "Concha of auricle",
+        "latin": "Concha auriculae",
         "synonyms": []
       },
       "featured": false
@@ -1467,6 +1498,7 @@
       "tissue": "skin",
       "names": {
         "common": "Crura of antihelix",
+        "latin": "Crura antihelicis",
         "synonyms": []
       },
       "featured": false
@@ -1480,6 +1512,7 @@
       "tissue": "skin",
       "names": {
         "common": "Cubital fossa",
+        "latin": "Fossa cubitalis",
         "synonyms": []
       },
       "featured": false
@@ -1492,8 +1525,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Cubital nodes",
-        "synonyms": []
+        "common": "Cubital lymph nodes",
+        "latin": "Nodi lymphoidei cubitales",
+        "synonyms": ["Cubital nodes"]
       },
       "featured": false
     },
@@ -1520,6 +1554,7 @@
       "tissue": "skin",
       "names": {
         "common": "Cymba conchae",
+        "latin": "Cymba conchae",
         "synonyms": []
       },
       "featured": false
@@ -1532,8 +1567,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Cystic node",
-        "synonyms": []
+        "common": "Cystic lymph node",
+        "latin": "Nodus lymphoideus cysticus",
+        "synonyms": ["Cystic node"]
       },
       "featured": false
     },
@@ -1643,8 +1679,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Deep popliteal nodes",
-        "synonyms": []
+        "common": "Deep popliteal lymph nodes",
+        "latin": "Nodi lymphoidei poplitei profundi",
+        "synonyms": ["Deep popliteal nodes"]
       },
       "featured": false
     },
@@ -1657,6 +1694,7 @@
       "tissue": "skin",
       "names": {
         "common": "Deltoid region",
+        "latin": "Regio deltoidea",
         "synonyms": []
       },
       "featured": false
@@ -1670,6 +1708,7 @@
       "tissue": "skin",
       "names": {
         "common": "Deltopectoral triangle",
+        "latin": "Trigonum deltopectorale",
         "synonyms": []
       },
       "featured": false
@@ -1922,6 +1961,7 @@
       "tissue": "skin",
       "names": {
         "common": "Distal transverse arch of foot",
+        "latin": "Arcus pedis transversus distalis",
         "synonyms": []
       },
       "featured": false
@@ -1977,6 +2017,7 @@
       "tissue": "skin",
       "names": {
         "common": "Dorsal surfaces of digits of foot",
+        "latin": "Facies dorsales digitorum pedis",
         "synonyms": []
       },
       "featured": false
@@ -1990,6 +2031,7 @@
       "tissue": "skin",
       "names": {
         "common": "Dorsal surfaces of digits of hand",
+        "latin": "Facies dorsales digitorum manus",
         "synonyms": []
       },
       "featured": false
@@ -2017,6 +2059,7 @@
       "tissue": "skin",
       "names": {
         "common": "Dorsum of foot",
+        "latin": "Dorsum pedis",
         "synonyms": []
       },
       "featured": false
@@ -2030,6 +2073,7 @@
       "tissue": "skin",
       "names": {
         "common": "Dorsum of hand",
+        "latin": "Dorsum manus",
         "synonyms": []
       },
       "featured": false
@@ -2086,6 +2130,7 @@
       "tissue": "skin",
       "names": {
         "common": "Eminentia conchae",
+        "latin": "Eminentia conchae",
         "synonyms": []
       },
       "featured": false
@@ -2099,6 +2144,7 @@
       "tissue": "skin",
       "names": {
         "common": "Eminentia fossae triangularis",
+        "latin": "Eminentia fossae triangularis",
         "synonyms": []
       },
       "featured": false
@@ -2112,6 +2158,7 @@
       "tissue": "skin",
       "names": {
         "common": "Eminentia scaphae",
+        "latin": "Eminentia scaphae",
         "synonyms": []
       },
       "featured": false
@@ -2139,6 +2186,7 @@
       "tissue": "skin",
       "names": {
         "common": "Epigastric region",
+        "latin": "Regio epigastrica",
         "synonyms": []
       },
       "featured": false
@@ -2433,6 +2481,7 @@
       "tissue": "skin",
       "names": {
         "common": "Eyebrow",
+        "latin": "Supercilium",
         "synonyms": []
       },
       "featured": false
@@ -2517,6 +2566,7 @@
       "tissue": "skin",
       "names": {
         "common": "Femoral triangle",
+        "latin": "Trigonum femorale",
         "synonyms": []
       },
       "featured": false
@@ -2585,8 +2635,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "(Fibular node)",
-        "synonyms": []
+        "common": "Fibular lymph node",
+        "latin": "Nodus lymphoideus fibularis",
+        "synonyms": ["Fibular node"]
       },
       "featured": false
     },
@@ -2851,6 +2902,7 @@
       "tissue": "skin",
       "names": {
         "common": "Fossa antihelica",
+        "latin": "Fossa antihelica",
         "synonyms": []
       },
       "featured": false
@@ -2920,6 +2972,7 @@
       "tissue": "skin",
       "names": {
         "common": "Frontal region",
+        "latin": "Regio frontalis",
         "synonyms": []
       },
       "featured": false
@@ -3018,6 +3071,7 @@
       "tissue": "skin",
       "names": {
         "common": "Gluteal fold",
+        "latin": "Sulcus glutealis",
         "synonyms": []
       },
       "featured": false
@@ -3031,6 +3085,7 @@
       "tissue": "skin",
       "names": {
         "common": "Gluteal region",
+        "latin": "Regio glutealis",
         "synonyms": []
       },
       "featured": false
@@ -3128,6 +3183,7 @@
       "tissue": "skin",
       "names": {
         "common": "Greater supraclavicular fossa",
+        "latin": "Fossa supraclavicularis major",
         "synonyms": []
       },
       "featured": false
@@ -3141,6 +3197,7 @@
       "tissue": "skin",
       "names": {
         "common": "Hallucial eminence",
+        "latin": "Eminentia hallucis",
         "synonyms": []
       },
       "featured": false
@@ -3168,6 +3225,7 @@
       "tissue": "skin",
       "names": {
         "common": "Heel region",
+        "latin": "Regio calcanea",
         "synonyms": []
       },
       "featured": false
@@ -3181,6 +3239,7 @@
       "tissue": "skin",
       "names": {
         "common": "Helix",
+        "latin": "Helix",
         "synonyms": []
       },
       "featured": false
@@ -3250,6 +3309,7 @@
       "tissue": "skin",
       "names": {
         "common": "Hip region",
+        "latin": "Regio coxae",
         "synonyms": []
       },
       "featured": false
@@ -3347,6 +3407,7 @@
       "tissue": "skin",
       "names": {
         "common": "Hypochondriac region",
+        "latin": "Regio hypochondriaca",
         "synonyms": []
       },
       "featured": false
@@ -3360,6 +3421,7 @@
       "tissue": "skin",
       "names": {
         "common": "Hypogastric region",
+        "latin": "Regio pubica",
         "synonyms": []
       },
       "featured": false
@@ -3372,8 +3434,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Ileocolic nodes",
-        "synonyms": []
+        "common": "Ileocolic lymph nodes",
+        "latin": "Nodi lymphoidei ileocolici",
+        "synonyms": ["Ileocolic nodes"]
       },
       "featured": false
     },
@@ -3469,8 +3532,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Inferior deep lateral cervical nodes",
-        "synonyms": []
+        "common": "Inferior deep lateral cervical lymph nodes",
+        "latin": "Nodi lymphoidei cervicales laterales profundi inferiores",
+        "synonyms": ["Inferior deep lateral cervical nodes"]
       },
       "featured": false
     },
@@ -3482,8 +3546,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Inferior diaphragmatic nodes",
-        "synonyms": []
+        "common": "Inferior phrenic lymph nodes",
+        "latin": "Nodi lymphoidei phrenici inferiores",
+        "synonyms": ["Inferior diaphragmatic nodes"]
       },
       "featured": false
     },
@@ -3495,8 +3560,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Inferior epigastric nodes",
-        "synonyms": []
+        "common": "Inferior epigastric lymph nodes",
+        "latin": "Nodi lymphoidei epigastrici inferiores",
+        "synonyms": ["Inferior epigastric nodes"]
       },
       "featured": false
     },
@@ -3522,8 +3588,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Inferior gluteal nodes",
-        "synonyms": []
+        "common": "Inferior gluteal lymph nodes",
+        "latin": "Nodi lymphoidei gluteales inferiores",
+        "synonyms": ["Inferior gluteal nodes"]
       },
       "featured": false
     },
@@ -3650,8 +3717,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Inferior pancreatic nodes",
-        "synonyms": []
+        "common": "Inferior pancreatic lymph nodes",
+        "latin": "Nodi lymphoidei pancreatici inferiores",
+        "synonyms": ["Inferior pancreatic nodes"]
       },
       "featured": false
     },
@@ -3721,8 +3789,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Inferior superficial inguinal nodes",
-        "synonyms": []
+        "common": "Inferior superficial inguinal lymph nodes",
+        "latin": "Nodi lymphoidei inguinales superficiales inferiores",
+        "synonyms": ["Inferior superficial inguinal nodes"]
       },
       "featured": false
     },
@@ -3762,8 +3831,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Inferior tracheobronchial nodes",
-        "synonyms": []
+        "common": "Inferior tracheobronchial lymph nodes",
+        "latin": "Nodi lymphoidei tracheobronchiales inferiores",
+        "synonyms": ["Inferior tracheobronchial nodes"]
       },
       "featured": false
     },
@@ -3817,8 +3887,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Infra-auricular nodes",
-        "synonyms": []
+        "common": "Infra-auricular lymph nodes",
+        "latin": "Nodi lymphoidei infraauriculares",
+        "synonyms": ["Infra-auricular nodes"]
       },
       "featured": false
     },
@@ -3831,6 +3902,7 @@
       "tissue": "skin",
       "names": {
         "common": "Infra-orbital region",
+        "latin": "Regio infraorbitalis",
         "synonyms": []
       },
       "featured": false
@@ -3844,6 +3916,7 @@
       "tissue": "skin",
       "names": {
         "common": "Infraclavicular fossa",
+        "latin": "Fossa infraclavicularis",
         "synonyms": []
       },
       "featured": false
@@ -3856,8 +3929,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Infraclavicular nodes",
-        "synonyms": []
+        "common": "Infraclavicular lymph nodes",
+        "latin": "Nodi lymphoidei deltopectorales",
+        "synonyms": ["Infraclavicular nodes"]
       },
       "featured": false
     },
@@ -3870,6 +3944,7 @@
       "tissue": "skin",
       "names": {
         "common": "Inframammary region",
+        "latin": "Regio inframammaria",
         "synonyms": []
       },
       "featured": false
@@ -3883,6 +3958,7 @@
       "tissue": "skin",
       "names": {
         "common": "Infrascapular region",
+        "latin": "Regio infrascapularis",
         "synonyms": []
       },
       "featured": false
@@ -3910,6 +3986,7 @@
       "tissue": "skin",
       "names": {
         "common": "Inguinal region",
+        "latin": "Regio inguinalis",
         "synonyms": []
       },
       "featured": false
@@ -3936,8 +4013,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Intercostal nodes",
-        "synonyms": []
+        "common": "Intercostal lymph nodes",
+        "latin": "Nodi lymphoidei intercostales",
+        "synonyms": ["Intercostal nodes"]
       },
       "featured": false
     },
@@ -3949,8 +4027,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Intermediate common iliac nodes",
-        "synonyms": []
+        "common": "Intermediate common iliac lymph nodes",
+        "latin": "Nodi lymphoidei iliaci communes intermedii",
+        "synonyms": ["Intermediate common iliac nodes"]
       },
       "featured": false
     },
@@ -3976,8 +4055,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "(Intermediate deep inguinal node)",
-        "synonyms": []
+        "common": "Intermediate deep inguinal lymph node",
+        "latin": "Nodus lymphoideus inguinalis profundus intermedius",
+        "synonyms": ["Intermediate deep inguinal node"]
       },
       "featured": false
     },
@@ -3989,8 +4069,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Intermediate external iliac nodes",
-        "synonyms": []
+        "common": "Intermediate external iliac lymph nodes",
+        "latin": "Nodi lymphoidei iliaci externi intermedii",
+        "synonyms": ["Intermediate external iliac nodes"]
       },
       "featured": false
     },
@@ -4002,8 +4083,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Intermediate lumbar nodes",
-        "synonyms": []
+        "common": "Intermediate lumbar lymph nodes",
+        "latin": "Nodi lymphoidei lumbales intermedii",
+        "synonyms": ["Intermediate lumbar nodes"]
       },
       "featured": false
     },
@@ -4141,8 +4223,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Interpectoral nodes",
-        "synonyms": []
+        "common": "Interpectoral lymph nodes",
+        "latin": "Nodi lymphoidei interpectorales",
+        "synonyms": ["Interpectoral nodes"]
       },
       "featured": false
     },
@@ -4155,6 +4238,7 @@
       "tissue": "skin",
       "names": {
         "common": "Interscapular region",
+        "latin": "Regio interscapularis",
         "synonyms": []
       },
       "featured": false
@@ -4210,6 +4294,7 @@
       "tissue": "skin",
       "names": {
         "common": "Intertragic incisure",
+        "latin": "Incisura intertragica",
         "synonyms": []
       },
       "featured": false
@@ -4222,8 +4307,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Intraglandular parotid nodes",
-        "synonyms": []
+        "common": "Intraglandular parotid lymph nodes",
+        "latin": "Nodi lymphoidei parotidei profundi intraglandulares",
+        "synonyms": ["Intraglandular parotid nodes"]
       },
       "featured": false
     },
@@ -4235,8 +4321,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Intrapulmonary nodes",
-        "synonyms": []
+        "common": "Intrapulmonary lymph nodes",
+        "latin": "Nodi lymphoidei intrapulmonales",
+        "synonyms": ["Intrapulmonary nodes"]
       },
       "featured": false
     },
@@ -4278,8 +4365,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Jugulodigastric node",
-        "synonyms": []
+        "common": "Jugulodigastric lymph node",
+        "latin": "Nodus lymphoideus jugulodigastricus",
+        "synonyms": ["Jugulodigastric node"]
       },
       "featured": false
     },
@@ -4291,8 +4379,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Juxta-intestinal mesenteric nodes",
-        "synonyms": []
+        "common": "Juxta-intestinal mesenteric lymph nodes",
+        "latin": "Nodi lymphoidei juxtaintestinales",
+        "synonyms": ["Juxta-intestinal mesenteric nodes"]
       },
       "featured": false
     },
@@ -4304,8 +4393,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Juxta-oesophageal nodes",
-        "synonyms": []
+        "common": "Juxta-esophageal lymph nodes",
+        "latin": "Nodi lymphoidei juxtaoesophageales",
+        "synonyms": ["Juxta-oesophageal nodes"]
       },
       "featured": false
     },
@@ -4318,6 +4408,7 @@
       "tissue": "skin",
       "names": {
         "common": "Labial commissure",
+        "latin": "Commissura labiorum",
         "synonyms": []
       },
       "featured": false
@@ -4344,8 +4435,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Lateral aortic nodes",
-        "synonyms": []
+        "common": "Lateral aortic lymph nodes",
+        "latin": "Nodi lymphoidei aortici laterales",
+        "synonyms": ["Lateral aortic nodes"]
       },
       "featured": false
     },
@@ -4357,8 +4449,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Lateral axillary nodes",
-        "synonyms": []
+        "common": "Lateral axillary lymph nodes",
+        "latin": "Nodi lymphoidei axillares laterales",
+        "synonyms": ["Lateral axillary nodes"]
       },
       "featured": false
     },
@@ -4371,6 +4464,7 @@
       "tissue": "skin",
       "names": {
         "common": "Lateral bicipital groove",
+        "latin": "Sulcus bicipitalis lateralis",
         "synonyms": []
       },
       "featured": false
@@ -4384,6 +4478,7 @@
       "tissue": "skin",
       "names": {
         "common": "Lateral border of foot",
+        "latin": "Margo lateralis pedis",
         "synonyms": []
       },
       "featured": false
@@ -4397,6 +4492,7 @@
       "tissue": "skin",
       "names": {
         "common": "Lateral border of forearm",
+        "latin": "Margo lateralis antebrachii",
         "synonyms": []
       },
       "featured": false
@@ -4409,8 +4505,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Lateral caval nodes",
-        "synonyms": []
+        "common": "Lateral caval lymph nodes",
+        "latin": "Nodi lymphoidei cavales laterales",
+        "synonyms": ["Lateral caval nodes"]
       },
       "featured": false
     },
@@ -4422,8 +4519,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Lateral common iliac nodes",
-        "synonyms": []
+        "common": "Lateral common iliac lymph nodes",
+        "latin": "Nodi lymphoidei iliaci communes laterales",
+        "synonyms": ["Lateral common iliac nodes"]
       },
       "featured": false
     },
@@ -4491,8 +4589,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "(Lateral lacunar node)",
-        "synonyms": []
+        "common": "Lateral lacunar lymph node",
+        "latin": "Nodus lymphoideus lacunaris lateralis",
+        "synonyms": ["Lateral lacunar node"]
       },
       "featured": false
     },
@@ -4505,6 +4604,7 @@
       "tissue": "skin",
       "names": {
         "common": "Lateral malleolus",
+        "latin": "Regio malleolaris lateralis",
         "synonyms": []
       },
       "featured": false
@@ -4518,6 +4618,7 @@
       "tissue": "skin",
       "names": {
         "common": "Lateral part of longitudinal arch of foot",
+        "latin": "Arcus pedis longitudinalis pars lateralis",
         "synonyms": []
       },
       "featured": false
@@ -4530,8 +4631,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Lateral pericardial nodes",
-        "synonyms": []
+        "common": "Lateral pericardial lymph nodes",
+        "latin": "Nodi lymphoidei pericardiales laterales",
+        "synonyms": ["Lateral pericardial nodes"]
       },
       "featured": false
     },
@@ -4572,6 +4674,7 @@
       "tissue": "skin",
       "names": {
         "common": "Lateral region of abdomen",
+        "latin": "Regio lateralis abdominis",
         "synonyms": []
       },
       "featured": false
@@ -4585,6 +4688,7 @@
       "tissue": "skin",
       "names": {
         "common": "Lateral region of neck",
+        "latin": "Regio cervicalis lateralis",
         "synonyms": []
       },
       "featured": false
@@ -4598,6 +4702,7 @@
       "tissue": "skin",
       "names": {
         "common": "Lateral region of thorax",
+        "latin": "Regio thoracica lateralis",
         "synonyms": []
       },
       "featured": false
@@ -4611,6 +4716,7 @@
       "tissue": "skin",
       "names": {
         "common": "Lateral retromalleolar region",
+        "latin": "Regio retromalleolaris lateralis",
         "synonyms": []
       },
       "featured": false
@@ -4623,8 +4729,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Lateral sacral nodes",
-        "synonyms": []
+        "common": "Lateral sacral lymph nodes",
+        "latin": "Nodi lymphoidei sacrales laterales",
+        "synonyms": ["Lateral sacral nodes"]
       },
       "featured": false
     },
@@ -4636,8 +4743,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Lateral superior jugular node",
-        "synonyms": []
+        "common": "Lateral superior deep cervical lymph node",
+        "latin": "Nodus lymphoideus cervicalis lateralis profundus superior lateralis",
+        "synonyms": ["Lateral superior jugular node"]
       },
       "featured": false
     },
@@ -4649,8 +4757,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Lateral vesical nodes",
-        "synonyms": []
+        "common": "Lateral vesical lymph nodes",
+        "latin": "Nodi lymphoidei paravesicales laterales",
+        "synonyms": ["Lateral vesical nodes"]
       },
       "featured": false
     },
@@ -4705,8 +4814,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Left colic nodes",
-        "synonyms": []
+        "common": "Left colic lymph nodes",
+        "latin": "Nodi lymphoidei colici sinistri",
+        "synonyms": ["Left colic nodes"]
       },
       "featured": false
     },
@@ -4979,6 +5089,7 @@
       "tissue": "skin",
       "names": {
         "common": "Lesser supraclavicular fossa",
+        "latin": "Fossa supraclavicularis minor",
         "synonyms": []
       },
       "featured": false
@@ -5133,6 +5244,7 @@
       "tissue": "skin",
       "names": {
         "common": "Lobule of auricle",
+        "latin": "Lobulus auriculae",
         "synonyms": []
       },
       "featured": false
@@ -5356,6 +5468,7 @@
       "tissue": "skin",
       "names": {
         "common": "Lumbar region",
+        "latin": "Regio lumbalis",
         "synonyms": []
       },
       "featured": false
@@ -5425,6 +5538,7 @@
       "tissue": "skin",
       "names": {
         "common": "Mammary region",
+        "latin": "Regio mammaria",
         "synonyms": []
       },
       "featured": false
@@ -5451,8 +5565,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Mandibular node",
-        "synonyms": []
+        "common": "Mandibular lymph node",
+        "latin": "Nodus lymphoideus mandibularis",
+        "synonyms": ["Mandibular node"]
       },
       "featured": false
     },
@@ -5478,8 +5593,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Mastoid nodes",
-        "synonyms": []
+        "common": "Mastoid lymph nodes",
+        "latin": "Nodi lymphoidei mastoidei",
+        "synonyms": ["Mastoid nodes"]
       },
       "featured": false
     },
@@ -5492,6 +5608,7 @@
       "tissue": "skin",
       "names": {
         "common": "Mastoid region",
+        "latin": "Regio mastoidea",
         "synonyms": []
       },
       "featured": false
@@ -5533,6 +5650,7 @@
       "tissue": "skin",
       "names": {
         "common": "Medial bicipital groove",
+        "latin": "Sulcus bicipitalis medialis",
         "synonyms": []
       },
       "featured": false
@@ -5546,6 +5664,7 @@
       "tissue": "skin",
       "names": {
         "common": "Medial border of foot",
+        "latin": "Margo medialis pedis",
         "synonyms": []
       },
       "featured": false
@@ -5559,6 +5678,7 @@
       "tissue": "skin",
       "names": {
         "common": "Medial border of forearm",
+        "latin": "Margo medialis antebrachii",
         "synonyms": []
       },
       "featured": false
@@ -5571,8 +5691,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Medial common iliac nodes",
-        "synonyms": []
+        "common": "Medial common iliac lymph nodes",
+        "latin": "Nodi lymphoidei iliaci communes mediales",
+        "synonyms": ["Medial common iliac nodes"]
       },
       "featured": false
     },
@@ -5598,8 +5719,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Medial external iliac nodes",
-        "synonyms": []
+        "common": "Medial external iliac lymph nodes",
+        "latin": "Nodi lymphoidei iliaci externi mediales",
+        "synonyms": ["Medial external iliac nodes"]
       },
       "featured": false
     },
@@ -5654,6 +5776,7 @@
       "tissue": "skin",
       "names": {
         "common": "Medial malleolus",
+        "latin": "Regio malleolaris medialis",
         "synonyms": []
       },
       "featured": false
@@ -5667,6 +5790,7 @@
       "tissue": "skin",
       "names": {
         "common": "Medial part of longitudinal arch of foot",
+        "latin": "Arcus pedis longitudinalis pars medialis",
         "synonyms": []
       },
       "featured": false
@@ -5708,6 +5832,7 @@
       "tissue": "skin",
       "names": {
         "common": "Medial retromalleolar region",
+        "latin": "Regio retromalleolaris medialis",
         "synonyms": []
       },
       "featured": false
@@ -5763,6 +5888,7 @@
       "tissue": "skin",
       "names": {
         "common": "Mental region",
+        "latin": "Regio mentalis",
         "synonyms": []
       },
       "featured": false
@@ -5790,6 +5916,7 @@
       "tissue": "skin",
       "names": {
         "common": "Mentolabial sulcus",
+        "latin": "Sulcus mentolabialis",
         "synonyms": []
       },
       "featured": false
@@ -5803,6 +5930,7 @@
       "tissue": "skin",
       "names": {
         "common": "Metatarsal region",
+        "latin": "Regio metatarsalis",
         "synonyms": []
       },
       "featured": false
@@ -5843,8 +5971,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Middle colic nodes",
-        "synonyms": []
+        "common": "Middle colic lymph nodes",
+        "latin": "Nodi lymphoidei colici medii",
+        "synonyms": ["Middle colic nodes"]
       },
       "featured": false
     },
@@ -6026,6 +6155,7 @@
       "tissue": "skin",
       "names": {
         "common": "Muscular triangle",
+        "latin": "Trigonum musculare",
         "synonyms": []
       },
       "featured": false
@@ -6067,6 +6197,7 @@
       "tissue": "skin",
       "names": {
         "common": "Nasal region",
+        "latin": "Regio nasalis",
         "synonyms": []
       },
       "featured": false
@@ -6107,8 +6238,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Nasolabial node",
-        "synonyms": []
+        "common": "Nasolabial lymph node",
+        "latin": "Nodus lymphoideus nasolabialis",
+        "synonyms": ["Nasolabial node"]
       },
       "featured": false
     },
@@ -6121,6 +6253,7 @@
       "tissue": "skin",
       "names": {
         "common": "Nasolabial sulcus",
+        "latin": "Sulcus nasolabialis",
         "synonyms": []
       },
       "featured": false
@@ -6161,8 +6294,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Node of arch of azygos vein",
-        "synonyms": []
+        "common": "Lymph node of arch of azygos vein",
+        "latin": "Nodus lymphoideus arcus venae azygos",
+        "synonyms": ["Node of arch of azygos vein"]
       },
       "featured": false
     },
@@ -6174,8 +6308,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Node of ligamentum arteriosum",
-        "synonyms": []
+        "common": "Lymph node of ligamentum arteriosum",
+        "latin": "Nodus lymphoideus ligamenti arteriosi",
+        "synonyms": ["Node of ligamentum arteriosum"]
       },
       "featured": false
     },
@@ -6300,8 +6435,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Obturator nodes",
-        "synonyms": []
+        "common": "Obturator lymph nodes",
+        "latin": "Nodi lymphoidei obturatorii",
+        "synonyms": ["Obturator nodes"]
       },
       "featured": false
     },
@@ -6341,8 +6477,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Occipital nodes",
-        "synonyms": []
+        "common": "Occipital lymph nodes",
+        "latin": "Nodi lymphoidei occipitales",
+        "synonyms": ["Occipital nodes"]
       },
       "featured": false
     },
@@ -6355,6 +6492,7 @@
       "tissue": "skin",
       "names": {
         "common": "Occipital region",
+        "latin": "Regio occipitalis",
         "synonyms": []
       },
       "featured": false
@@ -6466,6 +6604,7 @@
       "tissue": "skin",
       "names": {
         "common": "Oral region",
+        "latin": "Regio oralis",
         "synonyms": []
       },
       "featured": false
@@ -6507,6 +6646,7 @@
       "tissue": "skin",
       "names": {
         "common": "Orbital region",
+        "latin": "Regio orbitalis",
         "synonyms": []
       },
       "featured": false
@@ -6549,6 +6689,7 @@
       "tissue": "skin",
       "names": {
         "common": "Palm",
+        "latin": "Palma",
         "synonyms": []
       },
       "featured": false
@@ -6576,6 +6717,7 @@
       "tissue": "skin",
       "names": {
         "common": "Palmar surfaces of digits of hand",
+        "latin": "Facies palmares digitorum manus",
         "synonyms": []
       },
       "featured": false
@@ -6631,8 +6773,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Paracolic superior mesenteric nodes",
-        "synonyms": []
+        "common": "Paracolic lymph nodes",
+        "latin": "Nodi lymphoidei paracolici",
+        "synonyms": ["Paracolic superior mesenteric nodes"]
       },
       "featured": false
     },
@@ -6644,8 +6787,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Pararectal nodes",
-        "synonyms": []
+        "common": "Pararectal lymph nodes",
+        "latin": "Nodi lymphoidei pararectales",
+        "synonyms": ["Pararectal nodes"]
       },
       "featured": false
     },
@@ -6657,8 +6801,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Parasternal nodes",
-        "synonyms": []
+        "common": "Parasternal lymph nodes",
+        "latin": "Nodi lymphoidei parasternales",
+        "synonyms": ["Parasternal nodes"]
       },
       "featured": false
     },
@@ -6670,8 +6815,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Paratracheal cervical nodes",
-        "synonyms": []
+        "common": "Paratracheal cervical lymph nodes",
+        "latin": "Nodi lymphoidei paratracheales cervicales",
+        "synonyms": ["Paratracheal cervical nodes"]
       },
       "featured": false
     },
@@ -6683,8 +6829,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Paratracheal thoracic nodes",
-        "synonyms": []
+        "common": "Paratracheal thoracic lymph nodes",
+        "latin": "Nodi lymphoidei paratracheales thoracici",
+        "synonyms": ["Paratracheal thoracic nodes"]
       },
       "featured": false
     },
@@ -6711,6 +6858,7 @@
       "tissue": "skin",
       "names": {
         "common": "Parietal region",
+        "latin": "Regio parietalis",
         "synonyms": []
       },
       "featured": false
@@ -6739,6 +6887,7 @@
       "tissue": "skin",
       "names": {
         "common": "Parotideomasseteric region",
+        "latin": "Regio parotideomasseterica",
         "synonyms": []
       },
       "featured": false
@@ -6780,6 +6929,7 @@
       "tissue": "skin",
       "names": {
         "common": "Pectoral region",
+        "latin": "Regio pectoralis",
         "synonyms": []
       },
       "featured": false
@@ -6807,6 +6957,7 @@
       "tissue": "skin",
       "names": {
         "common": "Philtrum",
+        "latin": "Philtrum",
         "synonyms": []
       },
       "featured": false
@@ -6876,6 +7027,7 @@
       "tissue": "skin",
       "names": {
         "common": "Plantar surfaces of digits of foot",
+        "latin": "Facies plantares digitorum pedis",
         "synonyms": []
       },
       "featured": false
@@ -6931,6 +7083,7 @@
       "tissue": "skin",
       "names": {
         "common": "Popliteal fossa",
+        "latin": "Fossa poplitea",
         "synonyms": []
       },
       "featured": false
@@ -6972,6 +7125,7 @@
       "tissue": "skin",
       "names": {
         "common": "Posterior auricular groove",
+        "latin": "Sulcus retroauricularis",
         "synonyms": []
       },
       "featured": false
@@ -6984,8 +7138,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Posterior axillary nodes",
-        "synonyms": []
+        "common": "Posterior axillary lymph nodes",
+        "latin": "Nodi lymphoidei axillares subscapulares",
+        "synonyms": ["Posterior axillary nodes"]
       },
       "featured": false
     },
@@ -7041,6 +7196,7 @@
       "tissue": "skin",
       "names": {
         "common": "Posterior region of arm",
+        "latin": "Regio brachii posterior",
         "synonyms": []
       },
       "featured": false
@@ -7054,6 +7210,7 @@
       "tissue": "skin",
       "names": {
         "common": "Posterior region of elbow",
+        "latin": "Regio cubitalis posterior",
         "synonyms": []
       },
       "featured": false
@@ -7067,6 +7224,7 @@
       "tissue": "skin",
       "names": {
         "common": "Posterior region of forearm",
+        "latin": "Regio antebrachii posterior",
         "synonyms": []
       },
       "featured": false
@@ -7080,6 +7238,7 @@
       "tissue": "skin",
       "names": {
         "common": "Posterior region of knee",
+        "latin": "Regio genus posterior",
         "synonyms": []
       },
       "featured": false
@@ -7093,6 +7252,7 @@
       "tissue": "skin",
       "names": {
         "common": "Posterior region of leg",
+        "latin": "Regio cruris posterior",
         "synonyms": []
       },
       "featured": false
@@ -7106,6 +7266,7 @@
       "tissue": "skin",
       "names": {
         "common": "Posterior region of neck",
+        "latin": "Regio cervicalis posterior",
         "synonyms": []
       },
       "featured": false
@@ -7119,6 +7280,7 @@
       "tissue": "skin",
       "names": {
         "common": "Posterior region of thigh",
+        "latin": "Regio femoris posterior",
         "synonyms": []
       },
       "featured": false
@@ -7132,6 +7294,7 @@
       "tissue": "skin",
       "names": {
         "common": "Posterior region of wrist",
+        "latin": "Regio carpalis posterior",
         "synonyms": []
       },
       "featured": false
@@ -7158,8 +7321,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "(Posterior tibial node)",
-        "synonyms": []
+        "common": "Posterior tibial lymph node",
+        "latin": "Nodus lymphoideus tibialis posterior",
+        "synonyms": ["Posterior tibial node"]
       },
       "featured": false
     },
@@ -7185,8 +7349,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Postvesical nodes",
-        "synonyms": []
+        "common": "Postvesical lymph nodes",
+        "latin": "Nodi lymphoidei retrovesicales",
+        "synonyms": ["Postvesical nodes"]
       },
       "featured": false
     },
@@ -7198,8 +7363,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Pre-aortic nodes",
-        "synonyms": []
+        "common": "Pre-aortic lymph nodes",
+        "latin": "Nodi lymphoidei preaortici",
+        "synonyms": ["Pre-aortic nodes"]
       },
       "featured": false
     },
@@ -7211,8 +7377,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Pre-auricular nodes",
-        "synonyms": []
+        "common": "Pre-auricular lymph nodes",
+        "latin": "Nodi lymphoidei preauriculares",
+        "synonyms": ["Pre-auricular nodes"]
       },
       "featured": false
     },
@@ -7224,8 +7391,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Precaecal nodes",
-        "synonyms": []
+        "common": "Prececal lymph nodes",
+        "latin": "Nodi lymphoidei precaecales",
+        "synonyms": ["Precaecal nodes"]
       },
       "featured": false
     },
@@ -7237,8 +7405,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Precaval nodes",
-        "synonyms": []
+        "common": "Precaval lymph nodes",
+        "latin": "Nodi lymphoidei precavales",
+        "synonyms": ["Precaval nodes"]
       },
       "featured": false
     },
@@ -7250,8 +7419,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Prepericardial nodes",
-        "synonyms": []
+        "common": "Prepericardial lymph nodes",
+        "latin": "Nodi lymphoidei prepericardiales",
+        "synonyms": ["Prepericardial nodes"]
       },
       "featured": false
     },
@@ -7264,6 +7434,7 @@
       "tissue": "skin",
       "names": {
         "common": "Presternal region",
+        "latin": "Regio presternalis",
         "synonyms": []
       },
       "featured": false
@@ -7276,8 +7447,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Pretracheal nodes",
-        "synonyms": []
+        "common": "Pretracheal lymph nodes",
+        "latin": "Nodi lymphoidei pretracheales",
+        "synonyms": ["Pretracheal nodes"]
       },
       "featured": false
     },
@@ -7289,8 +7461,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Prevertebral nodes",
-        "synonyms": []
+        "common": "Prevertebral lymph nodes",
+        "latin": "Nodi lymphoidei prevertebrales",
+        "synonyms": ["Prevertebral nodes"]
       },
       "featured": false
     },
@@ -7302,8 +7475,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Prevesical nodes",
-        "synonyms": []
+        "common": "Prevesical lymph nodes",
+        "latin": "Nodi lymphoidei prevesicales",
+        "synonyms": ["Prevesical nodes"]
       },
       "featured": false
     },
@@ -7357,8 +7531,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "(Proximal deep inguinal node)",
-        "synonyms": []
+        "common": "Proximal deep inguinal lymph node",
+        "latin": "Nodus lymphoideus inguinalis profundus proximalis",
+        "synonyms": ["Proximal deep inguinal node"]
       },
       "featured": false
     },
@@ -7511,6 +7686,7 @@
       "tissue": "skin",
       "names": {
         "common": "Proximal transverse arch of foot",
+        "latin": "Arcus pedis transversus proximalis",
         "synonyms": []
       },
       "featured": false
@@ -7650,6 +7826,7 @@
       "tissue": "skin",
       "names": {
         "common": "Radial foveola",
+        "latin": "Foveola radialis",
         "synonyms": []
       },
       "featured": false
@@ -7817,8 +7994,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Retro-aortic nodes",
-        "synonyms": []
+        "common": "Retro-aortic lymph nodes",
+        "latin": "Nodi lymphoidei retroaortici",
+        "synonyms": ["Retro-aortic nodes"]
       },
       "featured": false
     },
@@ -7830,8 +8008,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Retrocaecal nodes",
-        "synonyms": []
+        "common": "Retrocecal lymph nodes",
+        "latin": "Nodi lymphoidei retrocaecales",
+        "synonyms": ["Retrocaecal nodes"]
       },
       "featured": false
     },
@@ -7843,8 +8022,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Retrocaval nodes",
-        "synonyms": []
+        "common": "Retrocaval lymph nodes",
+        "latin": "Nodi lymphoidei retrocavales",
+        "synonyms": ["Retrocaval nodes"]
       },
       "featured": false
     },
@@ -7870,8 +8050,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Retropharyngeal nodes",
-        "synonyms": []
+        "common": "Retropharyngeal lymph nodes",
+        "latin": "Nodi lymphoidei retropharyngeales",
+        "synonyms": ["Retropharyngeal nodes"]
       },
       "featured": false
     },
@@ -7883,8 +8064,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "(Retropyloric nodes)",
-        "synonyms": []
+        "common": "Retropyloric lymph nodes",
+        "latin": "Nodi lymphoidei retropylorici",
+        "synonyms": ["Retropyloric nodes"]
       },
       "featured": false
     },
@@ -7953,8 +8135,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Right colic nodes",
-        "synonyms": []
+        "common": "Right colic lymph nodes",
+        "latin": "Nodi lymphoidei colici dextri",
+        "synonyms": ["Right colic nodes"]
       },
       "featured": false
     },
@@ -8009,8 +8192,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Right gastric nodes",
-        "synonyms": []
+        "common": "Right gastric lymph nodes",
+        "latin": "Nodi lymphoidei gastrici dextri",
+        "synonyms": ["Right gastric nodes"]
       },
       "featured": false
     },
@@ -8022,8 +8206,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Right gastro-omental nodes",
-        "synonyms": []
+        "common": "Right gastro-omental lymph nodes",
+        "latin": "Nodi lymphoidei gastroomentales dextri",
+        "synonyms": ["Right gastro-omental nodes"]
       },
       "featured": false
     },
@@ -8281,6 +8466,7 @@
       "tissue": "skin",
       "names": {
         "common": "Sacral region",
+        "latin": "Regio sacralis",
         "synonyms": []
       },
       "featured": false
@@ -8364,6 +8550,7 @@
       "tissue": "skin",
       "names": {
         "common": "Scapha",
+        "latin": "Scapha",
         "synonyms": []
       },
       "featured": false
@@ -8405,6 +8592,7 @@
       "tissue": "skin",
       "names": {
         "common": "Scapular region",
+        "latin": "Regio scapularis",
         "synonyms": []
       },
       "featured": false
@@ -8715,8 +8903,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Sigmoid nodes",
-        "synonyms": []
+        "common": "Sigmoid lymph nodes",
+        "latin": "Nodi lymphoidei sigmoidei",
+        "synonyms": ["Sigmoid nodes"]
       },
       "featured": false
     },
@@ -8786,6 +8975,7 @@
       "tissue": "skin",
       "names": {
         "common": "Sole",
+        "latin": "Planta",
         "synonyms": []
       },
       "featured": false
@@ -8926,8 +9116,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Splenic nodes",
-        "synonyms": []
+        "common": "Splenic lymph nodes",
+        "latin": "Nodi lymphoidei splenici",
+        "synonyms": ["Splenic nodes"]
       },
       "featured": false
     },
@@ -8996,6 +9187,7 @@
       "tissue": "skin",
       "names": {
         "common": "Sternocleidomastoid region",
+        "latin": "Regio sternocleidomastoidea",
         "synonyms": []
       },
       "featured": false
@@ -9107,8 +9299,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Subaortic nodes",
-        "synonyms": []
+        "common": "Subaortic lymph nodes",
+        "latin": "Nodi lymphoidei subaortici",
+        "synonyms": ["Subaortic nodes"]
       },
       "featured": false
     },
@@ -9164,8 +9357,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Submandibular nodes",
-        "synonyms": []
+        "common": "Submandibular lymph nodes",
+        "latin": "Nodi lymphoidei submandibulares",
+        "synonyms": ["Submandibular nodes"]
       },
       "featured": false
     },
@@ -9178,6 +9372,7 @@
       "tissue": "skin",
       "names": {
         "common": "Submandibular triangle",
+        "latin": "Trigonum submandibulare",
         "synonyms": []
       },
       "featured": false
@@ -9190,8 +9385,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Submental nodes",
-        "synonyms": []
+        "common": "Submental lymph nodes",
+        "latin": "Nodi lymphoidei submentales",
+        "synonyms": ["Submental nodes"]
       },
       "featured": false
     },
@@ -9204,6 +9400,7 @@
       "tissue": "skin",
       "names": {
         "common": "Submental triangle",
+        "latin": "Trigonum submentale",
         "synonyms": []
       },
       "featured": false
@@ -9216,8 +9413,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "(Subpyloric nodes)",
-        "synonyms": []
+        "common": "Subpyloric lymph nodes",
+        "latin": "Nodi lymphoidei subpylorici",
+        "synonyms": ["Subpyloric nodes"]
       },
       "featured": false
     },
@@ -9271,8 +9469,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Superficial anterior cervical nodes",
-        "synonyms": []
+        "common": "Superficial anterior cervical lymph nodes",
+        "latin": "Nodi lymphoidei cervicales anteriores superficiales",
+        "synonyms": ["Superficial anterior cervical nodes"]
       },
       "featured": false
     },
@@ -9312,8 +9511,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Superficial lateral cervical nodes",
-        "synonyms": []
+        "common": "Superficial lateral cervical lymph nodes",
+        "latin": "Nodi lymphoidei cervicales laterales superficiales",
+        "synonyms": ["Superficial lateral cervical nodes"]
       },
       "featured": false
     },
@@ -9339,8 +9539,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Superficial parotid nodes",
-        "synonyms": []
+        "common": "Superficial parotid lymph nodes",
+        "latin": "Nodi lymphoidei parotidei superficiales",
+        "synonyms": ["Superficial parotid nodes"]
       },
       "featured": false
     },
@@ -9366,8 +9567,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Superficial popliteal nodes",
-        "synonyms": []
+        "common": "Superficial popliteal lymph nodes",
+        "latin": "Nodi lymphoidei poplitei superficiales",
+        "synonyms": ["Superficial popliteal nodes"]
       },
       "featured": false
     },
@@ -9407,8 +9609,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Superior diaphragmatic nodes",
-        "synonyms": []
+        "common": "Superior phrenic lymph nodes",
+        "latin": "Nodi lymphoidei phrenici superiores",
+        "synonyms": ["Superior diaphragmatic nodes"]
       },
       "featured": false
     },
@@ -9434,8 +9637,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Superior gluteal nodes",
-        "synonyms": []
+        "common": "Superior gluteal lymph nodes",
+        "latin": "Nodi lymphoidei gluteales superiores",
+        "synonyms": ["Superior gluteal nodes"]
       },
       "featured": false
     },
@@ -9533,8 +9737,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Superior pancreatic nodes",
-        "synonyms": []
+        "common": "Superior pancreatic lymph nodes",
+        "latin": "Nodi lymphoidei pancreatici superiores",
+        "synonyms": ["Superior pancreatic nodes"]
       },
       "featured": false
     },
@@ -9546,8 +9751,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Superior pancreaticoduodenal nodes",
-        "synonyms": []
+        "common": "Superior pancreaticoduodenal lymph nodes",
+        "latin": "Nodi lymphoidei pancreaticoduodenales superiores",
+        "synonyms": ["Superior pancreaticoduodenal nodes"]
       },
       "featured": false
     },
@@ -9615,8 +9821,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Superior tracheobronchial nodes",
-        "synonyms": []
+        "common": "Superior tracheobronchial lymph nodes",
+        "latin": "Nodi lymphoidei tracheobronchiales superiores",
+        "synonyms": ["Superior tracheobronchial nodes"]
       },
       "featured": false
     },
@@ -9642,8 +9849,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Superolateral superficial inguinal nodes",
-        "synonyms": []
+        "common": "Superolateral superficial inguinal lymph nodes",
+        "latin": "Nodi lymphoidei inguinales superficiales superolaterales",
+        "synonyms": ["Superolateral superficial inguinal nodes"]
       },
       "featured": false
     },
@@ -9655,8 +9863,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Superomedial superficial inguinal nodes",
-        "synonyms": []
+        "common": "Superomedial superficial inguinal lymph nodes",
+        "latin": "Nodi lymphoidei inguinales superficiales superomediales",
+        "synonyms": ["Superomedial superficial inguinal nodes"]
       },
       "featured": false
     },
@@ -9682,8 +9891,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Supraclavicular nodes",
-        "synonyms": []
+        "common": "Supraclavicular lymph nodes",
+        "latin": "Nodi lymphoidei supraclaviculares",
+        "synonyms": ["Supraclavicular nodes"]
       },
       "featured": false
     },
@@ -9695,8 +9905,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "(Suprapyloric node)",
-        "synonyms": []
+        "common": "Suprapyloric lymph node",
+        "latin": "Nodus lymphoideus suprapyloricus",
+        "synonyms": ["Suprapyloric node"]
       },
       "featured": false
     },
@@ -9750,8 +9961,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Supratrochlear nodes",
-        "synonyms": []
+        "common": "Supratrochlear lymph nodes",
+        "latin": "Nodi lymphoidei supratrochleares",
+        "synonyms": ["Supratrochlear nodes"]
       },
       "featured": false
     },
@@ -9806,6 +10018,7 @@
       "tissue": "skin",
       "names": {
         "common": "Temporal region",
+        "latin": "Regio temporalis",
         "synonyms": []
       },
       "featured": false
@@ -10029,8 +10242,9 @@
       "kind": "organ",
       "tissue": "lymph",
       "names": {
-        "common": "Thyroid nodes",
-        "synonyms": []
+        "common": "Thyroid lymph nodes",
+        "latin": "Nodi lymphoidei thyroidei",
+        "synonyms": ["Thyroid nodes"]
       },
       "featured": false
     },
@@ -10115,6 +10329,7 @@
       "tissue": "skin",
       "names": {
         "common": "Tragus",
+        "latin": "Tragus",
         "synonyms": []
       },
       "featured": false
@@ -10255,6 +10470,7 @@
       "tissue": "skin",
       "names": {
         "common": "Triangle of auscultation",
+        "latin": "Trigonum auscultationis",
         "synonyms": []
       },
       "featured": false
@@ -10268,6 +10484,7 @@
       "tissue": "skin",
       "names": {
         "common": "Triangular fossa",
+        "latin": "Fossa triangularis",
         "synonyms": []
       },
       "featured": false
@@ -10309,6 +10526,7 @@
       "tissue": "skin",
       "names": {
         "common": "Tubercle of upper lip",
+        "latin": "Tuberculum labii superioris",
         "synonyms": []
       },
       "featured": false
@@ -10420,6 +10638,7 @@
       "tissue": "skin",
       "names": {
         "common": "Umbilical region",
+        "latin": "Regio umbilicalis",
         "synonyms": []
       },
       "featured": false
@@ -10433,6 +10652,7 @@
       "tissue": "skin",
       "names": {
         "common": "Umbilicus",
+        "latin": "Umbilicus",
         "synonyms": []
       },
       "featured": false
@@ -10589,6 +10809,7 @@
       "tissue": "skin",
       "names": {
         "common": "Urogenital region",
+        "latin": "Regio urogenitalis",
         "synonyms": []
       },
       "featured": false
@@ -11010,6 +11231,7 @@
       "tissue": "skin",
       "names": {
         "common": "Vertebral region",
+        "latin": "Regio vertebralis",
         "synonyms": []
       },
       "featured": false
@@ -11079,6 +11301,7 @@
       "tissue": "skin",
       "names": {
         "common": "Zygomatic region",
+        "latin": "Regio zygomatica",
         "synonyms": []
       },
       "featured": false

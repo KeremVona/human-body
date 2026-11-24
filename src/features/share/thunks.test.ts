@@ -289,4 +289,28 @@ describe('share thunks & bootShare', () => {
     );
     expect(store.getState().section.enabled).toBe(false);
   });
+
+  it('codec stores only non-default opacities and gives old links default skin opacity', async () => {
+    const { store } = setupStore();
+
+    expect(store.getState().systems.integumentary.opacity).toBe(0.35);
+    expect(
+      store.dispatch(captureViewState({ includePins: false })).o,
+    ).toBeUndefined();
+
+    store.dispatch(opacitySet({ systems: ['integumentary'], opacity: 0.6 }));
+    expect(store.dispatch(captureViewState({ includePins: false })).o).toEqual({
+      integumentary: 0.6,
+    });
+
+    await store.dispatch(
+      applyViewState({
+        c: [0, 0, 3, 0, 0, 0],
+        s: ['skeletal', 'integumentary'],
+        h: [],
+        sel: [],
+      }),
+    );
+    expect(store.getState().systems.integumentary.opacity).toBe(0.35);
+  });
 });

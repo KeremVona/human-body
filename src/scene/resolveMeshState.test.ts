@@ -244,4 +244,11 @@ describe('selectResolvedMeshStates', () => {
     expect(ghostAndActive.active).toBe(true);
     expect(ghostAndActive.pickable).toBe(false);
   });
+
+  it('skin at default opacity is not pickable', () => {
+    const state = resolveWith({ systemOpacity: 0.35 });
+    expect(state.visible).toBe(true);
+    expect(state.opacity).toBe(0.35);
+    expect(state.pickable).toBe(false);
+  });
 });

@@ -18,10 +18,23 @@ const GROUP_SYSTEMS: Record<string, SystemId[]> = Object.fromEntries(
   parsedTaxonomy.uiGroups.map((g) => [g.id, g.systems]),
 );
 
+/** Default initial opacity per biological system (integumentary starts semi-transparent). */
+export const DEFAULT_OPACITY: Record<SystemId, number> = {
+  skeletal: 1,
+  muscular: 1,
+  cardiovascular: 1,
+  nervous: 1,
+  respiratory: 1,
+  digestive: 1,
+  urinary: 1,
+  lymphatic: 1,
+  integumentary: 0.35,
+};
+
 const initialState = Object.fromEntries(
   SystemIdSchema.options.map((id) => [
     id,
-    { enabled: id === 'skeletal', opacity: 1 },
+    { enabled: id === 'skeletal', opacity: DEFAULT_OPACITY[id] },
   ]),
 ) as SystemsState;
 

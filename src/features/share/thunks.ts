@@ -17,7 +17,11 @@ import { waitForBundles } from '../search/revealAndFocus';
 import type { SectionAxis } from '../section/sectionPlane';
 import { sectionSet } from '../section/sectionSlice';
 import { selected, selectionCleared } from '../selection/selectionSlice';
-import { opacitySet, systemsSet } from '../systems/systemsSlice';
+import {
+  DEFAULT_OPACITY,
+  opacitySet,
+  systemsSet,
+} from '../systems/systemsSlice';
 import type { SharedPin, ViewStateV1 } from './viewState';
 
 const SECTION_AXES: readonly SectionAxis[] = ['axial', 'sagittal', 'coronal'];
@@ -60,7 +64,7 @@ export function captureViewState(opts: {
     const opacities: Partial<Record<SystemId, number>> = {};
     for (const id of (Object.keys(state.systems) as SystemId[]).sort()) {
       const opacity = state.systems[id].opacity;
-      if (opacity !== 1) {
+      if (opacity !== DEFAULT_OPACITY[id]) {
         opacities[id] = opacity;
       }
     }
@@ -120,7 +124,12 @@ export function applyViewState(view: ViewStateV1): AppThunk<Promise<void>> {
 
     const allSystems = Object.keys(getState().systems) as SystemId[];
     for (const sys of allSystems) {
-      dispatch(opacitySet({ systems: [sys], opacity: view.o?.[sys] ?? 1 }));
+      dispatch(
+        opacitySet({
+          systems: [sys],
+          opacity: view.o?.[sys] ?? DEFAULT_OPACITY[sys],
+        }),
+      );
     }
 
     const bundleSet = new Set<string>();
