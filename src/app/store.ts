@@ -14,12 +14,14 @@ import { uiReducer } from '../features/settings/uiSlice';
 import { shareReducer } from '../features/share/shareSlice';
 import { systemsReducer } from '../features/systems/systemsSlice';
 import type { CameraApi } from '../scene/camera';
+import type { MeshRegistry } from '../scene/meshRegistry';
 import { listenerMiddleware } from './listeners';
 
 export type CameraRef = { current: CameraApi | null };
 
 export type ThunkExtra = {
   camera: CameraRef;
+  registry?: MeshRegistry;
   subscribe?: (listener: () => void) => () => void;
 };
 
@@ -44,6 +46,7 @@ export function makeStore(
 ) {
   const thunkExtra: ThunkExtra = {
     camera: extra.camera,
+    registry: extra.registry,
     subscribe: extra.subscribe,
   };
   const store = configureStore({

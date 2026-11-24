@@ -22,10 +22,14 @@ import {
   STATIONARY_PX,
   classifyRelease,
   createTapTracker,
+  pickMeshHit,
   pickMeshId,
   type PointerKind,
 } from './gestures';
+import { lastHit } from './lastHit';
 import { pointerPosition } from './pointerPosition';
+
+export { lastHit };
 
 export type ContextRequest = {
   x: number;
@@ -257,6 +261,7 @@ export function Picking({
       return;
     }
 
+    const rawHit = pickMeshHit(e.intersections);
     let id: MeshId | null;
     if (import.meta.env.DEV && window.location.search.includes('debug')) {
       const t0 = performance.now();
@@ -273,8 +278,14 @@ export function Picking({
         stat.totalMs = 0;
       }
     } else {
-      id = pickMeshId(e.intersections);
+      id = rawHit?.meshId ?? null;
     }
+
+    lastHit.set(
+      rawHit && rawHit.point
+        ? { meshId: rawHit.meshId, point: rawHit.point.clone() }
+        : null,
+    );
 
     if (id !== store.getState().selection.hoveredId) {
       dispatch(hovered(id));
@@ -285,7 +296,13 @@ export function Picking({
     if (toPointerKind(e.pointerType) !== 'mouse') return;
     if (store.getState().quiz.status !== 'off') return;
 
-    const next = pickMeshId(e.intersections);
+    const hit = pickMeshHit(e.intersections);
+    lastHit.set(
+      hit && hit.point
+        ? { meshId: hit.meshId, point: hit.point.clone() }
+        : null,
+    );
+    const next = hit?.meshId ?? null;
     if (next !== store.getState().selection.hoveredId) {
       dispatch(hovered(next));
     }
@@ -297,13 +314,21 @@ export function Picking({
       clearPress();
       return;
     }
+    const hit = pickMeshHit(e.intersections);
+    if (store.getState().quiz.status === 'off') {
+      lastHit.set(
+        hit && hit.point
+          ? { meshId: hit.meshId, point: hit.point.clone() }
+          : null,
+      );
+    }
     beginPress({
       pointerId: e.pointerId,
       pointerType: toPointerKind(e.pointerType),
       button: e.button,
       clientX: e.clientX,
       clientY: e.clientY,
-      meshId: pickMeshId(e.intersections),
+      meshId: hit?.meshId ?? null,
     });
   };
 

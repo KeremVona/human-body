@@ -53,18 +53,25 @@ export function createTapTracker(): {
   };
 }
 
-/** Returns the MeshId of the closest intersection whose object is marked pickable. */
-export function pickMeshId(
-  intersections: readonly { object: Object3D }[],
-): MeshId | null {
+/** Returns the MeshId and world hit point of the closest intersection whose object is marked pickable. */
+export function pickMeshHit<P>(
+  intersections: readonly { object: Object3D; point?: P }[],
+): { meshId: MeshId; point: P | undefined } | null {
   for (const hit of intersections) {
     if (hit.object.userData?.pickable !== true) {
       continue;
     }
     const id = meshIdOf(hit.object);
     if (id) {
-      return id;
+      return { meshId: id, point: hit.point };
     }
   }
   return null;
+}
+
+/** Returns the MeshId of the closest intersection whose object is marked pickable. */
+export function pickMeshId(
+  intersections: readonly { object: Object3D }[],
+): MeshId | null {
+  return pickMeshHit(intersections)?.meshId ?? null;
 }

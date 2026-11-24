@@ -35,17 +35,20 @@ describe('shortcutFor', () => {
     expect(k(key)).toBe(cmd);
   });
 
-  it('maps modifiers', () => {
+  it('maps modifiers and pins', () => {
     expect(k('z', { ctrlKey: true })).toBe('undo');
     expect(k('z', { metaKey: true })).toBe('undo');
     expect(k('F10', { shiftKey: true })).toBe('context-menu');
     expect(k('z')).toBeNull();
     expect(k('/')).toBe('focus-search');
+    expect(k('p')).toBe('add-pin');
+    expect(k('P')).toBe('add-pin');
   });
 
   it('ignores typing and Alt', () => {
     expect(k('h', { targetTag: 'INPUT' })).toBeNull();
     expect(k('/', { targetTag: 'INPUT' })).toBeNull();
+    expect(k('p', { targetTag: 'INPUT' })).toBeNull();
     expect(k('h', { targetTag: 'TEXTAREA' })).toBeNull();
     expect(k('h', { targetTag: 'SELECT' })).toBeNull();
     expect(k('h', { targetEditable: true })).toBeNull();

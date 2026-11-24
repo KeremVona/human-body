@@ -100,6 +100,17 @@ export function DissectionMenu({
                 <span>Fade others</span>
                 <kbd className="text-[10px] text-slate-400">G</kbd>
               </DropdownMenu.Item>
+              <DropdownMenu.Item
+                className={itemClass}
+                onSelect={() => {
+                  void import('../pins/thunks').then(({ addPinAtPointer }) =>
+                    dispatch(addPinAtPointer()),
+                  );
+                }}
+              >
+                <span>Add pin</span>
+                <kbd className="text-[10px] text-slate-400">P</kbd>
+              </DropdownMenu.Item>
             </>
           ) : (
             <>

@@ -9,6 +9,7 @@ export type Command =
   | 'deselect'
   | 'context-menu'
   | 'focus-search'
+  | 'add-pin'
   | 'zoom-in'
   | 'zoom-out'
   | 'reset-view'
@@ -20,6 +21,7 @@ const PLAIN_KEY_MAP: Record<string, Command> = {
   g: 'fade',
   f: 'focus',
   '/': 'focus-search',
+  p: 'add-pin',
   escape: 'deselect',
   '1': 'preset:anterior',
   '2': 'preset:posterior',

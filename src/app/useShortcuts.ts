@@ -70,6 +70,13 @@ export function useShortcuts(onContextMenu?: () => void): void {
           e.preventDefault();
           if (!quizActive) dispatch(undo());
           break;
+        case 'add-pin':
+          if (!quizActive && selectedIds.length > 0) {
+            void import('../features/pins/thunks').then(({ addPinAtPointer }) =>
+              dispatch(addPinAtPointer()),
+            );
+          }
+          break;
         case 'deselect':
           if (!quizActive && selectedIds.length > 0) {
             dispatch(selectionCleared());

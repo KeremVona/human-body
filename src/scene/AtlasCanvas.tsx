@@ -1,8 +1,8 @@
 import { Canvas } from '@react-three/fiber';
-import { Suspense, useContext } from 'react';
+import { lazy, Suspense, useContext } from 'react';
 import { Provider, useStore } from 'react-redux';
 import { AgXToneMapping } from 'three';
-import { useAppDispatch } from '../app/hooks';
+import { useAppDispatch, useAppSelector } from '../app/hooks';
 import type { RootState } from '../app/store';
 import {
   hovered,
@@ -18,6 +18,10 @@ import { Lights } from './Lights';
 import { MeshRegistryProvider, useMeshRegistry } from './meshRegistry';
 import { Picking, type ContextRequest } from './Picking';
 import { SceneStateApplier } from './SceneStateApplier';
+
+const PinProbe = lazy(() =>
+  import('./PinProbe').then((m) => ({ default: m.PinProbe })),
+);
 
 export type CanvasBundle = {
   id: string;
@@ -46,6 +50,7 @@ export function AtlasCanvas({
 }: AtlasCanvasProps) {
   const store = useStore<RootState>();
   const dispatch = useAppDispatch();
+  const hasPins = useAppSelector((s) => s.pins.items.length > 0);
   const registry = useMeshRegistry();
   const cameraController = useContext(CameraApiContext);
 
@@ -109,6 +114,12 @@ export function AtlasCanvas({
               </Picking>
 
               <Effects />
+
+              {hasPins ? (
+                <Suspense fallback={null}>
+                  <PinProbe />
+                </Suspense>
+              ) : null}
 
               {debug && onDebugSample ? (
                 <DebugStatsProbe onSample={onDebugSample} />

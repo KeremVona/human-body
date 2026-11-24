@@ -59,6 +59,16 @@ const ShareNotice = lazy(() =>
     default: m.ShareNotice,
   })),
 );
+const PinLayer = lazy(() =>
+  import('./features/pins/PinLayer').then((m) => ({
+    default: m.PinLayer,
+  })),
+);
+const PinEditor = lazy(() =>
+  import('./features/pins/PinEditor').then((m) => ({
+    default: m.PinEditor,
+  })),
+);
 import { DebugStats, type RenderStats } from './scene/DebugStats';
 import {
   createMeshRegistry,
@@ -90,6 +100,8 @@ function AtlasShell({
   const pinsStorageNoticeShown = useAppSelector(
     (s) => s.pins.storageNoticeShown,
   );
+  const hasPins = useAppSelector((s) => s.pins.items.length > 0);
+  const editingPinId = useAppSelector((s) => s.pins.editingId);
   const systems = useAppSelector((s) => s.systems);
   const quizActive = useAppSelector((s) => s.quiz.status !== 'off');
   const bootShareStartedRef = useRef(false);
@@ -352,6 +364,16 @@ function AtlasShell({
           ) : null}
           <QuizBanner />
           <QuizSummary />
+          {hasPins ? (
+            <Suspense fallback={null}>
+              <PinLayer />
+            </Suspense>
+          ) : null}
+          {editingPinId ? (
+            <Suspense fallback={null}>
+              <PinEditor />
+            </Suspense>
+          ) : null}
           <LeftPanel />
           {hasSelection ? (
             <Suspense fallback={null}>
@@ -382,10 +404,10 @@ function AtlasShell({
 export default function App({ store }: { store?: AppStore } = {}): JSX.Element {
   const [cameraRef] = useState<CameraRef>(() => ({ current: null }));
   const [cameraController] = useState(() => createCameraController(cameraRef));
-  const [defaultStore] = useState(
-    () => store ?? makeStore(undefined, { camera: cameraRef }),
-  );
   const [registry] = useState(() => createMeshRegistry());
+  const [defaultStore] = useState(
+    () => store ?? makeStore(undefined, { camera: cameraRef, registry }),
+  );
 
   return (
     <Provider store={defaultStore}>

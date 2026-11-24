@@ -17,6 +17,8 @@ export type Pin = {
 export type PinsState = {
   items: Pin[];
   editingId: string | null;
+  isNewEditing?: boolean;
+  focusedPinId?: string | null;
   placing: boolean;
   storageFailed: boolean;
   storageNoticeShown: boolean;
@@ -27,6 +29,8 @@ export type PinsState = {
 const initialState: PinsState = {
   items: [],
   editingId: null,
+  isNewEditing: false,
+  focusedPinId: null,
   placing: false,
   storageFailed: false,
   storageNoticeShown: false,
@@ -76,6 +80,7 @@ const pinsSlice = createSlice({
         createdAt: Date.now(),
       });
       state.editingId = id;
+      state.isNewEditing = true;
     },
     pinEdited(
       state,
@@ -88,6 +93,7 @@ const pinsSlice = createSlice({
         target.label = cleanLabel;
       }
       target.note = sanitizeNote(action.payload.note);
+      state.isNewEditing = false;
     },
     pinDeleted(state, action: PayloadAction<string>) {
       const idx = state.items.findIndex((p) => p.id === action.payload);
@@ -97,6 +103,14 @@ const pinsSlice = createSlice({
       state.lastDeletedIndex = idx;
       if (state.editingId === removed.id) {
         state.editingId = null;
+        state.isNewEditing = false;
+      }
+    },
+    pinCancelledNew(state, action: PayloadAction<string>) {
+      state.items = state.items.filter((p) => p.id !== action.payload);
+      if (state.editingId === action.payload) {
+        state.editingId = null;
+        state.isNewEditing = false;
       }
     },
     pinDeleteUndone(state) {
@@ -111,9 +125,17 @@ const pinsSlice = createSlice({
     },
     editorOpened(state, action: PayloadAction<string>) {
       state.editingId = action.payload;
+      state.isNewEditing = false;
     },
     editorClosed(state) {
       state.editingId = null;
+      state.isNewEditing = false;
+    },
+    focusPinRequested(state, action: PayloadAction<string>) {
+      state.focusedPinId = action.payload;
+    },
+    focusPinCleared(state) {
+      state.focusedPinId = null;
     },
     sharedPinsLoaded(state, action: PayloadAction<SharedPin[]>) {
       const own = state.items.filter((p) => !p.shared);
@@ -177,9 +199,12 @@ export const {
   pinAdded,
   pinEdited,
   pinDeleted,
+  pinCancelledNew,
   pinDeleteUndone,
   editorOpened,
   editorClosed,
+  focusPinRequested,
+  focusPinCleared,
   sharedPinsLoaded,
   sharedPinsSaved,
   pinsHydrated,
