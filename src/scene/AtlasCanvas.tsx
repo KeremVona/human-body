@@ -14,6 +14,7 @@ import { CameraApiContext, CameraApiProvider } from './camera';
 import { CameraRig } from './CameraRig';
 import { DebugStatsProbe, type RenderStats } from './DebugStats';
 import { Effects } from './Effects';
+import { lastHit } from './lastHit';
 import { Lights } from './Lights';
 import { MeshRegistryProvider, useMeshRegistry } from './meshRegistry';
 import { Picking, type ContextRequest } from './Picking';
@@ -61,6 +62,7 @@ export function AtlasCanvas({
       className="h-full w-full"
       onContextMenu={(e) => e.preventDefault()}
       onPointerLeave={() => {
+        lastHit.set(null);
         if (store.getState().selection.hoveredId !== null) {
           dispatch(hovered(null));
         }

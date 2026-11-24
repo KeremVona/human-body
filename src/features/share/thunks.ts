@@ -116,7 +116,11 @@ export function applyViewState(view: ViewStateV1): AppThunk<Promise<void>> {
     const bundles = [...bundleSet];
     if (bundles.length > 0) {
       dispatch(bundlesRequested(bundles));
-      await waitForBundles({ getState, subscribe: extra.subscribe }, bundles);
+      try {
+        await waitForBundles({ getState, subscribe: extra.subscribe }, bundles);
+      } catch {
+        // Apply remaining applicable state if a bundle load fails or times out
+      }
     }
 
     dispatch(

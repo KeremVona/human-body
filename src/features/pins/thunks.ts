@@ -1,26 +1,47 @@
+import { Box3, Vector3 } from 'three';
 import type { AppThunk } from '../../app/store';
-import { parseMeshId } from '../../data/ids';
+import { parseMeshId, type MeshId } from '../../data/ids';
 import { lastHit } from '../../scene/lastHit';
 import { selectStructureLookup } from '../content/contentSlice';
 import { pinAdded } from './pinsSlice';
 import { worldToLocal } from './pinProjection';
 
-/** Creates a pin at the latest pickable pointer hit on the surface of the hit mesh. */
-export function addPinAtPointer(): AppThunk {
+export type PinTargetHit = {
+  meshId: MeshId;
+  point?: [number, number, number] | null;
+};
+
+/** Creates a pin at the given hit (or latest pointer hit / mesh center fallback). */
+export function addPinAtPointer(explicit?: PinTargetHit): AppThunk {
   return (dispatch, getState, extra) => {
     const state = getState();
     if (state.quiz.status !== 'off') return;
-    const hit = lastHit.get();
-    if (!hit) return;
 
-    const mesh = extra.registry?.get(hit.meshId);
+    const latest = lastHit.get();
+    const meshId = explicit?.meshId ?? latest?.meshId;
+    if (!meshId) return;
+
+    const mesh = extra.registry?.get(meshId);
     if (!mesh || !mesh.visible) return;
+    if (!explicit && mesh.userData?.pickable !== true) return;
 
-    const local = worldToLocal(mesh, [hit.point.x, hit.point.y, hit.point.z]);
+    let worldPoint: [number, number, number];
+    if (explicit?.point) {
+      worldPoint = explicit.point;
+    } else if (latest && latest.meshId === meshId) {
+      worldPoint = [latest.point.x, latest.point.y, latest.point.z];
+    } else if (!explicit) {
+      return;
+    } else {
+      const center = new Box3().setFromObject(mesh).getCenter(new Vector3());
+      worldPoint = [center.x, center.y, center.z];
+    }
+
+    const local = worldToLocal(mesh, worldPoint);
     const lookup = selectStructureLookup(state);
-    const entry = lookup.get(parseMeshId(hit.meshId).structureId);
-    const label = entry?.names.common ?? hit.meshId;
+    const entry = lookup.get(parseMeshId(meshId).structureId);
+    const label = entry?.names.common ?? meshId;
 
-    dispatch(pinAdded({ meshId: hit.meshId, local, label }));
+    dispatch(pinAdded({ meshId, local, label }));
   };
 }

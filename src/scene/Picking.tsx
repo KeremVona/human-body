@@ -33,6 +33,7 @@ export type ContextRequest = {
   x: number;
   y: number;
   meshId: MeshId | null;
+  point?: [number, number, number] | null;
 };
 
 type ActivePress = {
@@ -43,6 +44,7 @@ type ActivePress = {
   startY: number;
   startT: number;
   meshId: MeshId | null;
+  point: [number, number, number] | null;
   longPressFired: boolean;
   timer: number | null;
 };
@@ -94,6 +96,7 @@ export function Picking({
       clientX: number;
       clientY: number;
       meshId: MeshId | null;
+      point: [number, number, number] | null;
     }) => {
       clearPress();
       const press: ActivePress = {
@@ -104,6 +107,7 @@ export function Picking({
         startY: p.clientY,
         startT: performance.now(),
         meshId: p.meshId,
+        point: p.point,
         longPressFired: false,
         timer: null,
       };
@@ -117,6 +121,7 @@ export function Picking({
               x: press.startX,
               y: press.startY,
               meshId: press.meshId,
+              point: press.point,
             });
           }
         }, LONG_PRESS_MS);
@@ -153,6 +158,7 @@ export function Picking({
           clientX: ev.clientX,
           clientY: ev.clientY,
           meshId: null,
+          point: null,
         });
       }
     };
@@ -223,6 +229,7 @@ export function Picking({
           x: ev.clientX,
           y: ev.clientY,
           meshId: press.meshId,
+          point: press.point,
         });
       }
     };
@@ -327,6 +334,7 @@ export function Picking({
       clientX: e.clientX,
       clientY: e.clientY,
       meshId: hit?.meshId ?? null,
+      point: hit?.point ? [hit.point.x, hit.point.y, hit.point.z] : null,
     });
   };
 

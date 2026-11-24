@@ -227,4 +227,21 @@ describe('share thunks & bootShare', () => {
       shared: true,
     });
   });
+
+  it('applies remaining state when a requested bundle fails during applyViewState', async () => {
+    const { store } = setupStore();
+    store.dispatch({ type: 'assets/bundleFailed', payload: 'muscular' });
+
+    await store.dispatch(
+      applyViewState({
+        c: [0, 0, 3, 0, 0, 0],
+        s: ['skeletal', 'muscular'],
+        h: ['femur--l'],
+        sel: ['sternum'],
+      }),
+    );
+
+    expect(store.getState().dissection.hidden).toEqual(['femur--l']);
+    expect(store.getState().selection.selectedIds).toEqual(['sternum']);
+  });
 });

@@ -13,6 +13,8 @@ Live demo: **[keremvona.github.io/human-body](https://keremvona.github.io/human-
 - **Autocomplete search & virtualised tree browser:** Press `/` to search common names, Latin TA terms, and lay synonyms with automatic system loading and camera focus, or switch the left explorer to the `Browse` hierarchy tree with full keyboard navigation and per-row visibility toggles.
 - **Real-time dissection tools:** Focus (`F`), Isolate (`I`), Hide (`H`), Fade others (`G`), Left/Right paired switching, context menu (right-click, `Shift+F10`, or long-press), and up to `50` steps of Undo (`Ctrl/Cmd+Z`).
 - **Find & Click study quiz:** 10-question timed-feedback quiz over featured structures in enabled systems, pausing dissection tools during active play, saving your best score in `localStorage`, and restoring pre-quiz state when closed.
+- **Shareable view links:** Copy a compressed `#v1.` URL capturing camera pose, enabled body systems, opacities, dissection state, selection, and optional pins — loading a link skips deleted IDs with a gentle notice.
+- **Personal 3D pins:** Right-click (or long-press on touch) any part and select **Add pin** (`P`) to anchor labeled notes onto the mesh surface with occlusion dimming, mesh-visibility tracking, Undo on delete, and `localStorage` persistence (`atlas.pins.v1`).
 - **Configurable graphics quality & visual effects:** Top-bar `Settings` menu (`Auto`, `High`, `Low`) controlling N8AO contact shadows, `#6FA8FF` selection outlines, Fresnel-rimmed x-ray ghosts, and muscle sheen.
 - **Camera presets & responsive UI:** Anterior/Posterior/Left/Right/Superior/Inferior presets (`1–6`), zoom (`+`/`-`), reset view (`0`), desktop side Inspector (`>= 768px`), and touch-friendly bottom sheet on mobile viewports.
 

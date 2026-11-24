@@ -1,4 +1,4 @@
-import { cleanup, render, screen } from '@testing-library/react';
+import { act, cleanup, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Provider } from 'react-redux';
 import { afterEach, describe, expect, it } from 'vitest';
@@ -46,14 +46,16 @@ describe('PinEditor', () => {
     await user.click(screen.getByRole('button', { name: 'Cancel' }));
     expect(store.getState().pins.items).toHaveLength(0);
 
-    store.dispatch(
-      pinAdded({ meshId: 'sternum', local: [0, 1, 0], label: 'Saved pin' }),
-    );
-    const id = store.getState().pins.items[0].id;
-    store.dispatch(pinEdited({ id, label: 'Saved pin', note: 'Original' }));
-    store.dispatch(editorOpened(id));
+    act(() => {
+      store.dispatch(
+        pinAdded({ meshId: 'sternum', local: [0, 1, 0], label: 'Saved pin' }),
+      );
+      const id = store.getState().pins.items[0].id;
+      store.dispatch(pinEdited({ id, label: 'Saved pin', note: 'Original' }));
+      store.dispatch(editorOpened(id));
+    });
 
-    await user.click(screen.getByRole('button', { name: 'Cancel' }));
+    await user.click(await screen.findByRole('button', { name: 'Cancel' }));
     expect(store.getState().pins.items).toHaveLength(1);
     expect(store.getState().pins.items[0].note).toBe('Original');
   });

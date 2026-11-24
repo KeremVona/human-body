@@ -6,6 +6,7 @@ import {
   useState,
   type JSX,
   type ReactNode,
+  type RefObject,
 } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { encodeViewState } from './codec';
@@ -18,11 +19,13 @@ export function SharePopover({
   open,
   onOpenChange,
   trigger,
+  triggerRef,
   encode = encodeViewState,
 }: {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   trigger?: ReactNode;
+  triggerRef?: RefObject<HTMLButtonElement | null>;
   encode?: typeof encodeViewState;
 }): JSX.Element {
   const dispatch = useAppDispatch();
@@ -82,6 +85,10 @@ export function SharePopover({
     <Popover.Root open={open} onOpenChange={onOpenChange}>
       {trigger ? (
         <Popover.Trigger asChild>{trigger}</Popover.Trigger>
+      ) : triggerRef ? (
+        <Popover.Anchor
+          virtualRef={triggerRef as unknown as { current: HTMLButtonElement }}
+        />
       ) : (
         <Popover.Anchor className="fixed top-14 right-4 z-40 h-px w-px" />
       )}
@@ -90,6 +97,21 @@ export function SharePopover({
           align="end"
           sideOffset={8}
           aria-label="Share view"
+          onInteractOutside={(e) => {
+            if (
+              triggerRef?.current &&
+              e.target instanceof Node &&
+              triggerRef.current.contains(e.target)
+            ) {
+              e.preventDefault();
+            }
+          }}
+          onCloseAutoFocus={(e) => {
+            if (triggerRef?.current) {
+              e.preventDefault();
+              triggerRef.current.focus();
+            }
+          }}
           className="z-50 w-80 max-w-[calc(100vw-2rem)] rounded-xl border border-white/10 bg-slate-900/95 p-3.5 text-xs text-slate-100 shadow-2xl backdrop-blur-md focus:outline-none"
         >
           <div className="flex flex-col gap-2.5">

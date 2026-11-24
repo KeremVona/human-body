@@ -113,6 +113,7 @@ function AtlasShell({
   const quizActive = useAppSelector((s) => s.quiz.status !== 'off');
   const bootShareStartedRef = useRef(false);
   const pinsHydratedRef = useRef(false);
+  const shareButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (pinsHydratedRef.current || boot !== 'ready') return;
@@ -142,9 +143,9 @@ function AtlasShell({
       return;
     }
     bootShareStartedRef.current = true;
-    void import('./features/share/bootShare').then(({ bootShare }) =>
-      bootShare(store),
-    );
+    void import('./features/share/bootShare')
+      .then(({ bootShare }) => bootShare(store))
+      .catch(() => {});
   }, [boot, bundles.skeletal, store]);
 
   useEffect(() => {
@@ -173,9 +174,14 @@ function AtlasShell({
     (req: ContextRequest) => {
       if (req.meshId) {
         dispatch(selected([req.meshId]));
-        setContextMenu({ x: req.x, y: req.y, meshIds: [req.meshId] });
+        setContextMenu({
+          x: req.x,
+          y: req.y,
+          meshIds: [req.meshId],
+          point: req.point ?? null,
+        });
       } else {
-        setContextMenu({ x: req.x, y: req.y, meshIds: [] });
+        setContextMenu({ x: req.x, y: req.y, meshIds: [], point: null });
       }
     },
     [dispatch],
@@ -307,7 +313,10 @@ function AtlasShell({
             {boot === 'ready' && !quizActive ? (
               <>
                 <button
+                  ref={shareButtonRef}
                   type="button"
+                  aria-expanded={shareOpen}
+                  aria-haspopup="dialog"
                   onClick={() => {
                     setShareLoaded(true);
                     setShareOpen((prev) => !prev);
@@ -327,7 +336,11 @@ function AtlasShell({
             ) : null}
             {shareLoaded ? (
               <Suspense fallback={null}>
-                <SharePopover open={shareOpen} onOpenChange={setShareOpen} />
+                <SharePopover
+                  open={shareOpen}
+                  onOpenChange={setShareOpen}
+                  triggerRef={shareButtonRef}
+                />
               </Suspense>
             ) : null}
             <SettingsMenu />
@@ -358,32 +371,34 @@ function AtlasShell({
       {debug ? <DebugStats stats={debugStats} meshCount={meshCount} /> : null}
       {boot === 'ready' ? (
         <>
-          {shareNotice ? (
-            <Suspense fallback={null}>
-              <ShareNotice />
-            </Suspense>
-          ) : null}
-          {pinsStorageFailed && !pinsStorageNoticeShown ? (
-            <div className="pointer-events-none fixed inset-x-0 top-16 z-30 flex justify-center px-4">
-              <div
-                role="status"
-                className="pointer-events-auto flex items-center gap-2 rounded-lg bg-amber-950/90 px-4 py-2 text-xs text-amber-100 shadow-lg ring-1 ring-amber-400/40 backdrop-blur"
-              >
-                <span>Pins can&apos;t be saved on this device.</span>
-                <button
-                  type="button"
-                  aria-label="Dismiss storage notice"
-                  onClick={() => {
-                    void import('./features/pins/pinsSlice').then(
-                      ({ storageNoticeShown }) =>
-                        dispatch(storageNoticeShown()),
-                    );
-                  }}
-                  className="rounded px-1.5 py-0.5 text-amber-200 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-sky-400"
+          {shareNotice || (pinsStorageFailed && !pinsStorageNoticeShown) ? (
+            <div className="pointer-events-none fixed inset-x-0 top-16 z-30 flex flex-col items-center gap-2 px-4">
+              {shareNotice ? (
+                <Suspense fallback={null}>
+                  <ShareNotice />
+                </Suspense>
+              ) : null}
+              {pinsStorageFailed && !pinsStorageNoticeShown ? (
+                <div
+                  role="status"
+                  className="pointer-events-auto flex items-center gap-2 rounded-lg bg-amber-950/90 px-4 py-2 text-xs text-amber-100 shadow-lg ring-1 ring-amber-400/40 backdrop-blur"
                 >
-                  Dismiss
-                </button>
-              </div>
+                  <span>Pins can&apos;t be saved on this device.</span>
+                  <button
+                    type="button"
+                    aria-label="Dismiss storage notice"
+                    onClick={() => {
+                      void import('./features/pins/pinsSlice').then(
+                        ({ storageNoticeShown }) =>
+                          dispatch(storageNoticeShown()),
+                      );
+                    }}
+                    className="rounded px-1.5 py-0.5 text-amber-200 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-sky-400"
+                  >
+                    Dismiss
+                  </button>
+                </div>
+              ) : null}
             </div>
           ) : null}
           <QuizBanner />
@@ -393,7 +408,7 @@ function AtlasShell({
               <PinLayer />
             </Suspense>
           ) : null}
-          {editingPinId ? (
+          {!quizActive && editingPinId ? (
             <Suspense fallback={null}>
               <PinEditor />
             </Suspense>

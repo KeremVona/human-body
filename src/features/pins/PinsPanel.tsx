@@ -131,7 +131,7 @@ export function PinsPanel(): JSX.Element {
                 className="flex flex-col gap-1.5 rounded-lg border border-white/10 bg-slate-950/50 p-2"
               >
                 <div className="flex items-start justify-between gap-1.5">
-                  <span className="font-semibold break-words text-white">
+                  <span className="min-w-0 font-semibold break-words text-white">
                     {pin.label}
                   </span>
                   {pin.shared ? (

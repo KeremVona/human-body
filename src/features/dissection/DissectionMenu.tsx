@@ -15,6 +15,7 @@ export type ContextMenuTarget = {
   x: number;
   y: number;
   meshIds: MeshId[];
+  point?: [number, number, number] | null;
 };
 
 const itemClass =
@@ -103,8 +104,15 @@ export function DissectionMenu({
               <DropdownMenu.Item
                 className={itemClass}
                 onSelect={() => {
+                  const first = meshIds[0];
+                  if (!first) return;
                   void import('../pins/thunks').then(({ addPinAtPointer }) =>
-                    dispatch(addPinAtPointer()),
+                    dispatch(
+                      addPinAtPointer({
+                        meshId: first,
+                        point: target?.point ?? null,
+                      }),
+                    ),
                   );
                 }}
               >

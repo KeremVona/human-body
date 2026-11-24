@@ -31,6 +31,61 @@ export function localToWorld(
   return [v.x, v.y, v.z];
 }
 
+export type ProjectedPinCandidate = {
+  pin: Pin;
+  x: number;
+  y: number;
+  world: Vector3;
+};
+
+/** Collects visible, in-frustum pins with viewport CSS pixel coordinates and world positions. */
+export function collectProjectedPins(args: {
+  pins: readonly Pin[];
+  registry: MeshRegistry;
+  camera: Camera;
+  size: { width: number; height: number };
+}): ProjectedPinCandidate[] {
+  const { pins, registry, camera, size } = args;
+  camera.updateMatrixWorld();
+  const out: ProjectedPinCandidate[] = [];
+
+  for (const pin of pins) {
+    const mesh = registry.get(pin.meshId);
+    if (!mesh || !mesh.visible) continue;
+
+    const worldArr = localToWorld(mesh, pin.local);
+    const world = new Vector3(worldArr[0], worldArr[1], worldArr[2]);
+    const ndc = world.clone().project(camera);
+
+    if (ndc.z < -1 || ndc.z > 1) continue;
+
+    const x = ((ndc.x + 1) / 2) * size.width;
+    const y = ((-ndc.y + 1) / 2) * size.height;
+    out.push({ pin, x, y, world });
+  }
+
+  return out;
+}
+
+/** Selects up to `limit` round-robin pin IDs strictly from visible candidates. */
+export function selectOcclusionBatch(
+  candidates: readonly ProjectedPinCandidate[],
+  cursor: number,
+  limit: number,
+): { batch: Set<string>; nextCursor: number } {
+  const total = candidates.length;
+  const batch = new Set<string>();
+  if (total === 0 || limit <= 0) {
+    return { batch, nextCursor: 0 };
+  }
+  const start = ((cursor % total) + total) % total;
+  const count = Math.min(total, limit);
+  for (let i = 0; i < count; i++) {
+    batch.add(candidates[(start + i) % total].pin.id);
+  }
+  return { batch, nextCursor: (start + count) % total };
+}
+
 /** Projects visible on-screen pins into viewport CSS pixel coordinates. */
 export function projectPins(args: {
   pins: readonly Pin[];
@@ -39,27 +94,13 @@ export function projectPins(args: {
   size: { width: number; height: number };
   occlusion: (pin: Pin, world: Vector3) => boolean;
 }): PinScreen[] {
-  const { pins, registry, camera, size, occlusion } = args;
-  camera.updateMatrixWorld();
-  const out: PinScreen[] = [];
-
-  for (const pin of pins) {
-    const mesh = registry.get(pin.meshId);
-    if (!mesh || !mesh.visible) continue;
-
-    const worldArr = localToWorld(mesh, pin.local);
-    const worldVec = new Vector3(worldArr[0], worldArr[1], worldArr[2]);
-    const ndc = worldVec.clone().project(camera);
-
-    if (ndc.z < -1 || ndc.z > 1) continue;
-
-    const x = ((ndc.x + 1) / 2) * size.width;
-    const y = ((-ndc.y + 1) / 2) * size.height;
-    const dimmed = occlusion(pin, worldVec);
-    out.push({ id: pin.id, x, y, dimmed });
-  }
-
-  return out;
+  const candidates = collectProjectedPins(args);
+  return candidates.map(({ pin, x, y, world }) => ({
+    id: pin.id,
+    x,
+    y,
+    dimmed: args.occlusion(pin, world),
+  }));
 }
 
 function screensEqual(

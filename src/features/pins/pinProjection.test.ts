@@ -2,7 +2,13 @@ import { Mesh, PerspectiveCamera } from 'three';
 import { describe, expect, it } from 'vitest';
 import { createMeshRegistry } from '../../scene/meshRegistry';
 import type { Pin } from './pinsSlice';
-import { localToWorld, projectPins, worldToLocal } from './pinProjection';
+import {
+  collectProjectedPins,
+  localToWorld,
+  projectPins,
+  selectOcclusionBatch,
+  worldToLocal,
+} from './pinProjection';
 
 function makePin(id: string, meshId: string): Pin {
   return {
@@ -80,5 +86,50 @@ describe('pinProjection', () => {
     });
 
     expect(out).toEqual([]);
+  });
+
+  it('collectProjectedPins + selectOcclusionBatch only budgets visible in-frustum pins', () => {
+    const registry = createMeshRegistry();
+    const visible = new Mesh();
+    visible.visible = true;
+    registry.register('femur--l', visible);
+
+    const hidden = new Mesh();
+    hidden.visible = false;
+    registry.register('sternum', hidden);
+
+    const camera = new PerspectiveCamera(50, 800 / 600, 0.1, 100);
+    camera.position.set(0, 0, 3);
+    camera.lookAt(0, 0, 0);
+    camera.updateMatrixWorld();
+
+    const pins = [
+      ...Array.from({ length: 60 }, (_, i) =>
+        makePin(`hidden-${i}`, 'sternum'),
+      ),
+      ...Array.from({ length: 5 }, (_, i) => makePin(`vis-${i}`, 'femur--l')),
+    ];
+
+    const candidates = collectProjectedPins({
+      pins,
+      registry,
+      camera,
+      size: { width: 800, height: 600 },
+    });
+    expect(candidates.map((c) => c.pin.id)).toEqual([
+      'vis-0',
+      'vis-1',
+      'vis-2',
+      'vis-3',
+      'vis-4',
+    ]);
+
+    const { batch, nextCursor } = selectOcclusionBatch(candidates, 0, 3);
+    expect([...batch]).toEqual(['vis-0', 'vis-1', 'vis-2']);
+    expect(nextCursor).toBe(3);
+
+    const second = selectOcclusionBatch(candidates, nextCursor, 3);
+    expect([...second.batch]).toEqual(['vis-3', 'vis-4', 'vis-0']);
+    expect(second.nextCursor).toBe(1);
   });
 });
