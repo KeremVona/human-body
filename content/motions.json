@@ -98,7 +98,7 @@
         "anchor": [0.5, 0.03, 0.5]
       },
       "axis": [-1, 0, 0],
-      "range": [0, 145],
+      "range": [0, 130],
       "periodS": 4
     },
     {
@@ -127,7 +127,6 @@
         "middle-phalanx-of-second-finger-of-foot--l",
         "middle-phalanx-of-third-finger-of-foot--l",
         "navicular-bone--l",
-        "patella--l",
         "proximal-phalanx-of-fifth-finger-of-foot--l",
         "proximal-phalanx-of-first-finger-of-foot--l",
         "proximal-phalanx-of-fourth-finger-of-foot--l",
@@ -217,7 +216,6 @@
         "brachialis-muscle--l",
         "brachioradialis-muscle--l",
         "capitate-bone--l",
-        "coracobrachialis-muscle--l",
         "deep-head-of-flexor-pollicis-brevis--l",
         "deep-head-of-pronator-teres--l",
         "distal-phalanx-of-fifth-finger-of-hand--l",
@@ -287,6 +285,7 @@
       "ghost": [
         "acromial-part-of-deltoid-muscle--l",
         "clavicular-part-of-deltoid-muscle--l",
+        "coracobrachialis-muscle--l",
         "scapular-spinal-part-of-deltoid-muscle--l",
         "supraspinatus-muscle--l"
       ],
@@ -301,7 +300,7 @@
       },
       "pivot": {
         "mesh": "humerus--l",
-        "anchor": [0.5, 0.95, 0.5]
+        "anchor": [0.28, 0.91, 0.5]
       },
       "axis": [0, 0, 1],
       "range": [0, 90],
@@ -340,7 +339,7 @@
         }
       ],
       "bpm": 72,
-      "amplitude": 0.04
+      "amplitude": 0.08
     }
   ]
 }

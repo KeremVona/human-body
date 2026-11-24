@@ -9,6 +9,9 @@ import { TreeView } from './TreeView';
 const PinsPanel = lazy(() =>
   import('../pins/PinsPanel').then((m) => ({ default: m.PinsPanel })),
 );
+const MotionPanel = lazy(() =>
+  import('../motion/MotionPanel').then((m) => ({ default: m.MotionPanel })),
+);
 
 function startsCollapsed(): boolean {
   if (typeof window === 'undefined') return false;
@@ -18,14 +21,17 @@ function startsCollapsed(): boolean {
   return window.innerWidth < 768;
 }
 
-/** Floating left sidebar hosting Body Systems controls, Browse tree, and lazy Pins tab. */
+/** Floating left sidebar hosting Body Systems controls, Browse tree, and lazy Pins/Motion tabs. */
 export function LeftPanel(): JSX.Element | null {
   const dispatch = useAppDispatch();
   const rows = useAppSelector(selectToggleRows);
   const focusedPinId = useAppSelector((s) => s.pins.focusedPinId);
   const [collapsed, setCollapsed] = useState(startsCollapsed);
-  const [tab, setTab] = useState<'systems' | 'browse' | 'pins'>('systems');
+  const [tab, setTab] = useState<'systems' | 'browse' | 'pins' | 'motion'>(
+    'systems',
+  );
   const [pinsVisited, setPinsVisited] = useState(false);
+  const [motionVisited, setMotionVisited] = useState(false);
   const hydratedRef = useRef(false);
 
   const openPinsTab = () => {
@@ -68,7 +74,9 @@ export function LeftPanel(): JSX.Element | null {
             ? 'Body systems'
             : tab === 'browse'
               ? 'Browse'
-              : 'Pins'
+              : tab === 'pins'
+                ? 'Pins'
+                : 'Motion'
         }
         collapsed={collapsed}
         onToggle={() => setCollapsed((c) => !c)}
@@ -81,6 +89,9 @@ export function LeftPanel(): JSX.Element | null {
           onValueChange={(v) => {
             if (v === 'pins') {
               openPinsTab();
+            } else if (v === 'motion') {
+              setMotionVisited(true);
+              setTab('motion');
             } else {
               setTab(v as 'systems' | 'browse');
             }
@@ -88,25 +99,31 @@ export function LeftPanel(): JSX.Element | null {
         >
           <Tabs.List
             aria-label="Explorer views"
-            className="mb-2.5 grid grid-cols-3 gap-1 rounded-lg bg-slate-950/60 p-0.5"
+            className="mb-2.5 grid grid-cols-4 gap-0.5 rounded-lg bg-slate-950/60 p-0.5"
           >
             <Tabs.Trigger
               value="systems"
-              className="rounded-md px-2 py-1 text-xs font-medium text-slate-300 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-sky-400 data-[state=active]:bg-sky-500/30 data-[state=active]:text-white"
+              className="rounded-md px-1 py-1 text-xs font-medium text-slate-300 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-sky-400 data-[state=active]:bg-sky-500/30 data-[state=active]:text-white"
             >
               Systems
             </Tabs.Trigger>
             <Tabs.Trigger
               value="browse"
-              className="rounded-md px-2 py-1 text-xs font-medium text-slate-300 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-sky-400 data-[state=active]:bg-sky-500/30 data-[state=active]:text-white"
+              className="rounded-md px-1 py-1 text-xs font-medium text-slate-300 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-sky-400 data-[state=active]:bg-sky-500/30 data-[state=active]:text-white"
             >
               Browse
             </Tabs.Trigger>
             <Tabs.Trigger
               value="pins"
-              className="rounded-md px-2 py-1 text-xs font-medium text-slate-300 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-sky-400 data-[state=active]:bg-sky-500/30 data-[state=active]:text-white"
+              className="rounded-md px-1 py-1 text-xs font-medium text-slate-300 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-sky-400 data-[state=active]:bg-sky-500/30 data-[state=active]:text-white"
             >
               Pins
+            </Tabs.Trigger>
+            <Tabs.Trigger
+              value="motion"
+              className="rounded-md px-1 py-1 text-xs font-medium text-slate-300 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-sky-400 data-[state=active]:bg-sky-500/30 data-[state=active]:text-white"
+            >
+              Motion
             </Tabs.Trigger>
           </Tabs.List>
 
@@ -128,6 +145,17 @@ export function LeftPanel(): JSX.Element | null {
             {pinsVisited ? (
               <Suspense fallback={null}>
                 <PinsPanel />
+              </Suspense>
+            ) : null}
+          </Tabs.Content>
+          <Tabs.Content
+            value="motion"
+            forceMount
+            className="data-[state=inactive]:hidden"
+          >
+            {motionVisited ? (
+              <Suspense fallback={null}>
+                <MotionPanel />
               </Suspense>
             ) : null}
           </Tabs.Content>
