@@ -9,6 +9,7 @@ import { contentReducer } from '../features/content/contentSlice';
 import { dissectionReducer } from '../features/dissection/dissectionSlice';
 import { pinsReducer } from '../features/pins/pinsSlice';
 import { quizReducer } from '../features/quiz/quizSlice';
+import { sectionReducer } from '../features/section/sectionSlice';
 import { selectionReducer } from '../features/selection/selectionSlice';
 import { uiReducer } from '../features/settings/uiSlice';
 import { shareReducer } from '../features/share/shareSlice';
@@ -35,6 +36,7 @@ const rootReducer = combineReducers({
   ui: uiReducer,
   share: shareReducer,
   pins: pinsReducer,
+  section: sectionReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
