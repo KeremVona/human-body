@@ -77,6 +77,7 @@ function setupStore(
       zoom: vi.fn(),
       getPose: vi.fn(() => pose),
       setPose: vi.fn(async () => {}),
+      lookAtPoint: vi.fn(async () => {}),
     },
   };
 

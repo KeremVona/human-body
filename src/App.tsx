@@ -69,6 +69,11 @@ const PinEditor = lazy(() =>
     default: m.PinEditor,
   })),
 );
+const SharePopover = lazy(() =>
+  import('./features/share/SharePopover').then((m) => ({
+    default: m.SharePopover,
+  })),
+);
 import { DebugStats, type RenderStats } from './scene/DebugStats';
 import {
   createMeshRegistry,
@@ -94,6 +99,8 @@ function AtlasShell({
   );
   const [meshCount, setMeshCount] = useState(0);
   const [debugStats, setDebugStats] = useState<RenderStats | null>(null);
+  const [shareOpen, setShareOpen] = useState(false);
+  const [shareLoaded, setShareLoaded] = useState(false);
   const emptyPoolAlert = useAppSelector((s) => s.quiz.emptyPoolAlert);
   const shareNotice = useAppSelector((s) => s.share.notice);
   const pinsStorageFailed = useAppSelector((s) => s.pins.storageFailed);
@@ -298,13 +305,30 @@ function AtlasShell({
         rightSlot={
           <>
             {boot === 'ready' && !quizActive ? (
-              <button
-                type="button"
-                onClick={() => dispatch(startQuiz())}
-                className="rounded-lg px-2.5 py-1 text-xs font-medium text-slate-100 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400"
-              >
-                Start quiz
-              </button>
+              <>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShareLoaded(true);
+                    setShareOpen((prev) => !prev);
+                  }}
+                  className="rounded-lg px-2 py-1 text-xs font-medium text-slate-100 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400"
+                >
+                  Share view
+                </button>
+                <button
+                  type="button"
+                  onClick={() => dispatch(startQuiz())}
+                  className="rounded-lg px-2 py-1 text-xs font-medium text-slate-100 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400"
+                >
+                  Start quiz
+                </button>
+              </>
+            ) : null}
+            {shareLoaded ? (
+              <Suspense fallback={null}>
+                <SharePopover open={shareOpen} onOpenChange={setShareOpen} />
+              </Suspense>
             ) : null}
             <SettingsMenu />
           </>

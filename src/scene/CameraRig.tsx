@@ -186,6 +186,37 @@ export function CameraRig(): null {
         invalidate();
         await promise;
       },
+      async lookAtPoint(world, distance = 0.4) {
+        const manifest = store.getState().assets.manifest;
+        if (manifest) {
+          const body = bodyBounds(manifest);
+          const limits = distanceLimits(null, body);
+          controls.minDistance = Math.min(limits.min, 0.05);
+          controls.maxDistance = limits.max;
+        }
+        const curPos = controls.getPosition(new Vector3());
+        const curTgt = controls.getTarget(new Vector3());
+        const dir = curPos.sub(curTgt);
+        if (dir.lengthSq() < 1e-8) {
+          dir.set(0, 0, 1);
+        } else {
+          dir.normalize();
+        }
+        const tx = world[0];
+        const ty = world[1];
+        const tz = world[2];
+        const promise = controls.setLookAt(
+          tx + dir.x * distance,
+          ty + dir.y * distance,
+          tz + dir.z * distance,
+          tx,
+          ty,
+          tz,
+          !prefersReducedMotion(),
+        );
+        invalidate();
+        await promise;
+      },
     };
 
     const probe: CameraDebugProbe = {

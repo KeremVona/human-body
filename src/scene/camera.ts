@@ -147,6 +147,10 @@ export type CameraApi = {
   zoom(step: 1 | -1): void;
   getPose(): Pose | null;
   setPose(pose: Pose, animate: boolean): Promise<void>;
+  lookAtPoint(
+    world: [number, number, number],
+    distance?: number,
+  ): Promise<void>;
 };
 
 export type CameraDebugProbe = {
@@ -184,6 +188,9 @@ export function createCameraController(cameraRef?: {
     },
     setPose(pose, animate) {
       return impl ? impl.setPose(pose, animate) : Promise.resolve();
+    },
+    lookAtPoint(world, distance) {
+      return impl ? impl.lookAtPoint(world, distance) : Promise.resolve();
     },
   };
 

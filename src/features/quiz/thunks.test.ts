@@ -64,6 +64,7 @@ function setupTestStore(count = 4) {
       zoom: vi.fn(),
       getPose: vi.fn(() => null),
       setPose: vi.fn(async () => {}),
+      lookAtPoint: vi.fn(async () => {}),
     },
   };
 

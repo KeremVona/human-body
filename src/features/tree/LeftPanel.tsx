@@ -1,10 +1,14 @@
 import * as Tabs from '@radix-ui/react-tabs';
-import { useState, type JSX } from 'react';
-import { useAppSelector } from '../../app/hooks';
+import { lazy, Suspense, useEffect, useRef, useState, type JSX } from 'react';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { Panel } from '../../ui/Panel';
 import { selectToggleRows } from '../systems/selectors';
 import { SystemsList } from '../systems/SystemsPanel';
 import { TreeView } from './TreeView';
+
+const PinsPanel = lazy(() =>
+  import('../pins/PinsPanel').then((m) => ({ default: m.PinsPanel })),
+);
 
 function startsCollapsed(): boolean {
   if (typeof window === 'undefined') return false;
@@ -14,11 +18,39 @@ function startsCollapsed(): boolean {
   return window.innerWidth < 768;
 }
 
-/** Floating left sidebar hosting Body Systems controls and the Browse anatomy hierarchy tree. */
+/** Floating left sidebar hosting Body Systems controls, Browse tree, and lazy Pins tab. */
 export function LeftPanel(): JSX.Element | null {
+  const dispatch = useAppDispatch();
   const rows = useAppSelector(selectToggleRows);
+  const focusedPinId = useAppSelector((s) => s.pins.focusedPinId);
   const [collapsed, setCollapsed] = useState(startsCollapsed);
-  const [tab, setTab] = useState<'systems' | 'browse'>('systems');
+  const [tab, setTab] = useState<'systems' | 'browse' | 'pins'>('systems');
+  const [pinsVisited, setPinsVisited] = useState(false);
+  const hydratedRef = useRef(false);
+
+  const openPinsTab = () => {
+    setPinsVisited(true);
+    setTab('pins');
+    if (!hydratedRef.current) {
+      hydratedRef.current = true;
+      void Promise.all([
+        import('../pins/storage'),
+        import('../pins/pinsSlice'),
+      ]).then(([{ loadPins }, { pinsHydrated }]) => {
+        dispatch(pinsHydrated(loadPins()));
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (!focusedPinId) return;
+    queueMicrotask(() => {
+      setCollapsed(false);
+      openPinsTab();
+    });
+    // Only react to new focusedPinId requests.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [focusedPinId]);
 
   if (rows.length === 0) {
     return null;
@@ -31,7 +63,13 @@ export function LeftPanel(): JSX.Element | null {
     >
       <Panel
         side="left"
-        label={tab === 'systems' ? 'Body systems' : 'Browse'}
+        label={
+          tab === 'systems'
+            ? 'Body systems'
+            : tab === 'browse'
+              ? 'Browse'
+              : 'Pins'
+        }
         collapsed={collapsed}
         onToggle={() => setCollapsed((c) => !c)}
         className={
@@ -40,11 +78,17 @@ export function LeftPanel(): JSX.Element | null {
       >
         <Tabs.Root
           value={tab}
-          onValueChange={(v) => setTab(v as 'systems' | 'browse')}
+          onValueChange={(v) => {
+            if (v === 'pins') {
+              openPinsTab();
+            } else {
+              setTab(v as 'systems' | 'browse');
+            }
+          }}
         >
           <Tabs.List
             aria-label="Explorer views"
-            className="mb-2.5 grid grid-cols-2 gap-1 rounded-lg bg-slate-950/60 p-0.5"
+            className="mb-2.5 grid grid-cols-3 gap-1 rounded-lg bg-slate-950/60 p-0.5"
           >
             <Tabs.Trigger
               value="systems"
@@ -57,6 +101,12 @@ export function LeftPanel(): JSX.Element | null {
               className="rounded-md px-2 py-1 text-xs font-medium text-slate-300 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-sky-400 data-[state=active]:bg-sky-500/30 data-[state=active]:text-white"
             >
               Browse
+            </Tabs.Trigger>
+            <Tabs.Trigger
+              value="pins"
+              className="rounded-md px-2 py-1 text-xs font-medium text-slate-300 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-sky-400 data-[state=active]:bg-sky-500/30 data-[state=active]:text-white"
+            >
+              Pins
             </Tabs.Trigger>
           </Tabs.List>
 
@@ -73,6 +123,13 @@ export function LeftPanel(): JSX.Element | null {
             className="data-[state=inactive]:hidden"
           >
             <TreeView />
+          </Tabs.Content>
+          <Tabs.Content value="pins">
+            {pinsVisited ? (
+              <Suspense fallback={null}>
+                <PinsPanel />
+              </Suspense>
+            ) : null}
           </Tabs.Content>
         </Tabs.Root>
       </Panel>

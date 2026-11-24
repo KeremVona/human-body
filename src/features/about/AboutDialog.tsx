@@ -24,6 +24,7 @@ const SHORTCUT_ROWS: readonly [string, string][] = [
   ['G', 'Fade other structures'],
   ['F', 'Focus camera on selection'],
   ['Ctrl/Cmd+Z', 'Undo last dissection action'],
+  ['P', 'Add pin at pointer'],
   ['Esc', 'Close menu or clear selection'],
   ['1–6', 'Switch to standard anatomical view'],
   ['0', 'Reset camera view'],

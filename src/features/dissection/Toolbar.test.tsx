@@ -17,6 +17,7 @@ describe('Toolbar', () => {
       zoom: vi.fn(),
       getPose: vi.fn(() => null),
       setPose: vi.fn(async () => {}),
+      lookAtPoint: vi.fn(async () => {}),
     };
     render(
       <Provider store={store}>

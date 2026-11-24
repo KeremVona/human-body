@@ -123,14 +123,20 @@ describe('createCameraController pose methods', () => {
       zoom: vi.fn(),
       getPose: vi.fn(() => pose),
       setPose: vi.fn(async () => {}),
+      lookAtPoint: vi.fn(async () => {}),
     };
 
     const unbind = controller.bind(impl);
     expect(controller.api.getPose()).toEqual(pose);
     await controller.api.setPose(pose, true);
     expect(impl.setPose).toHaveBeenCalledWith(pose, true);
+    await controller.api.lookAtPoint([0, 0.5, 0], 0.4);
+    expect(impl.lookAtPoint).toHaveBeenCalledWith([0, 0.5, 0], 0.4);
 
     unbind();
     expect(controller.api.getPose()).toBeNull();
+    await expect(
+      controller.api.lookAtPoint([0, 0.5, 0]),
+    ).resolves.toBeUndefined();
   });
 });

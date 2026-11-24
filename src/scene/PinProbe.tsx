@@ -18,11 +18,6 @@ export function PinProbe(): null {
   const cursorRef = useRef(0);
   const dimmedCacheRef = useRef(new Map<string, boolean>());
   const raycasterRef = useRef<Raycaster | null>(null);
-  if (!raycasterRef.current) {
-    const r = new Raycaster();
-    Object.assign(r, { firstHitOnly: true });
-    raycasterRef.current = r;
-  }
 
   useEffect(() => {
     if (quizActive || pins.length === 0) {
@@ -42,7 +37,12 @@ export function PinProbe(): null {
       return;
     }
 
-    const raycaster = raycasterRef.current!;
+    if (!raycasterRef.current) {
+      const r = new Raycaster();
+      Object.assign(r, { firstHitOnly: true });
+      raycasterRef.current = r;
+    }
+    const raycaster = raycasterRef.current;
     const camPos = camera.position.clone();
     const pickables: Mesh[] = [];
     for (const id of registry.ids()) {

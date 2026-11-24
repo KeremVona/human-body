@@ -29,8 +29,6 @@ import {
 import { lastHit } from './lastHit';
 import { pointerPosition } from './pointerPosition';
 
-export { lastHit };
-
 export type ContextRequest = {
   x: number;
   y: number;
