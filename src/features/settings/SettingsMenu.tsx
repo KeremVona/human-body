@@ -63,6 +63,7 @@ export function SettingsMenu(): JSX.Element {
         <Popover.Content
           align="end"
           sideOffset={8}
+          aria-label="Settings"
           className="z-40 w-64 rounded-xl border border-white/10 bg-slate-900/95 p-3 text-slate-100 shadow-2xl backdrop-blur-md focus:outline-none"
         >
           <p

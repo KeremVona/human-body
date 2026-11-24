@@ -54,7 +54,7 @@ export function QuizSummary(): JSX.Element | null {
             <button
               type="button"
               onClick={handlePlayAgain}
-              className="rounded-lg bg-sky-500 px-3.5 py-1.5 text-xs font-medium text-white hover:bg-sky-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-300"
+              className="rounded-lg bg-sky-700 px-3.5 py-1.5 text-xs font-medium text-white hover:bg-sky-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-300"
             >
               Play again
             </button>

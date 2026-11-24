@@ -26,6 +26,7 @@ export function Toolbar(): JSX.Element {
   const cameraApi = useCameraApi();
   const canUndo = useAppSelector(selectCanUndo);
   const hasDissection = useAppSelector(selectHasDissection);
+  const quizActive = useAppSelector((s) => s.quiz.status !== 'off');
 
   const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
     if (
@@ -73,12 +74,12 @@ export function Toolbar(): JSX.Element {
         <button
           key={item.preset}
           type="button"
-          aria-label={item.label}
           title={item.label}
           onClick={() => void cameraApi.goToPreset(item.preset)}
           className={btnClass}
         >
-          {item.short}
+          <span aria-hidden="true">{item.short}</span>
+          <span className="sr-only">{item.label}</span>
         </button>
       ))}
 
@@ -101,7 +102,7 @@ export function Toolbar(): JSX.Element {
         type="button"
         aria-label="Undo"
         title="Undo"
-        disabled={!canUndo}
+        disabled={!canUndo || quizActive}
         onClick={() => dispatch(undo())}
         className={btnClass}
       >
@@ -112,7 +113,7 @@ export function Toolbar(): JSX.Element {
         type="button"
         aria-label="Show all"
         title="Show all"
-        disabled={!hasDissection}
+        disabled={!hasDissection || quizActive}
         onClick={() => dispatch(showAll())}
         className={btnClass}
       >

@@ -70,10 +70,34 @@ export function TreeView({
     [taxonomy, index, manifest],
   );
 
-  const [manualExpanded, setManualExpanded] = useState<string[]>(
-    () => initialExpanded,
-  );
+  const [manualExpanded, setManualExpanded] = useState<string[]>(() => {
+    const initial = new Set(initialExpanded);
+    if (selectedIds.length > 0 && taxonomy && index && manifest) {
+      const targetKeys = new Set<string>();
+      if (selectedIds.length === 1 && isMeshId(selectedIds[0])) {
+        const parsed = parseMeshId(selectedIds[0]);
+        const entry = index.structures.find((s) => s.id === parsed.structureId);
+        targetKeys.add(
+          entry?.paired
+            ? `mesh:${selectedIds[0]}`
+            : `str:${parsed.structureId}`,
+        );
+      } else {
+        for (const id of selectedIds) {
+          if (isMeshId(id))
+            targetKeys.add(`str:${parseMeshId(id).structureId}`);
+        }
+      }
+      for (const targetKey of targetKeys) {
+        for (const anc of ancestorsOf(targetKey, tree)) {
+          initial.add(anc);
+        }
+      }
+    }
+    return [...initial];
+  });
   const [focusedKey, setFocusedKey] = useState<string | null>(null);
+  const [errorSystem, setErrorSystem] = useState<string | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef(new Map<string, HTMLDivElement>());
   const pendingFocusKeyRef = useRef<string | null>(null);
@@ -103,21 +127,33 @@ export function TreeView({
     return keys;
   }, [selectedIds, index]);
 
-  const selectionExpanded = useMemo(() => {
-    const keys = new Set<string>();
-    for (const targetKey of selectedKeys) {
-      for (const anc of ancestorsOf(targetKey, tree)) {
-        keys.add(anc);
+  useEffect(() => {
+    if (selectedKeys.size === 0) return;
+    setManualExpanded((prev) => {
+      const next = new Set(prev);
+      let changed = false;
+      for (const targetKey of selectedKeys) {
+        for (const anc of ancestorsOf(targetKey, tree)) {
+          if (!next.has(anc)) {
+            next.add(anc);
+            changed = true;
+          }
+        }
       }
-    }
-    return keys;
+      return changed ? [...next] : prev;
+    });
   }, [selectedKeys, tree]);
 
-  const expandedSet = useMemo(() => {
-    const set = new Set(manualExpanded);
-    for (const k of selectionExpanded) set.add(k);
-    return set;
-  }, [manualExpanded, selectionExpanded]);
+  const expandedSet = useMemo(() => new Set(manualExpanded), [manualExpanded]);
+
+  const systemLabels = useMemo(
+    () => new Map((taxonomy?.systems ?? []).map((s) => [s.id, s.label])),
+    [taxonomy],
+  );
+  const structureSystems = useMemo(
+    () => new Map((index?.structures ?? []).map((s) => [s.id, s.system])),
+    [index],
+  );
 
   const rows = useMemo(
     () => flattenTree(tree, expandedSet),
@@ -179,10 +215,17 @@ export function TreeView({
     });
   };
 
-  const activateRow = (row: TreeRow) => {
+  const activateRow = async (row: TreeRow) => {
     const target = parseTreeTarget(row.key);
     if (target) {
-      void dispatch(revealAndFocus(target.structureId, target.side));
+      setErrorSystem(null);
+      try {
+        await dispatch(revealAndFocus(target.structureId, target.side));
+      } catch {
+        const sysId = structureSystems.get(target.structureId);
+        const label = sysId ? (systemLabels.get(sysId) ?? sysId) : 'requested';
+        setErrorSystem(label);
+      }
       return;
     }
     if (row.hasChildren) {
@@ -237,7 +280,7 @@ export function TreeView({
       case 'Enter':
       case ' ':
         e.preventDefault();
-        activateRow(row);
+        void activateRow(row);
         break;
       default:
         break;
@@ -245,93 +288,133 @@ export function TreeView({
   };
 
   return (
-    <div ref={scrollRef} className="h-72 overflow-y-auto pr-1">
+    <div className="flex flex-col gap-1.5">
+      {errorSystem ? (
+        <div
+          role="alert"
+          className="flex items-center justify-between gap-2 rounded-md bg-red-950/90 px-2.5 py-1.5 text-xs text-red-100 ring-1 ring-red-500/40"
+        >
+          <span>Couldn&apos;t load the {errorSystem} model.</span>
+          <button
+            type="button"
+            aria-label="Dismiss error"
+            onClick={() => setErrorSystem(null)}
+            className="shrink-0 rounded px-1 text-red-200 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-sky-400"
+          >
+            ×
+          </button>
+        </div>
+      ) : null}
       <div
-        role="tree"
-        aria-label="Anatomy hierarchy"
-        style={{ height: `${rowVirtualizer.getTotalSize()}px` }}
-        className="relative w-full"
+        ref={scrollRef}
+        className="h-[min(18rem,calc(100dvh-15rem))] overflow-y-auto pr-1"
       >
-        {virtualItems.map((vItem) => {
-          const row = rows[vItem.index];
-          if (!row) return null;
-          const anyHidden = row.meshIds.some((id) => hiddenSet.has(id));
-          const isSelected = selectedKeys.has(row.key);
-          const isTabbable = row.key === activeKey;
+        <div
+          style={{ height: `${rowVirtualizer.getTotalSize()}px` }}
+          className="relative flex w-full"
+        >
+          <div
+            role="tree"
+            aria-label="Anatomy hierarchy"
+            className="relative min-w-0 flex-1"
+          >
+            {virtualItems.map((vItem) => {
+              const row = rows[vItem.index];
+              if (!row) return null;
+              const isSelected = selectedKeys.has(row.key);
+              const isTabbable = row.key === activeKey;
 
-          return (
-            <div
-              key={row.key}
-              ref={(el) => {
-                if (el) itemRefs.current.set(row.key, el);
-                else itemRefs.current.delete(row.key);
-              }}
-              role="treeitem"
-              aria-level={row.depth + 1}
-              aria-expanded={row.hasChildren ? row.expanded : undefined}
-              aria-selected={isSelected}
-              aria-label={row.label}
-              tabIndex={isTabbable ? 0 : -1}
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: '100%',
-                height: `${vItem.size}px`,
-                transform: `translateY(${vItem.start}px)`,
-                paddingLeft: `${row.depth * 12 + 4}px`,
-              }}
-              onFocus={() => setFocusedKey(row.key)}
-              onClick={() => activateRow(row)}
-              onKeyDown={(e) => handleRowKeyDown(e, row, vItem.index)}
-              className={`flex cursor-pointer items-center justify-between gap-1 rounded px-1 text-xs transition-colors select-none focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-sky-400 ${
-                isSelected
-                  ? 'bg-sky-500/25 text-white'
-                  : 'text-slate-200 hover:bg-white/10'
-              }`}
-            >
-              <div className="flex min-w-0 flex-1 items-center gap-1">
-                {row.hasChildren ? (
-                  <span
-                    aria-hidden="true"
-                    className="inline-block w-3 shrink-0 text-center text-[10px] text-slate-400"
-                  >
-                    {row.expanded ? '▾' : '▸'}
-                  </span>
-                ) : (
-                  <span
-                    aria-hidden="true"
-                    className="inline-block w-3 shrink-0"
-                  />
-                )}
-                <span className="truncate">{row.label}</span>
-              </div>
+              return (
+                <div
+                  key={row.key}
+                  ref={(el) => {
+                    if (el) itemRefs.current.set(row.key, el);
+                    else itemRefs.current.delete(row.key);
+                  }}
+                  role="treeitem"
+                  aria-level={row.depth + 1}
+                  aria-expanded={row.hasChildren ? row.expanded : undefined}
+                  aria-selected={isSelected}
+                  aria-label={row.label}
+                  tabIndex={isTabbable ? 0 : -1}
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: `${vItem.size}px`,
+                    transform: `translateY(${vItem.start}px)`,
+                    paddingLeft: `${row.depth * 12 + 4}px`,
+                  }}
+                  onFocus={() => setFocusedKey(row.key)}
+                  onClick={() => void activateRow(row)}
+                  onKeyDown={(e) => handleRowKeyDown(e, row, vItem.index)}
+                  className={`flex cursor-pointer items-center gap-1 rounded px-1 text-xs transition-colors select-none focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-sky-400 ${
+                    isSelected
+                      ? 'bg-sky-500/25 text-white'
+                      : 'text-slate-200 hover:bg-white/10'
+                  }`}
+                >
+                  {row.hasChildren ? (
+                    <span
+                      aria-hidden="true"
+                      className="inline-block w-3 shrink-0 text-center text-[10px] text-slate-400"
+                    >
+                      {row.expanded ? '▾' : '▸'}
+                    </span>
+                  ) : (
+                    <span
+                      aria-hidden="true"
+                      className="inline-block w-3 shrink-0"
+                    />
+                  )}
+                  <span className="truncate">{row.label}</span>
+                </div>
+              );
+            })}
+          </div>
 
-              <button
-                type="button"
-                tabIndex={-1}
-                aria-label={
-                  anyHidden ? `Show ${row.label}` : `Hide ${row.label}`
-                }
-                title={anyHidden ? `Show ${row.label}` : `Hide ${row.label}`}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  if (anyHidden) {
-                    dispatch(unhide(row.meshIds));
-                  } else {
-                    dispatch(hide(row.meshIds));
+          <div
+            role="group"
+            aria-label="Visibility toggles"
+            className="relative w-7 shrink-0"
+          >
+            {virtualItems.map((vItem) => {
+              const row = rows[vItem.index];
+              if (!row) return null;
+              const anyHidden = row.meshIds.some((id) => hiddenSet.has(id));
+              return (
+                <button
+                  key={row.key}
+                  type="button"
+                  aria-label={
+                    anyHidden ? `Show ${row.label}` : `Hide ${row.label}`
                   }
-                }}
-                onKeyDown={(e) => e.stopPropagation()}
-                className={`inline-flex h-6 w-6 shrink-0 items-center justify-center rounded transition-colors hover:bg-white/15 focus-visible:outline-2 focus-visible:outline-sky-400 ${
-                  anyHidden ? 'text-slate-500' : 'text-slate-300'
-                }`}
-              >
-                <EyeIcon visible={!anyHidden} />
-              </button>
-            </div>
-          );
-        })}
+                  title={anyHidden ? `Show ${row.label}` : `Hide ${row.label}`}
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    height: `${vItem.size}px`,
+                    transform: `translateY(${vItem.start}px)`,
+                  }}
+                  onClick={() => {
+                    if (anyHidden) {
+                      dispatch(unhide(row.meshIds));
+                    } else {
+                      dispatch(hide(row.meshIds));
+                    }
+                  }}
+                  className={`inline-flex w-7 items-center justify-center rounded transition-colors hover:bg-white/15 focus-visible:outline-2 focus-visible:outline-sky-400 ${
+                    anyHidden ? 'text-slate-500' : 'text-slate-300'
+                  }`}
+                >
+                  <EyeIcon visible={!anyHidden} />
+                </button>
+              );
+            })}
+          </div>
+        </div>
       </div>
     </div>
   );

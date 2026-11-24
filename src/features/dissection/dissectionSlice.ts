@@ -173,6 +173,12 @@ const dissectionSlice = createSlice({
         past: state.past.slice(0, Math.max(0, action.payload)),
       };
     },
+    dissectionPastRestored(state, action: PayloadAction<DissectionSnapshot[]>) {
+      return {
+        ...state,
+        past: action.payload.map(snapshotOf),
+      };
+    },
   },
 });
 
@@ -189,6 +195,7 @@ export const {
   undo,
   dissectionRestored,
   dissectionPastTruncated,
+  dissectionPastRestored,
 } = dissectionSlice.actions;
 
 /** True when at least one undo snapshot is recorded. */

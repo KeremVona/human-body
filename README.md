@@ -8,15 +8,18 @@ Live demo: **[keremvona.github.io/human-body](https://keremvona.github.io/human-
 
 ## Features
 
-- **Four anatomical bundles at launch:** Skeletal (`263` meshes), Muscular (`459` meshes), Cardiovascular (`216` meshes), and Major Organs (`73` meshes covering Nervous, Respiratory, Digestive, Urinary, and Lymphatic structures).
+- **Eight toggleable body systems across four 3D bundles:** Skeletal (`263` meshes), Muscular (`459` meshes), Cardiovascular (`216` meshes), and five organ systems (`73` meshes across Nervous, Respiratory, Digestive, Urinary, and Lymphatic), each with an independent `0–100%` opacity slider.
 - **125 featured structures:** Plain-English overviews, functions, muscle attachments (`origin`, `insertion`, `innervation`, `blood supply`, `action`), bone articulations, key organ/vessel facts, and source links cited directly to OpenStax _Anatomy and Physiology 2e_ (`CC-BY 4.0`) and Wikipedia (`CC-BY-SA 4.0`).
+- **Autocomplete search & virtualised tree browser:** Press `/` to search common names, Latin TA terms, and lay synonyms with automatic system loading and camera focus, or switch the left explorer to the `Browse` hierarchy tree with full keyboard navigation and per-row visibility toggles.
 - **Real-time dissection tools:** Focus (`F`), Isolate (`I`), Hide (`H`), Fade others (`G`), Left/Right paired switching, context menu (right-click, `Shift+F10`, or long-press), and up to `50` steps of Undo (`Ctrl/Cmd+Z`).
+- **Find & Click study quiz:** 10-question timed-feedback quiz over featured structures in enabled systems, pausing dissection tools during active play, saving your best score in `localStorage`, and restoring pre-quiz state when closed.
+- **Configurable graphics quality & visual effects:** Top-bar `Settings` menu (`Auto`, `High`, `Low`) controlling N8AO contact shadows, `#6FA8FF` selection outlines, Fresnel-rimmed x-ray ghosts, and muscle sheen.
 - **Camera presets & responsive UI:** Anterior/Posterior/Left/Right/Superior/Inferior presets (`1–6`), zoom (`+`/`-`), reset view (`0`), desktop side Inspector (`>= 768px`), and touch-friendly bottom sheet on mobile viewports.
 
 ## Tech Stack
 
-- **UI & State:** React 19, TypeScript, Redux Toolkit, Radix UI (`Dialog`, `Switch`, `DropdownMenu`), Tailwind CSS v4.
-- **3D Engine:** Three.js, React Three Fiber (`frameloop="demand"`), `camera-controls`, `three-mesh-bvh`, Meshopt decoding.
+- **UI & State:** React 19, TypeScript, Redux Toolkit, Radix UI (`Dialog`, `Switch`, `Slider`, `Tabs`, `Popover`, `RadioGroup`, `DropdownMenu`), MiniSearch, `@tanstack/react-virtual`, Tailwind CSS v4.
+- **3D Engine:** Three.js, React Three Fiber (`frameloop="demand"`), `@react-three/postprocessing` (`N8AO`, `Outline`), `camera-controls`, `three-mesh-bvh`, Meshopt decoding.
 - **Asset Pipeline:** Headless Blender 5.3 + `@gltf-transform` / `meshoptimizer` + Zod schema validation.
 - **Testing & CI:** Vitest (`node` + `jsdom` projects), Playwright (Desktop Chrome + mobile `Pixel 7` + base-path preview checks), ESLint, Prettier.
 
@@ -77,7 +80,6 @@ Educational copy lives in `content/en/index.json` (names, Latin TA names, synony
 
 ## Known Gaps
 
-- **Keyboard-only 3D structure selection:** Phase 1 requires mouse or touch pointer input to select individual 3D structures on the canvas. Keyboard-only visitors can toggle systems, switch presets (`1–6`), zoom (`+`/`-`), undo (`Ctrl/Cmd+Z`), open context actions (`Shift+F10`), and reset view (`0`); keyboard search and hierarchy selection arrive in Phase 2 ([design spec §9.3](docs/superpowers/specs/2026-11-21-anatomy-atlas-design.md)).
 - **Safari, Firefox, and physical phone:** Desktop Chrome, Microsoft Edge, and Playwright `Pixel 7` mobile emulation are verified green; macOS Safari, iOS Safari, Desktop Firefox, and real-device Android Chrome are marked `not tested` in [docs/launch-checklist.md](docs/launch-checklist.md).
 
 ## Licensing

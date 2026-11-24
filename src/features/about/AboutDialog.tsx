@@ -18,6 +18,7 @@ const linkClass =
   'rounded-sm text-sky-300 underline decoration-sky-400/50 underline-offset-2 hover:text-sky-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400';
 
 const SHORTCUT_ROWS: readonly [string, string][] = [
+  ['/', 'Focus anatomy search'],
   ['H', 'Hide selected structure'],
   ['I', 'Isolate selected structure'],
   ['G', 'Fade other structures'],

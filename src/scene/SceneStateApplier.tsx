@@ -116,6 +116,8 @@ export function SceneStateApplier(): null {
       libraryRef.current?.lib.dispose();
       libraryRef.current = null;
       prevStatesRef.current = new Map();
+      prevOpacitiesRef.current = new Map();
+      prevQualityRef.current = null;
     };
   }, [store, registry, invalidate]);
 

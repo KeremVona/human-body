@@ -9,6 +9,8 @@ import { ToneMappingMode } from 'postprocessing';
 import { useEffect, useMemo, useReducer, useState, type JSX } from 'react';
 import type { Mesh } from 'three';
 import { useAppSelector } from '../app/hooks';
+import { isMeshId, parseMeshId } from '../data/ids';
+import { selectStructureLookup } from '../features/content/contentSlice';
 import { resolveQuality } from '../features/settings/quality';
 import { useMeshRegistry } from './meshRegistry';
 
@@ -16,6 +18,10 @@ import { useMeshRegistry } from './meshRegistry';
 export function Effects(): JSX.Element | null {
   const qualitySetting = useAppSelector((s) => s.ui.quality);
   const selectedIds = useAppSelector((s) => s.selection.selectedIds);
+  const structureLookup = useAppSelector(selectStructureLookup);
+  const systems = useAppSelector((s) => s.systems);
+  const hidden = useAppSelector((s) => s.dissection.hidden);
+  const isolated = useAppSelector((s) => s.dissection.isolated);
   const registry = useMeshRegistry();
   const invalidate = useThree((s) => s.invalidate);
 
@@ -54,13 +60,31 @@ export function Effects(): JSX.Element | null {
 
   const selectedMeshes = useMemo(() => {
     void registryVersion;
+    const hiddenSet = new Set(hidden);
+    const isolatedSet = isolated ? new Set(isolated) : null;
     const meshes: Mesh[] = [];
     for (const id of selectedIds) {
+      if (hiddenSet.has(id) || (isolatedSet !== null && !isolatedSet.has(id))) {
+        continue;
+      }
+      if (isMeshId(id)) {
+        const entry = structureLookup.get(parseMeshId(id).structureId);
+        const sys = entry ? systems[entry.system] : undefined;
+        if (sys && (!sys.enabled || sys.opacity === 0)) continue;
+      }
       const mesh = registry.get(id);
       if (mesh) meshes.push(mesh);
     }
     return meshes;
-  }, [selectedIds, registry, registryVersion]);
+  }, [
+    selectedIds,
+    structureLookup,
+    systems,
+    hidden,
+    isolated,
+    registry,
+    registryVersion,
+  ]);
 
   useEffect(() => {
     invalidate();

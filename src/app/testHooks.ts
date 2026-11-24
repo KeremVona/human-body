@@ -1,4 +1,5 @@
 import type { MeshId } from '../data/ids';
+import { startQuiz } from '../features/quiz/thunks';
 import { selected } from '../features/selection/selectionSlice';
 import type { CameraController } from '../scene/camera';
 import type { MeshRegistry } from '../scene/meshRegistry';
@@ -15,6 +16,9 @@ export type AtlasTestApi = {
   dispatch: AppDispatch;
   screenPointOf(id: MeshId): { x: number; y: number } | null;
   waitIdle(): Promise<void>;
+  startQuiz(seed?: number): void;
+  quizTarget(): MeshId | null;
+  meshVisible(id: MeshId): boolean;
 };
 
 /** Exposes dev/e2e inspection hooks on `window.__atlas`; stripped from production builds. */
@@ -42,5 +46,13 @@ export function installTestHooks(api: {
     dispatch: api.store.dispatch,
     screenPointOf: (id) => api.camera?.screenPointOf(id) ?? null,
     waitIdle: () => api.camera?.waitIdle() ?? Promise.resolve(),
+    startQuiz: (seed) => {
+      api.store.dispatch(startQuiz(seed));
+    },
+    quizTarget: () => {
+      const q = api.store.getState().quiz;
+      return q.status === 'asking' ? (q.questions[q.current] ?? null) : null;
+    },
+    meshVisible: (id) => api.registry.get(id)?.visible ?? false,
   };
 }

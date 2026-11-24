@@ -13,8 +13,10 @@ export type QuizState = {
   score: number;
   lastWrong: MeshId | null;
   savedDissection: DissectionSnapshot | null;
+  savedPast?: DissectionSnapshot[];
   savedPastCount?: number;
   best: number;
+  emptyPoolAlert: boolean;
 };
 
 const initialState: QuizState = {
@@ -25,8 +27,10 @@ const initialState: QuizState = {
   score: 0,
   lastWrong: null,
   savedDissection: null,
+  savedPast: undefined,
   savedPastCount: undefined,
   best: 0,
+  emptyPoolAlert: false,
 };
 
 const quizSlice = createSlice({
@@ -38,6 +42,7 @@ const quizSlice = createSlice({
       action: PayloadAction<{
         questions: MeshId[];
         savedDissection: DissectionSnapshot;
+        savedPast?: DissectionSnapshot[];
         savedPastCount?: number;
         best: number;
       }>,
@@ -49,8 +54,10 @@ const quizSlice = createSlice({
       state.score = 0;
       state.lastWrong = null;
       state.savedDissection = action.payload.savedDissection;
+      state.savedPast = action.payload.savedPast;
       state.savedPastCount = action.payload.savedPastCount;
       state.best = action.payload.best;
+      state.emptyPoolAlert = false;
     },
     answered(state, action: PayloadAction<MeshId>) {
       if (state.status !== 'asking') return;
@@ -97,7 +104,15 @@ const quizSlice = createSlice({
       state.score = 0;
       state.lastWrong = null;
       state.savedDissection = null;
+      state.savedPast = undefined;
       state.savedPastCount = undefined;
+      state.emptyPoolAlert = false;
+    },
+    emptyPoolReported(state) {
+      state.emptyPoolAlert = true;
+    },
+    emptyPoolDismissed(state) {
+      state.emptyPoolAlert = false;
     },
   },
 });
@@ -111,4 +126,6 @@ export const {
   nextQuestion,
   bestRecorded,
   quizEnded,
+  emptyPoolReported,
+  emptyPoolDismissed,
 } = quizSlice.actions;

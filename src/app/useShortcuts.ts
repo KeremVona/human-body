@@ -68,10 +68,12 @@ export function useShortcuts(onContextMenu?: () => void): void {
           break;
         case 'undo':
           e.preventDefault();
-          dispatch(undo());
+          if (!quizActive) dispatch(undo());
           break;
         case 'deselect':
-          if (selectedIds.length > 0) dispatch(selectionCleared());
+          if (!quizActive && selectedIds.length > 0) {
+            dispatch(selectionCleared());
+          }
           break;
         case 'context-menu':
           e.preventDefault();

@@ -51,6 +51,8 @@ export function AtlasCanvas({
 
   return (
     <div
+      role="region"
+      aria-label="3D model of the human body. Use the panels and keyboard shortcuts to explore."
       className="h-full w-full"
       onContextMenu={(e) => e.preventDefault()}
       onPointerLeave={() => {
@@ -60,14 +62,16 @@ export function AtlasCanvas({
       }}
     >
       <Canvas
-        aria-label="3D model of the human body. Use the panels and keyboard shortcuts to explore."
         className="h-full w-full"
         dpr={[1, 1.5]}
         frameloop={debug ? 'always' : 'demand'}
         camera={{ fov: 35, near: 0.01, far: 100, position: [0, 0, 3.2] }}
         gl={{ alpha: true, antialias: true, toneMapping: AgXToneMapping }}
         onPointerMissed={(e) => {
-          if (!('button' in e) || e.button === 0) {
+          if (
+            store.getState().quiz.status === 'off' &&
+            (!('button' in e) || e.button === 0)
+          ) {
             dispatch(selectionCleared());
           }
         }}

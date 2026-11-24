@@ -7,8 +7,10 @@ import {
   type IndexFile,
   type Manifest,
 } from '../../data/schema';
-import { hide, reveal } from '../dissection/dissectionSlice';
-import { systemToggled } from '../systems/systemsSlice';
+import { hide, isolate, reveal } from '../dissection/dissectionSlice';
+import { hovered } from '../selection/selectionSlice';
+import { opacitySet, systemToggled } from '../systems/systemsSlice';
+import { emptyPoolDismissed } from './quizSlice';
 import { endQuiz, startQuiz } from './thunks';
 
 const taxonomy = TaxonomySchema.parse(rawTaxonomy);
@@ -133,5 +135,39 @@ describe('quiz thunks', () => {
     });
     expect(() => store.dispatch(endQuiz())).not.toThrow();
     expect(store.getState().quiz.best).toBe(1);
+  });
+
+  it('startQuiz clears hover and excludes unready bundles, low-opacity systems, hidden/isolated meshes, and sets emptyPoolAlert', () => {
+    const store = setupTestStore(4);
+    store.dispatch(hovered('bone-0'));
+    store.dispatch(opacitySet({ systems: ['skeletal'], opacity: 0.4 }));
+
+    expect(store.dispatch(startQuiz(2))).toBe('empty-pool');
+    expect(store.getState().quiz.emptyPoolAlert).toBe(true);
+    store.dispatch(emptyPoolDismissed());
+    expect(store.getState().quiz.emptyPoolAlert).toBe(false);
+
+    store.dispatch(opacitySet({ systems: ['skeletal'], opacity: 1 }));
+    store.dispatch(hide(['bone-0', 'bone-1']));
+    store.dispatch(isolate(['bone-2']));
+
+    expect(store.dispatch(startQuiz(2))).toBe('started');
+    expect(store.getState().selection.hoveredId).toBeNull();
+    expect(store.getState().quiz.questions).toEqual(['bone-2']);
+  });
+
+  it('endQuiz preserves full 50-entry pre-quiz history after quiz reveals', () => {
+    const store = setupTestStore(4);
+    for (let i = 0; i < 50; i++) {
+      store.dispatch(i % 2 === 0 ? hide(['bone-0']) : reveal(['bone-0']));
+    }
+    expect(store.getState().dissection.past).toHaveLength(50);
+    const pastSnapshotBefore = [...store.getState().dissection.past];
+
+    store.dispatch(startQuiz(1));
+    store.dispatch(reveal(['bone-0']));
+    store.dispatch(endQuiz());
+
+    expect(store.getState().dissection.past).toEqual(pastSnapshotBefore);
   });
 });

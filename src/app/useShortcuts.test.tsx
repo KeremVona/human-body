@@ -10,6 +10,8 @@ import {
   DissectionMenu,
   type ContextMenuTarget,
 } from '../features/dissection/DissectionMenu';
+import { hide } from '../features/dissection/dissectionSlice';
+import { quizStarted } from '../features/quiz/quizSlice';
 import { selected } from '../features/selection/selectionSlice';
 import { CameraApiProvider, type CameraApi } from '../scene/camera';
 
@@ -94,5 +96,33 @@ describe('useShortcuts', () => {
       screen.queryByRole('dialog', { name: 'About Anatomy Atlas' }),
     ).not.toBeInTheDocument();
     expect(store.getState().selection.selectedIds).toEqual(['femur--l']);
+  });
+
+  it('suppresses Escape deselect and Ctrl+Z undo while a quiz is active', async () => {
+    const user = userEvent.setup();
+    const store = makeStore();
+    store.dispatch(hide(['sternum']));
+    store.dispatch(
+      quizStarted({
+        questions: ['femur--l'],
+        savedDissection: { hidden: ['sternum'], isolated: null, faded: null },
+        best: 0,
+      }),
+    );
+    store.dispatch(selected(['femur--l']));
+
+    render(
+      <Provider store={store}>
+        <CameraApiProvider value={noopCamera}>
+          <ShortcutMenuHarness initialMenu={null} />
+        </CameraApiProvider>
+      </Provider>,
+    );
+
+    await user.keyboard('{Escape}');
+    await user.keyboard('{Control>}z{/Control}');
+
+    expect(store.getState().selection.selectedIds).toEqual(['femur--l']);
+    expect(store.getState().dissection.hidden).toEqual(['sternum']);
   });
 });

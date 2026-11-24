@@ -2,8 +2,8 @@ import type { JSX } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { parseMeshId, type MeshId } from '../../data/ids';
 import type { IndexEntry } from '../../data/schema';
-import { nextQuestion } from './quizSlice';
-import { endQuiz, skipQuestion } from './thunks';
+import { selectStructureLookup } from '../content/contentSlice';
+import { advanceQuiz, endQuiz, skipQuestion } from './thunks';
 
 function formatMeshLabel(
   meshId: MeshId,
@@ -19,13 +19,12 @@ function formatMeshLabel(
 export function QuizBanner(): JSX.Element | null {
   const dispatch = useAppDispatch();
   const quiz = useAppSelector((s) => s.quiz);
-  const structures = useAppSelector((s) => s.content.index?.structures ?? []);
+  const lookup = useAppSelector(selectStructureLookup);
 
   if (quiz.status === 'off' || quiz.status === 'summary') {
     return null;
   }
 
-  const lookup = new Map(structures.map((s) => [s.id, s]));
   const target = quiz.questions[quiz.current];
   const promptLabel = target ? formatMeshLabel(target, lookup) : '';
   const wrongLabel = quiz.lastWrong
@@ -61,16 +60,17 @@ export function QuizBanner(): JSX.Element | null {
         {quiz.status === 'correct' || quiz.status === 'revealed' ? (
           <button
             type="button"
-            onClick={() => dispatch(nextQuestion())}
-            className="rounded-lg bg-sky-500 px-3 py-1 font-medium text-white hover:bg-sky-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-300"
+            onClick={() => dispatch(advanceQuiz())}
+            className="rounded-lg bg-sky-700 px-3 py-1 font-medium text-white hover:bg-sky-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-300"
           >
             Next
           </button>
         ) : (
           <button
             type="button"
+            disabled={quiz.status !== 'asking'}
             onClick={() => dispatch(skipQuestion())}
-            className="rounded-lg bg-white/10 px-3 py-1 font-medium text-slate-100 hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400"
+            className="rounded-lg bg-white/10 px-3 py-1 font-medium text-slate-100 hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400 disabled:pointer-events-none disabled:opacity-40"
           >
             Skip
           </button>

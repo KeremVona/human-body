@@ -60,10 +60,18 @@ export function LeftPanel(): JSX.Element | null {
             </Tabs.Trigger>
           </Tabs.List>
 
-          <Tabs.Content value="systems">
+          <Tabs.Content
+            value="systems"
+            forceMount
+            className="data-[state=inactive]:hidden"
+          >
             <SystemsList />
           </Tabs.Content>
-          <Tabs.Content value="browse">
+          <Tabs.Content
+            value="browse"
+            forceMount
+            className="data-[state=inactive]:hidden"
+          >
             <TreeView />
           </Tabs.Content>
         </Tabs.Root>

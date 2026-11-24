@@ -1,16 +1,24 @@
 import type { AppThunk } from '../../app/store';
 import type { MeshId } from '../../data/ids';
+import { selectBundlesForSystem } from '../assets/assetsSlice';
 import {
+  dissectionPastRestored,
   dissectionPastTruncated,
   dissectionRestored,
   reveal,
   type DissectionSnapshot,
 } from '../dissection/dissectionSlice';
-import { selected, selectionCleared } from '../selection/selectionSlice';
+import {
+  hovered,
+  selected,
+  selectionCleared,
+} from '../selection/selectionSlice';
 import { buildQuizPool } from './pool';
 import {
   answered,
   bestRecorded,
+  emptyPoolReported,
+  nextQuestion,
   questionSkipped,
   quizEnded,
   quizStarted,
@@ -49,7 +57,7 @@ function writeBestScore(best: number): void {
   }
 }
 
-/** Starts a Find & Click quiz round from featured medium/large meshes in enabled systems. */
+/** Starts a Find & Click quiz round from featured visible/pickable medium+large meshes in ready enabled systems. */
 export function startQuiz(
   seed = Date.now(),
 ): AppThunk<'started' | 'empty-pool'> {
@@ -58,14 +66,33 @@ export function startQuiz(
     const state = getState();
     const index = state.content.index;
     const manifest = state.assets.manifest;
-    if (!index || !manifest) return 'empty-pool';
+    if (!index || !manifest) {
+      dispatch(emptyPoolReported());
+      return 'empty-pool';
+    }
 
     const pool = buildQuizPool(
       index,
       manifest,
-      (sys) => state.systems[sys].enabled,
+      (sys) =>
+        state.systems[sys].enabled &&
+        state.systems[sys].opacity >= 0.5 &&
+        selectBundlesForSystem(state, sys).every(
+          (b) => state.assets.bundles[b] === 'ready',
+        ),
     );
-    if (pool.length === 0) return 'empty-pool';
+    const hiddenSet = new Set(state.dissection.hidden);
+    const isolatedSet = state.dissection.isolated
+      ? new Set(state.dissection.isolated)
+      : null;
+    const visiblePool = pool.filter(
+      (id) =>
+        !hiddenSet.has(id) && (isolatedSet === null || isolatedSet.has(id)),
+    );
+    if (visiblePool.length === 0) {
+      dispatch(emptyPoolReported());
+      return 'empty-pool';
+    }
 
     const savedDissection: DissectionSnapshot = {
       hidden: [...state.dissection.hidden],
@@ -74,15 +101,22 @@ export function startQuiz(
         : null,
       faded: state.dissection.faded ? [...state.dissection.faded] : null,
     };
+    const savedPast: DissectionSnapshot[] = state.dissection.past.map((s) => ({
+      hidden: [...s.hidden],
+      isolated: s.isolated ? [...s.isolated] : null,
+      faded: s.faded ? [...s.faded] : null,
+    }));
 
-    const questions = pickQuestions(pool, ROUND_SIZE, createRng(seed));
+    const questions = pickQuestions(visiblePool, ROUND_SIZE, createRng(seed));
     const best = readBestScore();
 
+    dispatch(hovered(null));
     dispatch(selectionCleared());
     dispatch(
       quizStarted({
         questions,
         savedDissection,
+        savedPast,
         savedPastCount: state.dissection.past.length,
         best,
       }),
@@ -142,12 +176,27 @@ export function skipQuestion(): AppThunk {
   };
 }
 
+/** Advances to the next quiz question and persists best score once summary is reached. */
+export function advanceQuiz(): AppThunk {
+  return (dispatch, getState) => {
+    clearWrongFlashTimer();
+    dispatch(nextQuestion());
+    const state = getState().quiz;
+    if (state.status === 'summary') {
+      const nextBest = Math.max(state.best, state.score);
+      writeBestScore(nextBest);
+      dispatch(bestRecorded(nextBest));
+    }
+  };
+}
+
 /** Ends the quiz, records the best score safely, and restores pre-quiz dissection state. */
 export function endQuiz(): AppThunk {
   return (dispatch, getState) => {
     clearWrongFlashTimer();
     const state = getState();
-    const { savedDissection, savedPastCount, best, score } = state.quiz;
+    const { savedDissection, savedPast, savedPastCount, best, score } =
+      state.quiz;
     const nextBest = Math.max(best, score);
     writeBestScore(nextBest);
     dispatch(bestRecorded(nextBest));
@@ -155,7 +204,9 @@ export function endQuiz(): AppThunk {
     if (savedDissection) {
       dispatch(dissectionRestored(savedDissection));
     }
-    if (typeof savedPastCount === 'number') {
+    if (savedPast) {
+      dispatch(dissectionPastRestored(savedPast));
+    } else if (typeof savedPastCount === 'number') {
       dispatch(dissectionPastTruncated(savedPastCount));
     }
     dispatch(selectionCleared());

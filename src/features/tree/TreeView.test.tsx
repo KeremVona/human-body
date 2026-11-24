@@ -313,7 +313,8 @@ describe('TreeView', () => {
       </Provider>,
     );
 
-    const scrollContainer = screen.getByRole('tree').parentElement!;
+    const scrollContainer =
+      screen.getByRole('tree').parentElement!.parentElement!;
     mockScrollMetrics(scrollContainer);
 
     const first = screen.getByRole('treeitem', { name: /Skeletal/ });
@@ -324,5 +325,60 @@ describe('TreeView', () => {
       const last = screen.getByRole('treeitem', { name: /Structure 499/ });
       expect(last).toHaveFocus();
     });
+  });
+
+  it('places eye toggle outside role="treeitem" and makes it keyboard-focusable', async () => {
+    const store = setupSmallStore();
+    render(
+      <Provider store={store}>
+        <TreeView
+          initialExpanded={['sys:skeletal', 'reg:skeletal/lower-limb']}
+        />
+      </Provider>,
+    );
+
+    const hideFemurBtn = screen.getByRole('button', { name: 'Hide Femur' });
+    expect(hideFemurBtn.closest('[role="treeitem"]')).toBeNull();
+    expect(hideFemurBtn).not.toHaveAttribute('tabindex', '-1');
+  });
+
+  it('allows collapsing an ancestor of the active selection', async () => {
+    const user = userEvent.setup();
+    const store = setupSmallStore();
+    store.dispatch(selected(['femur--l']));
+
+    render(
+      <Provider store={store}>
+        <TreeView />
+      </Provider>,
+    );
+
+    const skeletalItem = screen.getByRole('treeitem', { name: /Skeletal/ });
+    expect(skeletalItem).toHaveAttribute('aria-expanded', 'true');
+
+    skeletalItem.focus();
+    await user.keyboard('{ArrowLeft}');
+    expect(skeletalItem).toHaveAttribute('aria-expanded', 'false');
+    expect(screen.queryByRole('treeitem', { name: /^Left/ })).toBeNull();
+  });
+
+  it('surfaces an inline alert if revealAndFocus rejects', async () => {
+    const user = userEvent.setup();
+    vi.spyOn(revealModule, 'revealAndFocus').mockReturnValue((() =>
+      Promise.reject(new Error('bundle failed: skeletal'))) as never);
+    const store = setupSmallStore();
+
+    render(
+      <Provider store={store}>
+        <TreeView
+          initialExpanded={['sys:skeletal', 'reg:skeletal/lower-limb']}
+        />
+      </Provider>,
+    );
+
+    await user.click(screen.getByRole('treeitem', { name: /^Femur/ }));
+    expect(await screen.findByRole('alert')).toHaveTextContent(
+      "Couldn't load the Skeletal model.",
+    );
   });
 });

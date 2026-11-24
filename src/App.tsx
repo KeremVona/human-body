@@ -24,6 +24,7 @@ import { ExitChips } from './features/dissection/ExitChips';
 import { Toolbar } from './features/dissection/Toolbar';
 import { FirstRunHint } from './features/onboarding/FirstRunHint';
 import { QuizBanner } from './features/quiz/QuizBanner';
+import { emptyPoolDismissed } from './features/quiz/quizSlice';
 import { QuizSummary } from './features/quiz/QuizSummary';
 import { startQuiz } from './features/quiz/thunks';
 import { SearchBox } from './features/search/SearchBox';
@@ -77,8 +78,17 @@ function AtlasShell({
   );
   const [meshCount, setMeshCount] = useState(0);
   const [debugStats, setDebugStats] = useState<RenderStats | null>(null);
-  const [emptyPoolAlert, setEmptyPoolAlert] = useState(false);
+  const emptyPoolAlert = useAppSelector((s) => s.quiz.emptyPoolAlert);
+  const systems = useAppSelector((s) => s.systems);
   const quizActive = useAppSelector((s) => s.quiz.status !== 'off');
+
+  useEffect(() => {
+    if (emptyPoolAlert) {
+      dispatch(emptyPoolDismissed());
+    }
+    // Clear alert automatically when system toggles, opacities, or bundle readiness change.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [systems, bundles, dispatch]);
   const [contextMenu, setContextMenu] = useState<ContextMenuTarget | null>(
     null,
   );
@@ -232,10 +242,7 @@ function AtlasShell({
             {boot === 'ready' && !quizActive ? (
               <button
                 type="button"
-                onClick={() => {
-                  const res = dispatch(startQuiz());
-                  setEmptyPoolAlert(res === 'empty-pool');
-                }}
+                onClick={() => dispatch(startQuiz())}
                 className="rounded-lg px-2.5 py-1 text-xs font-medium text-slate-100 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400"
               >
                 Start quiz
@@ -247,12 +254,23 @@ function AtlasShell({
       />
       {emptyPoolAlert ? (
         <div className="pointer-events-none fixed inset-x-0 top-16 z-20 flex justify-center px-4">
-          <p
+          <div
             role="alert"
-            className="pointer-events-auto rounded-lg bg-amber-950/90 px-4 py-2 text-xs text-amber-100 shadow-lg ring-1 ring-amber-400/40 backdrop-blur"
+            className="pointer-events-auto flex items-center gap-2 rounded-lg bg-amber-950/90 px-4 py-2 text-xs text-amber-100 shadow-lg ring-1 ring-amber-400/40 backdrop-blur"
           >
-            Turn on a body system with featured parts to start the quiz.
-          </p>
+            <span>
+              Turn on a visible body system with featured parts to start the
+              quiz.
+            </span>
+            <button
+              type="button"
+              aria-label="Dismiss alert"
+              onClick={() => dispatch(emptyPoolDismissed())}
+              className="rounded px-1.5 py-0.5 text-amber-200 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-sky-400"
+            >
+              Dismiss
+            </button>
+          </div>
         </div>
       ) : null}
       {debug ? <DebugStats stats={debugStats} meshCount={meshCount} /> : null}
