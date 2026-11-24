@@ -15,6 +15,10 @@ import {
   type ContentState,
 } from '../features/content/contentSlice';
 import {
+  motionStopped,
+  type MotionState,
+} from '../features/motion/motionSlice';
+import {
   pinsHydrated,
   sharedPinsLoaded,
   storageFailed,
@@ -22,6 +26,7 @@ import {
   type PinsState,
 } from '../features/pins/pinsSlice';
 import { savePins } from '../features/pins/storage';
+import { quizStarted } from '../features/quiz/quizSlice';
 import { selected } from '../features/selection/selectionSlice';
 import {
   systemsSet,
@@ -36,6 +41,7 @@ type ListenerState = {
   content: ContentState;
   systems: SystemsState;
   pins: PinsState;
+  motion: MotionState;
 };
 
 /** App-wide Redux listener middleware for bundle cache clearing and lazy structure loading. */
@@ -131,6 +137,48 @@ listenerMiddleware.startListening({
     const ok = savePins(state.pins.items);
     if (!ok && !state.pins.storageFailed) {
       listenerApi.dispatch(storageFailed());
+    }
+  },
+});
+
+listenerMiddleware.startListening({
+  actionCreator: quizStarted,
+  effect: (_action, listenerApi) => {
+    if (listenerApi.getState().motion.activeId !== null) {
+      listenerApi.dispatch(motionStopped());
+    }
+  },
+});
+
+listenerMiddleware.startListening({
+  matcher: isAnyOf(systemToggled, uiGroupToggled, systemsSet),
+  effect: (_action, listenerApi) => {
+    const state = listenerApi.getState();
+    const { activeId, defs } = state.motion;
+    if (!activeId) return;
+    const def = defs?.find((d) => d.id === activeId);
+    if (!def) return;
+    if (def.systems.some((sys) => !state.systems[sys].enabled)) {
+      listenerApi.dispatch(motionStopped());
+    }
+  },
+});
+
+listenerMiddleware.startListening({
+  actionCreator: bundleRetry,
+  effect: (action, listenerApi) => {
+    const state = listenerApi.getState();
+    const { activeId, defs } = state.motion;
+    if (!activeId) return;
+    const def = defs?.find((d) => d.id === activeId);
+    if (!def) return;
+    const moving = new Set<string>(
+      def.kind === 'hinge'
+        ? def.moving
+        : def.groups.flatMap((group) => group.meshes),
+    );
+    if (action.payload.meshIds.some((id) => moving.has(id))) {
+      listenerApi.dispatch(motionStopped());
     }
   },
 });
