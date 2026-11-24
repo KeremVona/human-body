@@ -70,9 +70,9 @@ describe('pickMeshId', () => {
 
     expect(
       pickMeshId(
-        [{ object: skull, point: new Vector3(0, 0.5, 0) }] as unknown as Parameters<
-          typeof pickMeshId
-        >[0],
+        [
+          { object: skull, point: new Vector3(0, 0.5, 0) },
+        ] as unknown as Parameters<typeof pickMeshId>[0],
         plane as unknown as Parameters<typeof pickMeshId>[1],
       ),
     ).toBeNull();

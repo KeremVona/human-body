@@ -128,7 +128,9 @@ export function createMaterialLibrary(fadeOpacity: number): {
     if (meta.isGhost) {
       mat.side = FrontSide;
       mat.onBeforeCompile =
-        quality === 'high' ? ghostFresnelOnBeforeCompile : defaultOnBeforeCompile;
+        quality === 'high'
+          ? ghostFresnelOnBeforeCompile
+          : defaultOnBeforeCompile;
       mat.customProgramCacheKey =
         quality === 'high' ? ghostFresnelCacheKey : defaultProgramCacheKey;
     } else if (clipPlane) {

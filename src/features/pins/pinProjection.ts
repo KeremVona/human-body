@@ -1,4 +1,4 @@
-import { Vector3, type Camera, type Object3D } from 'three';
+import { Vector3, type Camera, type Object3D, type Plane } from 'three';
 import type { MeshRegistry } from '../../scene/meshRegistry';
 import type { Pin } from './pinsSlice';
 
@@ -84,6 +84,20 @@ export function selectOcclusionBatch(
     batch.add(candidates[(start + i) % total].pin.id);
   }
   return { batch, nextCursor: (start + count) % total };
+}
+
+/** Returns true when a raycast hit list contains an unclipped mesh closer than `maxDistance` in front of `pinMesh`. */
+export function isPinRayOccluded(args: {
+  hits: readonly { object: Object3D; distance: number; point: Vector3 }[];
+  pinMesh: Object3D | undefined;
+  maxDistance: number;
+  clip: Plane | null;
+}): boolean {
+  const { hits, pinMesh, maxDistance, clip } = args;
+  const hit = clip
+    ? hits.find((h) => clip.distanceToPoint(h.point) >= 0)
+    : hits[0];
+  return Boolean(hit && hit.object !== pinMesh && hit.distance < maxDistance);
 }
 
 /** Projects visible on-screen pins into viewport CSS pixel coordinates. */

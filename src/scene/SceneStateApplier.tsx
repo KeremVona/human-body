@@ -12,10 +12,7 @@ import { applyMeshStates } from './applyMeshStates';
 import { createMaterialLibrary } from './materials';
 import { useMeshRegistry } from './meshRegistry';
 import { selectResolvedMeshStates, type MeshState } from './resolveMeshState';
-import {
-  sectionMaterialLibrary,
-  sectionPlaneStore,
-} from './sectionPlaneStore';
+import { sectionMaterialLibrary, sectionPlaneStore } from './sectionPlaneStore';
 
 /** Subscribes imperatively to store and registry changes to diff-apply mesh appearance inside Canvas. */
 export function SceneStateApplier(): null {

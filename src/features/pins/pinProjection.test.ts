@@ -1,9 +1,10 @@
-import { Mesh, PerspectiveCamera } from 'three';
+import { Mesh, PerspectiveCamera, Plane, Vector3 } from 'three';
 import { describe, expect, it } from 'vitest';
 import { createMeshRegistry } from '../../scene/meshRegistry';
 import type { Pin } from './pinsSlice';
 import {
   collectProjectedPins,
+  isPinRayOccluded,
   localToWorld,
   projectPins,
   selectOcclusionBatch,
@@ -131,5 +132,47 @@ describe('pinProjection', () => {
     const second = selectOcclusionBatch(candidates, nextCursor, 3);
     expect([...second.batch]).toEqual(['vis-3', 'vis-4', 'vis-0']);
     expect(second.nextCursor).toBe(1);
+  });
+
+  it('isPinRayOccluded ignores occluder hits on the removed side of a clip plane', () => {
+    const pinMesh = new Mesh();
+    const removedOccluder = new Mesh();
+    const keptOccluder = new Mesh();
+    const clip = new Plane(new Vector3(0, -1, 0), 0); // keeps y <= 0
+
+    expect(
+      isPinRayOccluded({
+        hits: [
+          {
+            object: removedOccluder,
+            distance: 0.5,
+            point: new Vector3(0, 0.25, 0),
+          },
+        ],
+        pinMesh,
+        maxDistance: 2.0,
+        clip,
+      }),
+    ).toBe(false);
+
+    expect(
+      isPinRayOccluded({
+        hits: [
+          {
+            object: removedOccluder,
+            distance: 0.5,
+            point: new Vector3(0, 0.25, 0),
+          },
+          {
+            object: keptOccluder,
+            distance: 1.0,
+            point: new Vector3(0, -0.25, 0),
+          },
+        ],
+        pinMesh,
+        maxDistance: 2.0,
+        clip,
+      }),
+    ).toBe(true);
   });
 });

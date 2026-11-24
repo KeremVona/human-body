@@ -1,10 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { Bounds } from '../../scene/camera';
-import {
-  isClipped,
-  presetForSection,
-  sectionPlane,
-} from './sectionPlane';
+import { isClipped, presetForSection, sectionPlane } from './sectionPlane';
 
 const b: Bounds = { min: [-0.3, -0.9, -0.15], max: [0.3, 0.9, 0.15] };
 

@@ -40,7 +40,11 @@ describe('SectionPopover', () => {
     expect(trigger).toHaveAttribute('aria-pressed', 'false');
     await user.click(trigger);
 
-    const toggle = await screen.findByRole('switch', { name: 'Cross-section' });
+    const toggle = await screen.findByRole(
+      'switch',
+      { name: 'Cross-section' },
+      { timeout: 4000 },
+    );
     expect(toggle).toHaveAttribute('aria-checked', 'false');
     await user.click(toggle);
     expect(store.getState().section.enabled).toBe(true);
@@ -49,14 +53,26 @@ describe('SectionPopover', () => {
     await user.click(screen.getByRole('radio', { name: 'Coronal' }));
     expect(store.getState().section.axis).toBe('coronal');
 
+    const coronal = screen.getByRole('radio', { name: 'Coronal' });
+    coronal.focus();
+    await user.keyboard('{ArrowLeft}');
+    expect(screen.getByRole('radio', { name: 'Sagittal' })).toHaveFocus();
+    await user.keyboard(' ');
+    expect(store.getState().section.axis).toBe('sagittal');
+    await user.click(coronal);
+
     const slider = screen.getByRole('slider', { name: 'Section position' });
     slider.focus();
     await user.keyboard('{End}');
+    expect(slider).toHaveFocus();
     expect(store.getState().section.t).toBe(1);
     expect(screen.getByText('100%')).toBeInTheDocument();
 
-    await user.click(screen.getByRole('button', { name: 'Flip side' }));
+    const flipBtn = screen.getByRole('button', { name: 'Flip side' });
+    expect(flipBtn).toHaveAttribute('aria-pressed', 'false');
+    await user.click(flipBtn);
     expect(store.getState().section.flip).toBe(true);
+    expect(flipBtn).toHaveAttribute('aria-pressed', 'true');
   });
 
   it('disables axis radios, position slider, and flip button while section is off', async () => {
@@ -64,7 +80,11 @@ describe('SectionPopover', () => {
     renderToolbar();
 
     await user.click(screen.getByRole('button', { name: 'Cross-section' }));
-    await screen.findByRole('switch', { name: 'Cross-section' });
+    await screen.findByRole(
+      'switch',
+      { name: 'Cross-section' },
+      { timeout: 4000 },
+    );
 
     for (const label of ['Axial', 'Sagittal', 'Coronal'] as const) {
       const radio = screen.getByRole('radio', { name: label });

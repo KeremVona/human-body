@@ -32,6 +32,11 @@ export function consumeSuppressedSectionPreset(key: string): boolean {
   return true;
 }
 
+/** Clears any pending section-preset suppression flag. */
+export function clearSuppressedSectionPreset(): void {
+  suppressedViewKey = null;
+}
+
 /** Holds the shared active THREE.Plane instance when cross-sectioning, or null when off. */
 export const sectionPlaneStore = {
   get(): Plane | null {

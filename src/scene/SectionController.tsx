@@ -7,17 +7,13 @@ import {
   presetForSection,
   type SectionAxis,
 } from '../features/section/sectionPlane';
-import { bodyBounds, useCameraApi, type Bounds } from './camera';
+import { bodyBounds, DEFAULT_BODY_BOUNDS, useCameraApi } from './camera';
 import {
+  clearSuppressedSectionPreset,
   consumeSuppressedSectionPreset,
   sectionMaterialLibrary,
   sectionPlaneStore,
 } from './sectionPlaneStore';
-
-const DEFAULT_BODY_BOUNDS: Bounds = {
-  min: [-0.3, -0.9, -0.15],
-  max: [0.3, 0.9, 0.15],
-};
 
 /** Syncs `section` Redux state with the shared Three.js clipping plane, raycaster, and camera preset. */
 export function SectionController(): null {
@@ -50,6 +46,7 @@ export function SectionController(): null {
     const wasEnabled = prevEnabledRef.current;
 
     if (!enabled) {
+      clearSuppressedSectionPreset();
       if (wasEnabled) {
         prevEnabledRef.current = false;
         prevViewRef.current = null;
@@ -81,15 +78,16 @@ export function SectionController(): null {
 
     const prevView = prevViewRef.current;
     const viewKey = `${enabled}|${axis}|${flip}`;
+    const suppressed = consumeSuppressedSectionPreset(viewKey);
+    clearSuppressedSectionPreset();
     if (
-      !wasEnabled ||
-      !prevView ||
-      prevView.axis !== axis ||
-      prevView.flip !== flip
+      !suppressed &&
+      (!wasEnabled ||
+        !prevView ||
+        prevView.axis !== axis ||
+        prevView.flip !== flip)
     ) {
-      if (!consumeSuppressedSectionPreset(viewKey)) {
-        void cameraApi.goToPreset(presetForSection(axis, flip));
-      }
+      void cameraApi.goToPreset(presetForSection(axis, flip));
     }
     prevEnabledRef.current = true;
     prevViewRef.current = { axis, flip };
@@ -98,6 +96,7 @@ export function SectionController(): null {
 
   useEffect(() => {
     return () => {
+      clearSuppressedSectionPreset();
       if (prevEnabledRef.current) {
         Object.assign(gl, { localClippingEnabled: false });
         Object.assign(raycaster, { firstHitOnly: true });

@@ -4,10 +4,12 @@ import { Raycaster, Vector3, type Mesh } from 'three';
 import { useAppSelector } from '../app/hooks';
 import {
   collectProjectedPins,
+  isPinRayOccluded,
   pinScreens,
   selectOcclusionBatch,
 } from '../features/pins/pinProjection';
 import { useMeshRegistry } from './meshRegistry';
+import { sectionPlaneStore } from './sectionPlaneStore';
 
 const MAX_OCCLUSION_CHECKS_PER_FRAME = 50;
 
@@ -50,6 +52,8 @@ export function PinProbe(): null {
       raycasterRef.current = r;
     }
     const raycaster = raycasterRef.current;
+    const clip = sectionPlaneStore.get();
+    Object.assign(raycaster, { firstHitOnly: !clip });
     const camPos = camera.position.clone();
     const pickables: Mesh[] = [];
     for (const id of registry.ids()) {
@@ -86,10 +90,12 @@ export function PinProbe(): null {
           raycaster.set(camPos, dir.normalize());
           raycaster.far = dist - 0.01;
           const hits = raycaster.intersectObjects(pickables, false);
-          dimmed =
-            hits.length > 0 &&
-            hits[0].object !== pinMesh &&
-            hits[0].distance < dist - 0.01;
+          dimmed = isPinRayOccluded({
+            hits,
+            pinMesh,
+            maxDistance: dist - 0.01,
+            clip,
+          });
         }
         dimmedCacheRef.current.set(pin.id, dimmed);
       }

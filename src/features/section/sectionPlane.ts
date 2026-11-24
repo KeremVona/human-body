@@ -13,12 +13,14 @@ const AXIS_INDEX: Record<SectionAxis, 0 | 1 | 2> = {
   coronal: 2,
 };
 
-const SECTION_PRESETS: Record<SectionAxis, { normal: Preset; flipped: Preset }> =
-  {
-    axial: { normal: 'superior', flipped: 'inferior' },
-    sagittal: { normal: 'left', flipped: 'right' },
-    coronal: { normal: 'anterior', flipped: 'posterior' },
-  };
+const SECTION_PRESETS: Record<
+  SectionAxis,
+  { normal: Preset; flipped: Preset }
+> = {
+  axial: { normal: 'superior', flipped: 'inferior' },
+  sagittal: { normal: 'left', flipped: 'right' },
+  coronal: { normal: 'anterior', flipped: 'posterior' },
+};
 
 function normalizeZero(n: number): number {
   return Object.is(n, -0) ? 0 : n;

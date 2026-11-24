@@ -129,7 +129,7 @@ export async function encodeViewState(v: ViewStateV1): Promise<string> {
     normalized.f = dedupeSorted(v.f);
   }
   if (v.x !== undefined) {
-    normalized.x = v.x;
+    normalized.x = [v.x[0], round3(v.x[1]), v.x[2]];
   }
   if (v.p !== undefined && v.p.length > 0) {
     normalized.p = v.p;

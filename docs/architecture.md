@@ -9,17 +9,18 @@ For deeper design rationale and data contracts, see the [Design Specification](s
 │  TopBar · SearchBox · SettingsMenu · AboutDialog · LeftPanel (Systems/Browse/Pins) │
 │  Inspector · Toolbar · HoverLabel · ExitChips · FirstRunHint · DissectionMenu      │
 │  QuizBanner · QuizSummary · SharePopover · ShareNotice · PinLayer · PinEditor      │
-│  SelectionAnnouncer · DebugStats                                                   │
+│  SectionPopover · SelectionAnnouncer · DebugStats                                  │
 └───────────────▲───────────────────────────────────────────────▲────────────────────┘
                 │ useAppSelector / useAppDispatch               │ CameraApi (context)
 ┌───────────────┴───────────── Redux Toolkit store ─────────────┴────────────────────┐
-│  assets · content · systems · dissection(+past) · selection · quiz · ui · share · pins│
+│  assets · content · systems · dissection(+past) · selection · quiz · ui · share    │
+│  pins · section                                                                    │
 └───────────────▲────────────────────────────────────────────────────────────────────┘
                 │ store.subscribe (imperative)                ▲ dispatch on pointer events
 ┌───────────────┴────────────── R3F Scene ────────────────────┴──────────────────────┐
 │  <Canvas frameloop="demand"> · Lights · CameraRig · <Bvh> · BundleModel×N          │
-│  Picking · PinProbe · SceneStateApplier · MeshRegistry (Map<MeshId, THREE.Mesh>)     │
-│  MaterialLibrary ((system × tissue-or-color × variant))                            │
+│  Picking · PinProbe · SectionController · SceneStateApplier · MeshRegistry         │
+│  MaterialLibrary ((system × tissue-or-color × variant) + shared clip/cap hook)     │
 └───────────────▲────────────────────────────────────────────────────────────────────┘
                 │ fetch (static assets + content)
 ┌───────────────┴──────────── Static files ──────────────────────────────────────────┐
@@ -27,9 +28,9 @@ For deeper design rationale and data contracts, see the [Design Specification](s
 └────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
-- **UI shell (`src/features/`, `src/ui/`):** Presentational components and Radix primitives (`Dialog`, `Switch`, `Slider`, `Tabs`, `Popover`, `RadioGroup`, `DropdownMenu`) read slice state via memoized selectors and call `CameraApi` directly for imperative camera transitions (`focusMeshes`, `goToPreset`, `resetView`, `setPose`, `lookAtPoint`). Lazy-loaded overlays (`SharePopover`, `ShareNotice`, `PinLayer`, `PinEditor`, `PinsPanel`) keep startup chunks small until used.
+- **UI shell (`src/features/`, `src/ui/`):** Presentational components and Radix primitives (`Dialog`, `Switch`, `Slider`, `Tabs`, `Popover`, `RadioGroup`, `DropdownMenu`) read slice state via memoized selectors and call `CameraApi` directly for imperative camera transitions (`focusMeshes`, `goToPreset`, `resetView`, `setPose`, `lookAtPoint`). Lazy-loaded overlays (`SharePopover`, `ShareNotice`, `PinLayer`, `PinEditor`, `PinsPanel`, `SectionPopover`) keep startup chunks small until used.
 - **Store (`src/app/store.ts`):** Coordinates application state and side-effect thunks (`assets/bootstrap`, bundle downloads, lazy structure content fetches, share link restore, pin placement).
-- **3D Scene (`src/scene/`):** React Three Fiber hosts `<Canvas frameloop="demand">`, lighting (`Lights.tsx`), `CameraRig.tsx` (`camera-controls`), pointer picking (`Picking.tsx`), `BundleModel.tsx`, `SceneStateApplier.tsx`, and lazy `PinProbe.tsx` (projects local pin positions into `pinScreens` and throttles occlusion raycasts).
+- **3D Scene (`src/scene/`):** React Three Fiber hosts `<Canvas frameloop="demand">`, lighting (`Lights.tsx`), `CameraRig.tsx` (`camera-controls`), pointer picking (`Picking.tsx`), `BundleModel.tsx`, `SceneStateApplier.tsx`, `SectionController.tsx` (mutates one shared `THREE.Plane` across `MaterialLibrary` with `DoubleSide` back-face unlit caps, skips clipped ray hits by setting `raycaster.firstHitOnly = false`, and suppresses selection outlines while sectioning), and lazy `PinProbe.tsx` (projects local pin positions into `pinScreens` and throttles occlusion raycasts).
 
 ## Key Performance Rule: Meshes Are Not React Components
 
@@ -56,6 +57,7 @@ Configured in `src/app/store.ts` with `listenerMiddleware` (`src/app/listeners.t
 | `ui` | `src/features/settings/uiSlice.ts` | Graphics quality preference (`auto`, `high`, `low`) and onboarding hint dismissal. |
 | `share` | `src/features/share/shareSlice.ts` | Non-blocking view-link status banners (`skipped`, `newer-version`, `malformed`). |
 | `pins` | `src/features/pins/pinsSlice.ts` | Personal and shared `#v1.` 3D pins (`items`, 200 own-pin cap, single-step Delete Undo, active `editingId` target) and `localStorage` persistence (`atlas.pins.v1`). |
+| `section` | `src/features/section/sectionSlice.ts` | Single live cross-section plane (`enabled`, `axis`, `t` quantized to `0.005`, `flip`). |
 
 ## Bundles vs. Biological Systems
 

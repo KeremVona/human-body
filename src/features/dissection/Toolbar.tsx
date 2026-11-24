@@ -46,6 +46,9 @@ export function Toolbar(): JSX.Element {
   const sectionButtonRef = useRef<HTMLButtonElement>(null);
 
   const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+    if (!(e.target instanceof Node) || !e.currentTarget.contains(e.target)) {
+      return;
+    }
     if (
       e.key !== 'ArrowRight' &&
       e.key !== 'ArrowLeft' &&
@@ -81,83 +84,85 @@ export function Toolbar(): JSX.Element {
   };
 
   return (
-    <div
-      role="toolbar"
-      aria-label="Viewer controls"
-      onKeyDown={handleKeyDown}
-      className="fixed bottom-3 left-1/2 z-10 flex max-w-[calc(100vw-1.5rem)] -translate-x-1/2 items-center gap-1 overflow-x-auto rounded-xl border border-white/10 bg-slate-900/70 p-1 text-slate-100 shadow-xl backdrop-blur-md [scrollbar-width:none]"
-    >
-      {PRESETS.map((item) => (
+    <>
+      <div
+        role="toolbar"
+        aria-label="Viewer controls"
+        onKeyDown={handleKeyDown}
+        className="fixed bottom-3 left-1/2 z-10 flex max-w-[calc(100vw-1.5rem)] -translate-x-1/2 items-center gap-1 overflow-x-auto rounded-xl border border-white/10 bg-slate-900/70 p-1 text-slate-100 shadow-xl backdrop-blur-md [scrollbar-width:none]"
+      >
+        {PRESETS.map((item) => (
+          <button
+            key={item.preset}
+            type="button"
+            title={item.label}
+            onClick={() => void cameraApi.goToPreset(item.preset)}
+            className={btnClass}
+          >
+            <span aria-hidden="true">{item.short}</span>
+            <span className="sr-only">{item.label}</span>
+          </button>
+        ))}
+
+        <div
+          aria-hidden="true"
+          className="mx-0.5 h-5 w-px shrink-0 bg-white/15"
+        />
+
         <button
-          key={item.preset}
           type="button"
-          title={item.label}
-          onClick={() => void cameraApi.goToPreset(item.preset)}
+          aria-label="Reset view"
+          title="Reset view"
+          onClick={() => void cameraApi.resetView()}
           className={btnClass}
         >
-          <span aria-hidden="true">{item.short}</span>
-          <span className="sr-only">{item.label}</span>
+          Reset
         </button>
-      ))}
 
-      <div
-        aria-hidden="true"
-        className="mx-0.5 h-5 w-px shrink-0 bg-white/15"
-      />
+        <button
+          type="button"
+          aria-label="Undo"
+          title="Undo"
+          disabled={!canUndo || quizActive}
+          onClick={() => dispatch(undo())}
+          className={btnClass}
+        >
+          Undo
+        </button>
 
-      <button
-        type="button"
-        aria-label="Reset view"
-        title="Reset view"
-        onClick={() => void cameraApi.resetView()}
-        className={btnClass}
-      >
-        Reset
-      </button>
+        <button
+          type="button"
+          aria-label="Show all"
+          title="Show all"
+          disabled={!hasDissection || quizActive}
+          onClick={() => dispatch(showAll())}
+          className={btnClass}
+        >
+          Show all
+        </button>
 
-      <button
-        type="button"
-        aria-label="Undo"
-        title="Undo"
-        disabled={!canUndo || quizActive}
-        onClick={() => dispatch(undo())}
-        className={btnClass}
-      >
-        Undo
-      </button>
+        <div
+          aria-hidden="true"
+          className="mx-0.5 h-5 w-px shrink-0 bg-white/15"
+        />
 
-      <button
-        type="button"
-        aria-label="Show all"
-        title="Show all"
-        disabled={!hasDissection || quizActive}
-        onClick={() => dispatch(showAll())}
-        className={btnClass}
-      >
-        Show all
-      </button>
-
-      <div
-        aria-hidden="true"
-        className="mx-0.5 h-5 w-px shrink-0 bg-white/15"
-      />
-
-      <button
-        ref={sectionButtonRef}
-        type="button"
-        title="Cross-section"
-        aria-pressed={sectionEnabled}
-        aria-expanded={sectionOpen}
-        aria-haspopup="dialog"
-        disabled={quizActive}
-        onClick={() => {
-          setSectionLoaded(true);
-          setSectionOpen((o) => !o);
-        }}
-        className={`${btnClass} ${sectionEnabled ? 'bg-sky-600/35 text-sky-200 ring-1 ring-sky-400/50' : ''}`}
-      >
-        Cross-section
-      </button>
+        <button
+          ref={sectionButtonRef}
+          type="button"
+          title="Cross-section"
+          aria-pressed={sectionEnabled}
+          aria-expanded={sectionOpen}
+          aria-haspopup="dialog"
+          disabled={quizActive}
+          onClick={() => {
+            setSectionLoaded(true);
+            setSectionOpen((o) => !o);
+          }}
+          className={`${btnClass} ${sectionEnabled ? 'bg-sky-600/35 text-sky-200 ring-1 ring-sky-400/50' : ''}`}
+        >
+          Cross-section
+        </button>
+      </div>
 
       {sectionLoaded && !quizActive ? (
         <Suspense fallback={null}>
@@ -168,6 +173,6 @@ export function Toolbar(): JSX.Element {
           />
         </Suspense>
       ) : null}
-    </div>
+    </>
   );
 }

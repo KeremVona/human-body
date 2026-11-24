@@ -29,7 +29,7 @@ export function SectionPopover({
   triggerRef?: RefObject<HTMLButtonElement | null>;
 }): JSX.Element {
   const dispatch = useAppDispatch();
-  const { enabled, axis, t } = useAppSelector((s) => s.section);
+  const { enabled, axis, t, flip } = useAppSelector((s) => s.section);
   const switchId = useId();
   const labelId = useId();
   const axisHeadingId = useId();
@@ -161,6 +161,7 @@ export function SectionPopover({
 
             <button
               type="button"
+              aria-pressed={flip}
               disabled={!enabled}
               onClick={() => dispatch(sectionFlipped())}
               className="rounded-lg bg-white/10 px-3 py-1.5 font-medium text-slate-100 hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-sky-400 disabled:pointer-events-none disabled:opacity-45"

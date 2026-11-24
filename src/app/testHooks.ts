@@ -1,6 +1,7 @@
 import type { MeshId } from '../data/ids';
 import { pinScreens, type PinScreen } from '../features/pins/pinProjection';
 import { startQuiz } from '../features/quiz/thunks';
+import type { SectionState } from '../features/section/sectionSlice';
 import { selected } from '../features/selection/selectionSlice';
 import type { CameraController, Pose } from '../scene/camera';
 import type { MeshRegistry } from '../scene/meshRegistry';
@@ -23,6 +24,7 @@ export type AtlasTestApi = {
   encodeView(): Promise<string>;
   getPose(): Pose | null;
   pinScreenPoints(): PinScreen[];
+  section(): SectionState;
 };
 
 /** Exposes dev/e2e inspection hooks on `window.__atlas`; stripped from production builds. */
@@ -68,5 +70,6 @@ export function installTestHooks(api: {
     },
     getPose: () => api.camera?.api.getPose() ?? null,
     pinScreenPoints: () => pinScreens.get(),
+    section: () => api.store.getState().section,
   };
 }

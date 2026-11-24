@@ -349,14 +349,30 @@ describe('createMaterialLibrary', () => {
     const p = new Plane(new Vector3(0, -1, 0), 0);
 
     const libA = createMaterialLibrary(0.15);
-    const baseA = libA.get({ system: 'muscular', tissue: 'muscle', state: 'base' });
-    const ghostA = libA.get({ system: 'muscular', tissue: 'muscle', state: 'ghost' });
+    const baseA = libA.get({
+      system: 'muscular',
+      tissue: 'muscle',
+      state: 'base',
+    });
+    const ghostA = libA.get({
+      system: 'muscular',
+      tissue: 'muscle',
+      state: 'ghost',
+    });
     libA.setQuality('high');
     libA.setClipPlane(p);
 
     const libB = createMaterialLibrary(0.15);
-    const baseB = libB.get({ system: 'muscular', tissue: 'muscle', state: 'base' });
-    const ghostB = libB.get({ system: 'muscular', tissue: 'muscle', state: 'ghost' });
+    const baseB = libB.get({
+      system: 'muscular',
+      tissue: 'muscle',
+      state: 'base',
+    });
+    const ghostB = libB.get({
+      system: 'muscular',
+      tissue: 'muscle',
+      state: 'ghost',
+    });
     libB.setClipPlane(p);
     libB.setQuality('high');
 

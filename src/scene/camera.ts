@@ -20,7 +20,7 @@ export type Bounds = {
 export type Preset =
   'anterior' | 'posterior' | 'left' | 'right' | 'superior' | 'inferior';
 
-const DEFAULT_BODY_BOUNDS: Bounds = {
+export const DEFAULT_BODY_BOUNDS: Bounds = {
   min: [-0.3, -0.9, -0.15],
   max: [0.3, 0.9, 0.15],
 };
