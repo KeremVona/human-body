@@ -162,6 +162,30 @@ export function CameraRig(): null {
         );
         invalidate();
       },
+      getPose() {
+        const pos = controls.getPosition(new Vector3());
+        const tgt = controls.getTarget(new Vector3());
+        return {
+          position: [pos.x, pos.y, pos.z],
+          target: [tgt.x, tgt.y, tgt.z],
+        };
+      },
+      async setPose(pose, animate) {
+        const manifest = store.getState().assets.manifest;
+        if (manifest) {
+          const body = bodyBounds(manifest);
+          const limits = distanceLimits(null, body);
+          controls.minDistance = limits.min;
+          controls.maxDistance = limits.max;
+        }
+        const promise = controls.setLookAt(
+          ...pose.position,
+          ...pose.target,
+          animate && !prefersReducedMotion(),
+        );
+        invalidate();
+        await promise;
+      },
     };
 
     const probe: CameraDebugProbe = {

@@ -102,6 +102,8 @@ function setupStore(
       goToPreset: vi.fn(async () => {}),
       resetView: vi.fn(async () => {}),
       zoom: vi.fn(),
+      getPose: vi.fn(() => null),
+      setPose: vi.fn(async () => {}),
     },
   };
 

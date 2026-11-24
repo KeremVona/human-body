@@ -1,12 +1,15 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import type { Manifest } from '../data/schema';
 import {
   bodyBounds,
+  createCameraController,
   distanceLimits,
   fitDistance,
   presetPose,
   unionBounds,
   type Bounds,
+  type CameraApi,
+  type Pose,
 } from './camera';
 
 const body: Bounds = { min: [-0.3, -0.9, -0.15], max: [0.3, 0.9, 0.15] };
@@ -101,5 +104,33 @@ describe('distanceLimits', () => {
       max: expect.closeTo(7.2, 6),
     });
     expect(distanceLimits(null, body).min).toBeCloseTo(1.0565, 3);
+  });
+});
+
+describe('createCameraController pose methods', () => {
+  it('returns null unbound and forwards getPose and setPose when bound', async () => {
+    const controller = createCameraController();
+    expect(controller.api.getPose()).toBeNull();
+    await expect(
+      controller.api.setPose({ position: [0, 0, 3], target: [0, 0, 0] }, false),
+    ).resolves.toBeUndefined();
+
+    const pose: Pose = { position: [1, 2, 3], target: [0, 1, 0] };
+    const impl: CameraApi = {
+      focusMeshes: vi.fn(async () => {}),
+      goToPreset: vi.fn(async () => {}),
+      resetView: vi.fn(async () => {}),
+      zoom: vi.fn(),
+      getPose: vi.fn(() => pose),
+      setPose: vi.fn(async () => {}),
+    };
+
+    const unbind = controller.bind(impl);
+    expect(controller.api.getPose()).toEqual(pose);
+    await controller.api.setPose(pose, true);
+    expect(impl.setPose).toHaveBeenCalledWith(pose, true);
+
+    unbind();
+    expect(controller.api.getPose()).toBeNull();
   });
 });

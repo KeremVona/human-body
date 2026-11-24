@@ -133,12 +133,20 @@ export function distanceLimits(
   return { min, max };
 }
 
+/** Camera position and target point in world meters. */
+export type Pose = {
+  position: [number, number, number];
+  target: [number, number, number];
+};
+
 /** Imperative camera controls exposed outside and inside the Canvas via context. */
 export type CameraApi = {
   focusMeshes(ids: MeshId[]): Promise<void>;
   goToPreset(p: Preset): Promise<void>;
   resetView(): Promise<void>;
   zoom(step: 1 | -1): void;
+  getPose(): Pose | null;
+  setPose(pose: Pose, animate: boolean): Promise<void>;
 };
 
 export type CameraDebugProbe = {
@@ -170,6 +178,12 @@ export function createCameraController(cameraRef?: {
     },
     zoom(step) {
       impl?.zoom(step);
+    },
+    getPose() {
+      return impl ? impl.getPose() : null;
+    },
+    setPose(pose, animate) {
+      return impl ? impl.setPose(pose, animate) : Promise.resolve();
     },
   };
 
