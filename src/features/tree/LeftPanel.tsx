@@ -83,7 +83,7 @@ export function LeftPanel(): JSX.Element | null {
         collapsed={collapsed}
         onToggle={() => setCollapsed((c) => !c)}
         className={
-          collapsed ? '' : 'max-h-[calc(100dvh-9rem)] w-64 overflow-y-auto'
+          collapsed ? '' : 'max-h-[calc(100dvh-9rem)] w-72 overflow-y-auto'
         }
       >
         <Tabs.Root
@@ -105,25 +105,25 @@ export function LeftPanel(): JSX.Element | null {
           >
             <Tabs.Trigger
               value="systems"
-              className="min-w-0 truncate rounded-md px-1 py-1 text-xs font-medium text-slate-300 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-sky-400 data-[state=active]:bg-sky-500/30 data-[state=active]:text-white"
+              className="min-w-0 truncate rounded-md px-1 py-1 text-[11px] font-medium text-slate-300 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-sky-400 data-[state=active]:bg-sky-500/30 data-[state=active]:text-white sm:text-xs"
             >
               {tr('leftPanel.systems')}
             </Tabs.Trigger>
             <Tabs.Trigger
               value="browse"
-              className="min-w-0 truncate rounded-md px-1 py-1 text-xs font-medium text-slate-300 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-sky-400 data-[state=active]:bg-sky-500/30 data-[state=active]:text-white"
+              className="min-w-0 truncate rounded-md px-1 py-1 text-[11px] font-medium text-slate-300 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-sky-400 data-[state=active]:bg-sky-500/30 data-[state=active]:text-white sm:text-xs"
             >
               {tr('leftPanel.browse')}
             </Tabs.Trigger>
             <Tabs.Trigger
               value="pins"
-              className="min-w-0 truncate rounded-md px-1 py-1 text-xs font-medium text-slate-300 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-sky-400 data-[state=active]:bg-sky-500/30 data-[state=active]:text-white"
+              className="min-w-0 truncate rounded-md px-1 py-1 text-[11px] font-medium text-slate-300 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-sky-400 data-[state=active]:bg-sky-500/30 data-[state=active]:text-white sm:text-xs"
             >
               {tr('leftPanel.pins')}
             </Tabs.Trigger>
             <Tabs.Trigger
               value="motion"
-              className="min-w-0 truncate rounded-md px-1 py-1 text-xs font-medium text-slate-300 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-sky-400 data-[state=active]:bg-sky-500/30 data-[state=active]:text-white"
+              className="min-w-0 truncate rounded-md px-1 py-1 text-[11px] font-medium text-slate-300 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-sky-400 data-[state=active]:bg-sky-500/30 data-[state=active]:text-white sm:text-xs"
             >
               {tr('leftPanel.motion')}
             </Tabs.Trigger>

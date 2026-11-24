@@ -60,7 +60,7 @@ const PRESETS: readonly {
 ];
 
 const btnClass =
-  'inline-flex h-8 shrink-0 items-center justify-center rounded-lg px-2.5 text-xs font-medium text-slate-200 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400 disabled:pointer-events-none disabled:opacity-40';
+  'inline-flex h-8 shrink-0 items-center justify-center rounded-lg px-1.5 text-[11px] font-medium text-slate-200 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400 disabled:pointer-events-none disabled:opacity-40 sm:px-2.5 sm:text-xs';
 
 /** Bottom-centre toolbar with anatomical view presets, reset, undo, and show all. */
 export function Toolbar(): JSX.Element {
@@ -119,7 +119,7 @@ export function Toolbar(): JSX.Element {
         role="toolbar"
         aria-label={tr('toolbar.ariaLabel')}
         onKeyDown={handleKeyDown}
-        className="fixed bottom-3 left-1/2 z-10 flex max-w-[calc(100vw-1.5rem)] -translate-x-1/2 items-center gap-1 overflow-x-auto rounded-xl border border-white/10 bg-slate-900/70 p-1 text-slate-100 shadow-xl backdrop-blur-md [scrollbar-width:none]"
+        className="fixed bottom-3 left-1/2 z-10 flex max-w-[calc(100vw-1rem)] -translate-x-1/2 items-center gap-0.5 overflow-x-auto rounded-xl border border-white/10 bg-slate-900/70 p-1 text-slate-100 shadow-xl backdrop-blur-md [scrollbar-width:none] sm:max-w-[calc(100vw-1.5rem)] sm:gap-1"
       >
         {PRESETS.map((item) => {
           const label = tr(item.labelKey);

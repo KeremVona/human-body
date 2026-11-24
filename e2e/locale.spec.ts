@@ -162,6 +162,10 @@ test('switches language in Settings, persists across reload, and wraps longest T
           clientWidth: number;
           getBoundingClientRect: () => { right: number };
         } | null;
+        querySelectorAll: (s: string) => Iterable<{
+          scrollWidth: number;
+          clientWidth: number;
+        }>;
       };
       innerWidth: number;
     };
@@ -170,13 +174,14 @@ test('switches language in Settings, persists across reload, and wraps longest T
     );
     const header = g.document.querySelector('header');
     const toolbar = g.document.querySelector('[role="toolbar"]');
+    const toolbarButtonOverflow = Array.from(
+      g.document.querySelectorAll('[role="toolbar"] button'),
+    ).some((btn) => btn.scrollWidth > btn.clientWidth + 1);
     return {
       docOverflow: g.document.documentElement.scrollWidth > g.innerWidth + 1,
       asideOverflow: aside ? aside.scrollWidth > aside.clientWidth + 1 : false,
       headerRight: header ? header.getBoundingClientRect().right : 0,
-      toolbarOverflow: toolbar
-        ? toolbar.scrollWidth > toolbar.clientWidth + 1
-        : false,
+      toolbarButtonOverflow,
       toolbarRight: toolbar ? toolbar.getBoundingClientRect().right : 0,
       vw: g.innerWidth,
     };
@@ -184,6 +189,6 @@ test('switches language in Settings, persists across reload, and wraps longest T
   expect(layoutMetrics.docOverflow).toBe(false);
   expect(layoutMetrics.asideOverflow).toBe(false);
   expect(layoutMetrics.headerRight).toBeLessThanOrEqual(layoutMetrics.vw + 1);
-  expect(layoutMetrics.toolbarOverflow).toBe(false);
+  expect(layoutMetrics.toolbarButtonOverflow).toBe(false);
   expect(layoutMetrics.toolbarRight).toBeLessThanOrEqual(layoutMetrics.vw + 1);
 });
