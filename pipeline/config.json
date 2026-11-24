@@ -21,7 +21,9 @@
   },
   "budgets": {
     "perBundleBytes": {
-      "skeletal": 5242880
+      "skeletal": 5242880,
+      "lymphatic": 8000000,
+      "skin": 4000000
     },
     "defaultBundleBytes": 15728640,
     "totalBytes": 41943040
@@ -808,6 +810,115 @@
             "collection": "Bonus collection/Nervous system/Peripheral nervous system/Spinal nerves",
             "name": "^(Sciatic|Femoral) nerve\\.(l|r)$"
           }
+        }
+      ]
+    },
+    {
+      "id": "lymphatic",
+      "rules": [
+        {
+          "system": "lymphatic",
+          "region": "head",
+          "kind": "organ",
+          "tissue": "lymph",
+          "match": {
+            "collection": "Bonus collection/Regions of human body/Main divisions/Head",
+            "name": "(node|nodes)"
+          },
+          "exclude": [
+            "\\.(i|j|s|t|g)$",
+            "^\\((Medial|Intermediate) lacunar node\\)\\.(l|r)$"
+          ]
+        },
+        {
+          "system": "lymphatic",
+          "region": "neck",
+          "kind": "organ",
+          "tissue": "lymph",
+          "match": {
+            "collection": "6: Lymphoid organs",
+            "name": "(cervical|jugular|supraclavicular|thyroid|pretracheal|submandibular|submental)"
+          },
+          "exclude": ["\\.(i|j|s|t|g)$"]
+        },
+        {
+          "system": "lymphatic",
+          "region": "upper-limb",
+          "kind": "organ",
+          "tissue": "lymph",
+          "match": {
+            "collection": "6: Lymphoid organs",
+            "name": "(axillary|brachial|cubital|supratrochlear|infraclavicular|interpectoral|pectoral)"
+          },
+          "exclude": ["\\.(i|j|s|t|g)$"]
+        },
+        {
+          "system": "lymphatic",
+          "region": "lower-limb",
+          "kind": "organ",
+          "tissue": "lymph",
+          "match": {
+            "collection": "6: Lymphoid organs",
+            "name": "(inguinal|lacunar|popliteal|tibial|fibular|gluteal)"
+          },
+          "exclude": [
+            "\\.(i|j|s|t|g)$",
+            "^\\((Medial|Intermediate) lacunar node\\)\\.(l|r)$"
+          ]
+        },
+        {
+          "system": "lymphatic",
+          "region": "thorax",
+          "kind": "organ",
+          "tissue": "lymph",
+          "match": {
+            "collection": "6: Lymphoid organs",
+            "name": "(parasternal|paratracheal thoracic|tracheobronchial|bronchopulmonary|mediast|pericard|pulmonary|azygos|ligamentum|brachiocephalic|intercostal|oesophageal|Superior diaphragmatic|Prevertebral)"
+          },
+          "exclude": ["\\.(i|j|s|t|g)$"]
+        },
+        {
+          "system": "lymphatic",
+          "region": "pelvis",
+          "kind": "organ",
+          "tissue": "lymph",
+          "match": {
+            "collection": "6: Lymphoid organs",
+            "name": "(iliac|vesical|obturator|pararectal|sacral)"
+          },
+          "exclude": ["\\.(i|j|s|t|g)$", "^Median sacral nodes$"]
+        },
+        {
+          "system": "lymphatic",
+          "region": "abdomen",
+          "kind": "organ",
+          "tissue": "lymph",
+          "match": {
+            "collection": "6: Lymphoid organs"
+          },
+          "exclude": [
+            "\\.(i|j|s|t|g)$",
+            "^(Median sacral nodes|\\((Medial|Intermediate) lacunar node\\)\\.(l|r))$",
+            "^(Spleen|(Left|Right) lobe of thymus|Palatine tonsil\\.(l|r))$"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "skin",
+      "rules": [
+        {
+          "system": "integumentary",
+          "region": "multiple",
+          "kind": "other",
+          "tissue": "skin",
+          "match": {
+            "collection": "9: Regions of human body"
+          },
+          "exclude": [
+            "\\.(i|j|s|t|g)$",
+            "^(Pubic hairs|Hairs of |Eyelashes|Nail plate|Perionyx)"
+          ]
         }
       ]
     }

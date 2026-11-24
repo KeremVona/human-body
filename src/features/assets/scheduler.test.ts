@@ -1,8 +1,16 @@
-import { nextBundleToLoad } from './scheduler';
+import { BUNDLE_LOAD_ORDER, nextBundleToLoad } from './scheduler';
 
-const order = ['skeletal', 'muscular', 'organs', 'cardiovascular'];
+const order = [
+  'skeletal',
+  'muscular',
+  'organs',
+  'cardiovascular',
+  'lymphatic',
+  'skin',
+];
 
 it('loads one bundle at a time, in order', () => {
+  expect(BUNDLE_LOAD_ORDER).toEqual(order);
   expect(
     nextBundleToLoad({ skeletal: 'idle', muscular: 'idle' }, order, []),
   ).toBe('skeletal');
@@ -16,6 +24,34 @@ it('loads one bundle at a time, in order', () => {
       [],
     ),
   ).toBe('muscular');
+  expect(
+    nextBundleToLoad(
+      {
+        skeletal: 'ready',
+        muscular: 'ready',
+        organs: 'ready',
+        cardiovascular: 'ready',
+        lymphatic: 'idle',
+        skin: 'idle',
+      },
+      order,
+      [],
+    ),
+  ).toBe('lymphatic');
+  expect(
+    nextBundleToLoad(
+      {
+        skeletal: 'ready',
+        muscular: 'ready',
+        organs: 'ready',
+        cardiovascular: 'ready',
+        lymphatic: 'ready',
+        skin: 'idle',
+      },
+      order,
+      [],
+    ),
+  ).toBe('skin');
 });
 
 it('puts requested bundles first, skips ready and errored ones, then manifest-only bundles', () => {
@@ -33,12 +69,14 @@ it('puts requested bundles first, skips ready and errored ones, then manifest-on
         muscular: 'error',
         organs: 'ready',
         cardiovascular: 'ready',
-        skin: 'idle',
+        lymphatic: 'ready',
+        skin: 'ready',
+        extra: 'idle',
       },
       order,
       [],
     ),
-  ).toBe('skin');
+  ).toBe('extra');
   expect(
     nextBundleToLoad({ skeletal: 'ready', muscular: 'ready' }, order, []),
   ).toBeNull();

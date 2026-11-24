@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-11-21T18:48:48.251Z",
+  "generatedAt": "2026-11-24T15:08:11.540Z",
   "source": {
     "name": "Z-Anatomy",
     "version": "2023-05-02",
@@ -971,9 +971,9 @@
     },
     {
       "id": "organs",
-      "file": "organs.d20832d0.glb",
+      "file": "organs.8059acba.glb",
       "bytes": 3246064,
-      "sha256": "d20832d0294ca30c2fce2c4f07b5ecdadb32a793857ecab9f409c7d3e57e8877",
+      "sha256": "8059acbadd11d519c3715f5e900072778cff3a174ae0938152369bd099a8c333",
       "meshIds": [
         "ascending-colon",
         "cornea--l",
@@ -1048,6 +1048,417 @@
         "urinary-bladder",
         "uvula-of-palate",
         "vermiform-appendix"
+      ]
+    },
+    {
+      "id": "lymphatic",
+      "file": "lymphatic.96c893c4.glb",
+      "bytes": 1084216,
+      "sha256": "96c893c4c1eb539a3db22d39d97cc965f11c742a91cf1c017d5a7e61233c9436",
+      "meshIds": [
+        "anterior-axillary-nodes--l",
+        "anterior-axillary-nodes--r",
+        "anterior-inferior-jugular-nodes--l",
+        "anterior-inferior-jugular-nodes--r",
+        "anterior-tibial-node--l",
+        "anterior-tibial-node--r",
+        "apical-axillary-nodes--l",
+        "apical-axillary-nodes--r",
+        "appendicular-nodes",
+        "brachial-nodes--l",
+        "brachial-nodes--r",
+        "brachiocephalic-nodes",
+        "bucinator-node--l",
+        "bucinator-node--r",
+        "central-axillary-nodes--l",
+        "central-axillary-nodes--r",
+        "central-superior-mesenteric-nodes",
+        "coeliac-nodes",
+        "cubital-nodes--l",
+        "cubital-nodes--r",
+        "cystic-node",
+        "deep-popliteal-nodes--l",
+        "deep-popliteal-nodes--r",
+        "fibular-node--l",
+        "fibular-node--r",
+        "ileocolic-nodes",
+        "inferior-deep-lateral-cervical-nodes--l",
+        "inferior-deep-lateral-cervical-nodes--r",
+        "inferior-diaphragmatic-nodes",
+        "inferior-epigastric-nodes--l",
+        "inferior-epigastric-nodes--r",
+        "inferior-gluteal-nodes--l",
+        "inferior-gluteal-nodes--r",
+        "inferior-pancreatic-nodes",
+        "inferior-superficial-inguinal-nodes--l",
+        "inferior-superficial-inguinal-nodes--r",
+        "inferior-tracheobronchial-nodes",
+        "infra-auricular-nodes--l",
+        "infra-auricular-nodes--r",
+        "infraclavicular-nodes--l",
+        "infraclavicular-nodes--r",
+        "intercostal-nodes--l",
+        "intercostal-nodes--r",
+        "intermediate-common-iliac-nodes",
+        "intermediate-deep-inguinal-node--l",
+        "intermediate-deep-inguinal-node--r",
+        "intermediate-external-iliac-nodes--l",
+        "intermediate-external-iliac-nodes--r",
+        "intermediate-lumbar-nodes",
+        "interpectoral-nodes--l",
+        "interpectoral-nodes--r",
+        "intraglandular-parotid-nodes--l",
+        "intraglandular-parotid-nodes--r",
+        "intrapulmonary-nodes",
+        "jugulodigastric-node--l",
+        "jugulodigastric-node--r",
+        "juxta-intestinal-mesenteric-nodes",
+        "juxta-oesophageal-nodes",
+        "lateral-aortic-nodes",
+        "lateral-axillary-nodes--l",
+        "lateral-axillary-nodes--r",
+        "lateral-caval-nodes",
+        "lateral-common-iliac-nodes",
+        "lateral-lacunar-node--l",
+        "lateral-lacunar-node--r",
+        "lateral-pericardial-nodes",
+        "lateral-sacral-nodes--l",
+        "lateral-sacral-nodes--r",
+        "lateral-superior-jugular-node--l",
+        "lateral-superior-jugular-node--r",
+        "lateral-vesical-nodes--l",
+        "lateral-vesical-nodes--r",
+        "left-colic-nodes",
+        "mandibular-node--l",
+        "mandibular-node--r",
+        "mastoid-nodes--l",
+        "mastoid-nodes--r",
+        "medial-common-iliac-nodes",
+        "medial-external-iliac-nodes--l",
+        "medial-external-iliac-nodes--r",
+        "middle-colic-nodes",
+        "nasolabial-node--l",
+        "nasolabial-node--r",
+        "node-of-arch-of-azygos-vein",
+        "node-of-ligamentum-arteriosum",
+        "obturator-nodes--l",
+        "obturator-nodes--r",
+        "occipital-nodes--l",
+        "occipital-nodes--r",
+        "paracolic-superior-mesenteric-nodes",
+        "pararectal-nodes",
+        "parasternal-nodes--l",
+        "parasternal-nodes--r",
+        "paratracheal-cervical-nodes",
+        "paratracheal-thoracic-nodes",
+        "posterior-axillary-nodes--l",
+        "posterior-axillary-nodes--r",
+        "posterior-tibial-node--l",
+        "posterior-tibial-node--r",
+        "postvesical-nodes",
+        "pre-aortic-nodes",
+        "pre-auricular-nodes--l",
+        "pre-auricular-nodes--r",
+        "precaecal-nodes",
+        "precaval-nodes",
+        "prepericardial-nodes",
+        "pretracheal-nodes--l",
+        "pretracheal-nodes--r",
+        "prevertebral-nodes",
+        "prevesical-nodes",
+        "proximal-deep-inguinal-node--l",
+        "proximal-deep-inguinal-node--r",
+        "retro-aortic-nodes",
+        "retrocaecal-nodes",
+        "retrocaval-nodes",
+        "retropharyngeal-nodes--l",
+        "retropharyngeal-nodes--r",
+        "retropyloric-nodes",
+        "right-colic-nodes",
+        "right-gastric-nodes",
+        "right-gastro-omental-nodes",
+        "sigmoid-nodes",
+        "splenic-nodes",
+        "subaortic-nodes",
+        "submandibular-nodes--l",
+        "submandibular-nodes--r",
+        "submental-nodes--l",
+        "submental-nodes--r",
+        "subpyloric-nodes",
+        "superficial-anterior-cervical-nodes",
+        "superficial-lateral-cervical-nodes--l",
+        "superficial-lateral-cervical-nodes--r",
+        "superficial-parotid-nodes--l",
+        "superficial-parotid-nodes--r",
+        "superficial-popliteal-nodes--l",
+        "superficial-popliteal-nodes--r",
+        "superior-diaphragmatic-nodes",
+        "superior-gluteal-nodes--l",
+        "superior-gluteal-nodes--r",
+        "superior-pancreatic-nodes",
+        "superior-pancreaticoduodenal-nodes",
+        "superior-tracheobronchial-nodes",
+        "superolateral-superficial-inguinal-nodes--l",
+        "superolateral-superficial-inguinal-nodes--r",
+        "superomedial-superficial-inguinal-nodes--l",
+        "superomedial-superficial-inguinal-nodes--r",
+        "supraclavicular-nodes--l",
+        "supraclavicular-nodes--r",
+        "suprapyloric-node",
+        "supratrochlear-nodes--l",
+        "supratrochlear-nodes--r",
+        "thyroid-nodes--l",
+        "thyroid-nodes--r"
+      ]
+    },
+    {
+      "id": "skin",
+      "file": "skin.c84b0ec8.glb",
+      "bytes": 1204324,
+      "sha256": "c84b0ec83e4468da6150c270bd00bc337c5661d753f119ed0913d48e86a77759",
+      "meshIds": [
+        "anal-region--l",
+        "anal-region--r",
+        "angle-of-mouth--l",
+        "angle-of-mouth--r",
+        "anterior-notch-of-auricle--l",
+        "anterior-notch-of-auricle--r",
+        "anterior-region-of-ankle--l",
+        "anterior-region-of-ankle--r",
+        "anterior-region-of-arm--l",
+        "anterior-region-of-arm--r",
+        "anterior-region-of-elbow--l",
+        "anterior-region-of-elbow--r",
+        "anterior-region-of-forearm--l",
+        "anterior-region-of-forearm--r",
+        "anterior-region-of-knee--l",
+        "anterior-region-of-knee--r",
+        "anterior-region-of-leg--l",
+        "anterior-region-of-leg--r",
+        "anterior-region-of-thigh--l",
+        "anterior-region-of-thigh--r",
+        "anterior-region-of-wrist--l",
+        "anterior-region-of-wrist--r",
+        "antihelix--l",
+        "antihelix--r",
+        "antitragus--l",
+        "antitragus--r",
+        "apex-of-auricle--l",
+        "apex-of-auricle--r",
+        "auricular-region--l",
+        "auricular-region--r",
+        "auricular-tubercle--l",
+        "auricular-tubercle--r",
+        "buccal-region--l",
+        "buccal-region--r",
+        "carotid-triangle--l",
+        "carotid-triangle--r",
+        "cavity-of-concha--l",
+        "cavity-of-concha--r",
+        "concha-of-auricle--l",
+        "concha-of-auricle--r",
+        "crura-of-antihelix--l",
+        "crura-of-antihelix--r",
+        "cubital-fossa--l",
+        "cubital-fossa--r",
+        "cymba-conchae--l",
+        "cymba-conchae--r",
+        "deltoid-region--l",
+        "deltoid-region--r",
+        "deltopectoral-triangle--l",
+        "deltopectoral-triangle--r",
+        "distal-transverse-arch-of-foot--l",
+        "distal-transverse-arch-of-foot--r",
+        "dorsal-surfaces-of-digits-of-foot--l",
+        "dorsal-surfaces-of-digits-of-foot--r",
+        "dorsal-surfaces-of-digits-of-hand--l",
+        "dorsal-surfaces-of-digits-of-hand--r",
+        "dorsum-of-foot--l",
+        "dorsum-of-foot--r",
+        "dorsum-of-hand--l",
+        "dorsum-of-hand--r",
+        "eminentia-conchae--l",
+        "eminentia-conchae--r",
+        "eminentia-fossae-triangularis--l",
+        "eminentia-fossae-triangularis--r",
+        "eminentia-scaphae--l",
+        "eminentia-scaphae--r",
+        "epigastric-region--l",
+        "epigastric-region--r",
+        "eyebrow--l",
+        "eyebrow--r",
+        "femoral-triangle--l",
+        "femoral-triangle--r",
+        "fossa-antihelica--l",
+        "fossa-antihelica--r",
+        "frontal-region--l",
+        "frontal-region--r",
+        "gluteal-fold--l",
+        "gluteal-fold--r",
+        "gluteal-region--l",
+        "gluteal-region--r",
+        "greater-supraclavicular-fossa--l",
+        "greater-supraclavicular-fossa--r",
+        "hallucial-eminence--l",
+        "hallucial-eminence--r",
+        "heel-region--l",
+        "heel-region--r",
+        "helix--l",
+        "helix--r",
+        "hip-region--l",
+        "hip-region--r",
+        "hypochondriac-region--l",
+        "hypochondriac-region--r",
+        "hypogastric-region--l",
+        "hypogastric-region--r",
+        "infra-orbital-region--l",
+        "infra-orbital-region--r",
+        "infraclavicular-fossa--l",
+        "infraclavicular-fossa--r",
+        "inframammary-region--l",
+        "inframammary-region--r",
+        "infrascapular-region--l",
+        "infrascapular-region--r",
+        "inguinal-region--l",
+        "inguinal-region--r",
+        "interscapular-region--l",
+        "interscapular-region--r",
+        "intertragic-incisure--l",
+        "intertragic-incisure--r",
+        "labial-commissure--l",
+        "labial-commissure--r",
+        "lateral-bicipital-groove--l",
+        "lateral-bicipital-groove--r",
+        "lateral-border-of-foot--l",
+        "lateral-border-of-foot--r",
+        "lateral-border-of-forearm--l",
+        "lateral-border-of-forearm--r",
+        "lateral-malleolus--l",
+        "lateral-malleolus--r",
+        "lateral-part-of-longitudinal-arch-of-foot--l",
+        "lateral-part-of-longitudinal-arch-of-foot--r",
+        "lateral-region-of-abdomen--l",
+        "lateral-region-of-abdomen--r",
+        "lateral-region-of-neck--l",
+        "lateral-region-of-neck--r",
+        "lateral-region-of-thorax--l",
+        "lateral-region-of-thorax--r",
+        "lateral-retromalleolar-region--l",
+        "lateral-retromalleolar-region--r",
+        "lesser-supraclavicular-fossa--l",
+        "lesser-supraclavicular-fossa--r",
+        "lobule-of-auricle--l",
+        "lobule-of-auricle--r",
+        "lumbar-region--l",
+        "lumbar-region--r",
+        "mammary-region--l",
+        "mammary-region--r",
+        "mastoid-region--l",
+        "mastoid-region--r",
+        "medial-bicipital-groove--l",
+        "medial-bicipital-groove--r",
+        "medial-border-of-foot--l",
+        "medial-border-of-foot--r",
+        "medial-border-of-forearm--l",
+        "medial-border-of-forearm--r",
+        "medial-malleolus--l",
+        "medial-malleolus--r",
+        "medial-part-of-longitudinal-arch-of-foot--l",
+        "medial-part-of-longitudinal-arch-of-foot--r",
+        "medial-retromalleolar-region--l",
+        "medial-retromalleolar-region--r",
+        "mental-region--l",
+        "mental-region--r",
+        "mentolabial-sulcus--l",
+        "mentolabial-sulcus--r",
+        "metatarsal-region--l",
+        "metatarsal-region--r",
+        "muscular-triangle--l",
+        "muscular-triangle--r",
+        "nasal-region--l",
+        "nasal-region--r",
+        "nasolabial-sulcus--l",
+        "nasolabial-sulcus--r",
+        "occipital-region--l",
+        "occipital-region--r",
+        "oral-region--l",
+        "oral-region--r",
+        "orbital-region--l",
+        "orbital-region--r",
+        "palm--l",
+        "palm--r",
+        "palmar-surfaces-of-digits-of-hand--l",
+        "palmar-surfaces-of-digits-of-hand--r",
+        "parietal-region--l",
+        "parietal-region--r",
+        "parotideomasseteric-region--l",
+        "parotideomasseteric-region--r",
+        "pectoral-region--l",
+        "pectoral-region--r",
+        "philtrum--l",
+        "philtrum--r",
+        "plantar-surfaces-of-digits-of-foot--l",
+        "plantar-surfaces-of-digits-of-foot--r",
+        "popliteal-fossa--l",
+        "popliteal-fossa--r",
+        "posterior-auricular-groove--l",
+        "posterior-auricular-groove--r",
+        "posterior-region-of-arm--l",
+        "posterior-region-of-arm--r",
+        "posterior-region-of-elbow--l",
+        "posterior-region-of-elbow--r",
+        "posterior-region-of-forearm--l",
+        "posterior-region-of-forearm--r",
+        "posterior-region-of-knee--l",
+        "posterior-region-of-knee--r",
+        "posterior-region-of-leg--l",
+        "posterior-region-of-leg--r",
+        "posterior-region-of-neck--l",
+        "posterior-region-of-neck--r",
+        "posterior-region-of-thigh--l",
+        "posterior-region-of-thigh--r",
+        "posterior-region-of-wrist--l",
+        "posterior-region-of-wrist--r",
+        "presternal-region--l",
+        "presternal-region--r",
+        "proximal-transverse-arch-of-foot--l",
+        "proximal-transverse-arch-of-foot--r",
+        "radial-foveola--l",
+        "radial-foveola--r",
+        "sacral-region--l",
+        "sacral-region--r",
+        "scapha--l",
+        "scapha--r",
+        "scapular-region--l",
+        "scapular-region--r",
+        "sole--l",
+        "sole--r",
+        "sternocleidomastoid-region--l",
+        "sternocleidomastoid-region--r",
+        "submandibular-triangle--l",
+        "submandibular-triangle--r",
+        "submental-triangle--l",
+        "submental-triangle--r",
+        "temporal-region--l",
+        "temporal-region--r",
+        "tragus--l",
+        "tragus--r",
+        "triangle-of-auscultation--l",
+        "triangle-of-auscultation--r",
+        "triangular-fossa--l",
+        "triangular-fossa--r",
+        "tubercle-of-upper-lip--l",
+        "tubercle-of-upper-lip--r",
+        "umbilical-region--l",
+        "umbilical-region--r",
+        "umbilicus--l",
+        "umbilicus--r",
+        "urogenital-region--l",
+        "urogenital-region--r",
+        "vertebral-region--l",
+        "vertebral-region--r",
+        "zygomatic-region--l",
+        "zygomatic-region--r"
       ]
     }
   ],
@@ -1460,6 +1871,40 @@
       "triangles": 924,
       "sizeClass": "medium"
     },
+    "anal-region--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0,
+          -0.11821882426738739,
+          -0.08455263823270798
+        ],
+        "max": [
+          0.015712987631559372,
+          -0.07355055958032608,
+          -0.0254654623568058
+        ]
+      },
+      "triangles": 48,
+      "sizeClass": "medium"
+    },
+    "anal-region--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.015712987631559372,
+          -0.1182188168168068,
+          -0.08455263823270798
+        ],
+        "max": [
+          0,
+          -0.07355055958032608,
+          -0.0254654623568058
+        ]
+      },
+      "triangles": 48,
+      "sizeClass": "medium"
+    },
     "anconeus-muscle--l": {
       "bundle": "muscular",
       "bounds": {
@@ -1493,6 +1938,74 @@
       },
       "triangles": 1340,
       "sizeClass": "medium"
+    },
+    "angle-of-mouth--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.022672463208436966,
+          0.6688492298126221,
+          0.06470657885074615
+        ],
+        "max": [
+          0.032070353627204895,
+          0.6784651875495911,
+          0.07261405885219574
+        ]
+      },
+      "triangles": 80,
+      "sizeClass": "tiny"
+    },
+    "angle-of-mouth--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.032070353627204895,
+          0.6688492298126221,
+          0.06470657885074615
+        ],
+        "max": [
+          -0.022672463208436966,
+          0.6784651875495911,
+          0.07261405885219574
+        ]
+      },
+      "triangles": 80,
+      "sizeClass": "tiny"
+    },
+    "anterior-axillary-nodes--l": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.11077026277780533,
+          0.44606029987335205,
+          0.0034841326996684074
+        ],
+        "max": [
+          0.12622545659542084,
+          0.4898809790611267,
+          0.028246920555830002
+        ]
+      },
+      "triangles": 1008,
+      "sizeClass": "small"
+    },
+    "anterior-axillary-nodes--r": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.1262243241071701,
+          0.44606029987335205,
+          0.003484130837023258
+        ],
+        "max": [
+          -0.110769122838974,
+          0.4898809790611267,
+          0.02824692241847515
+        ]
+      },
+      "triangles": 1008,
+      "sizeClass": "small"
     },
     "anterior-belly-of-digastric-muscle--l": {
       "bundle": "muscular",
@@ -1579,6 +2092,40 @@
       "triangles": 102,
       "sizeClass": "tiny"
     },
+    "anterior-inferior-jugular-nodes--l": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.023897582665085793,
+          0.5694513916969299,
+          0.0007707960903644562
+        ],
+        "max": [
+          0.03541354462504387,
+          0.6130582690238953,
+          0.011709015816450119
+        ]
+      },
+      "triangles": 1008,
+      "sizeClass": "small"
+    },
+    "anterior-inferior-jugular-nodes--r": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.03541352599859238,
+          0.5694513916969299,
+          0.0007709423080086708
+        ],
+        "max": [
+          -0.023897571489214897,
+          0.6130582690238953,
+          0.011709163896739483
+        ]
+      },
+      "triangles": 1008,
+      "sizeClass": "small"
+    },
     "anterior-interventricular-artery": {
       "bundle": "cardiovascular",
       "bounds": {
@@ -1630,6 +2177,40 @@
       "triangles": 1208,
       "sizeClass": "small"
     },
+    "anterior-notch-of-auricle--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.0673697292804718,
+          0.7194388508796692,
+          -0.018650313839316368
+        ],
+        "max": [
+          0.07387895882129669,
+          0.733756422996521,
+          -0.00482802651822567
+        ]
+      },
+      "triangles": 42,
+      "sizeClass": "small"
+    },
+    "anterior-notch-of-auricle--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.07387898862361908,
+          0.7194388508796692,
+          -0.018650313839316368
+        ],
+        "max": [
+          -0.06736975908279419,
+          0.733756422996521,
+          -0.004828026983886957
+        ]
+      },
+      "triangles": 42,
+      "sizeClass": "small"
+    },
     "anterior-papillary-muscle-of-right-ventricle": {
       "bundle": "cardiovascular",
       "bounds": {
@@ -1646,6 +2227,278 @@
       },
       "triangles": 1518,
       "sizeClass": "small"
+    },
+    "anterior-region-of-ankle--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.04566429555416107,
+          -0.8008829951286316,
+          -0.0918680801987648
+        ],
+        "max": [
+          0.11580480635166168,
+          -0.7310262322425842,
+          -0.010985806584358215
+        ]
+      },
+      "triangles": 530,
+      "sizeClass": "medium"
+    },
+    "anterior-region-of-ankle--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.11580480635166168,
+          -0.8008829951286316,
+          -0.0918680801987648
+        ],
+        "max": [
+          -0.04566429555416107,
+          -0.7310262322425842,
+          -0.010985806584358215
+        ]
+      },
+      "triangles": 530,
+      "sizeClass": "medium"
+    },
+    "anterior-region-of-arm--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.16095095872879028,
+          0.27212998270988464,
+          -0.055606573820114136
+        ],
+        "max": [
+          0.25693416595458984,
+          0.45445412397384644,
+          0.01058073341846466
+        ]
+      },
+      "triangles": 858,
+      "sizeClass": "medium"
+    },
+    "anterior-region-of-arm--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.25693416595458984,
+          0.27212998270988464,
+          -0.055606573820114136
+        ],
+        "max": [
+          -0.16095095872879028,
+          0.45445412397384644,
+          0.010580729693174362
+        ]
+      },
+      "triangles": 862,
+      "sizeClass": "medium"
+    },
+    "anterior-region-of-elbow--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.17901688814163208,
+          0.2175005078315735,
+          -0.0519564151763916
+        ],
+        "max": [
+          0.27446916699409485,
+          0.2847297787666321,
+          -0.008690942078828812
+        ]
+      },
+      "triangles": 412,
+      "sizeClass": "medium"
+    },
+    "anterior-region-of-elbow--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.27446916699409485,
+          0.2175005078315735,
+          -0.0519564189016819
+        ],
+        "max": [
+          -0.17901688814163208,
+          0.2847297787666321,
+          -0.008690942078828812
+        ]
+      },
+      "triangles": 412,
+      "sizeClass": "medium"
+    },
+    "anterior-region-of-forearm--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.1803036481142044,
+          -0.00476161390542984,
+          -0.0383811816573143
+        ],
+        "max": [
+          0.2956176698207855,
+          0.2313246726989746,
+          0.026417497545480728
+        ]
+      },
+      "triangles": 816,
+      "sizeClass": "medium"
+    },
+    "anterior-region-of-forearm--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.2956176698207855,
+          -0.00476161390542984,
+          -0.0383811853826046
+        ],
+        "max": [
+          -0.1803036481142044,
+          0.2313246726989746,
+          0.026417501270771027
+        ]
+      },
+      "triangles": 816,
+      "sizeClass": "medium"
+    },
+    "anterior-region-of-knee--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.019689135253429413,
+          -0.47749063372612,
+          -0.0534430667757988
+        ],
+        "max": [
+          0.14333108067512512,
+          -0.35123127698898315,
+          0.04166531190276146
+        ]
+      },
+      "triangles": 712,
+      "sizeClass": "medium"
+    },
+    "anterior-region-of-knee--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.14333105087280273,
+          -0.47749063372612,
+          -0.0534430667757988
+        ],
+        "max": [
+          -0.019689105451107025,
+          -0.35123127698898315,
+          0.04166530817747116
+        ]
+      },
+      "triangles": 712,
+      "sizeClass": "medium"
+    },
+    "anterior-region-of-leg--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.031039822846651077,
+          -0.7366905212402344,
+          -0.06572875380516052
+        ],
+        "max": [
+          0.1492115557193756,
+          -0.46738260984420776,
+          0.007499270141124725
+        ]
+      },
+      "triangles": 1018,
+      "sizeClass": "large"
+    },
+    "anterior-region-of-leg--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.1492115557193756,
+          -0.7366905212402344,
+          -0.06572875380516052
+        ],
+        "max": [
+          -0.031039822846651077,
+          -0.46738260984420776,
+          0.007499266415834427
+        ]
+      },
+      "triangles": 1020,
+      "sizeClass": "large"
+    },
+    "anterior-region-of-thigh--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.0035678446292877197,
+          -0.3575935363769531,
+          -0.0583554171025753
+        ],
+        "max": [
+          0.1818469762802124,
+          0.15856000781059265,
+          0.0674045979976654
+        ]
+      },
+      "triangles": 1320,
+      "sizeClass": "large"
+    },
+    "anterior-region-of-thigh--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.1818469762802124,
+          -0.3575935363769531,
+          -0.0583554245531559
+        ],
+        "max": [
+          -0.0035678595304489136,
+          0.15856000781059265,
+          0.06740458309650421
+        ]
+      },
+      "triangles": 1320,
+      "sizeClass": "large"
+    },
+    "anterior-region-of-wrist--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.2291109263896942,
+          -0.027460558339953423,
+          0.005620583891868591
+        ],
+        "max": [
+          0.3113829493522644,
+          0.005436107516288757,
+          0.0410655215382576
+        ]
+      },
+      "triangles": 204,
+      "sizeClass": "medium"
+    },
+    "anterior-region-of-wrist--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.3113829493522644,
+          -0.027460560202598572,
+          0.005620583891868591
+        ],
+        "max": [
+          -0.2291109263896942,
+          0.005436107516288757,
+          0.0410655215382576
+        ]
+      },
+      "triangles": 204,
+      "sizeClass": "medium"
     },
     "anterior-semilunar-leaflet-of-pulmonary-valve": {
       "bundle": "cardiovascular",
@@ -1698,6 +2551,40 @@
       "triangles": 3024,
       "sizeClass": "large"
     },
+    "anterior-tibial-node--l": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.10827549546957016,
+          -0.5134912133216858,
+          -0.027750421315431595
+        ],
+        "max": [
+          0.11085065454244614,
+          -0.5109142661094666,
+          -0.025153789669275284
+        ]
+      },
+      "triangles": 168,
+      "sizeClass": "tiny"
+    },
+    "anterior-tibial-node--r": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.11085030436515808,
+          -0.5134912133216858,
+          -0.027750421315431595
+        ],
+        "max": [
+          -0.1082751452922821,
+          -0.5109142661094666,
+          -0.025153789669275284
+        ]
+      },
+      "triangles": 168,
+      "sizeClass": "tiny"
+    },
     "anterior-tibial-veins--l": {
       "bundle": "cardiovascular",
       "bounds": {
@@ -1732,6 +2619,74 @@
       "triangles": 3224,
       "sizeClass": "large"
     },
+    "antihelix--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.0771171897649765,
+          0.7040241360664368,
+          -0.025656217709183693
+        ],
+        "max": [
+          0.08506070822477341,
+          0.7388384342193604,
+          -0.017127789556980133
+        ]
+      },
+      "triangles": 77,
+      "sizeClass": "small"
+    },
+    "antihelix--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.0850607380270958,
+          0.7040241360664368,
+          -0.025656217709183693
+        ],
+        "max": [
+          -0.07711721956729889,
+          0.7388384342193604,
+          -0.017127787694334984
+        ]
+      },
+      "triangles": 77,
+      "sizeClass": "small"
+    },
+    "antitragus--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.06808722764253616,
+          0.7023634314537048,
+          -0.022558901458978653
+        ],
+        "max": [
+          0.07887299358844757,
+          0.7135075926780701,
+          -0.008625980466604233
+        ]
+      },
+      "triangles": 39,
+      "sizeClass": "small"
+    },
+    "antitragus--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.07887302339076996,
+          0.7023634314537048,
+          -0.022558901458978653
+        ],
+        "max": [
+          -0.06808725744485855,
+          0.7135075926780701,
+          -0.008625978603959084
+        ]
+      },
+      "triangles": 39,
+      "sizeClass": "small"
+    },
     "aortic-arch": {
       "bundle": "cardiovascular",
       "bounds": {
@@ -1748,6 +2703,91 @@
       },
       "triangles": 516,
       "sizeClass": "medium"
+    },
+    "apex-of-auricle--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.08532834053039551,
+          0.7455117702484131,
+          -0.022391829639673233
+        ],
+        "max": [
+          0.09020686894655228,
+          0.7493131160736084,
+          -0.016822529956698418
+        ]
+      },
+      "triangles": 36,
+      "sizeClass": "tiny"
+    },
+    "apex-of-auricle--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.09020689874887466,
+          0.7455117702484131,
+          -0.022391829639673233
+        ],
+        "max": [
+          -0.0853283703327179,
+          0.7493131160736084,
+          -0.016822529956698418
+        ]
+      },
+      "triangles": 36,
+      "sizeClass": "tiny"
+    },
+    "apical-axillary-nodes--l": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.13901536166667938,
+          0.4705004096031189,
+          -0.04928644374012947
+        ],
+        "max": [
+          0.14812316000461578,
+          0.4730786681175232,
+          -0.04673093557357788
+        ]
+      },
+      "triangles": 336,
+      "sizeClass": "tiny"
+    },
+    "apical-axillary-nodes--r": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.14812202751636505,
+          0.4705004096031189,
+          -0.04928644746541977
+        ],
+        "max": [
+          -0.13901422917842865,
+          0.4730786681175232,
+          -0.04673093557357788
+        ]
+      },
+      "triangles": 336,
+      "sizeClass": "tiny"
+    },
+    "appendicular-nodes": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.05768289044499397,
+          0.0977938324213028,
+          -0.002267223782837391
+        ],
+        "max": [
+          -0.03907569870352745,
+          0.12150846421718597,
+          0.006109077949076891
+        ]
+      },
+      "triangles": 504,
+      "sizeClass": "small"
     },
     "arytenoid-cartilage--l": {
       "bundle": "skeletal",
@@ -1867,6 +2907,74 @@
       },
       "triangles": 1920,
       "sizeClass": "medium"
+    },
+    "auricular-region--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.054610252380371094,
+          0.6905695796012878,
+          -0.03944510221481323
+        ],
+        "max": [
+          0.07836082577705383,
+          0.7543895244598389,
+          0.003986816853284836
+        ]
+      },
+      "triangles": 274,
+      "sizeClass": "medium"
+    },
+    "auricular-region--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.07836085557937622,
+          0.6905695796012878,
+          -0.03944510221481323
+        ],
+        "max": [
+          -0.05461028218269348,
+          0.7543895244598389,
+          0.003986816853284836
+        ]
+      },
+      "triangles": 274,
+      "sizeClass": "medium"
+    },
+    "auricular-tubercle--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.09092577546834946,
+          0.7296450138092041,
+          -0.03062453307211399
+        ],
+        "max": [
+          0.09328420460224152,
+          0.7357499599456787,
+          -0.02836577780544758
+        ]
+      },
+      "triangles": 26,
+      "sizeClass": "tiny"
+    },
+    "auricular-tubercle--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.0932842344045639,
+          0.7296450138092041,
+          -0.03062453307211399
+        ],
+        "max": [
+          -0.09092580527067184,
+          0.7357499599456787,
+          -0.028365779668092728
+        ]
+      },
+      "triangles": 26,
+      "sizeClass": "tiny"
     },
     "axillary-artery--l": {
       "bundle": "cardiovascular",
@@ -2089,6 +3197,40 @@
       "triangles": 2016,
       "sizeClass": "large"
     },
+    "brachial-nodes--l": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.14266757667064667,
+          0.49246323108673096,
+          -0.005050401668995619
+        ],
+        "max": [
+          0.16472883522510529,
+          0.5212574005126953,
+          0.002743929158896208
+        ]
+      },
+      "triangles": 840,
+      "sizeClass": "small"
+    },
+    "brachial-nodes--r": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.16472817957401276,
+          0.49246323108673096,
+          -0.005050403065979481
+        ],
+        "max": [
+          -0.14266692101955414,
+          0.5212574005126953,
+          0.0027439286932349205
+        ]
+      },
+      "triangles": 840,
+      "sizeClass": "small"
+    },
     "brachial-veins--l": {
       "bundle": "cardiovascular",
       "bounds": {
@@ -2157,6 +3299,23 @@
       "triangles": 2582,
       "sizeClass": "medium"
     },
+    "brachiocephalic-nodes": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.02865014597773552,
+          0.5305827856063843,
+          -0.002350466325879097
+        ],
+        "max": [
+          -0.01467057503759861,
+          0.54344642162323,
+          0.019617414101958275
+        ]
+      },
+      "triangles": 504,
+      "sizeClass": "small"
+    },
     "brachiocephalic-trunk": {
       "bundle": "cardiovascular",
       "bounds": {
@@ -2208,6 +3367,40 @@
       "triangles": 5118,
       "sizeClass": "large"
     },
+    "buccal-region--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.016818517819046974,
+          0.634708821773529,
+          0.027057217434048653
+        ],
+        "max": [
+          0.06377380341291428,
+          0.7081824541091919,
+          0.07569728791713715
+        ]
+      },
+      "triangles": 420,
+      "sizeClass": "medium"
+    },
+    "buccal-region--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.06377380341291428,
+          0.634708821773529,
+          0.027057217434048653
+        ],
+        "max": [
+          -0.016818517819046974,
+          0.7081824541091919,
+          0.07569728791713715
+        ]
+      },
+      "triangles": 420,
+      "sizeClass": "medium"
+    },
     "buccinator--l": {
       "bundle": "muscular",
       "bounds": {
@@ -2241,6 +3434,40 @@
       },
       "triangles": 878,
       "sizeClass": "small"
+    },
+    "bucinator-node--l": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.024428823962807655,
+          0.6837246417999268,
+          0.0567401647567749
+        ],
+        "max": [
+          0.03165500611066818,
+          0.6914247870445251,
+          0.06432206928730011
+        ]
+      },
+      "triangles": 504,
+      "sizeClass": "tiny"
+    },
+    "bucinator-node--r": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.03165408596396446,
+          0.6837246417999268,
+          0.0567401647567749
+        ],
+        "max": [
+          -0.024427905678749084,
+          0.6914247870445251,
+          0.06432206928730011
+        ]
+      },
+      "triangles": 504,
+      "sizeClass": "tiny"
     },
     "calcaneal-tendon--l": {
       "bundle": "muscular",
@@ -2344,6 +3571,40 @@
       "triangles": 426,
       "sizeClass": "small"
     },
+    "carotid-triangle--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.019493810832500458,
+          0.6173269152641296,
+          0.006971889175474644
+        ],
+        "max": [
+          0.04525279626250267,
+          0.6536501049995422,
+          0.0350879542529583
+        ]
+      },
+      "triangles": 84,
+      "sizeClass": "small"
+    },
+    "carotid-triangle--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.04525279626250267,
+          0.6173269152641296,
+          0.006971888244152069
+        ],
+        "max": [
+          -0.019493810832500458,
+          0.6536501049995422,
+          0.0350879542529583
+        ]
+      },
+      "triangles": 84,
+      "sizeClass": "small"
+    },
     "cavernous-sinus--l": {
       "bundle": "cardiovascular",
       "bounds": {
@@ -2378,6 +3639,40 @@
       "triangles": 6808,
       "sizeClass": "small"
     },
+    "cavity-of-concha--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.06458992511034012,
+          0.7099579572677612,
+          -0.025727536529302597
+        ],
+        "max": [
+          0.07740337401628494,
+          0.7218146324157715,
+          -0.01119522750377655
+        ]
+      },
+      "triangles": 207,
+      "sizeClass": "small"
+    },
+    "cavity-of-concha--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.07740340381860733,
+          0.7099579572677612,
+          -0.025727536529302597
+        ],
+        "max": [
+          -0.0645899549126625,
+          0.7218146324157715,
+          -0.01119522750377655
+        ]
+      },
+      "triangles": 207,
+      "sizeClass": "small"
+    },
     "celiac-trunk": {
       "bundle": "cardiovascular",
       "bounds": {
@@ -2393,6 +3688,57 @@
         ]
       },
       "triangles": 402,
+      "sizeClass": "small"
+    },
+    "central-axillary-nodes--l": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.1418750137090683,
+          0.4506663382053375,
+          -0.050555068999528885
+        ],
+        "max": [
+          0.1452638953924179,
+          0.4591953456401825,
+          -0.04546210542321205
+        ]
+      },
+      "triangles": 336,
+      "sizeClass": "tiny"
+    },
+    "central-axillary-nodes--r": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.14526276290416718,
+          0.4506663382053375,
+          -0.050555068999528885
+        ],
+        "max": [
+          -0.14187388122081757,
+          0.4591953456401825,
+          -0.04546210542321205
+        ]
+      },
+      "triangles": 336,
+      "sizeClass": "tiny"
+    },
+    "central-superior-mesenteric-nodes": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.009006999433040619,
+          0.19137392938137054,
+          0.035172417759895325
+        ],
+        "max": [
+          -0.0064398604445159435,
+          0.24040727317333221,
+          0.0423126295208931
+        ]
+      },
+      "triangles": 504,
       "sizeClass": "small"
     },
     "cephalic-vein--l": {
@@ -2599,6 +3945,23 @@
       "triangles": 1098,
       "sizeClass": "small"
     },
+    "coeliac-nodes": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.0031887535005807877,
+          0.2803053855895996,
+          0.009084506891667843
+        ],
+        "max": [
+          0.01733250916004181,
+          0.2958104610443115,
+          0.015069318935275078
+        ]
+      },
+      "triangles": 672,
+      "sizeClass": "small"
+    },
     "common-hepatic-artery": {
       "bundle": "cardiovascular",
       "bounds": {
@@ -2717,6 +4080,40 @@
       },
       "triangles": 200,
       "sizeClass": "tiny"
+    },
+    "concha-of-auricle--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.0673697292804718,
+          0.7128379940986633,
+          -0.025770701467990875
+        ],
+        "max": [
+          0.0795370414853096,
+          0.7287667393684387,
+          -0.015337685123085976
+        ]
+      },
+      "triangles": 59,
+      "sizeClass": "small"
+    },
+    "concha-of-auricle--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.07953707128763199,
+          0.7128379940986633,
+          -0.025770701467990875
+        ],
+        "max": [
+          -0.06736975908279419,
+          0.7287667393684387,
+          -0.015337686985731125
+        ]
+      },
+      "triangles": 59,
+      "sizeClass": "small"
     },
     "coracobrachialis-muscle--l": {
       "bundle": "muscular",
@@ -3228,6 +4625,108 @@
       "triangles": 1790,
       "sizeClass": "small"
     },
+    "crura-of-antihelix--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.07166361808776855,
+          0.728274941444397,
+          -0.0245945043861866
+        ],
+        "max": [
+          0.08593791723251343,
+          0.7455118894577026,
+          -0.011962360702455044
+        ]
+      },
+      "triangles": 78,
+      "sizeClass": "small"
+    },
+    "crura-of-antihelix--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.08593794703483582,
+          0.728274941444397,
+          -0.0245945043861866
+        ],
+        "max": [
+          -0.07166364789009094,
+          0.7455118894577026,
+          -0.011962360702455044
+        ]
+      },
+      "triangles": 78,
+      "sizeClass": "small"
+    },
+    "cubital-fossa--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.19594129920005798,
+          0.25242021679878235,
+          -0.025427890941500664
+        ],
+        "max": [
+          0.241647407412529,
+          0.28226277232170105,
+          -0.011206268332898617
+        ]
+      },
+      "triangles": 136,
+      "sizeClass": "small"
+    },
+    "cubital-fossa--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.241647407412529,
+          0.25242021679878235,
+          -0.025427890941500664
+        ],
+        "max": [
+          -0.19594129920005798,
+          0.28226277232170105,
+          -0.011206269264221191
+        ]
+      },
+      "triangles": 136,
+      "sizeClass": "small"
+    },
+    "cubital-nodes--l": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.20822525024414062,
+          0.19796955585479736,
+          -0.02325405366718769
+        ],
+        "max": [
+          0.2261442244052887,
+          0.23637548089027405,
+          -0.011574768461287022
+        ]
+      },
+      "triangles": 1008,
+      "sizeClass": "small"
+    },
+    "cubital-nodes--r": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.2261435091495514,
+          0.19796955585479736,
+          -0.023254042491316795
+        ],
+        "max": [
+          -0.20822453498840332,
+          0.23637546598911285,
+          -0.011574769392609596
+        ]
+      },
+      "triangles": 1008,
+      "sizeClass": "small"
+    },
     "cuboid-bone--l": {
       "bundle": "skeletal",
       "bounds": {
@@ -3261,6 +4760,57 @@
       },
       "triangles": 906,
       "sizeClass": "small"
+    },
+    "cymba-conchae--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.0698121041059494,
+          0.7196247577667236,
+          -0.025801461189985275
+        ],
+        "max": [
+          0.07930843532085419,
+          0.7315914630889893,
+          -0.015563894994556904
+        ]
+      },
+      "triangles": 81,
+      "sizeClass": "small"
+    },
+    "cymba-conchae--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.07930846512317657,
+          0.7196247577667236,
+          -0.025801459327340126
+        ],
+        "max": [
+          -0.06981213390827179,
+          0.7315914630889893,
+          -0.015563895925879478
+        ]
+      },
+      "triangles": 81,
+      "sizeClass": "small"
+    },
+    "cystic-node": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.02425166219472885,
+          0.3003874719142914,
+          0.025020895525813103
+        ],
+        "max": [
+          -0.02168452739715576,
+          0.30294302105903625,
+          0.027581460773944855
+        ]
+      },
+      "triangles": 168,
+      "sizeClass": "tiny"
     },
     "deep-brachial-artery--l": {
       "bundle": "cardiovascular",
@@ -3498,6 +5048,108 @@
         ]
       },
       "triangles": 958,
+      "sizeClass": "medium"
+    },
+    "deep-popliteal-nodes--l": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.07320090383291245,
+          -0.36825963854789734,
+          -0.05231247469782829
+        ],
+        "max": [
+          0.07744193822145462,
+          -0.35784992575645447,
+          -0.04779445752501488
+        ]
+      },
+      "triangles": 336,
+      "sizeClass": "tiny"
+    },
+    "deep-popliteal-nodes--r": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.07744150608778,
+          -0.36825963854789734,
+          -0.05231247469782829
+        ],
+        "max": [
+          -0.07320047169923782,
+          -0.35784992575645447,
+          -0.04779445752501488
+        ]
+      },
+      "triangles": 336,
+      "sizeClass": "tiny"
+    },
+    "deltoid-region--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.133992537856102,
+          0.41594451665878296,
+          -0.11428681015968323
+        ],
+        "max": [
+          0.24217621982097626,
+          0.578701376914978,
+          0.019551094621419907
+        ]
+      },
+      "triangles": 602,
+      "sizeClass": "medium"
+    },
+    "deltoid-region--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.24217627942562103,
+          0.41594451665878296,
+          -0.11428681015968323
+        ],
+        "max": [
+          -0.13399259746074677,
+          0.578701376914978,
+          0.019551094621419907
+        ]
+      },
+      "triangles": 604,
+      "sizeClass": "medium"
+    },
+    "deltopectoral-triangle--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.11575516313314438,
+          0.4981379806995392,
+          -0.02371244877576828
+        ],
+        "max": [
+          0.15966883301734924,
+          0.562936007976532,
+          0.02244921401143074
+        ]
+      },
+      "triangles": 88,
+      "sizeClass": "medium"
+    },
+    "deltopectoral-triangle--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.15966883301734924,
+          0.4981379806995392,
+          -0.02371244877576828
+        ],
+        "max": [
+          -0.11575516313314438,
+          0.562936007976532,
+          0.02244921587407589
+        ]
+      },
+      "triangles": 88,
       "sizeClass": "medium"
     },
     "depressor-anguli-oris--l": {
@@ -4027,6 +5679,40 @@
       "triangles": 174,
       "sizeClass": "small"
     },
+    "distal-transverse-arch-of-foot--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.08669131994247437,
+          -0.857711136341095,
+          0.026856359094381332
+        ],
+        "max": [
+          0.14540395140647888,
+          -0.8478071093559265,
+          0.0721418485045433
+        ]
+      },
+      "triangles": 80,
+      "sizeClass": "medium"
+    },
+    "distal-transverse-arch-of-foot--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.14540395140647888,
+          -0.857711136341095,
+          0.026856359094381332
+        ],
+        "max": [
+          -0.08669131994247437,
+          -0.8478071093559265,
+          0.0721418485045433
+        ]
+      },
+      "triangles": 80,
+      "sizeClass": "medium"
+    },
     "dorsal-interossei-muscles-of-foot--l": {
       "bundle": "muscular",
       "bounds": {
@@ -4129,6 +5815,74 @@
       "triangles": 652,
       "sizeClass": "medium"
     },
+    "dorsal-surfaces-of-digits-of-foot--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.06275668740272522,
+          -0.8458883762359619,
+          0.03509770333766937
+        ],
+        "max": [
+          0.1492149382829666,
+          -0.819167971611023,
+          0.13339705765247345
+        ]
+      },
+      "triangles": 1052,
+      "sizeClass": "medium"
+    },
+    "dorsal-surfaces-of-digits-of-foot--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.1492149382829666,
+          -0.8458883762359619,
+          0.03509771078824997
+        ],
+        "max": [
+          -0.06275668740272522,
+          -0.819167971611023,
+          0.13339705765247345
+        ]
+      },
+      "triangles": 1050,
+      "sizeClass": "medium"
+    },
+    "dorsal-surfaces-of-digits-of-hand--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.22361372411251068,
+          -0.15885767340660095,
+          0.011792059987783432
+        ],
+        "max": [
+          0.33999302983283997,
+          -0.036852993071079254,
+          0.08775452524423599
+        ]
+      },
+      "triangles": 3464,
+      "sizeClass": "medium"
+    },
+    "dorsal-surfaces-of-digits-of-hand--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.33999302983283997,
+          -0.15885767340660095,
+          0.011792059987783432
+        ],
+        "max": [
+          -0.22361372411251068,
+          -0.036852993071079254,
+          0.08775452524423599
+        ]
+      },
+      "triangles": 3438,
+      "sizeClass": "medium"
+    },
     "dorsalis-pedis-artery--l": {
       "bundle": "cardiovascular",
       "bounds": {
@@ -4161,6 +5915,74 @@
         ]
       },
       "triangles": 1008,
+      "sizeClass": "medium"
+    },
+    "dorsum-of-foot--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.045664310455322266,
+          -0.8248139023780823,
+          -0.06359895318746567
+        ],
+        "max": [
+          0.12133443355560303,
+          -0.7651997208595276,
+          0.017334863543510437
+        ]
+      },
+      "triangles": 328,
+      "sizeClass": "medium"
+    },
+    "dorsum-of-foot--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.12133440375328064,
+          -0.8248139023780823,
+          -0.06359894573688507
+        ],
+        "max": [
+          -0.04566428065299988,
+          -0.7651997208595276,
+          0.017334863543510437
+        ]
+      },
+      "triangles": 328,
+      "sizeClass": "medium"
+    },
+    "dorsum-of-hand--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.22500213980674744,
+          -0.09424959123134613,
+          -0.007205629721283913
+        ],
+        "max": [
+          0.32394465804100037,
+          -0.01924695074558258,
+          0.0450812429189682
+        ]
+      },
+      "triangles": 646,
+      "sizeClass": "medium"
+    },
+    "dorsum-of-hand--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.32394465804100037,
+          -0.09424959123134613,
+          -0.007205629721283913
+        ],
+        "max": [
+          -0.22500213980674744,
+          -0.01924695074558258,
+          0.0450812429189682
+        ]
+      },
+      "triangles": 646,
       "sizeClass": "medium"
     },
     "duodenum": {
@@ -4248,6 +6070,108 @@
       "triangles": 3522,
       "sizeClass": "medium"
     },
+    "eminentia-conchae--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.060555651783943176,
+          0.7009376883506775,
+          -0.03103804774582386
+        ],
+        "max": [
+          0.0795370414853096,
+          0.7363768219947815,
+          -0.016353130340576172
+        ]
+      },
+      "triangles": 59,
+      "sizeClass": "small"
+    },
+    "eminentia-conchae--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.07953707128763199,
+          0.7009376883506775,
+          -0.03103804960846901
+        ],
+        "max": [
+          -0.060555681586265564,
+          0.7363768219947815,
+          -0.016353130340576172
+        ]
+      },
+      "triangles": 59,
+      "sizeClass": "small"
+    },
+    "eminentia-fossae-triangularis--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.07212768495082855,
+          0.7349069714546204,
+          -0.02435366064310074
+        ],
+        "max": [
+          0.08380426466464996,
+          0.7491169571876526,
+          -0.007387438323348761
+        ]
+      },
+      "triangles": 35,
+      "sizeClass": "small"
+    },
+    "eminentia-fossae-triangularis--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.08380429446697235,
+          0.7349069714546204,
+          -0.02435366064310074
+        ],
+        "max": [
+          -0.07212771475315094,
+          0.7491169571876526,
+          -0.007387437857687473
+        ]
+      },
+      "triangles": 35,
+      "sizeClass": "small"
+    },
+    "eminentia-scaphae--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.07374570518732071,
+          0.711371123790741,
+          -0.03365287929773331
+        ],
+        "max": [
+          0.0871613547205925,
+          0.7491169571876526,
+          -0.019509147852659225
+        ]
+      },
+      "triangles": 71,
+      "sizeClass": "small"
+    },
+    "eminentia-scaphae--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.08716138452291489,
+          0.711371123790741,
+          -0.03365287929773331
+        ],
+        "max": [
+          -0.0737457349896431,
+          0.7491169571876526,
+          -0.019509147852659225
+        ]
+      },
+      "triangles": 71,
+      "sizeClass": "small"
+    },
     "epicranial-aponeurosis--l": {
       "bundle": "muscular",
       "bounds": {
@@ -4280,6 +6204,40 @@
         ]
       },
       "triangles": 14078,
+      "sizeClass": "medium"
+    },
+    "epigastric-region--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0,
+          0.2365376055240631,
+          0.09235631674528122
+        ],
+        "max": [
+          0.08125912398099899,
+          0.3673093616962433,
+          0.12009764462709427
+        ]
+      },
+      "triangles": 184,
+      "sizeClass": "medium"
+    },
+    "epigastric-region--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.08125912398099899,
+          0.2365376055240631,
+          0.09235632419586182
+        ],
+        "max": [
+          0,
+          0.3673093616962433,
+          0.12009764462709427
+        ]
+      },
+      "triangles": 184,
       "sizeClass": "medium"
     },
     "esophagus": {
@@ -4928,6 +6886,40 @@
       "triangles": 1410,
       "sizeClass": "medium"
     },
+    "eyebrow--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.010879023000597954,
+          0.7552250027656555,
+          0.06413878500461578
+        ],
+        "max": [
+          0.0487014576792717,
+          0.763378918170929,
+          0.08224005252122879
+        ]
+      },
+      "triangles": 52,
+      "sizeClass": "small"
+    },
+    "eyebrow--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.04870147258043289,
+          0.7552250027656555,
+          0.06413878500461578
+        ],
+        "max": [
+          -0.010879037901759148,
+          0.763378918170929,
+          0.08224005252122879
+        ]
+      },
+      "triangles": 52,
+      "sizeClass": "small"
+    },
     "facial-artery--l": {
       "bundle": "cardiovascular",
       "bounds": {
@@ -5081,6 +7073,40 @@
       "triangles": 2821,
       "sizeClass": "large"
     },
+    "femoral-triangle--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.02843240275979042,
+          -0.10833163559436798,
+          0.03660454601049423
+        ],
+        "max": [
+          0.1016400009393692,
+          0.07349187880754471,
+          0.06852869689464569
+        ]
+      },
+      "triangles": 170,
+      "sizeClass": "medium"
+    },
+    "femoral-triangle--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.1016400009393692,
+          -0.10833163559436798,
+          0.03660454601049423
+        ],
+        "max": [
+          -0.02843240275979042,
+          0.07349187880754471,
+          0.06852869689464569
+        ]
+      },
+      "triangles": 170,
+      "sizeClass": "medium"
+    },
     "femoral-vein--l": {
       "bundle": "cardiovascular",
       "bounds": {
@@ -5216,6 +7242,40 @@
       },
       "triangles": 4434,
       "sizeClass": "large"
+    },
+    "fibular-node--l": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.11190184950828552,
+          -0.5244015455245972,
+          -0.06739112734794617
+        ],
+        "max": [
+          0.11449873447418213,
+          -0.5218333005905151,
+          -0.06480008363723755
+        ]
+      },
+      "triangles": 168,
+      "sizeClass": "tiny"
+    },
+    "fibular-node--r": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.11449842154979706,
+          -0.5244015455245972,
+          -0.06739112734794617
+        ],
+        "max": [
+          -0.11190153658390045,
+          -0.5218333005905151,
+          -0.06480008363723755
+        ]
+      },
+      "triangles": 168,
+      "sizeClass": "tiny"
     },
     "fibular-veins--l": {
       "bundle": "cardiovascular",
@@ -5829,6 +7889,40 @@
       "triangles": 1164,
       "sizeClass": "medium"
     },
+    "fossa-antihelica--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.07374569773674011,
+          0.7065057158470154,
+          -0.03149256110191345
+        ],
+        "max": [
+          0.08258223533630371,
+          0.7373531460762024,
+          -0.026769759133458138
+        ]
+      },
+      "triangles": 58,
+      "sizeClass": "small"
+    },
+    "fossa-antihelica--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.0825822651386261,
+          0.7065057158470154,
+          -0.03149256110191345
+        ],
+        "max": [
+          -0.0737457275390625,
+          0.7373531460762024,
+          -0.026769760996103287
+        ]
+      },
+      "triangles": 58,
+      "sizeClass": "small"
+    },
     "fourth-metacarpal-bone--l": {
       "bundle": "skeletal",
       "bounds": {
@@ -5946,6 +8040,40 @@
         ]
       },
       "triangles": 6080,
+      "sizeClass": "medium"
+    },
+    "frontal-region--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.00021396949887275696,
+          0.7303421497344971,
+          0.010835256427526474
+        ],
+        "max": [
+          0.06935311108827591,
+          0.8463724851608276,
+          0.0822400450706482
+        ]
+      },
+      "triangles": 510,
+      "sizeClass": "medium"
+    },
+    "frontal-region--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.0693531408905983,
+          0.7303421497344971,
+          0.010835256427526474
+        ],
+        "max": [
+          0.00021393969655036926,
+          0.8463724851608276,
+          0.0822400450706482
+        ]
+      },
+      "triangles": 508,
       "sizeClass": "medium"
     },
     "frontalis-muscle--l": {
@@ -6117,6 +8245,74 @@
       },
       "triangles": 524,
       "sizeClass": "small"
+    },
+    "gluteal-fold--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.011755432933568954,
+          -0.09685605019330978,
+          -0.1333092749118805
+        ],
+        "max": [
+          0.10202352702617645,
+          -0.0783604234457016,
+          -0.08032739162445068
+        ]
+      },
+      "triangles": 52,
+      "sizeClass": "medium"
+    },
+    "gluteal-fold--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.10202352702617645,
+          -0.09685605019330978,
+          -0.1333092749118805
+        ],
+        "max": [
+          -0.011755432933568954,
+          -0.0783604234457016,
+          -0.08032739162445068
+        ]
+      },
+      "triangles": 52,
+      "sizeClass": "medium"
+    },
+    "gluteal-region--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0,
+          -0.08755840361118317,
+          -0.16059435904026031
+        ],
+        "max": [
+          0.1705724447965622,
+          0.15793012082576752,
+          -0.029967136681079865
+        ]
+      },
+      "triangles": 740,
+      "sizeClass": "large"
+    },
+    "gluteal-region--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.1705724447965622,
+          -0.08755840361118317,
+          -0.16059435904026031
+        ],
+        "max": [
+          0,
+          0.15793012082576752,
+          -0.029967136681079865
+        ]
+      },
+      "triangles": 740,
+      "sizeClass": "large"
     },
     "gluteus-maximus-muscle--l": {
       "bundle": "muscular",
@@ -6305,6 +8501,74 @@
       "triangles": 5846,
       "sizeClass": "large"
     },
+    "greater-supraclavicular-fossa--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.05571553856134415,
+          0.566984236240387,
+          -0.035685475915670395
+        ],
+        "max": [
+          0.10101631283760071,
+          0.6174398064613342,
+          0.0234379842877388
+        ]
+      },
+      "triangles": 200,
+      "sizeClass": "medium"
+    },
+    "greater-supraclavicular-fossa--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.10101631283760071,
+          0.5669842958450317,
+          -0.035685475915670395
+        ],
+        "max": [
+          -0.05571553856134415,
+          0.6174398064613342,
+          0.0234379842877388
+        ]
+      },
+      "triangles": 200,
+      "sizeClass": "medium"
+    },
+    "hallucial-eminence--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.05216071382164955,
+          -0.8570067286491394,
+          0.036529477685689926
+        ],
+        "max": [
+          0.08902224898338318,
+          -0.8263280987739563,
+          0.08825021982192993
+        ]
+      },
+      "triangles": 250,
+      "sizeClass": "medium"
+    },
+    "hallucial-eminence--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.08902224898338318,
+          -0.8570067286491394,
+          0.036529477685689926
+        ],
+        "max": [
+          -0.05216071382164955,
+          -0.8263280987739563,
+          0.08825021982192993
+        ]
+      },
+      "triangles": 250,
+      "sizeClass": "medium"
+    },
     "hamate-bone--l": {
       "bundle": "skeletal",
       "bounds": {
@@ -6337,6 +8601,74 @@
         ]
       },
       "triangles": 516,
+      "sizeClass": "small"
+    },
+    "heel-region--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.04353450611233711,
+          -0.8557193279266357,
+          -0.12105104327201843
+        ],
+        "max": [
+          0.11154879629611969,
+          -0.7880698442459106,
+          -0.057975295931100845
+        ]
+      },
+      "triangles": 588,
+      "sizeClass": "medium"
+    },
+    "heel-region--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.1115487664937973,
+          -0.8557193279266357,
+          -0.12105104327201843
+        ],
+        "max": [
+          -0.043534476310014725,
+          -0.7880698442459106,
+          -0.057975295931100845
+        ]
+      },
+      "triangles": 588,
+      "sizeClass": "medium"
+    },
+    "helix--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.07168739289045334,
+          0.7009902596473694,
+          -0.03385431319475174
+        ],
+        "max": [
+          0.09336995333433151,
+          0.7493131756782532,
+          -0.007042199373245239
+        ]
+      },
+      "triangles": 429,
+      "sizeClass": "small"
+    },
+    "helix--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.0933699831366539,
+          0.7009902596473694,
+          -0.03385431319475174
+        ],
+        "max": [
+          -0.07168742269277573,
+          0.7493131756782532,
+          -0.007042199373245239
+        ]
+      },
+      "triangles": 428,
       "sizeClass": "small"
     },
     "hemi-azygos-vein": {
@@ -6423,6 +8755,40 @@
       },
       "triangles": 2650,
       "sizeClass": "large"
+    },
+    "hip-region--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.15064199268817902,
+          -0.06247105821967125,
+          -0.08043477684259415
+        ],
+        "max": [
+          0.18030795454978943,
+          0.04582073166966438,
+          0.025748487561941147
+        ]
+      },
+      "triangles": 164,
+      "sizeClass": "medium"
+    },
+    "hip-region--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.18030795454978943,
+          -0.06247105821967125,
+          -0.08043477684259415
+        ],
+        "max": [
+          -0.15064199268817902,
+          0.04582073166966438,
+          0.025748487561941147
+        ]
+      },
+      "triangles": 164,
+      "sizeClass": "medium"
     },
     "humeral-head-of-extensor-carpi-ulnaris--l": {
       "bundle": "muscular",
@@ -6609,6 +8975,91 @@
         ]
       },
       "triangles": 1250,
+      "sizeClass": "small"
+    },
+    "hypochondriac-region--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.07349035143852234,
+          0.23134303092956543,
+          -0.06594578921794891
+        ],
+        "max": [
+          0.153463214635849,
+          0.32167768478393555,
+          0.11018510162830353
+        ]
+      },
+      "triangles": 244,
+      "sizeClass": "medium"
+    },
+    "hypochondriac-region--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.153463214635849,
+          0.23134303092956543,
+          -0.06594578921794891
+        ],
+        "max": [
+          -0.07349035143852234,
+          0.32167768478393555,
+          0.11018510162830353
+        ]
+      },
+      "triangles": 244,
+      "sizeClass": "medium"
+    },
+    "hypogastric-region--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.00020200200378894806,
+          -0.028654929250478745,
+          0.04453931003808975
+        ],
+        "max": [
+          0.07020649313926697,
+          0.10610850155353546,
+          0.10689203441143036
+        ]
+      },
+      "triangles": 226,
+      "sizeClass": "medium"
+    },
+    "hypogastric-region--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.07020649313926697,
+          -0.028654932975769043,
+          0.04453931376338005
+        ],
+        "max": [
+          0.00020200200378894806,
+          0.10610850155353546,
+          0.10689203441143036
+        ]
+      },
+      "triangles": 226,
+      "sizeClass": "medium"
+    },
+    "ileocolic-nodes": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.009308461099863052,
+          0.24698206782341003,
+          0.00981873832643032
+        ],
+        "max": [
+          -0.001031003426760435,
+          0.26431789994239807,
+          0.016362881287932396
+        ]
+      },
+      "triangles": 336,
       "sizeClass": "small"
     },
     "iliacus-muscle--l": {
@@ -6815,6 +9266,91 @@
       "triangles": 34026,
       "sizeClass": "large"
     },
+    "inferior-deep-lateral-cervical-nodes--l": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.02632792666554451,
+          0.55706787109375,
+          -0.0032449187710881233
+        ],
+        "max": [
+          0.03668789938092232,
+          0.5649535655975342,
+          0.0038203285075724125
+        ]
+      },
+      "triangles": 672,
+      "sizeClass": "tiny"
+    },
+    "inferior-deep-lateral-cervical-nodes--r": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.03668789938092232,
+          0.55706787109375,
+          -0.003244917606934905
+        ],
+        "max": [
+          -0.02632792666554451,
+          0.5649535655975342,
+          0.0038203264120966196
+        ]
+      },
+      "triangles": 672,
+      "sizeClass": "tiny"
+    },
+    "inferior-diaphragmatic-nodes": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.030839761719107628,
+          0.37091824412345886,
+          -0.012696048244833946
+        ],
+        "max": [
+          0.01906169019639492,
+          0.39130499958992004,
+          0.0256426353007555
+        ]
+      },
+      "triangles": 1008,
+      "sizeClass": "small"
+    },
+    "inferior-epigastric-nodes--l": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.041002921760082245,
+          0.011925747618079185,
+          0.04151539504528046
+        ],
+        "max": [
+          0.05001840740442276,
+          0.023365437984466553,
+          0.048404477536678314
+        ]
+      },
+      "triangles": 336,
+      "sizeClass": "tiny"
+    },
+    "inferior-epigastric-nodes--r": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.0500173382461071,
+          0.011925769969820976,
+          0.041515376418828964
+        ],
+        "max": [
+          -0.041001852601766586,
+          0.023365454748272896,
+          0.04840445518493652
+        ]
+      },
+      "triangles": 336,
+      "sizeClass": "tiny"
+    },
     "inferior-gemellus-muscle--l": {
       "bundle": "muscular",
       "bounds": {
@@ -6848,6 +9384,40 @@
       },
       "triangles": 946,
       "sizeClass": "medium"
+    },
+    "inferior-gluteal-nodes--l": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.023871250450611115,
+          0.05011153966188431,
+          -0.047853704541921616
+        ],
+        "max": [
+          0.03735873103141785,
+          0.06509112566709518,
+          -0.02900667116045952
+        ]
+      },
+      "triangles": 672,
+      "sizeClass": "small"
+    },
+    "inferior-gluteal-nodes--r": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.037356942892074585,
+          0.05011153593659401,
+          -0.047853704541921616
+        ],
+        "max": [
+          -0.023869462311267853,
+          0.06509112566709518,
+          -0.02900667116045952
+        ]
+      },
+      "triangles": 672,
+      "sizeClass": "small"
     },
     "inferior-head-of-lateral-pterygoid-muscle--l": {
       "bundle": "muscular",
@@ -7036,6 +9606,23 @@
       "triangles": 1114,
       "sizeClass": "small"
     },
+    "inferior-pancreatic-nodes": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.009453168138861656,
+          0.24671481549739838,
+          -0.01166456751525402
+        ],
+        "max": [
+          0.05977669358253479,
+          0.27623599767684937,
+          0.030149059370160103
+        ]
+      },
+      "triangles": 840,
+      "sizeClass": "medium"
+    },
     "inferior-papillary-muscle-of-left-ventricle": {
       "bundle": "cardiovascular",
       "bounds": {
@@ -7121,6 +9708,40 @@
       "triangles": 2418,
       "sizeClass": "medium"
     },
+    "inferior-superficial-inguinal-nodes--l": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.055262960493564606,
+          -0.06516028195619583,
+          0.031407661736011505
+        ],
+        "max": [
+          0.06711634248495102,
+          -0.019717147573828697,
+          0.03872872143983841
+        ]
+      },
+      "triangles": 672,
+      "sizeClass": "small"
+    },
+    "inferior-superficial-inguinal-nodes--r": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.06711539626121521,
+          -0.06516028195619583,
+          0.03140765801072121
+        ],
+        "max": [
+          -0.055262014269828796,
+          -0.019717147573828697,
+          0.03872872516512871
+        ]
+      },
+      "triangles": 672,
+      "sizeClass": "small"
+    },
     "inferior-tarsus--l": {
       "bundle": "muscular",
       "bounds": {
@@ -7189,6 +9810,23 @@
       "triangles": 1008,
       "sizeClass": "small"
     },
+    "inferior-tracheobronchial-nodes": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.018683772534132004,
+          0.4953743815422058,
+          -0.03315979987382889
+        ],
+        "max": [
+          0.01710055209696293,
+          0.5127476453781128,
+          -0.01582694798707962
+        ]
+      },
+      "triangles": 1680,
+      "sizeClass": "small"
+    },
     "inferior-vein-of-left-ventricle": {
       "bundle": "cardiovascular",
       "bounds": {
@@ -7240,6 +9878,210 @@
       "triangles": 604,
       "sizeClass": "medium"
     },
+    "infra-auricular-nodes--l": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.05643667280673981,
+          0.7019025087356567,
+          -0.007323243655264378
+        ],
+        "max": [
+          0.059740155935287476,
+          0.7106568813323975,
+          -0.0040022945031523705
+        ]
+      },
+      "triangles": 336,
+      "sizeClass": "tiny"
+    },
+    "infra-auricular-nodes--r": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.05999079346656799,
+          0.7032903432846069,
+          -0.00949679221957922
+        ],
+        "max": [
+          -0.0561843067407608,
+          0.7092690467834473,
+          -0.0018287529237568378
+        ]
+      },
+      "triangles": 336,
+      "sizeClass": "tiny"
+    },
+    "infra-orbital-region--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.009790228679776192,
+          0.6991680860519409,
+          0.05765216797590256
+        ],
+        "max": [
+          0.050484053790569305,
+          0.7270448803901672,
+          0.07709594815969467
+        ]
+      },
+      "triangles": 136,
+      "sizeClass": "small"
+    },
+    "infra-orbital-region--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.050484053790569305,
+          0.6991680860519409,
+          0.05765216797590256
+        ],
+        "max": [
+          -0.009790228679776192,
+          0.7270448803901672,
+          0.07709594815969467
+        ]
+      },
+      "triangles": 136,
+      "sizeClass": "small"
+    },
+    "infraclavicular-fossa--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.016725927591323853,
+          0.5256211161613464,
+          -0.0419042594730854
+        ],
+        "max": [
+          0.14232803881168365,
+          0.5780333876609802,
+          0.061183713376522064
+        ]
+      },
+      "triangles": 212,
+      "sizeClass": "medium"
+    },
+    "infraclavicular-fossa--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.14232803881168365,
+          0.5256211161613464,
+          -0.0419042594730854
+        ],
+        "max": [
+          -0.016725927591323853,
+          0.5780333876609802,
+          0.061183713376522064
+        ]
+      },
+      "triangles": 212,
+      "sizeClass": "medium"
+    },
+    "infraclavicular-nodes--l": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.08263177424669266,
+          0.5355846881866455,
+          -0.01613994687795639
+        ],
+        "max": [
+          0.1123349666595459,
+          0.5498988032341003,
+          -0.002715486101806164
+        ]
+      },
+      "triangles": 840,
+      "sizeClass": "small"
+    },
+    "infraclavicular-nodes--r": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.1123342290520668,
+          0.5355847477912903,
+          -0.016139931976795197
+        ],
+        "max": [
+          -0.08263105154037476,
+          0.5498988032341003,
+          -0.0027154777199029922
+        ]
+      },
+      "triangles": 840,
+      "sizeClass": "small"
+    },
+    "inframammary-region--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.007442701607942581,
+          0.3213445544242859,
+          0.10157254338264465
+        ],
+        "max": [
+          0.08231065422296524,
+          0.387691468000412,
+          0.1190265640616417
+        ]
+      },
+      "triangles": 92,
+      "sizeClass": "medium"
+    },
+    "inframammary-region--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.08231065422296524,
+          0.3213445544242859,
+          0.10157254338264465
+        ],
+        "max": [
+          -0.007442701607942581,
+          0.387691468000412,
+          0.1190265640616417
+        ]
+      },
+      "triangles": 92,
+      "sizeClass": "medium"
+    },
+    "infrascapular-region--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.02794165164232254,
+          0.23264485597610474,
+          -0.14596112072467804
+        ],
+        "max": [
+          0.13922655582427979,
+          0.41081345081329346,
+          -0.05535455793142319
+        ]
+      },
+      "triangles": 438,
+      "sizeClass": "medium"
+    },
+    "infrascapular-region--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.13922655582427979,
+          0.23264485597610474,
+          -0.14596112072467804
+        ],
+        "max": [
+          -0.02794165164232254,
+          0.41081345081329346,
+          -0.05535455793142319
+        ]
+      },
+      "triangles": 436,
+      "sizeClass": "medium"
+    },
     "infraspinatus-muscle--l": {
       "bundle": "muscular",
       "bounds": {
@@ -7272,6 +10114,40 @@
         ]
       },
       "triangles": 2832,
+      "sizeClass": "medium"
+    },
+    "inguinal-region--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.029390502721071243,
+          -0.03320574015378952,
+          0.04159069061279297
+        ],
+        "max": [
+          0.12150740623474121,
+          0.11684823036193848,
+          0.08900691568851471
+        ]
+      },
+      "triangles": 142,
+      "sizeClass": "medium"
+    },
+    "inguinal-region--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.12150740623474121,
+          -0.03320574015378952,
+          0.04159069433808327
+        ],
+        "max": [
+          -0.029390502721071243,
+          0.11684822291135788,
+          0.08900691568851471
+        ]
+      },
+      "triangles": 142,
       "sizeClass": "medium"
     },
     "innermost-intercostal-muscles--l": {
@@ -7308,6 +10184,57 @@
       "triangles": 26748,
       "sizeClass": "large"
     },
+    "intercostal-nodes--l": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.015573184937238693,
+          0.27779877185821533,
+          -0.07650922238826752
+        ],
+        "max": [
+          0.02539452537894249,
+          0.5753334760665894,
+          -0.03494331240653992
+        ]
+      },
+      "triangles": 1410,
+      "sizeClass": "large"
+    },
+    "intercostal-nodes--r": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.02539404109120369,
+          0.27779877185821533,
+          -0.07650922983884811
+        ],
+        "max": [
+          -0.01557270996272564,
+          0.5753334760665894,
+          -0.034943245351314545
+        ]
+      },
+      "triangles": 1410,
+      "sizeClass": "large"
+    },
+    "intermediate-common-iliac-nodes": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.004120827652513981,
+          0.14231809973716736,
+          0.007326954044401646
+        ],
+        "max": [
+          0.006128356792032719,
+          0.16077397763729095,
+          0.012266039848327637
+        ]
+      },
+      "triangles": 672,
+      "sizeClass": "small"
+    },
     "intermediate-cuneiform-bone--l": {
       "bundle": "skeletal",
       "bounds": {
@@ -7341,6 +10268,91 @@
       },
       "triangles": 436,
       "sizeClass": "small"
+    },
+    "intermediate-deep-inguinal-node--l": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.04178696870803833,
+          -0.018286533653736115,
+          0.040045108646154404
+        ],
+        "max": [
+          0.04436212778091431,
+          -0.015709571540355682,
+          0.042641740292310715
+        ]
+      },
+      "triangles": 168,
+      "sizeClass": "tiny"
+    },
+    "intermediate-deep-inguinal-node--r": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.04436122626066208,
+          -0.018286533653736115,
+          0.040045108646154404
+        ],
+        "max": [
+          -0.0417860671877861,
+          -0.015709571540355682,
+          0.042641740292310715
+        ]
+      },
+      "triangles": 168,
+      "sizeClass": "tiny"
+    },
+    "intermediate-external-iliac-nodes--l": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.03283607214689255,
+          0.03715081512928009,
+          -0.006971155293285847
+        ],
+        "max": [
+          0.05254891514778137,
+          0.10682293772697449,
+          0.024150677025318146
+        ]
+      },
+      "triangles": 1176,
+      "sizeClass": "medium"
+    },
+    "intermediate-external-iliac-nodes--r": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.052547305822372437,
+          0.03715081885457039,
+          -0.006971162743866444
+        ],
+        "max": [
+          -0.03283447027206421,
+          0.10682293027639389,
+          0.02415068820118904
+        ]
+      },
+      "triangles": 1176,
+      "sizeClass": "medium"
+    },
+    "intermediate-lumbar-nodes": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.0035501252859830856,
+          0.1955190896987915,
+          -0.0006620902568101883
+        ],
+        "max": [
+          0.003378016874194145,
+          0.3182852566242218,
+          0.02176309935748577
+        ]
+      },
+      "triangles": 714,
+      "sizeClass": "medium"
     },
     "intermediate-tendon-of-digastric-muscle--l": {
       "bundle": "muscular",
@@ -7648,6 +10660,74 @@
       "triangles": 2418,
       "sizeClass": "medium"
     },
+    "interpectoral-nodes--l": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.10825657844543457,
+          0.45597410202026367,
+          0.02357531525194645
+        ],
+        "max": [
+          0.12174917757511139,
+          0.4925440847873688,
+          0.04698515683412552
+        ]
+      },
+      "triangles": 840,
+      "sizeClass": "small"
+    },
+    "interpectoral-nodes--r": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.12174844741821289,
+          0.45597410202026367,
+          0.023575320839881897
+        ],
+        "max": [
+          -0.10825584083795547,
+          0.4925440847873688,
+          0.04698515683412552
+        ]
+      },
+      "triangles": 840,
+      "sizeClass": "small"
+    },
+    "interscapular-region--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.026314349845051765,
+          0.4078894853591919,
+          -0.14711111783981323
+        ],
+        "max": [
+          0.08040431141853333,
+          0.5796076059341431,
+          -0.11198356002569199
+        ]
+      },
+      "triangles": 248,
+      "sizeClass": "medium"
+    },
+    "interscapular-region--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.08040431141853333,
+          0.4078894853591919,
+          -0.14711111783981323
+        ],
+        "max": [
+          -0.026314349845051765,
+          0.5796076059341431,
+          -0.11198356002569199
+        ]
+      },
+      "triangles": 248,
+      "sizeClass": "medium"
+    },
     "interspinales-colli-muscles--l": {
       "bundle": "muscular",
       "bounds": {
@@ -7750,6 +10830,91 @@
       "triangles": 194,
       "sizeClass": "small"
     },
+    "intertragic-incisure--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.06529445201158524,
+          0.7027146220207214,
+          -0.014175761491060257
+        ],
+        "max": [
+          0.07069765776395798,
+          0.7158028483390808,
+          -0.0034233415499329567
+        ]
+      },
+      "triangles": 67,
+      "sizeClass": "small"
+    },
+    "intertragic-incisure--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.07069768756628036,
+          0.7027146220207214,
+          -0.014175761491060257
+        ],
+        "max": [
+          -0.06529448181390762,
+          0.7158028483390808,
+          -0.0034233415499329567
+        ]
+      },
+      "triangles": 67,
+      "sizeClass": "small"
+    },
+    "intraglandular-parotid-nodes--l": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.050589561462402344,
+          0.6830036640167236,
+          0.010714451782405376
+        ],
+        "max": [
+          0.06001012772321701,
+          0.6993893384933472,
+          0.021124355494976044
+        ]
+      },
+      "triangles": 504,
+      "sizeClass": "small"
+    },
+    "intraglandular-parotid-nodes--r": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.06000924110412598,
+          0.6830036640167236,
+          0.010714460164308548
+        ],
+        "max": [
+          -0.050588686019182205,
+          0.6993893384933472,
+          0.021124357357621193
+        ]
+      },
+      "triangles": 504,
+      "sizeClass": "small"
+    },
+    "intrapulmonary-nodes": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.08162994682788849,
+          0.364360511302948,
+          -0.07973343878984451
+        ],
+        "max": [
+          0.10084982216358185,
+          0.5443956851959229,
+          0.05153719335794449
+        ]
+      },
+      "triangles": 2704,
+      "sizeClass": "large"
+    },
     "iris--l": {
       "bundle": "organs",
       "bounds": {
@@ -7801,6 +10966,108 @@
       "triangles": 19352,
       "sizeClass": "large"
     },
+    "jugulodigastric-node--l": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.03149339556694031,
+          0.6720288395881653,
+          -0.014893853105604649
+        ],
+        "max": [
+          0.03407256677746773,
+          0.6745777726173401,
+          -0.012329301796853542
+        ]
+      },
+      "triangles": 168,
+      "sizeClass": "tiny"
+    },
+    "jugulodigastric-node--r": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.034071195870637894,
+          0.6720288395881653,
+          -0.014893852174282074
+        ],
+        "max": [
+          -0.031492024660110474,
+          0.6745777726173401,
+          -0.012329302728176117
+        ]
+      },
+      "triangles": 168,
+      "sizeClass": "tiny"
+    },
+    "juxta-intestinal-mesenteric-nodes": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.06771208345890045,
+          0.05669619143009186,
+          0.029877664521336555
+        ],
+        "max": [
+          0.07573053985834122,
+          0.20426161587238312,
+          0.061050061136484146
+        ]
+      },
+      "triangles": 1764,
+      "sizeClass": "medium"
+    },
+    "juxta-oesophageal-nodes": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.0021444859448820353,
+          0.35740232467651367,
+          -0.049313608556985855
+        ],
+        "max": [
+          0.0027126034256070852,
+          0.573115348815918,
+          -0.016198469325900078
+        ]
+      },
+      "triangles": 1176,
+      "sizeClass": "medium"
+    },
+    "labial-commissure--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.0005370648577809334,
+          0.6687361001968384,
+          0.06516628712415695
+        ],
+        "max": [
+          0.024598756805062294,
+          0.6777276992797852,
+          0.0851486399769783
+        ]
+      },
+      "triangles": 140,
+      "sizeClass": "small"
+    },
+    "labial-commissure--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.024598756805062294,
+          0.6687361001968384,
+          0.06516628712415695
+        ],
+        "max": [
+          0.0005370648577809334,
+          0.6777276992797852,
+          0.0851486399769783
+        ]
+      },
+      "triangles": 140,
+      "sizeClass": "small"
+    },
     "lacrimal-bone--l": {
       "bundle": "skeletal",
       "bounds": {
@@ -7833,6 +11100,193 @@
         ]
       },
       "triangles": 578,
+      "sizeClass": "small"
+    },
+    "lateral-aortic-nodes": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.01346469484269619,
+          0.195496067404747,
+          0.007105419412255287
+        ],
+        "max": [
+          -0.00977586954832077,
+          0.3144400119781494,
+          0.027278129011392593
+        ]
+      },
+      "triangles": 572,
+      "sizeClass": "medium"
+    },
+    "lateral-axillary-nodes--l": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.152363121509552,
+          0.4506826400756836,
+          -0.05059264227747917
+        ],
+        "max": [
+          0.1557520031929016,
+          0.4591788053512573,
+          -0.0454239659011364
+        ]
+      },
+      "triangles": 336,
+      "sizeClass": "tiny"
+    },
+    "lateral-axillary-nodes--r": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.15575087070465088,
+          0.4506826400756836,
+          -0.05059264227747917
+        ],
+        "max": [
+          -0.15236198902130127,
+          0.4591788053512573,
+          -0.0454239659011364
+        ]
+      },
+      "triangles": 336,
+      "sizeClass": "tiny"
+    },
+    "lateral-bicipital-groove--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.217288076877594,
+          0.2880937159061432,
+          -0.03160134702920914
+        ],
+        "max": [
+          0.2434663623571396,
+          0.4187604784965515,
+          -0.014119398780167103
+        ]
+      },
+      "triangles": 100,
+      "sizeClass": "medium"
+    },
+    "lateral-bicipital-groove--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.2434663623571396,
+          0.2880937159061432,
+          -0.03160134702920914
+        ],
+        "max": [
+          -0.217288076877594,
+          0.4187604784965515,
+          -0.014119400642812252
+        ]
+      },
+      "triangles": 100,
+      "sizeClass": "medium"
+    },
+    "lateral-border-of-foot--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.1018836572766304,
+          -0.8505250811576843,
+          -0.08032688498497009
+        ],
+        "max": [
+          0.1490144580602646,
+          -0.8073153495788574,
+          0.04639001190662384
+        ]
+      },
+      "triangles": 284,
+      "sizeClass": "medium"
+    },
+    "lateral-border-of-foot--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.1490144282579422,
+          -0.8505250811576843,
+          -0.08032688498497009
+        ],
+        "max": [
+          -0.10188362747430801,
+          -0.8073153495788574,
+          0.04639001935720444
+        ]
+      },
+      "triangles": 284,
+      "sizeClass": "medium"
+    },
+    "lateral-border-of-forearm--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.27131187915802,
+          0.01099618524312973,
+          -0.04283861070871353
+        ],
+        "max": [
+          0.2933197319507599,
+          0.2311694324016571,
+          0.008854668587446213
+        ]
+      },
+      "triangles": 134,
+      "sizeClass": "medium"
+    },
+    "lateral-border-of-forearm--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.2933197319507599,
+          0.01099618524312973,
+          -0.04283861070871353
+        ],
+        "max": [
+          -0.27131187915802,
+          0.2311694324016571,
+          0.008854672312736511
+        ]
+      },
+      "triangles": 134,
+      "sizeClass": "medium"
+    },
+    "lateral-caval-nodes": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.008948992006480694,
+          0.195496067404747,
+          0.008383352309465408
+        ],
+        "max": [
+          -0.004768166225403547,
+          0.31962472200393677,
+          0.027330361306667328
+        ]
+      },
+      "triangles": 708,
+      "sizeClass": "medium"
+    },
+    "lateral-common-iliac-nodes": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.025795556604862213,
+          0.1420208364725113,
+          0.007415761239826679
+        ],
+        "max": [
+          0.028685592114925385,
+          0.16065599024295807,
+          0.013000727631151676
+        ]
+      },
+      "triangles": 1344,
       "sizeClass": "small"
     },
     "lateral-cuneiform-bone--l": {
@@ -7971,6 +11425,125 @@
       "triangles": 2712,
       "sizeClass": "large"
     },
+    "lateral-lacunar-node--l": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.0478939414024353,
+          -0.00020961614791303873,
+          0.02648106962442398
+        ],
+        "max": [
+          0.05049082636833191,
+          0.002380774589255452,
+          0.0290745347738266
+        ]
+      },
+      "triangles": 168,
+      "sizeClass": "tiny"
+    },
+    "lateral-lacunar-node--r": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.050489217042922974,
+          -0.0002096155658364296,
+          0.02648106962442398
+        ],
+        "max": [
+          -0.04789233207702637,
+          0.002380773890763521,
+          0.0290745347738266
+        ]
+      },
+      "triangles": 168,
+      "sizeClass": "tiny"
+    },
+    "lateral-malleolus--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.09360399097204208,
+          -0.8101932406425476,
+          -0.08738873898983002
+        ],
+        "max": [
+          0.11932379007339478,
+          -0.7570757269859314,
+          -0.050576627254486084
+        ]
+      },
+      "triangles": 182,
+      "sizeClass": "medium"
+    },
+    "lateral-malleolus--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.11932379007339478,
+          -0.8101932406425476,
+          -0.08738873898983002
+        ],
+        "max": [
+          -0.09360399097204208,
+          -0.7570757269859314,
+          -0.050576627254486084
+        ]
+      },
+      "triangles": 182,
+      "sizeClass": "medium"
+    },
+    "lateral-part-of-longitudinal-arch-of-foot--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.09916479885578156,
+          -0.8544922471046448,
+          -0.07686705142259598
+        ],
+        "max": [
+          0.14540395140647888,
+          -0.8430887460708618,
+          0.035768721252679825
+        ]
+      },
+      "triangles": 126,
+      "sizeClass": "medium"
+    },
+    "lateral-part-of-longitudinal-arch-of-foot--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.14540395140647888,
+          -0.8544922471046448,
+          -0.07686705142259598
+        ],
+        "max": [
+          -0.09916479885578156,
+          -0.8430887460708618,
+          0.035768721252679825
+        ]
+      },
+      "triangles": 126,
+      "sizeClass": "medium"
+    },
+    "lateral-pericardial-nodes": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.03661761432886124,
+          0.3993605673313141,
+          0.014706860296428204
+        ],
+        "max": [
+          -0.020506728440523148,
+          0.4404258728027344,
+          0.022615736350417137
+        ]
+      },
+      "triangles": 672,
+      "sizeClass": "small"
+    },
     "lateral-process-of-nasal-septal-cartilage--l": {
       "bundle": "skeletal",
       "bounds": {
@@ -8037,6 +11610,244 @@
         ]
       },
       "triangles": 1318,
+      "sizeClass": "small"
+    },
+    "lateral-region-of-abdomen--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.068732351064682,
+          0.10546491295099258,
+          -0.05845768004655838
+        ],
+        "max": [
+          0.15285447239875793,
+          0.23693670332431793,
+          0.09500931203365326
+        ]
+      },
+      "triangles": 352,
+      "sizeClass": "medium"
+    },
+    "lateral-region-of-abdomen--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.15285447239875793,
+          0.10546492040157318,
+          -0.05845768004655838
+        ],
+        "max": [
+          -0.068732351064682,
+          0.23693670332431793,
+          0.09500931203365326
+        ]
+      },
+      "triangles": 352,
+      "sizeClass": "medium"
+    },
+    "lateral-region-of-neck--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.03399471566081047,
+          0.5549049377441406,
+          -0.07641544938087463
+        ],
+        "max": [
+          0.1173451766371727,
+          0.7013987302780151,
+          0.030287157744169235
+        ]
+      },
+      "triangles": 412,
+      "sizeClass": "medium"
+    },
+    "lateral-region-of-neck--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.1173451766371727,
+          0.5549049377441406,
+          -0.07641544938087463
+        ],
+        "max": [
+          -0.03399471566081047,
+          0.7013987302780151,
+          0.030287157744169235
+        ]
+      },
+      "triangles": 414,
+      "sizeClass": "medium"
+    },
+    "lateral-region-of-thorax--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.07964927703142166,
+          0.271504282951355,
+          -0.13695400953292847
+        ],
+        "max": [
+          0.18071362376213074,
+          0.5152542591094971,
+          0.1105220690369606
+        ]
+      },
+      "triangles": 724,
+      "sizeClass": "large"
+    },
+    "lateral-region-of-thorax--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.18071362376213074,
+          0.271504282951355,
+          -0.13695400953292847
+        ],
+        "max": [
+          -0.07964927703142166,
+          0.5152542591094971,
+          0.1105220690369606
+        ]
+      },
+      "triangles": 724,
+      "sizeClass": "large"
+    },
+    "lateral-retromalleolar-region--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.06556722521781921,
+          -0.8150187730789185,
+          -0.11093758046627045
+        ],
+        "max": [
+          0.11429993808269501,
+          -0.7374899387359619,
+          -0.06912965327501297
+        ]
+      },
+      "triangles": 208,
+      "sizeClass": "medium"
+    },
+    "lateral-retromalleolar-region--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.11429993808269501,
+          -0.8150187730789185,
+          -0.11093758046627045
+        ],
+        "max": [
+          -0.06556722521781921,
+          -0.7374899387359619,
+          -0.06912965327501297
+        ]
+      },
+      "triangles": 208,
+      "sizeClass": "medium"
+    },
+    "lateral-sacral-nodes--l": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.013973996974527836,
+          0.023484110832214355,
+          -0.08830485492944717
+        ],
+        "max": [
+          0.031067129224538803,
+          0.07662685960531235,
+          -0.04774877429008484
+        ]
+      },
+      "triangles": 840,
+      "sizeClass": "medium"
+    },
+    "lateral-sacral-nodes--r": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.03106551617383957,
+          0.02348412200808525,
+          -0.08830484747886658
+        ],
+        "max": [
+          -0.01397240161895752,
+          0.07662685215473175,
+          -0.04774877429008484
+        ]
+      },
+      "triangles": 840,
+      "sizeClass": "medium"
+    },
+    "lateral-superior-jugular-node--l": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.02536320686340332,
+          0.6288694143295288,
+          -0.008553514257073402
+        ],
+        "max": [
+          0.033813659101724625,
+          0.6643873453140259,
+          0.0013808850198984146
+        ]
+      },
+      "triangles": 840,
+      "sizeClass": "small"
+    },
+    "lateral-superior-jugular-node--r": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.03381228446960449,
+          0.6288694143295288,
+          -0.008553516119718552
+        ],
+        "max": [
+          -0.025361841544508934,
+          0.6643873453140259,
+          0.0013808859512209892
+        ]
+      },
+      "triangles": 840,
+      "sizeClass": "small"
+    },
+    "lateral-vesical-nodes--l": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.020100466907024384,
+          -0.021273091435432434,
+          -0.027145829051733017
+        ],
+        "max": [
+          0.03852017968893051,
+          0.001484505832195282,
+          0.006305349990725517
+        ]
+      },
+      "triangles": 1008,
+      "sizeClass": "small"
+    },
+    "lateral-vesical-nodes--r": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.03851839527487755,
+          -0.021273087710142136,
+          -0.027145830914378166
+        ],
+        "max": [
+          -0.02009868249297142,
+          0.0014845049008727074,
+          0.006305349059402943
+        ]
+      },
+      "triangles": 1008,
       "sizeClass": "small"
     },
     "latissimus-dorsi-muscle--l": {
@@ -8106,6 +11917,23 @@
       },
       "triangles": 604,
       "sizeClass": "medium"
+    },
+    "left-colic-nodes": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.039266470819711685,
+          0.20084573328495026,
+          0.005583951249718666
+        ],
+        "max": [
+          0.049370959401130676,
+          0.2339695543050766,
+          0.017094220966100693
+        ]
+      },
+      "triangles": 504,
+      "sizeClass": "small"
     },
     "left-common-carotid-artery": {
       "bundle": "cardiovascular",
@@ -8430,6 +12258,40 @@
       "triangles": 1598,
       "sizeClass": "tiny"
     },
+    "lesser-supraclavicular-fossa--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.032140102237463,
+          0.5650477409362793,
+          0.011865108273923397
+        ],
+        "max": [
+          0.06745145469903946,
+          0.578682005405426,
+          0.03523852676153183
+        ]
+      },
+      "triangles": 48,
+      "sizeClass": "small"
+    },
+    "lesser-supraclavicular-fossa--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.06745145469903946,
+          0.5650477409362793,
+          0.011865108273923397
+        ],
+        "max": [
+          -0.032140102237463,
+          0.578682005405426,
+          0.03523852676153183
+        ]
+      },
+      "triangles": 48,
+      "sizeClass": "small"
+    },
     "levator-anguli-oris--l": {
       "bundle": "muscular",
       "bounds": {
@@ -8735,6 +12597,40 @@
       },
       "triangles": 8588,
       "sizeClass": "large"
+    },
+    "lobule-of-auricle--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.05966818332672119,
+          0.6935306191444397,
+          -0.023640941828489304
+        ],
+        "max": [
+          0.08313079178333282,
+          0.7095914483070374,
+          -0.0025230227038264275
+        ]
+      },
+      "triangles": 214,
+      "sizeClass": "small"
+    },
+    "lobule-of-auricle--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.08313082158565521,
+          0.6935306191444397,
+          -0.023640941828489304
+        ],
+        "max": [
+          -0.05966821312904358,
+          0.7095914483070374,
+          -0.002523023635149002
+        ]
+      },
+      "triangles": 214,
+      "sizeClass": "small"
     },
     "long-head-of-biceps-brachii--l": {
       "bundle": "muscular",
@@ -9246,6 +13142,40 @@
       "triangles": 1104,
       "sizeClass": "small"
     },
+    "lumbar-region--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.027706120163202286,
+          0.1129235178232193,
+          -0.11703860759735107
+        ],
+        "max": [
+          0.14053817093372345,
+          0.27317512035369873,
+          -0.05427628010511398
+        ]
+      },
+      "triangles": 362,
+      "sizeClass": "medium"
+    },
+    "lumbar-region--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.14053817093372345,
+          0.1129235178232193,
+          -0.11703861504793167
+        ],
+        "max": [
+          -0.027706120163202286,
+          0.27317512035369873,
+          -0.05427628383040428
+        ]
+      },
+      "triangles": 362,
+      "sizeClass": "medium"
+    },
     "lumbrical-muscles-of-foot--l": {
       "bundle": "muscular",
       "bounds": {
@@ -9382,6 +13312,40 @@
       "triangles": 344,
       "sizeClass": "small"
     },
+    "mammary-region--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.06988117098808289,
+          0.38612422347068787,
+          0.057615675032138824
+        ],
+        "max": [
+          0.14832653105258942,
+          0.4677039086818695,
+          0.11713236570358276
+        ]
+      },
+      "triangles": 320,
+      "sizeClass": "medium"
+    },
+    "mammary-region--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.14832653105258942,
+          0.38612422347068787,
+          0.057615675032138824
+        ],
+        "max": [
+          -0.06988117098808289,
+          0.4677039086818695,
+          0.11713236570358276
+        ]
+      },
+      "triangles": 320,
+      "sizeClass": "medium"
+    },
     "mandible": {
       "bundle": "skeletal",
       "bounds": {
@@ -9399,6 +13363,40 @@
       "triangles": 13182,
       "sizeClass": "medium"
     },
+    "mandibular-node--l": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.008748078718781471,
+          0.6472815275192261,
+          0.05549222603440285
+        ],
+        "max": [
+          0.02804802730679512,
+          0.6634294390678406,
+          0.07125760614871979
+        ]
+      },
+      "triangles": 504,
+      "sizeClass": "small"
+    },
+    "mandibular-node--r": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.028047116473317146,
+          0.6472815275192261,
+          0.05549222603440285
+        ],
+        "max": [
+          -0.008747177198529243,
+          0.6634294390678406,
+          0.07125760614871979
+        ]
+      },
+      "triangles": 504,
+      "sizeClass": "small"
+    },
     "manubrium-of-sternum": {
       "bundle": "skeletal",
       "bounds": {
@@ -9414,6 +13412,74 @@
         ]
       },
       "triangles": 2558,
+      "sizeClass": "medium"
+    },
+    "mastoid-nodes--l": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.05121462792158127,
+          0.6927785873413086,
+          -0.035592421889305115
+        ],
+        "max": [
+          0.061487846076488495,
+          0.7102780342102051,
+          -0.018437378108501434
+        ]
+      },
+      "triangles": 840,
+      "sizeClass": "small"
+    },
+    "mastoid-nodes--r": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.06148722022771835,
+          0.6927785873413086,
+          -0.035592395812273026
+        ],
+        "max": [
+          -0.051214005798101425,
+          0.7102780938148499,
+          -0.018437355756759644
+        ]
+      },
+      "triangles": 840,
+      "sizeClass": "small"
+    },
+    "mastoid-region--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.05708590894937515,
+          0.6997054219245911,
+          -0.06826280057430267
+        ],
+        "max": [
+          0.07267769426107407,
+          0.7573776245117188,
+          -0.03092856891453266
+        ]
+      },
+      "triangles": 116,
+      "sizeClass": "medium"
+    },
+    "mastoid-region--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.07267772406339645,
+          0.6997054219245911,
+          -0.06826280057430267
+        ],
+        "max": [
+          -0.05708593875169754,
+          0.7573776245117188,
+          -0.03092856891453266
+        ]
+      },
+      "triangles": 116,
       "sizeClass": "medium"
     },
     "maxilla--l": {
@@ -9484,6 +13550,125 @@
       "triangles": 6651,
       "sizeClass": "medium"
     },
+    "medial-bicipital-groove--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.16678881645202637,
+          0.2806905210018158,
+          -0.03006075695157051
+        ],
+        "max": [
+          0.19412271678447723,
+          0.37952858209609985,
+          -0.0174820926040411
+        ]
+      },
+      "triangles": 68,
+      "sizeClass": "medium"
+    },
+    "medial-bicipital-groove--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.19412271678447723,
+          0.2806905210018158,
+          -0.03006075695157051
+        ],
+        "max": [
+          -0.16678881645202637,
+          0.37952858209609985,
+          -0.01748209446668625
+        ]
+      },
+      "triangles": 68,
+      "sizeClass": "medium"
+    },
+    "medial-border-of-foot--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.04236163944005966,
+          -0.8507897853851318,
+          -0.07568053156137466
+        ],
+        "max": [
+          0.06307993829250336,
+          -0.779381513595581,
+          0.0557752400636673
+        ]
+      },
+      "triangles": 288,
+      "sizeClass": "medium"
+    },
+    "medial-border-of-foot--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.06307990849018097,
+          -0.8507897853851318,
+          -0.07568053156137466
+        ],
+        "max": [
+          -0.042361609637737274,
+          -0.779381513595581,
+          0.055775247514247894
+        ]
+      },
+      "triangles": 288,
+      "sizeClass": "medium"
+    },
+    "medial-border-of-forearm--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.1803036481142044,
+          0.0026763826608657837,
+          -0.045723866671323776
+        ],
+        "max": [
+          0.23560985922813416,
+          0.21828213334083557,
+          0.005160251632332802
+        ]
+      },
+      "triangles": 132,
+      "sizeClass": "medium"
+    },
+    "medial-border-of-forearm--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.23560985922813416,
+          0.0026763826608657837,
+          -0.045723870396614075
+        ],
+        "max": [
+          -0.1803036481142044,
+          0.21828213334083557,
+          0.0051602553576231
+        ]
+      },
+      "triangles": 132,
+      "sizeClass": "medium"
+    },
+    "medial-common-iliac-nodes": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.008944226428866386,
+          0.12976832687854767,
+          0.003115688916295767
+        ],
+        "max": [
+          0.00588683458045125,
+          0.14234943687915802,
+          0.008856255561113358
+        ]
+      },
+      "triangles": 1008,
+      "sizeClass": "small"
+    },
     "medial-cuneiform-bone--l": {
       "bundle": "skeletal",
       "bounds": {
@@ -9517,6 +13702,40 @@
       },
       "triangles": 846,
       "sizeClass": "small"
+    },
+    "medial-external-iliac-nodes--l": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.01198597066104412,
+          0.03713992238044739,
+          -0.012564761564135551
+        ],
+        "max": [
+          0.0392262302339077,
+          0.11655253916978836,
+          0.02089007943868637
+        ]
+      },
+      "triangles": 1344,
+      "sizeClass": "medium"
+    },
+    "medial-external-iliac-nodes--r": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.03922460973262787,
+          0.03713992238044739,
+          -0.012564762495458126
+        ],
+        "max": [
+          -0.01198437251150608,
+          0.11655253916978836,
+          0.02089008316397667
+        ]
+      },
+      "triangles": 1344,
+      "sizeClass": "medium"
     },
     "medial-head-of-flexor-hallucis-brevis--l": {
       "bundle": "muscular",
@@ -9620,6 +13839,74 @@
       "triangles": 1880,
       "sizeClass": "medium"
     },
+    "medial-malleolus--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.042066507041454315,
+          -0.8022819757461548,
+          -0.07586608827114105
+        ],
+        "max": [
+          0.051140304654836655,
+          -0.7592034935951233,
+          -0.03356444835662842
+        ]
+      },
+      "triangles": 152,
+      "sizeClass": "small"
+    },
+    "medial-malleolus--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.051140304654836655,
+          -0.8022819757461548,
+          -0.07586608827114105
+        ],
+        "max": [
+          -0.042066507041454315,
+          -0.7592034935951233,
+          -0.03356444835662842
+        ]
+      },
+      "triangles": 152,
+      "sizeClass": "small"
+    },
+    "medial-part-of-longitudinal-arch-of-foot--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.04739055782556534,
+          -0.8552352786064148,
+          -0.05819534882903099
+        ],
+        "max": [
+          0.09210314601659775,
+          -0.8287838101387024,
+          0.05041513219475746
+        ]
+      },
+      "triangles": 108,
+      "sizeClass": "medium"
+    },
+    "medial-part-of-longitudinal-arch-of-foot--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.09210314601659775,
+          -0.8552352786064148,
+          -0.05819534882903099
+        ],
+        "max": [
+          -0.04739055782556534,
+          -0.8287838101387024,
+          0.05041513592004776
+        ]
+      },
+      "triangles": 108,
+      "sizeClass": "medium"
+    },
     "medial-pterygoid-muscle--l": {
       "bundle": "muscular",
       "bounds": {
@@ -9687,6 +13974,40 @@
       },
       "triangles": 1048,
       "sizeClass": "small"
+    },
+    "medial-retromalleolar-region--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.04335896670818329,
+          -0.8097473978996277,
+          -0.11093758046627045
+        ],
+        "max": [
+          0.07325731962919235,
+          -0.7391932010650635,
+          -0.04968753457069397
+        ]
+      },
+      "triangles": 222,
+      "sizeClass": "medium"
+    },
+    "medial-retromalleolar-region--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.07325731962919235,
+          -0.8097473978996277,
+          -0.11093758046627045
+        ],
+        "max": [
+          -0.04335896670818329,
+          -0.7391932010650635,
+          -0.04968753457069397
+        ]
+      },
+      "triangles": 222,
+      "sizeClass": "medium"
     },
     "median-antebrachial-vein--l": {
       "bundle": "cardiovascular",
@@ -9790,6 +14111,40 @@
       "triangles": 3628,
       "sizeClass": "large"
     },
+    "mental-region--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.00027963053435087204,
+          0.6304087042808533,
+          0.059179577976465225
+        ],
+        "max": [
+          0.025136861950159073,
+          0.6592274904251099,
+          0.07693356275558472
+        ]
+      },
+      "triangles": 206,
+      "sizeClass": "small"
+    },
+    "mental-region--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.025136861950159073,
+          0.6304087042808533,
+          0.059179577976465225
+        ],
+        "max": [
+          0.00027963053435087204,
+          0.6592274904251099,
+          0.07693356275558472
+        ]
+      },
+      "triangles": 206,
+      "sizeClass": "small"
+    },
     "mentalis-muscle--l": {
       "bundle": "muscular",
       "bounds": {
@@ -9823,6 +14178,74 @@
       },
       "triangles": 166,
       "sizeClass": "small"
+    },
+    "mentolabial-sulcus--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.000218098983168602,
+          0.6548824310302734,
+          0.07155770808458328
+        ],
+        "max": [
+          0.012688537128269672,
+          0.6624789834022522,
+          0.08122935146093369
+        ]
+      },
+      "triangles": 106,
+      "sizeClass": "small"
+    },
+    "mentolabial-sulcus--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.012688537128269672,
+          0.6548824310302734,
+          0.07155770808458328
+        ],
+        "max": [
+          0.000218098983168602,
+          0.6624789834022522,
+          0.08122935146093369
+        ]
+      },
+      "triangles": 106,
+      "sizeClass": "small"
+    },
+    "metatarsal-region--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.05572136119008064,
+          -0.8372119069099426,
+          -0.026990115642547607
+        ],
+        "max": [
+          0.1419985443353653,
+          -0.7854801416397095,
+          0.07250483334064484
+        ]
+      },
+      "triangles": 476,
+      "sizeClass": "medium"
+    },
+    "metatarsal-region--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.1419985145330429,
+          -0.8372119069099426,
+          -0.026990115642547607
+        ],
+        "max": [
+          -0.055721331387758255,
+          -0.7854801416397095,
+          0.07250483334064484
+        ]
+      },
+      "triangles": 476,
+      "sizeClass": "medium"
     },
     "middle-cardiac-vein": {
       "bundle": "cardiovascular",
@@ -9873,6 +14296,23 @@
         ]
       },
       "triangles": 1008,
+      "sizeClass": "small"
+    },
+    "middle-colic-nodes": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.06043504178524017,
+          0.24169233441352844,
+          0.009839894250035286
+        ],
+        "max": [
+          -0.020457053557038307,
+          0.255778431892395,
+          0.03580230474472046
+        ]
+      },
+      "triangles": 504,
       "sizeClass": "small"
     },
     "middle-lobe-of-right-lung": {
@@ -10266,6 +14706,40 @@
       "triangles": 3902,
       "sizeClass": "large"
     },
+    "muscular-triangle--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.00015247240662574768,
+          0.5437794327735901,
+          0.020996276289224625
+        ],
+        "max": [
+          0.024810416623950005,
+          0.6348820924758911,
+          0.04460723698139191
+        ]
+      },
+      "triangles": 248,
+      "sizeClass": "medium"
+    },
+    "muscular-triangle--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.024810416623950005,
+          0.5437794327735901,
+          0.020996276289224625
+        ],
+        "max": [
+          0.00015247240662574768,
+          0.6348820924758911,
+          0.04460723698139191
+        ]
+      },
+      "triangles": 248,
+      "sizeClass": "medium"
+    },
     "mylohyoid-muscle--l": {
       "bundle": "muscular",
       "bounds": {
@@ -10334,6 +14808,40 @@
       "triangles": 260,
       "sizeClass": "small"
     },
+    "nasal-region--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.0008302861824631691,
+          0.6899691224098206,
+          0.0700482502579689
+        ],
+        "max": [
+          0.01779939979314804,
+          0.7526566982269287,
+          0.10447797179222107
+        ]
+      },
+      "triangles": 570,
+      "sizeClass": "medium"
+    },
+    "nasal-region--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.01779939979314804,
+          0.6899691224098206,
+          0.0700482502579689
+        ],
+        "max": [
+          0.0008302861824631691,
+          0.7526566982269287,
+          0.10447797179222107
+        ]
+      },
+      "triangles": 572,
+      "sizeClass": "medium"
+    },
     "nasal-septal-cartilage": {
       "bundle": "skeletal",
       "bounds": {
@@ -10383,6 +14891,74 @@
         ]
       },
       "triangles": 682,
+      "sizeClass": "small"
+    },
+    "nasolabial-node--l": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.01950022205710411,
+          0.7063317894935608,
+          0.06643293052911758
+        ],
+        "max": [
+          0.022081973031163216,
+          0.7089293599128723,
+          0.06901624798774719
+        ]
+      },
+      "triangles": 168,
+      "sizeClass": "tiny"
+    },
+    "nasolabial-node--r": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.022081049159169197,
+          0.7063317894935608,
+          0.06643293052911758
+        ],
+        "max": [
+          -0.019499298185110092,
+          0.7089293599128723,
+          0.06901624798774719
+        ]
+      },
+      "triangles": 168,
+      "sizeClass": "tiny"
+    },
+    "nasolabial-sulcus--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.015160100534558296,
+          0.668907105922699,
+          0.06515190005302429
+        ],
+        "max": [
+          0.03588229417800903,
+          0.6992892026901245,
+          0.07849255204200745
+        ]
+      },
+      "triangles": 92,
+      "sizeClass": "small"
+    },
+    "nasolabial-sulcus--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.03588229417800903,
+          0.668907105922699,
+          0.06515190005302429
+        ],
+        "max": [
+          -0.015160100534558296,
+          0.6992892026901245,
+          0.07849255204200745
+        ]
+      },
+      "triangles": 92,
       "sizeClass": "small"
     },
     "navicular-bone--l": {
@@ -10452,6 +15028,40 @@
       },
       "triangles": 5444,
       "sizeClass": "medium"
+    },
+    "node-of-arch-of-azygos-vein": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.011964614503085613,
+          0.49747297167778015,
+          -0.020773926749825478
+        ],
+        "max": [
+          -0.009392324835062027,
+          0.5000704526901245,
+          -0.018184414133429527
+        ]
+      },
+      "triangles": 168,
+      "sizeClass": "tiny"
+    },
+    "node-of-ligamentum-arteriosum": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.027489539235830307,
+          0.5089735984802246,
+          -0.009314263239502907
+        ],
+        "max": [
+          0.030045822262763977,
+          0.511564314365387,
+          -0.006740367040038109
+        ]
+      },
+      "triangles": 168,
+      "sizeClass": "tiny"
     },
     "non-coronary-leaflet": {
       "bundle": "cardiovascular",
@@ -10708,6 +15318,40 @@
       "triangles": 3454,
       "sizeClass": "medium"
     },
+    "obturator-nodes--l": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.041346095502376556,
+          0.007052898406982422,
+          -0.04692059010267258
+        ],
+        "max": [
+          0.05543779581785202,
+          0.03156724572181702,
+          -0.014827514067292213
+        ]
+      },
+      "triangles": 672,
+      "sizeClass": "small"
+    },
+    "obturator-nodes--r": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.05543619394302368,
+          0.007052900269627571,
+          -0.04692058637738228
+        ],
+        "max": [
+          -0.04134448990225792,
+          0.03156724572181702,
+          -0.014827510342001915
+        ]
+      },
+      "triangles": 672,
+      "sizeClass": "small"
+    },
     "occipital-artery--l": {
       "bundle": "cardiovascular",
       "bounds": {
@@ -10757,6 +15401,74 @@
         ]
       },
       "triangles": 5826,
+      "sizeClass": "medium"
+    },
+    "occipital-nodes--l": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.030435696244239807,
+          0.7285724878311157,
+          -0.10530722886323929
+        ],
+        "max": [
+          0.03491358458995819,
+          0.7356875538825989,
+          -0.09637506306171417
+        ]
+      },
+      "triangles": 336,
+      "sizeClass": "tiny"
+    },
+    "occipital-nodes--r": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.03491298854351044,
+          0.7285724878311157,
+          -0.10530722886323929
+        ],
+        "max": [
+          -0.030435102060437202,
+          0.7356875538825989,
+          -0.09637506306171417
+        ]
+      },
+      "triangles": 336,
+      "sizeClass": "tiny"
+    },
+    "occipital-region--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -1.4901161193847656e-8,
+          0.6997063755989075,
+          -0.11963754147291183
+        ],
+        "max": [
+          0.0703807845711708,
+          0.7908268570899963,
+          -0.04652493819594383
+        ]
+      },
+      "triangles": 304,
+      "sizeClass": "medium"
+    },
+    "occipital-region--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.0703808143734932,
+          0.6997063755989075,
+          -0.11963754147291183
+        ],
+        "max": [
+          -1.4901161193847656e-8,
+          0.7908268570899963,
+          -0.04652493819594383
+        ]
+      },
+      "triangles": 304,
       "sizeClass": "medium"
     },
     "occipital-vein--l": {
@@ -10997,6 +15709,40 @@
       "triangles": 378,
       "sizeClass": "small"
     },
+    "oral-region--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.0005426239222288132,
+          0.6521613001823425,
+          0.06432657688856125
+        ],
+        "max": [
+          0.03390846401453018,
+          0.6939005851745605,
+          0.08851416409015656
+        ]
+      },
+      "triangles": 648,
+      "sizeClass": "small"
+    },
+    "oral-region--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.03390846401453018,
+          0.6521613001823425,
+          0.06432658433914185
+        ],
+        "max": [
+          0.0005426239222288132,
+          0.6939005851745605,
+          0.08851416409015656
+        ]
+      },
+      "triangles": 648,
+      "sizeClass": "small"
+    },
     "orbicularis-oris-muscle--l": {
       "bundle": "muscular",
       "bounds": {
@@ -11063,6 +15809,40 @@
         ]
       },
       "triangles": 2324,
+      "sizeClass": "medium"
+    },
+    "orbital-region--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.005376242101192474,
+          0.713981032371521,
+          0.04931516572833061
+        ],
+        "max": [
+          0.05452301725745201,
+          0.7602145671844482,
+          0.08065901696681976
+        ]
+      },
+      "triangles": 568,
+      "sizeClass": "medium"
+    },
+    "orbital-region--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.05452301725745201,
+          0.713981032371521,
+          0.04931516572833061
+        ],
+        "max": [
+          -0.005376242101192474,
+          0.7602145671844482,
+          0.08065901696681976
+        ]
+      },
+      "triangles": 566,
       "sizeClass": "medium"
     },
     "palatine-bone--l": {
@@ -11133,6 +15913,40 @@
       "triangles": 168,
       "sizeClass": "tiny"
     },
+    "palm--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.22500213980674744,
+          -0.08796359598636627,
+          0.01539004035294056
+        ],
+        "max": [
+          0.3173525631427765,
+          -0.01608184352517128,
+          0.048323288559913635
+        ]
+      },
+      "triangles": 570,
+      "sizeClass": "medium"
+    },
+    "palm--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.3173525631427765,
+          -0.08796359598636627,
+          0.01539003849029541
+        ],
+        "max": [
+          -0.22500213980674744,
+          -0.01608184352517128,
+          0.048323288559913635
+        ]
+      },
+      "triangles": 570,
+      "sizeClass": "medium"
+    },
     "palmar-interossei-muscles--l": {
       "bundle": "muscular",
       "bounds": {
@@ -11166,6 +15980,40 @@
       },
       "triangles": 164,
       "sizeClass": "small"
+    },
+    "palmar-surfaces-of-digits-of-hand--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.22437269985675812,
+          -0.15735070407390594,
+          0.02688436768949032
+        ],
+        "max": [
+          0.3360469341278076,
+          -0.036852993071079254,
+          0.08775452524423599
+        ]
+      },
+      "triangles": 3200,
+      "sizeClass": "medium"
+    },
+    "palmar-surfaces-of-digits-of-hand--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.3360469341278076,
+          -0.15735070407390594,
+          0.02688436768949032
+        ],
+        "max": [
+          -0.22437269985675812,
+          -0.036852993071079254,
+          0.08775452524423599
+        ]
+      },
+      "triangles": 3212,
+      "sizeClass": "medium"
     },
     "palmaris-longus-muscle--l": {
       "bundle": "muscular",
@@ -11252,6 +16100,108 @@
       "triangles": 4006,
       "sizeClass": "medium"
     },
+    "paracolic-superior-mesenteric-nodes": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.08061286807060242,
+          0.06477382779121399,
+          -0.010653451085090637
+        ],
+        "max": [
+          0.09877516329288483,
+          0.22161045670509338,
+          0.060962751507759094
+        ]
+      },
+      "triangles": 1998,
+      "sizeClass": "medium"
+    },
+    "pararectal-nodes": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.010240620002150536,
+          -0.04956141114234924,
+          -0.07220691442489624
+        ],
+        "max": [
+          0.012797034345567226,
+          -0.03457413613796234,
+          -0.05981476604938507
+        ]
+      },
+      "triangles": 1008,
+      "sizeClass": "small"
+    },
+    "parasternal-nodes--l": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.015930505469441414,
+          0.38350600004196167,
+          0.04651086777448654
+        ],
+        "max": [
+          0.02602572552859783,
+          0.5079734325408936,
+          0.09103691577911377
+        ]
+      },
+      "triangles": 1146,
+      "sizeClass": "medium"
+    },
+    "parasternal-nodes--r": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.02602490223944187,
+          0.38350600004196167,
+          0.046510882675647736
+        ],
+        "max": [
+          -0.015929661691188812,
+          0.5079734325408936,
+          0.09103689342737198
+        ]
+      },
+      "triangles": 1144,
+      "sizeClass": "medium"
+    },
+    "paratracheal-cervical-nodes": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.013060103170573711,
+          0.5698957443237305,
+          -0.00915467832237482
+        ],
+        "max": [
+          0.01306153368204832,
+          0.5940187573432922,
+          -0.0019240709953010082
+        ]
+      },
+      "triangles": 1008,
+      "sizeClass": "small"
+    },
+    "paratracheal-thoracic-nodes": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.012919818051159382,
+          0.5148650407791138,
+          -0.023943424224853516
+        ],
+        "max": [
+          0.012919889762997627,
+          0.5614510774612427,
+          -0.009135130792856216
+        ]
+      },
+      "triangles": 1680,
+      "sizeClass": "small"
+    },
     "parietal-bone--l": {
       "bundle": "skeletal",
       "bounds": {
@@ -11284,6 +16234,40 @@
         ]
       },
       "triangles": 4996,
+      "sizeClass": "medium"
+    },
+    "parietal-region--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.0005189105868339539,
+          0.7466189861297607,
+          -0.11878784000873566
+        ],
+        "max": [
+          0.0783836618065834,
+          0.8518243432044983,
+          0.022266946732997894
+        ]
+      },
+      "triangles": 472,
+      "sizeClass": "medium"
+    },
+    "parietal-region--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.07838369160890579,
+          0.7466189861297607,
+          -0.11878784000873566
+        ],
+        "max": [
+          0.0005188807845115662,
+          0.8518243432044983,
+          0.022266946732997894
+        ]
+      },
+      "triangles": 472,
       "sizeClass": "medium"
     },
     "parotid-gland--l": {
@@ -11319,6 +16303,40 @@
       },
       "triangles": 1192,
       "sizeClass": "small"
+    },
+    "parotideomasseteric-region--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.04329729825258255,
+          0.6515892148017883,
+          -0.009176552295684814
+        ],
+        "max": [
+          0.06996182352304459,
+          0.7207477688789368,
+          0.03499162197113037
+        ]
+      },
+      "triangles": 222,
+      "sizeClass": "medium"
+    },
+    "parotideomasseteric-region--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.06996182352304459,
+          0.6515892148017883,
+          -0.009176552295684814
+        ],
+        "max": [
+          -0.04329729825258255,
+          0.7207477688789368,
+          0.03499162197113037
+        ]
+      },
+      "triangles": 222,
+      "sizeClass": "medium"
     },
     "patella--l": {
       "bundle": "skeletal",
@@ -11388,6 +16406,40 @@
       "triangles": 1814,
       "sizeClass": "medium"
     },
+    "pectoral-region--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.02011912316083908,
+          0.36976784467697144,
+          0.005267634987831116
+        ],
+        "max": [
+          0.1561175286769867,
+          0.5434339046478271,
+          0.11832015216350555
+        ]
+      },
+      "triangles": 500,
+      "sizeClass": "medium"
+    },
+    "pectoral-region--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.1561175286769867,
+          0.36976784467697144,
+          0.005267634987831116
+        ],
+        "max": [
+          -0.02011912316083908,
+          0.5434339046478271,
+          0.11832015216350555
+        ]
+      },
+      "triangles": 494,
+      "sizeClass": "medium"
+    },
     "pectoralis-minor-muscle--l": {
       "bundle": "muscular",
       "bounds": {
@@ -11421,6 +16473,40 @@
       },
       "triangles": 3422,
       "sizeClass": "medium"
+    },
+    "philtrum--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          1.862645149230957e-9,
+          0.6787434816360474,
+          0.0827825590968132
+        ],
+        "max": [
+          0.005267613101750612,
+          0.6920616626739502,
+          0.08851418644189835
+        ]
+      },
+      "triangles": 56,
+      "sizeClass": "tiny"
+    },
+    "philtrum--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.005267613101750612,
+          0.6787434816360474,
+          0.0827825590968132
+        ],
+        "max": [
+          -1.862645149230957e-9,
+          0.6920616626739502,
+          0.08851418644189835
+        ]
+      },
+      "triangles": 56,
+      "sizeClass": "tiny"
     },
     "piriformis-muscle--l": {
       "bundle": "muscular",
@@ -11558,6 +16644,40 @@
       "triangles": 1210,
       "sizeClass": "medium"
     },
+    "plantar-surfaces-of-digits-of-foot--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.06434788554906845,
+          -0.8577110767364502,
+          0.03539859503507614
+        ],
+        "max": [
+          0.14940610527992249,
+          -0.8388032913208008,
+          0.13339705765247345
+        ]
+      },
+      "triangles": 1918,
+      "sizeClass": "medium"
+    },
+    "plantar-surfaces-of-digits-of-foot--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.14940610527992249,
+          -0.8577110767364502,
+          0.03539859503507614
+        ],
+        "max": [
+          -0.06434788554906845,
+          -0.8388032913208008,
+          0.13339705765247345
+        ]
+      },
+      "triangles": 1922,
+      "sizeClass": "medium"
+    },
     "plantaris-muscle--l": {
       "bundle": "muscular",
       "bounds": {
@@ -11660,6 +16780,40 @@
       "triangles": 1410,
       "sizeClass": "medium"
     },
+    "popliteal-fossa--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.04058074206113815,
+          -0.39362388849258423,
+          -0.09080610424280167
+        ],
+        "max": [
+          0.12150228023529053,
+          -0.3518899977207184,
+          -0.06981714069843292
+        ]
+      },
+      "triangles": 118,
+      "sizeClass": "medium"
+    },
+    "popliteal-fossa--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.12150228023529053,
+          -0.39362388849258423,
+          -0.09080610424280167
+        ],
+        "max": [
+          -0.04058074206113815,
+          -0.3518899977207184,
+          -0.06981714069843292
+        ]
+      },
+      "triangles": 118,
+      "sizeClass": "medium"
+    },
     "popliteal-vein--l": {
       "bundle": "cardiovascular",
       "bounds": {
@@ -11727,6 +16881,74 @@
       },
       "triangles": 1106,
       "sizeClass": "medium"
+    },
+    "posterior-auricular-groove--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.05611105635762215,
+          0.7044952511787415,
+          -0.032981667667627335
+        ],
+        "max": [
+          0.07616899162530899,
+          0.747105598449707,
+          -0.010755757801234722
+        ]
+      },
+      "triangles": 160,
+      "sizeClass": "small"
+    },
+    "posterior-auricular-groove--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.07616902142763138,
+          0.7044952511787415,
+          -0.032981667667627335
+        ],
+        "max": [
+          -0.056111086159944534,
+          0.747105598449707,
+          -0.010755756869912148
+        ]
+      },
+      "triangles": 160,
+      "sizeClass": "small"
+    },
+    "posterior-axillary-nodes--l": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.15145033597946167,
+          0.47539186477661133,
+          -0.0312763936817646
+        ],
+        "max": [
+          0.1739635318517685,
+          0.5169311761856079,
+          -0.01625383086502552
+        ]
+      },
+      "triangles": 1008,
+      "sizeClass": "small"
+    },
+    "posterior-axillary-nodes--r": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.17396241426467896,
+          0.47539186477661133,
+          -0.031276386231184006
+        ],
+        "max": [
+          -0.15144920349121094,
+          0.5169311761856079,
+          -0.01625383459031582
+        ]
+      },
+      "triangles": 1008,
+      "sizeClass": "small"
     },
     "posterior-belly-of-digastric-muscle--l": {
       "bundle": "muscular",
@@ -11813,6 +17035,278 @@
       "triangles": 5346,
       "sizeClass": "medium"
     },
+    "posterior-region-of-arm--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.16259722411632538,
+          0.27212998270988464,
+          -0.12355710566043854
+        ],
+        "max": [
+          0.25693416595458984,
+          0.4991360008716583,
+          -0.04694965109229088
+        ]
+      },
+      "triangles": 732,
+      "sizeClass": "medium"
+    },
+    "posterior-region-of-arm--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.25693416595458984,
+          0.27212998270988464,
+          -0.12355710566043854
+        ],
+        "max": [
+          -0.16259722411632538,
+          0.4991360008716583,
+          -0.04694965109229088
+        ]
+      },
+      "triangles": 724,
+      "sizeClass": "medium"
+    },
+    "posterior-region-of-elbow--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.17763501405715942,
+          0.2180442214012146,
+          -0.09433941543102264
+        ],
+        "max": [
+          0.27446916699409485,
+          0.2847297489643097,
+          -0.04154352471232414
+        ]
+      },
+      "triangles": 464,
+      "sizeClass": "medium"
+    },
+    "posterior-region-of-elbow--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.27446916699409485,
+          0.2180442214012146,
+          -0.09433941543102264
+        ],
+        "max": [
+          -0.17763501405715942,
+          0.2847297489643097,
+          -0.04154352471232414
+        ]
+      },
+      "triangles": 464,
+      "sizeClass": "medium"
+    },
+    "posterior-region-of-forearm--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.18130964040756226,
+          -0.005743898451328278,
+          -0.0869864970445633
+        ],
+        "max": [
+          0.2958509922027588,
+          0.23067012429237366,
+          0.011441122740507126
+        ]
+      },
+      "triangles": 932,
+      "sizeClass": "large"
+    },
+    "posterior-region-of-forearm--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.2958509922027588,
+          -0.005743898451328278,
+          -0.08698650449514389
+        ],
+        "max": [
+          -0.18130964040756226,
+          0.23067012429237366,
+          0.011441126465797424
+        ]
+      },
+      "triangles": 932,
+      "sizeClass": "large"
+    },
+    "posterior-region-of-knee--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.018969591706991196,
+          -0.46953925490379333,
+          -0.11557361483573914
+        ],
+        "max": [
+          0.1421705037355423,
+          -0.3496210277080536,
+          -0.02527065947651863
+        ]
+      },
+      "triangles": 630,
+      "sizeClass": "medium"
+    },
+    "posterior-region-of-knee--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.1421704888343811,
+          -0.46953925490379333,
+          -0.11557360738515854
+        ],
+        "max": [
+          -0.018969576805830002,
+          -0.3496210277080536,
+          -0.02527066320180893
+        ]
+      },
+      "triangles": 630,
+      "sizeClass": "medium"
+    },
+    "posterior-region-of-leg--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.030405890196561813,
+          -0.7397061586380005,
+          -0.13070988655090332
+        ],
+        "max": [
+          0.1492115557193756,
+          -0.45048898458480835,
+          -0.04538825899362564
+        ]
+      },
+      "triangles": 1036,
+      "sizeClass": "large"
+    },
+    "posterior-region-of-leg--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.1492115557193756,
+          -0.7397061586380005,
+          -0.13070988655090332
+        ],
+        "max": [
+          -0.030405890196561813,
+          -0.45048898458480835,
+          -0.04538826271891594
+        ]
+      },
+      "triangles": 1048,
+      "sizeClass": "large"
+    },
+    "posterior-region-of-neck--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.0005699805915355682,
+          0.5695928931236267,
+          -0.115515798330307
+        ],
+        "max": [
+          0.1457439512014389,
+          0.7047205567359924,
+          -0.020297523587942123
+        ]
+      },
+      "triangles": 664,
+      "sizeClass": "medium"
+    },
+    "posterior-region-of-neck--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.1457439512014389,
+          0.5695928931236267,
+          -0.115515798330307
+        ],
+        "max": [
+          0.0005699805915355682,
+          0.7047205567359924,
+          -0.020297519862651825
+        ]
+      },
+      "triangles": 662,
+      "sizeClass": "medium"
+    },
+    "posterior-region-of-thigh--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.001501709222793579,
+          -0.35497385263442993,
+          -0.12795820832252502
+        ],
+        "max": [
+          0.18130162358283997,
+          -0.04970923066139221,
+          -0.017370544373989105
+        ]
+      },
+      "triangles": 772,
+      "sizeClass": "large"
+    },
+    "posterior-region-of-thigh--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.18130162358283997,
+          -0.35497385263442993,
+          -0.12795822322368622
+        ],
+        "max": [
+          -0.001501709222793579,
+          -0.04970923066139221,
+          -0.017370548099279404
+        ]
+      },
+      "triangles": 778,
+      "sizeClass": "large"
+    },
+    "posterior-region-of-wrist--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.2291891872882843,
+          -0.02976911887526512,
+          -0.014548499137163162
+        ],
+        "max": [
+          0.3115033805370331,
+          0.0027079470455646515,
+          0.02161373943090439
+        ]
+      },
+      "triangles": 220,
+      "sizeClass": "medium"
+    },
+    "posterior-region-of-wrist--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.3115033805370331,
+          -0.02976911887526512,
+          -0.014548499137163162
+        ],
+        "max": [
+          -0.2291891872882843,
+          0.0027079470455646515,
+          0.02161373943090439
+        ]
+      },
+      "triangles": 220,
+      "sizeClass": "medium"
+    },
     "posterior-tibial-artery--l": {
       "bundle": "cardiovascular",
       "bounds": {
@@ -11847,6 +17341,40 @@
       "triangles": 2822,
       "sizeClass": "large"
     },
+    "posterior-tibial-node--l": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.0772995799779892,
+          -0.5399633646011353,
+          -0.05977993831038475
+        ],
+        "max": [
+          0.0798952579498291,
+          -0.5374060869216919,
+          -0.05719119682908058
+        ]
+      },
+      "triangles": 168,
+      "sizeClass": "tiny"
+    },
+    "posterior-tibial-node--r": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.07989491522312164,
+          -0.5399633646011353,
+          -0.05977994203567505
+        ],
+        "max": [
+          -0.07729923725128174,
+          -0.5374060869216919,
+          -0.05719120055437088
+        ]
+      },
+      "triangles": 168,
+      "sizeClass": "tiny"
+    },
     "posterior-tibial-veins--l": {
       "bundle": "cardiovascular",
       "bounds": {
@@ -11880,6 +17408,227 @@
       },
       "triangles": 3426,
       "sizeClass": "large"
+    },
+    "postvesical-nodes": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.02301773428916931,
+          -0.01916135475039482,
+          -0.056577157229185104
+        ],
+        "max": [
+          0.027399471029639244,
+          0.010717079974710941,
+          -0.04744124412536621
+        ]
+      },
+      "triangles": 1008,
+      "sizeClass": "small"
+    },
+    "pre-aortic-nodes": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.009907038882374763,
+          0.2000887095928192,
+          0.0018539242446422577
+        ],
+        "max": [
+          -0.003370824735611677,
+          0.31511226296424866,
+          0.02580484002828598
+        ]
+      },
+      "triangles": 738,
+      "sizeClass": "medium"
+    },
+    "pre-auricular-nodes--l": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.060626208782196045,
+          0.7270762324333191,
+          -0.00012585334479808807
+        ],
+        "max": [
+          0.06619725376367569,
+          0.7333250045776367,
+          0.008076062425971031
+        ]
+      },
+      "triangles": 504,
+      "sizeClass": "tiny"
+    },
+    "pre-auricular-nodes--r": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.06619636714458466,
+          0.7270762324333191,
+          -0.0001258496195077896
+        ],
+        "max": [
+          -0.060625333338975906,
+          0.7333250045776367,
+          0.00807606428861618
+        ]
+      },
+      "triangles": 504,
+      "sizeClass": "tiny"
+    },
+    "precaecal-nodes": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.08250754326581955,
+          0.10120970755815506,
+          0.02714921161532402
+        ],
+        "max": [
+          -0.07658830285072327,
+          0.1103927493095398,
+          0.029805704951286316
+        ]
+      },
+      "triangles": 336,
+      "sizeClass": "tiny"
+    },
+    "precaval-nodes": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.010197022929787636,
+          0.19126778841018677,
+          0.011835216544568539
+        ],
+        "max": [
+          -0.00318606523796916,
+          0.31543922424316406,
+          0.024436473846435547
+        ]
+      },
+      "triangles": 714,
+      "sizeClass": "medium"
+    },
+    "prepericardial-nodes": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.030351566150784492,
+          0.5121881365776062,
+          0.009926837868988514
+        ],
+        "max": [
+          -0.019597463309764862,
+          0.5505342483520508,
+          0.024423873052001
+        ]
+      },
+      "triangles": 672,
+      "sizeClass": "small"
+    },
+    "presternal-region--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0,
+          0.3660117983818054,
+          0.04172205552458763
+        ],
+        "max": [
+          0.028113286942243576,
+          0.5454158782958984,
+          0.1135287657380104
+        ]
+      },
+      "triangles": 260,
+      "sizeClass": "medium"
+    },
+    "presternal-region--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.028113286942243576,
+          0.3660117983818054,
+          0.04172205179929733
+        ],
+        "max": [
+          0,
+          0.5454158782958984,
+          0.1135287657380104
+        ]
+      },
+      "triangles": 260,
+      "sizeClass": "medium"
+    },
+    "pretracheal-nodes--l": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.006140303798019886,
+          0.5804542899131775,
+          0.011322193779051304
+        ],
+        "max": [
+          0.012635646387934685,
+          0.6016258597373962,
+          0.015004913322627544
+        ]
+      },
+      "triangles": 504,
+      "sizeClass": "small"
+    },
+    "pretracheal-nodes--r": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.012634276412427425,
+          0.5804542899131775,
+          0.011322193779051304
+        ],
+        "max": [
+          -0.006138932891190052,
+          0.6016258597373962,
+          0.01500491239130497
+        ]
+      },
+      "triangles": 504,
+      "sizeClass": "small"
+    },
+    "prevertebral-nodes": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.0029104764107614756,
+          0.3574024736881256,
+          -0.046744946390390396
+        ],
+        "max": [
+          0.0030343567486852407,
+          0.5731154084205627,
+          -0.02313349023461342
+        ]
+      },
+      "triangles": 1176,
+      "sizeClass": "medium"
+    },
+    "prevesical-nodes": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.003783260006457567,
+          -0.016073312610387802,
+          0.009156555868685246
+        ],
+        "max": [
+          0.005224900785833597,
+          -0.004037611186504364,
+          0.022432761266827583
+        ]
+      },
+      "triangles": 504,
+      "sizeClass": "small"
     },
     "procerus-muscle--l": {
       "bundle": "muscular",
@@ -11965,6 +17714,40 @@
       },
       "triangles": 3024,
       "sizeClass": "medium"
+    },
+    "proximal-deep-inguinal-node--l": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.04151907190680504,
+          -0.00790292676538229,
+          0.03547331318259239
+        ],
+        "max": [
+          0.044094230979681015,
+          -0.005325965583324432,
+          0.0380699448287487
+        ]
+      },
+      "triangles": 168,
+      "sizeClass": "tiny"
+    },
+    "proximal-deep-inguinal-node--r": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.04409332945942879,
+          -0.00790292676538229,
+          0.03547331318259239
+        ],
+        "max": [
+          -0.04151817038655281,
+          -0.005325965583324432,
+          0.0380699448287487
+        ]
+      },
+      "triangles": 168,
+      "sizeClass": "tiny"
     },
     "proximal-phalanx-of-fifth-finger-of-foot--l": {
       "bundle": "skeletal",
@@ -12306,6 +18089,40 @@
       "triangles": 388,
       "sizeClass": "small"
     },
+    "proximal-transverse-arch-of-foot--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.04739055782556534,
+          -0.8545409440994263,
+          -0.07686705142259598
+        ],
+        "max": [
+          0.1084931343793869,
+          -0.8296716213226318,
+          -0.040421370416879654
+        ]
+      },
+      "triangles": 84,
+      "sizeClass": "medium"
+    },
+    "proximal-transverse-arch-of-foot--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.1084931343793869,
+          -0.8545409440994263,
+          -0.07686705142259598
+        ],
+        "max": [
+          -0.04739055782556534,
+          -0.8296716213226318,
+          -0.040421370416879654
+        ]
+      },
+      "triangles": 84,
+      "sizeClass": "medium"
+    },
     "psoas-major--l": {
       "bundle": "muscular",
       "bounds": {
@@ -12594,6 +18411,40 @@
       },
       "triangles": 2216,
       "sizeClass": "medium"
+    },
+    "radial-foveola--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.28404203057289124,
+          -0.025098582729697227,
+          -0.008058691397309303
+        ],
+        "max": [
+          0.3115033805370331,
+          0.0013460805639624596,
+          0.01662515476346016
+        ]
+      },
+      "triangles": 56,
+      "sizeClass": "small"
+    },
+    "radial-foveola--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.3115033805370331,
+          -0.025098582729697227,
+          -0.008058691397309303
+        ],
+        "max": [
+          -0.28404203057289124,
+          0.0013460805639624596,
+          0.01662515476346016
+        ]
+      },
+      "triangles": 56,
+      "sizeClass": "small"
     },
     "radial-head-of-flexor-digitorum-superficialis--l": {
       "bundle": "muscular",
@@ -12969,6 +18820,57 @@
       "triangles": 5144,
       "sizeClass": "small"
     },
+    "retro-aortic-nodes": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.0055733537301421165,
+          0.19126777350902557,
+          -0.015757732093334198
+        ],
+        "max": [
+          0.012584312818944454,
+          0.30427664518356323,
+          0.006010203156620264
+        ]
+      },
+      "triangles": 740,
+      "sizeClass": "medium"
+    },
+    "retrocaecal-nodes": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.06400370597839355,
+          0.09012742340564728,
+          -0.01258263923227787
+        ],
+        "max": [
+          -0.052667226642370224,
+          0.09931046515703201,
+          -0.00553977582603693
+        ]
+      },
+      "triangles": 504,
+      "sizeClass": "tiny"
+    },
+    "retrocaval-nodes": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.010211948305368423,
+          0.19126775860786438,
+          -0.007374427281320095
+        ],
+        "max": [
+          -0.003186071291565895,
+          0.30427664518356323,
+          0.005565052852034569
+        ]
+      },
+      "triangles": 792,
+      "sizeClass": "medium"
+    },
     "retromandibular-vein--l": {
       "bundle": "cardiovascular",
       "bounds": {
@@ -13002,6 +18904,57 @@
       },
       "triangles": 402,
       "sizeClass": "small"
+    },
+    "retropharyngeal-nodes--l": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.010473769158124924,
+          0.6807894706726074,
+          0.0009156374726444483
+        ],
+        "max": [
+          0.01317660789936781,
+          0.6924912333488464,
+          0.004140933975577354
+        ]
+      },
+      "triangles": 336,
+      "sizeClass": "tiny"
+    },
+    "retropharyngeal-nodes--r": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.01317595224827528,
+          0.6807894706726074,
+          0.0009156384039670229
+        ],
+        "max": [
+          -0.01047311257570982,
+          0.6924912333488464,
+          0.00414093304425478
+        ]
+      },
+      "triangles": 336,
+      "sizeClass": "tiny"
+    },
+    "retropyloric-nodes": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.01222307700663805,
+          0.282626748085022,
+          0.044109977781772614
+        ],
+        "max": [
+          -0.00965594220906496,
+          0.28518226742744446,
+          0.046670544892549515
+        ]
+      },
+      "triangles": 168,
+      "sizeClass": "tiny"
     },
     "rhomboid-major-muscle--l": {
       "bundle": "muscular",
@@ -13105,6 +19058,23 @@
       "triangles": 402,
       "sizeClass": "small"
     },
+    "right-colic-nodes": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.0551617369055748,
+          0.24384790658950806,
+          0.017946068197488785
+        ],
+        "max": [
+          -0.020572999492287636,
+          0.25483718514442444,
+          0.039428386837244034
+        ]
+      },
+      "triangles": 504,
+      "sizeClass": "small"
+    },
     "right-common-carotid-artery": {
       "bundle": "cardiovascular",
       "bounds": {
@@ -13155,6 +19125,40 @@
       },
       "triangles": 912,
       "sizeClass": "small"
+    },
+    "right-gastric-nodes": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.023732487112283707,
+          0.28788429498672485,
+          0.03637135773897171
+        ],
+        "max": [
+          -0.003865600563585758,
+          0.3235463500022888,
+          0.06660515069961548
+        ]
+      },
+      "triangles": 840,
+      "sizeClass": "small"
+    },
+    "right-gastro-omental-nodes": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.05977931246161461,
+          0.29098716378211975,
+          0.03391478955745697
+        ],
+        "max": [
+          -0.0005025668069720268,
+          0.36418524384498596,
+          0.08267372846603394
+        ]
+      },
+      "triangles": 1176,
+      "sizeClass": "medium"
     },
     "right-inferior-lobar-bronchus": {
       "bundle": "organs",
@@ -13479,6 +19483,40 @@
       "triangles": 4554,
       "sizeClass": "large"
     },
+    "sacral-region--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0,
+          0.03522154688835144,
+          -0.13139458000659943
+        ],
+        "max": [
+          0.08140572905540466,
+          0.11601711809635162,
+          -0.10821808129549026
+        ]
+      },
+      "triangles": 166,
+      "sizeClass": "medium"
+    },
+    "sacral-region--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.08140572905540466,
+          0.03522154688835144,
+          -0.13139458000659943
+        ],
+        "max": [
+          0,
+          0.11601711809635162,
+          -0.10821808129549026
+        ]
+      },
+      "triangles": 166,
+      "sizeClass": "medium"
+    },
     "sacrum": {
       "bundle": "skeletal",
       "bounds": {
@@ -13632,6 +19670,40 @@
       "triangles": 1280,
       "sizeClass": "medium"
     },
+    "scapha--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.08400672674179077,
+          0.7165877819061279,
+          -0.03042970597743988
+        ],
+        "max": [
+          0.08990040421485901,
+          0.7455117702484131,
+          -0.020999353379011154
+        ]
+      },
+      "triangles": 62,
+      "sizeClass": "small"
+    },
+    "scapha--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.0899004340171814,
+          0.7165877819061279,
+          -0.03042970597743988
+        ],
+        "max": [
+          -0.08400675654411316,
+          0.7455117702484131,
+          -0.020999353379011154
+        ]
+      },
+      "triangles": 62,
+      "sizeClass": "small"
+    },
     "scaphoid-bone--l": {
       "bundle": "skeletal",
       "bounds": {
@@ -13698,6 +19770,40 @@
         ]
       },
       "triangles": 17728,
+      "sizeClass": "medium"
+    },
+    "scapular-region--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.05471835285425186,
+          0.39396950602531433,
+          -0.14813457429409027
+        ],
+        "max": [
+          0.19328081607818604,
+          0.5786981582641602,
+          -0.09151417016983032
+        ]
+      },
+      "triangles": 542,
+      "sizeClass": "medium"
+    },
+    "scapular-region--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.19328081607818604,
+          0.39396950602531433,
+          -0.14813457429409027
+        ],
+        "max": [
+          -0.05471835285425186,
+          0.5786981582641602,
+          -0.09151417016983032
+        ]
+      },
+      "triangles": 548,
       "sizeClass": "medium"
     },
     "scapular-spinal-part-of-deltoid-muscle--l": {
@@ -14346,6 +20452,23 @@
       "triangles": 3308,
       "sizeClass": "medium"
     },
+    "sigmoid-nodes": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.02352021634578705,
+          0.09604707360267639,
+          -0.03596118837594986
+        ],
+        "max": [
+          0.0536794438958168,
+          0.167743518948555,
+          0.014988812617957592
+        ]
+      },
+      "triangles": 1008,
+      "sizeClass": "medium"
+    },
     "sigmoid-sinus--l": {
       "bundle": "cardiovascular",
       "bounds": {
@@ -14464,6 +20587,40 @@
       },
       "triangles": 2634,
       "sizeClass": "small"
+    },
+    "sole--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.061932265758514404,
+          -0.8544873595237732,
+          -0.054318223148584366
+        ],
+        "max": [
+          0.12364181876182556,
+          -0.8420524001121521,
+          0.04855911433696747
+        ]
+      },
+      "triangles": 160,
+      "sizeClass": "medium"
+    },
+    "sole--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.12364178895950317,
+          -0.8544873595237732,
+          -0.054318223148584366
+        ],
+        "max": [
+          -0.06193223595619202,
+          -0.8420524001121521,
+          0.04855911433696747
+        ]
+      },
+      "triangles": 160,
+      "sizeClass": "medium"
     },
     "soleus-muscle--l": {
       "bundle": "muscular",
@@ -14703,6 +20860,23 @@
       "triangles": 6048,
       "sizeClass": "medium"
     },
+    "splenic-nodes": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.07907325774431229,
+          0.30224984884262085,
+          -0.018929414451122284
+        ],
+        "max": [
+          0.09176550060510635,
+          0.3102012276649475,
+          0.0006427709013223648
+        ]
+      },
+      "triangles": 504,
+      "sizeClass": "small"
+    },
     "splenic-vein": {
       "bundle": "cardiovascular",
       "bounds": {
@@ -14820,6 +20994,40 @@
         ]
       },
       "triangles": 3464,
+      "sizeClass": "medium"
+    },
+    "sternocleidomastoid-region--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.004070889204740524,
+          0.5436318516731262,
+          -0.04945182800292969
+        ],
+        "max": [
+          0.07406482100486755,
+          0.7066797614097595,
+          0.047261230647563934
+        ]
+      },
+      "triangles": 486,
+      "sizeClass": "medium"
+    },
+    "sternocleidomastoid-region--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.07406482100486755,
+          0.5436318516731262,
+          -0.04945182800292969
+        ],
+        "max": [
+          -0.004070889204740524,
+          0.7066797614097595,
+          0.04726123437285423
+        ]
+      },
+      "triangles": 486,
       "sizeClass": "medium"
     },
     "sternocostal-head-of-pectoralis-major-muscle--l": {
@@ -15026,6 +21234,23 @@
       "triangles": 648,
       "sizeClass": "medium"
     },
+    "subaortic-nodes": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.0012827776372432709,
+          0.14924795925617218,
+          0.01757187955081463
+        ],
+        "max": [
+          0.00793122872710228,
+          0.15447402000427246,
+          0.02211054414510727
+        ]
+      },
+      "triangles": 504,
+      "sizeClass": "tiny"
+    },
     "subclavius-muscle--l": {
       "bundle": "muscular",
       "bounds": {
@@ -15127,6 +21352,159 @@
       },
       "triangles": 362,
       "sizeClass": "small"
+    },
+    "submandibular-nodes--l": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.0030864309519529343,
+          0.6410896182060242,
+          0.03084360435605049
+        ],
+        "max": [
+          0.009581775404512882,
+          0.6436514258384705,
+          0.052062422037124634
+        ]
+      },
+      "triangles": 504,
+      "sizeClass": "small"
+    },
+    "submandibular-nodes--r": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.009581773541867733,
+          0.6410896182060242,
+          0.03084360435605049
+        ],
+        "max": [
+          -0.003086426295340061,
+          0.6436514258384705,
+          0.052062422037124634
+        ]
+      },
+      "triangles": 504,
+      "sizeClass": "small"
+    },
+    "submandibular-triangle--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.018329935148358345,
+          0.6315584778785706,
+          0.001742841675877571
+        ],
+        "max": [
+          0.05415784940123558,
+          0.6716075539588928,
+          0.05719023942947388
+        ]
+      },
+      "triangles": 156,
+      "sizeClass": "medium"
+    },
+    "submandibular-triangle--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.05415784940123558,
+          0.6315584778785706,
+          0.001742841675877571
+        ],
+        "max": [
+          -0.018329935148358345,
+          0.6716075539588928,
+          0.05719023942947388
+        ]
+      },
+      "triangles": 156,
+      "sizeClass": "medium"
+    },
+    "submental-nodes--l": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.004638466984033585,
+          0.6361914277076721,
+          0.047202885150909424
+        ],
+        "max": [
+          0.028169235214591026,
+          0.6436730027198792,
+          0.06443996727466583
+        ]
+      },
+      "triangles": 672,
+      "sizeClass": "small"
+    },
+    "submental-nodes--r": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.028168775141239166,
+          0.6361920237541199,
+          0.04720291867852211
+        ],
+        "max": [
+          -0.004637997597455978,
+          0.6436735987663269,
+          0.06444001197814941
+        ]
+      },
+      "triangles": 672,
+      "sizeClass": "small"
+    },
+    "submental-triangle--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.000181540846824646,
+          0.6269667744636536,
+          0.03732622414827347
+        ],
+        "max": [
+          0.027383465319871902,
+          0.6390784978866577,
+          0.06798326224088669
+        ]
+      },
+      "triangles": 124,
+      "sizeClass": "small"
+    },
+    "submental-triangle--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.027383465319871902,
+          0.6269667744636536,
+          0.03732622414827347
+        ],
+        "max": [
+          0.000181540846824646,
+          0.6390784978866577,
+          0.06798326224088669
+        ]
+      },
+      "triangles": 124,
+      "sizeClass": "small"
+    },
+    "subpyloric-nodes": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.02134156972169876,
+          0.2614186108112335,
+          0.044854164123535156
+        ],
+        "max": [
+          -0.015036873519420624,
+          0.2651580274105072,
+          0.04905705899000168
+        ]
+      },
+      "triangles": 336,
+      "sizeClass": "tiny"
     },
     "subscapular-artery--l": {
       "bundle": "cardiovascular",
@@ -15230,6 +21608,23 @@
       "triangles": 2556,
       "sizeClass": "medium"
     },
+    "superficial-anterior-cervical-nodes": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.011954052373766899,
+          0.5608999729156494,
+          0.02508937008678913
+        ],
+        "max": [
+          0.011953297071158886,
+          0.5846340656280518,
+          0.036302655935287476
+        ]
+      },
+      "triangles": 1008,
+      "sizeClass": "small"
+    },
     "superficial-head-of-flexor-pollicis-brevis--l": {
       "bundle": "muscular",
       "bounds": {
@@ -15298,6 +21693,40 @@
       "triangles": 1910,
       "sizeClass": "medium"
     },
+    "superficial-lateral-cervical-nodes--l": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.04279900714755058,
+          0.5881175994873047,
+          -0.031276363879442215
+        ],
+        "max": [
+          0.0653122067451477,
+          0.6296569108963013,
+          -0.016253802925348282
+        ]
+      },
+      "triangles": 1008,
+      "sizeClass": "small"
+    },
+    "superficial-lateral-cervical-nodes--r": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.06531120091676712,
+          0.5881175994873047,
+          -0.03127634897828102
+        ],
+        "max": [
+          -0.0427979938685894,
+          0.6296569108963013,
+          -0.016253802925348282
+        ]
+      },
+      "triangles": 1008,
+      "sizeClass": "small"
+    },
     "superficial-palmar-arch--l": {
       "bundle": "cardiovascular",
       "bounds": {
@@ -15332,6 +21761,40 @@
       "triangles": 2016,
       "sizeClass": "medium"
     },
+    "superficial-parotid-nodes--l": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.04638242349028587,
+          0.6882961392402649,
+          -0.005560105666518211
+        ],
+        "max": [
+          0.056845810264348984,
+          0.6966122984886169,
+          0.004666461609303951
+        ]
+      },
+      "triangles": 504,
+      "sizeClass": "tiny"
+    },
+    "superficial-parotid-nodes--r": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.05684524029493332,
+          0.6882961392402649,
+          -0.005560101941227913
+        ],
+        "max": [
+          -0.046381860971450806,
+          0.6966122984886169,
+          0.004666458815336227
+        ]
+      },
+      "triangles": 504,
+      "sizeClass": "tiny"
+    },
     "superficial-part-of-masseter--l": {
       "bundle": "muscular",
       "bounds": {
@@ -15365,6 +21828,40 @@
       },
       "triangles": 1356,
       "sizeClass": "medium"
+    },
+    "superficial-popliteal-nodes--l": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.07151257991790771,
+          -0.37232983112335205,
+          -0.06670966744422913
+        ],
+        "max": [
+          0.08082890510559082,
+          -0.36245089769363403,
+          -0.058763306587934494
+        ]
+      },
+      "triangles": 336,
+      "sizeClass": "tiny"
+    },
+    "superficial-popliteal-nodes--r": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.0808284729719162,
+          -0.37232983112335205,
+          -0.06670966744422913
+        ],
+        "max": [
+          -0.0715121477842331,
+          -0.36245089769363403,
+          -0.058763306587934494
+        ]
+      },
+      "triangles": 336,
+      "sizeClass": "tiny"
     },
     "superficial-temporal-artery--l": {
       "bundle": "cardiovascular",
@@ -15434,6 +21931,23 @@
       "triangles": 2418,
       "sizeClass": "medium"
     },
+    "superior-diaphragmatic-nodes": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.030840102583169937,
+          0.3710210919380188,
+          -0.020333394408226013
+        ],
+        "max": [
+          0.018012508749961853,
+          0.39048367738723755,
+          0.02153937518596649
+        ]
+      },
+      "triangles": 1008,
+      "sizeClass": "small"
+    },
     "superior-gemellus-muscle--l": {
       "bundle": "muscular",
       "bounds": {
@@ -15467,6 +21981,40 @@
       },
       "triangles": 400,
       "sizeClass": "medium"
+    },
+    "superior-gluteal-nodes--l": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.03073170967400074,
+          0.057999223470687866,
+          -0.052143678069114685
+        ],
+        "max": [
+          0.04646947234869003,
+          0.07731014490127563,
+          -0.03202669322490692
+        ]
+      },
+      "triangles": 672,
+      "sizeClass": "small"
+    },
+    "superior-gluteal-nodes--r": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.04646768420934677,
+          0.05799921974539757,
+          -0.05214367434382439
+        ],
+        "max": [
+          -0.03072992153465748,
+          0.07731014490127563,
+          -0.03202669322490692
+        ]
+      },
+      "triangles": 672,
+      "sizeClass": "small"
     },
     "superior-head-of-lateral-pterygoid-muscle--l": {
       "bundle": "muscular",
@@ -15604,6 +22152,40 @@
       "triangles": 1490,
       "sizeClass": "small"
     },
+    "superior-pancreatic-nodes": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.010789081454277039,
+          0.28204384446144104,
+          -0.0003842785954475403
+        ],
+        "max": [
+          0.03960302844643593,
+          0.29237794876098633,
+          0.024157384410500526
+        ]
+      },
+      "triangles": 672,
+      "sizeClass": "small"
+    },
+    "superior-pancreaticoduodenal-nodes": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.045124344527721405,
+          0.25532183051109314,
+          0.013005487620830536
+        ],
+        "max": [
+          -0.033199381083250046,
+          0.2638924717903137,
+          0.029525330290198326
+        ]
+      },
+      "triangles": 504,
+      "sizeClass": "small"
+    },
     "superior-rectus-muscle--l": {
       "bundle": "muscular",
       "bounds": {
@@ -15723,6 +22305,23 @@
       "triangles": 806,
       "sizeClass": "small"
     },
+    "superior-tracheobronchial-nodes": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.012803709134459496,
+          0.5153028964996338,
+          -0.029491953551769257
+        ],
+        "max": [
+          0.0129277054220438,
+          0.5234782099723816,
+          -0.013337940908968449
+        ]
+      },
+      "triangles": 840,
+      "sizeClass": "small"
+    },
     "superior-vena-cava": {
       "bundle": "cardiovascular",
       "bounds": {
@@ -15739,6 +22338,74 @@
       },
       "triangles": 200,
       "sizeClass": "small"
+    },
+    "superolateral-superficial-inguinal-nodes--l": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.05258368328213692,
+          0.002222527749836445,
+          0.04125762730836868
+        ],
+        "max": [
+          0.06639997661113739,
+          0.014469538815319538,
+          0.044602300971746445
+        ]
+      },
+      "triangles": 504,
+      "sizeClass": "small"
+    },
+    "superolateral-superficial-inguinal-nodes--r": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.06639903038740158,
+          0.002222527749836445,
+          0.04125762730836868
+        ],
+        "max": [
+          -0.05258272588253021,
+          0.014469539746642113,
+          0.044602300971746445
+        ]
+      },
+      "triangles": 504,
+      "sizeClass": "small"
+    },
+    "superomedial-superficial-inguinal-nodes--l": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.015343325212597847,
+          -0.017294559627771378,
+          0.0434437170624733
+        ],
+        "max": [
+          0.0286357831209898,
+          -0.010682007297873497,
+          0.04755976423621178
+        ]
+      },
+      "triangles": 504,
+      "sizeClass": "tiny"
+    },
+    "superomedial-superficial-inguinal-nodes--r": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.028634827584028244,
+          -0.017294559627771378,
+          0.0434437170624733
+        ],
+        "max": [
+          -0.015342372469604015,
+          -0.010682007297873497,
+          0.04755976423621178
+        ]
+      },
+      "triangles": 504,
+      "sizeClass": "tiny"
     },
     "supinator--l": {
       "bundle": "muscular",
@@ -15773,6 +22440,57 @@
       },
       "triangles": 2510,
       "sizeClass": "medium"
+    },
+    "supraclavicular-nodes--l": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.027500096708536148,
+          0.5531270503997803,
+          0.005203657317906618
+        ],
+        "max": [
+          0.03605040907859802,
+          0.5633121132850647,
+          0.011445198208093643
+        ]
+      },
+      "triangles": 672,
+      "sizeClass": "tiny"
+    },
+    "supraclavicular-nodes--r": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.03604975342750549,
+          0.5531270503997803,
+          0.005203658249229193
+        ],
+        "max": [
+          -0.02749944105744362,
+          0.5633121132850647,
+          0.011445198208093643
+        ]
+      },
+      "triangles": 672,
+      "sizeClass": "tiny"
+    },
+    "suprapyloric-node": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.013758139684796333,
+          0.28405675292015076,
+          0.04648447036743164
+        ],
+        "max": [
+          -0.011191004887223244,
+          0.28661230206489563,
+          0.04904503375291824
+        ]
+      },
+      "triangles": 168,
+      "sizeClass": "tiny"
     },
     "suprascapular-artery--l": {
       "bundle": "cardiovascular",
@@ -15876,6 +22594,40 @@
       "triangles": 1362,
       "sizeClass": "medium"
     },
+    "supratrochlear-nodes--l": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.184999018907547,
+          0.24999688565731049,
+          -0.050169866532087326
+        ],
+        "max": [
+          0.20093736052513123,
+          0.2766270935535431,
+          -0.03552519902586937
+        ]
+      },
+      "triangles": 840,
+      "sizeClass": "small"
+    },
+    "supratrochlear-nodes--r": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.2009367048740387,
+          0.24999690055847168,
+          -0.05016982927918434
+        ],
+        "max": [
+          -0.18499836325645447,
+          0.2766270935535431,
+          -0.03552516549825668
+        ]
+      },
+      "triangles": 840,
+      "sizeClass": "small"
+    },
     "sympathetic-trunk--l": {
       "bundle": "organs",
       "bounds": {
@@ -15976,6 +22728,40 @@
         ]
       },
       "triangles": 9864,
+      "sizeClass": "medium"
+    },
+    "temporal-region--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.0593160018324852,
+          0.7301831245422363,
+          -0.06247086822986603
+        ],
+        "max": [
+          0.08187466114759445,
+          0.7988258600234985,
+          0.03943416476249695
+        ]
+      },
+      "triangles": 402,
+      "sizeClass": "medium"
+    },
+    "temporal-region--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.08187469094991684,
+          0.7301831245422363,
+          -0.06247086822986603
+        ],
+        "max": [
+          -0.05931603163480759,
+          0.7988258600234985,
+          0.03943416476249695
+        ]
+      },
+      "triangles": 402,
       "sizeClass": "medium"
     },
     "temporalis-muscle--l": {
@@ -16454,6 +23240,40 @@
       "triangles": 3796,
       "sizeClass": "small"
     },
+    "thyroid-nodes--l": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          0.009740239940583706,
+          0.6128876805305481,
+          0.005388862919062376
+        ],
+        "max": [
+          0.013959502801299095,
+          0.6244067549705505,
+          0.008500288240611553
+        ]
+      },
+      "triangles": 336,
+      "sizeClass": "tiny"
+    },
+    "thyroid-nodes--r": {
+      "bundle": "lymphatic",
+      "bounds": {
+        "min": [
+          -0.013958130963146687,
+          0.6128876805305481,
+          0.005388864781707525
+        ],
+        "max": [
+          -0.009738869965076447,
+          0.6244067549705505,
+          0.008500287309288979
+        ]
+      },
+      "triangles": 336,
+      "sizeClass": "tiny"
+    },
     "tibia--l": {
       "bundle": "skeletal",
       "bounds": {
@@ -16589,6 +23409,40 @@
       },
       "triangles": 3355,
       "sizeClass": "medium"
+    },
+    "tragus--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.06601287424564362,
+          0.709591269493103,
+          -0.01356496661901474
+        ],
+        "max": [
+          0.07225263863801956,
+          0.7303048372268677,
+          -0.002384553663432598
+        ]
+      },
+      "triangles": 53,
+      "sizeClass": "small"
+    },
+    "tragus--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.07225266844034195,
+          0.709591269493103,
+          -0.01356496661901474
+        ],
+        "max": [
+          -0.066012904047966,
+          0.7303048372268677,
+          -0.002384553197771311
+        ]
+      },
+      "triangles": 53,
+      "sizeClass": "small"
     },
     "transverse-colon": {
       "bundle": "organs",
@@ -16879,6 +23733,74 @@
       "triangles": 356,
       "sizeClass": "small"
     },
+    "triangle-of-auscultation--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.061809368431568146,
+          0.4243902862071991,
+          -0.14657297730445862
+        ],
+        "max": [
+          0.07201306521892548,
+          0.4414813816547394,
+          -0.14215098321437836
+        ]
+      },
+      "triangles": 20,
+      "sizeClass": "small"
+    },
+    "triangle-of-auscultation--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.07201306521892548,
+          0.4243902862071991,
+          -0.14657297730445862
+        ],
+        "max": [
+          -0.061809368431568146,
+          0.4414813816547394,
+          -0.14215098321437836
+        ]
+      },
+      "triangles": 20,
+      "sizeClass": "small"
+    },
+    "triangular-fossa--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.07429775595664978,
+          0.7340860962867737,
+          -0.02011999860405922
+        ],
+        "max": [
+          0.08100791275501251,
+          0.7428047060966492,
+          -0.011843260377645493
+        ]
+      },
+      "triangles": 39,
+      "sizeClass": "tiny"
+    },
+    "triangular-fossa--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.0810079425573349,
+          0.7340860962867737,
+          -0.02011999860405922
+        ],
+        "max": [
+          -0.07429778575897217,
+          0.7428047060966492,
+          -0.011843260377645493
+        ]
+      },
+      "triangles": 40,
+      "sizeClass": "tiny"
+    },
     "triquetrum-bone--l": {
       "bundle": "skeletal",
       "bounds": {
@@ -16945,6 +23867,40 @@
         ]
       },
       "triangles": 192,
+      "sizeClass": "tiny"
+    },
+    "tubercle-of-upper-lip--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.0007150424644351006,
+          0.6747829914093018,
+          0.08298250287771225
+        ],
+        "max": [
+          0.0021945368498563766,
+          0.6802394986152649,
+          0.08816931396722794
+        ]
+      },
+      "triangles": 20,
+      "sizeClass": "tiny"
+    },
+    "tubercle-of-upper-lip--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.0021945368498563766,
+          0.6747829914093018,
+          0.08298250287771225
+        ],
+        "max": [
+          0.0007150424644351006,
+          0.6802394986152649,
+          0.08816931396722794
+        ]
+      },
+      "triangles": 20,
       "sizeClass": "tiny"
     },
     "twelfth-rib--l": {
@@ -17184,6 +24140,74 @@
       },
       "triangles": 1814,
       "sizeClass": "medium"
+    },
+    "umbilical-region--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0,
+          0.10069867223501205,
+          0.08645271509885788
+        ],
+        "max": [
+          0.07498887181282043,
+          0.23876431584358215,
+          0.11211399734020233
+        ]
+      },
+      "triangles": 224,
+      "sizeClass": "medium"
+    },
+    "umbilical-region--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.07498887181282043,
+          0.10069867223501205,
+          0.08645271509885788
+        ],
+        "max": [
+          0,
+          0.23876431584358215,
+          0.11211399734020233
+        ]
+      },
+      "triangles": 224,
+      "sizeClass": "medium"
+    },
+    "umbilicus--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0,
+          0.1469622105360031,
+          0.09510594606399536
+        ],
+        "max": [
+          0.01601511240005493,
+          0.1721768081188202,
+          0.1087765097618103
+        ]
+      },
+      "triangles": 40,
+      "sizeClass": "small"
+    },
+    "umbilicus--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.01601511240005493,
+          0.1469622105360031,
+          0.09510594606399536
+        ],
+        "max": [
+          0,
+          0.1721768081188202,
+          0.1087765097618103
+        ]
+      },
+      "triangles": 40,
+      "sizeClass": "small"
     },
     "upper-canine--l": {
       "bundle": "skeletal",
@@ -17489,6 +24513,40 @@
         ]
       },
       "triangles": 2244,
+      "sizeClass": "medium"
+    },
+    "urogenital-region--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.0010610194876790047,
+          -0.13374626636505127,
+          -0.028515253216028214
+        ],
+        "max": [
+          0.03389522060751915,
+          -0.019004561007022858,
+          0.09864935278892517
+        ]
+      },
+      "triangles": 1232,
+      "sizeClass": "medium"
+    },
+    "urogenital-region--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.03389522060751915,
+          -0.13374626636505127,
+          -0.028515253216028214
+        ],
+        "max": [
+          0.0010610194876790047,
+          -0.019004561007022858,
+          0.09864935278892517
+        ]
+      },
+      "triangles": 1234,
       "sizeClass": "medium"
     },
     "uvula-of-palate": {
@@ -18069,6 +25127,40 @@
       "triangles": 3426,
       "sizeClass": "medium"
     },
+    "vertebral-region--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0,
+          0.11250810325145721,
+          -0.14424628019332886
+        ],
+        "max": [
+          0.03270380198955536,
+          0.5784417986869812,
+          -0.09654698520898819
+        ]
+      },
+      "triangles": 406,
+      "sizeClass": "large"
+    },
+    "vertebral-region--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.03270380198955536,
+          0.11250810325145721,
+          -0.14424628019332886
+        ],
+        "max": [
+          0,
+          0.5784417986869812,
+          -0.09654697775840759
+        ]
+      },
+      "triangles": 406,
+      "sizeClass": "large"
+    },
     "vertebral-vein--l": {
       "bundle": "cardiovascular",
       "bounds": {
@@ -18169,6 +25261,40 @@
         ]
       },
       "triangles": 1248,
+      "sizeClass": "medium"
+    },
+    "zygomatic-region--l": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          0.044417090713977814,
+          0.6998069882392883,
+          -0.0010420754551887512
+        ],
+        "max": [
+          0.0709831714630127,
+          0.7317349910736084,
+          0.0638570785522461
+        ]
+      },
+      "triangles": 188,
+      "sizeClass": "medium"
+    },
+    "zygomatic-region--r": {
+      "bundle": "skin",
+      "bounds": {
+        "min": [
+          -0.0709831714630127,
+          0.6998069882392883,
+          -0.0010420754551887512
+        ],
+        "max": [
+          -0.044417090713977814,
+          0.7317349910736084,
+          0.0638570785522461
+        ]
+      },
+      "triangles": 188,
       "sizeClass": "medium"
     },
     "zygomaticus-major-muscle--l": {

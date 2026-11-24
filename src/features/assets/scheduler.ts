@@ -1,12 +1,14 @@
 /** Download status for an individual asset bundle. */
 export type BundleStatus = 'idle' | 'loading' | 'ready' | 'error';
 
-/** Default progressive bundle download sequence (§8.6). */
+/** Default progressive bundle download sequence (§8.6 + Phase 3D). */
 export const BUNDLE_LOAD_ORDER: readonly string[] = [
   'skeletal',
   'muscular',
   'organs',
   'cardiovascular',
+  'lymphatic',
+  'skin',
 ];
 
 /**
