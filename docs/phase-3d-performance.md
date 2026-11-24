@@ -13,8 +13,9 @@ Measured on the production build (`npm run build && npm run preview` at `/?debug
 | Scene draw calls (all 9 systems) | `<= 1,500` draw calls | `1,406` meshes (`1` composer pass in `gl.info`*) | `1,406` draw calls / `3.1M` tris | Within budget |
 | Idle FPS (all 9 systems) | `>= 60 fps` | `103–156 fps` (`4/4` samples) | `167–215 fps` (`4/4` samples) | Within budget |
 | Orbiting FPS (all 9 systems) | `>= 60 fps` | `106–140 fps` (`6/6` samples) | `127–198 fps` (`6/6` samples) | Within budget |
-| Fast 4G\*\* skeleton visible (uncached) | `< 6,000 ms` | `5,489 ms` (`en`) | — | Within budget |
+| Fast 4G\*\* skeleton visible (uncached) | `< 6,000 ms` | `5,697 ms` (`en`) / `5,703 ms` (`tr`) *(post-i18n)*; `5,489 ms` (`en` baseline) | — | Within budget |
 | Phase 3D bundle bytes (`lymphatic` + `skin`) | `<= 12,000,000` new / `<= 41,943,040` total | `2,288,540` B new (`1,084,216` + `1,204,324`) / `29,995,648` B total | — | Within budget |
+| Non-English locale chunk (`tr`) | Lazy-loaded (zero `en` cost) | `8.14 kB` (`3.74 kB` gzip) + `content/tr/*.json` fetched on demand | — | Within budget |
 
 \*When `EffectComposer` owns the final screen blit pass, `gl.info.render` reports `1` fullscreen pass; the underlying scene renders `1,406` meshes (`3.1M` triangles), as verified directly on `Low`.
 \*\*Simulated via CDP `Network.emulateNetworkConditions` (`latency: 150 ms`, `downloadThroughput: 9 Mbps / 1,179,648 B/s`, `uploadThroughput: 1.5 Mbps`, cache disabled).

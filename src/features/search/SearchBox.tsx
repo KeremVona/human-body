@@ -187,6 +187,7 @@ export function SearchBox(): JSX.Element | null {
                   role="option"
                   aria-selected={active}
                   onMouseDown={(e) => e.preventDefault()}
+                  onPointerDown={(e) => e.preventDefault()}
                   onMouseEnter={() => setActiveIndex(idx)}
                   onClick={() => {
                     void pickHit(hit);

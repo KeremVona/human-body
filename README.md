@@ -1,6 +1,6 @@
 # Anatomy Atlas
 
-Open-source, browser-based 3D human anatomy atlas — explore `1,011` meshes across `582` anatomical structures with instant dissection, plain-English guides, and zero account wall.
+Open-source, browser-based 3D human anatomy atlas — explore `1,406` meshes across `805` anatomical structures with instant dissection, bilingual English/Turkish UI & content, and zero account wall.
 
 ![Anatomy Atlas demo](docs/img/demo.gif)
 
@@ -8,7 +8,8 @@ Live demo: **[keremvona.github.io/human-body](https://keremvona.github.io/human-
 
 ## Features
 
-- **Eight toggleable body systems across four 3D bundles:** Skeletal (`263` meshes), Muscular (`459` meshes), Cardiovascular (`216` meshes), and five organ systems (`73` meshes across Nervous, Respiratory, Digestive, Urinary, and Lymphatic), each with an independent `0–100%` opacity slider.
+- **Nine toggleable body systems across six 3D bundles:** Skeletal (`263` meshes), Muscular (`459` meshes), Cardiovascular (`216` meshes), Organ systems (`73` meshes across Nervous, Respiratory, Digestive, Urinary, and shared lymphoid organs), Lymphatic (`153` meshes), and Integumentary skin (`242` meshes, starting at a translucent `35%` default opacity so underlying structures remain clickable), each with an independent `0–100%` opacity slider.
+- **English & Turkish localization (`en` / `tr`):** Boot language is chosen from `?lang=tr`, saved `Settings → Language` preference (`localStorage`), or browser `navigator.languages`. Non-English catalogues and content fetch lazily with field-level English fallback and bilingual search (searching in Turkish or English finds matching structures). _Translations are machine-assisted drafts._
 - **125 featured structures:** Plain-English overviews, functions, muscle attachments (`origin`, `insertion`, `innervation`, `blood supply`, `action`), bone articulations, key organ/vessel facts, and source links cited directly to OpenStax _Anatomy and Physiology 2e_ (`CC-BY 4.0`) and Wikipedia (`CC-BY-SA 4.0`).
 - **Autocomplete search & virtualised tree browser:** Press `/` to search common names, Latin TA terms, and lay synonyms with automatic system loading and camera focus, or switch the left explorer to the `Browse` hierarchy tree with full keyboard navigation and per-row visibility toggles.
 - **Real-time dissection tools & cross-sections:** Focus (`F`), Isolate (`I`), Hide (`H`), Fade others (`G`), Left/Right paired switching, context menu (right-click, `Shift+F10`, or long-press), up to `50` steps of Undo (`Ctrl/Cmd+Z`), and live Axial/Sagittal/Coronal clipping planes (`X` or `Cross-section` in the toolbar) with tissue-tinted cut caps, slice position slider, and side flip.
@@ -30,7 +31,7 @@ Live demo: **[keremvona.github.io/human-body](https://keremvona.github.io/human-
 
 Individual meshes are never mounted as React components subscribing to Redux. Instead, `BundleModel` registers every decoded `THREE.Mesh` into `MeshRegistry` (`Map<MeshId, Mesh>`), while `SceneStateApplier` subscribes imperatively to the store, computes only changed states (`selectResolvedMeshStates` → `applyMeshStates`), swaps shared materials from `MaterialLibrary`, and calls `invalidate()` on demand.
 
-Read [docs/architecture.md](docs/architecture.md) for the full layer diagram, slice responsibilities, bundle loading order, and testing strategy, and [docs/pipeline-writeup.md](docs/pipeline-writeup.md) for how a `304.8 MB` `.blend` archive was distilled to `27.71 MB` across four compressed GLB bundles.
+Read [docs/architecture.md](docs/architecture.md) for the full layer diagram, slice responsibilities, bundle loading order, and testing strategy, and [docs/pipeline-writeup.md](docs/pipeline-writeup.md) for how a `304.8 MB` `.blend` archive was distilled to `29.99 MB` across six compressed GLB bundles.
 
 ## Running Locally
 
@@ -53,7 +54,7 @@ npm run test:e2e:base # Sub-path production build (ATLAS_BASE_PATH=/atlas-check/
 
 ## Rebuilding 3D Assets
 
-All four compressed bundles (`public/models/*.glb`) and `public/models/manifest.json` are committed in the repository. To regenerate them from upstream source:
+All six compressed bundles (`public/models/*.glb`) and `public/models/manifest.json` are committed in the repository. To regenerate them from upstream source:
 
 1. Install **Blender 5.3** (tested on `5.3.0`) and add its path to `.env.local` (ignored by git):
    ```ini
@@ -72,9 +73,9 @@ See [pipeline/README.md](pipeline/README.md) for licensing exclusions and object
 
 ## Contributing Content
 
-Educational copy lives in `content/en/index.json` (names, Latin TA names, synonyms, taxonomy metadata) and `content/en/structures/<system>.json` (featured prose, details, and verified sources).
+Educational copy lives in `content/en/` (`index.json` + `structures/<system>.json`) with localized overlays in `content/<locale>/` (currently `tr/` for Turkish).
 
-- Follow [content/STYLE.md](content/STYLE.md): write plain English, avoid HTML or Markdown formatting inside JSON text fields, and adapt only from `CC-BY 4.0` (OpenStax) or `CC-BY-SA 4.0` (Wikipedia) with exact `sources[]` citations.
+- Follow [content/STYLE.md](content/STYLE.md): write plain, accessible prose, avoid HTML or Markdown formatting inside JSON text fields, and adapt only from `CC-BY 4.0` (OpenStax) or `CC-BY-SA 4.0` (Wikipedia) with exact `sources[]` citations. Note: non-English translations are machine-assisted drafts.
 - Validate changes before committing:
   ```sh
   npm run check:content

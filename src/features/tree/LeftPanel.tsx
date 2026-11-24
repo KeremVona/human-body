@@ -67,7 +67,7 @@ export function LeftPanel(): JSX.Element | null {
   return (
     <section
       aria-label={tr('leftPanel.ariaLabel')}
-      className="fixed top-14 left-3 z-10 sm:top-16 sm:left-4"
+      className="fixed top-[6.5rem] left-3 z-10 sm:top-16 sm:left-4"
     >
       <Panel
         side="left"

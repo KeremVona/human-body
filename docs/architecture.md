@@ -24,7 +24,7 @@ For deeper design rationale and data contracts, see the [Design Specification](s
 └───────────────▲────────────────────────────────────────────────────────────────────┘
                 │ fetch (static assets + content)
 ┌───────────────┴──────────── Static files ──────────────────────────────────────────┐
-│  models/manifest.json · models/*.glb · content/motions.json · content/en/*.json    │
+│  models/manifest.json · models/*.glb · content/motions.json · content/<loc>/*.json │
 └────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -34,7 +34,7 @@ For deeper design rationale and data contracts, see the [Design Specification](s
 
 ## Key Performance Rule: Meshes Are Not React Components
 
-Individual anatomical meshes (`1,011` meshes across the four Phase 1 bundles) are **never** mounted as React components subscribed to Redux:
+Individual anatomical meshes (`1,406` meshes across the six asset bundles) are **never** mounted as React components subscribed to Redux:
 
 1. **Register once (`BundleModel` + `MeshRegistry`):** When a glTF bundle resolves via `GLTFLoader` + `MeshoptDecoder`, `BundleModel` traverses its scene graph once, builds a `CENTER`-strategy BVH (`three-mesh-bvh`) per mesh, registers each `THREE.Mesh` inside `MeshRegistry` (`Map<MeshId, Mesh>`), and notifies `SceneStateApplier`.
 2. **Resolve → Diff → Apply (`SceneStateApplier.tsx`):**
@@ -49,12 +49,12 @@ Configured in `src/app/store.ts` with `listenerMiddleware` (`src/app/listeners.t
 | Slice | File | Responsibility |
 | --- | --- | --- |
 | `assets` | `src/features/assets/assetsSlice.ts` | Boot lifecycle (`idle/loading/ready/error`), `manifest.json`, per-bundle download state, active load queue (`requested`). |
-| `content` | `src/features/content/contentSlice.ts` | Holds `content/taxonomy.json`, `content/en/index.json`, and lazily fetched per-system `content/en/structures/<system>.json` entries. |
-| `systems` | `src/features/systems/systemsSlice.ts` | Per-system `{ enabled, opacity }` state (`skeletal` enabled on launch; others toggled individually or via the `"Major Organs"` `uiGroup`). |
+| `content` | `src/features/content/contentSlice.ts` | Holds `content/taxonomy.json`, localized `index.json` + `enIndex`, lazily fetched `structures/<system>.json`, and per-ID fallback tracking (`src/features/content/localize.ts`). |
+| `systems` | `src/features/systems/systemsSlice.ts` | Per-system `{ enabled, opacity }` state (`skeletal` enabled on launch; `integumentary` defaults to `0.35` translucent opacity via `DEFAULT_OPACITY`, others `1`). |
 | `dissection` | `src/features/dissection/dissectionSlice.ts` | `{ hidden, isolated, faded, fadeOpacity }` (stored as sorted `MeshId[]`) plus bounded `past[]` undo snapshots (up to 50 steps) with consecutive identical action coalescing. |
 | `selection` | `src/features/selection/selectionSlice.ts` | `selectedIds` (single mesh or left/right mirror target) and `hoveredId` (dispatched only when the hovered mesh ID changes). |
 | `quiz` | `src/features/quiz/quizSlice.ts` | 10-question Find & Click study quiz (`questions`, `current`, `score`, `status`) and best-score persistence (`atlas.quiz.v1`). |
-| `ui` | `src/features/settings/uiSlice.ts` | Graphics quality preference (`auto`, `high`, `low`) and onboarding hint dismissal. |
+| `ui` | `src/features/settings/uiSlice.ts` | Graphics quality preference (`auto`, `high`, `low`) and active UI locale (`en` / `tr`, synced with `atlas.locale` and `src/i18n/t.ts`). |
 | `share` | `src/features/share/shareSlice.ts` | Non-blocking view-link status banners (`skipped`, `newer-version`, `malformed`). |
 | `pins` | `src/features/pins/pinsSlice.ts` | Personal and shared `#v1.` 3D pins (`items`, 200 own-pin cap, single-step Delete Undo, active `editingId` target) and `localStorage` persistence (`atlas.pins.v1`). |
 | `section` | `src/features/section/sectionSlice.ts` | Single live cross-section plane (`enabled`, `axis`, `t` quantized to `0.005`, `flip`). |
@@ -64,16 +64,16 @@ Configured in `src/app/store.ts` with `listenerMiddleware` (`src/app/listeners.t
 
 Storage bundles are shaped for download budgets and progressive streaming, whereas UI toggles follow biological organization:
 
-- **4 asset bundles (`public/models/manifest.json`):** `skeletal` (`263` meshes), `muscular` (`459` meshes), `cardiovascular` (`216` meshes), and `organs` (`73` meshes).
-- **8 populated biological systems (`content/taxonomy.json`):** `skeletal`, `muscular`, `cardiovascular`, plus five visceral/neural systems (`nervous`, `respiratory`, `digestive`, `urinary`, `lymphatic`) grouped into the single **`Major Organs`** toggle (`uiGroups` in `taxonomy.json`) backed by the `organs` bundle.
+- **6 asset bundles (`public/models/manifest.json`):** `skeletal` (`263` meshes), `muscular` (`459` meshes), `organs` (`73` meshes), `cardiovascular` (`216` meshes), `lymphatic` (`153` meshes), and `skin` (`242` meshes).
+- **9 populated biological systems (`content/taxonomy.json`):** `skeletal`, `muscular`, `cardiovascular`, `lymphatic`, `integumentary` (default opacity `0.35`), plus four visceral/neural systems (`nervous`, `respiratory`, `digestive`, `urinary`) alongside shared lymphatic organs grouped cleanly via system toggles.
 
 ## Progressive Loading Sequence
 
 1. **HTML Preloads (`index.html` + `src/main.tsx`):** `<link rel="preload">` starts fetching `models/manifest.json`, `content/taxonomy.json`, and `en/index.json` while `main.tsx` reads the `<meta name="atlas-skeletal">` tag injected at build time by `vite.config.ts` so `preloadGltf` (`src/scene/gltfCache.ts`) starts downloading the `skeletal` GLB bytes before `AtlasCanvas` finishes lazy-mounting.
-2. **Core Boot (`assets/bootstrap`):** Loads `manifest.json`, `taxonomy.json`, and `index.json` in parallel, then transitions `assets.boot` to `'ready'`.
+2. **Core Boot (`assets/bootstrap`):** Loads `manifest.json`, `taxonomy.json`, and `en/index.json` (plus localized `content/<locale>/index.json` when non-English) in parallel, then transitions `assets.boot` to `'ready'`.
 3. **Skeletal First:** Only the `skeletal` bundle is enabled at startup (`skeletal` renders immediately once parsed; `AtlasCanvas`, `Inspector`, and `DissectionMenu` load in separate code-split chunks).
-4. **Queued Background Bundles (`BundleScheduler.tsx`):** Once booted, `BundleScheduler` advances `BUNDLE_LOAD_ORDER` (`muscular`, `organs`, `cardiovascular`) one bundle at a time (`requested`), or prioritizes a bundle immediately if the user toggles its system early.
-5. **On-Demand Content Details (`src/app/listeners.ts`):** Per-system prose files (`content/en/structures/<system>.json`) fetch lazily when a bundle becomes ready or a structure from that system is selected.
+4. **Queued Background Bundles (`BundleScheduler.tsx`):** Once booted, `BundleScheduler` advances `BUNDLE_LOAD_ORDER` (`muscular`, `organs`, `cardiovascular`, `lymphatic`, `skin`) one bundle at a time (`requested`), or prioritizes a bundle immediately if the user toggles its system early.
+5. **On-Demand Content Details (`src/app/listeners.ts`):** Per-system prose files (`content/en/structures/<system>.json` and active locale overlay `content/<locale>/structures/<system>.json`) fetch lazily when a bundle becomes ready or a structure from that system is selected, and reload active entries automatically on `localeSet`.
 
 ## Test Strategy
 
