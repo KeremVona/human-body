@@ -28,6 +28,7 @@ import {
 } from './gestures';
 import { lastHit } from './lastHit';
 import { pointerPosition } from './pointerPosition';
+import { sectionPlaneStore } from './sectionPlaneStore';
 
 export type ContextRequest = {
   x: number;
@@ -266,11 +267,12 @@ export function Picking({
       return;
     }
 
-    const rawHit = pickMeshHit(e.intersections);
+    const clip = sectionPlaneStore.get();
+    const rawHit = pickMeshHit(e.intersections, clip);
     let id: MeshId | null;
     if (import.meta.env.DEV && window.location.search.includes('debug')) {
       const t0 = performance.now();
-      id = pickMeshId(e.intersections);
+      id = pickMeshId(e.intersections, clip);
       const dt = performance.now() - t0;
       const stat = pickTimingRef.current;
       stat.totalMs += dt;
@@ -301,7 +303,7 @@ export function Picking({
     if (toPointerKind(e.pointerType) !== 'mouse') return;
     if (store.getState().quiz.status !== 'off') return;
 
-    const hit = pickMeshHit(e.intersections);
+    const hit = pickMeshHit(e.intersections, sectionPlaneStore.get());
     lastHit.set(
       hit && hit.point
         ? { meshId: hit.meshId, point: hit.point.clone() }
@@ -319,7 +321,7 @@ export function Picking({
       clearPress();
       return;
     }
-    const hit = pickMeshHit(e.intersections);
+    const hit = pickMeshHit(e.intersections, sectionPlaneStore.get());
     if (store.getState().quiz.status === 'off') {
       lastHit.set(
         hit && hit.point

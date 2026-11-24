@@ -12,6 +12,10 @@ import { applyMeshStates } from './applyMeshStates';
 import { createMaterialLibrary } from './materials';
 import { useMeshRegistry } from './meshRegistry';
 import { selectResolvedMeshStates, type MeshState } from './resolveMeshState';
+import {
+  sectionMaterialLibrary,
+  sectionPlaneStore,
+} from './sectionPlaneStore';
 
 /** Subscribes imperatively to store and registry changes to diff-apply mesh appearance inside Canvas. */
 export function SceneStateApplier(): null {
@@ -45,7 +49,9 @@ export function SceneStateApplier(): null {
         prevQualityRef.current = null;
       }
       const lib = createMaterialLibrary(fadeOpacity);
+      lib.setClipPlane(sectionPlaneStore.get());
       libraryRef.current = { fadeOpacity, lib };
+      sectionMaterialLibrary.set(lib);
       return lib;
     };
 
@@ -113,6 +119,7 @@ export function SceneStateApplier(): null {
       unsubStore();
       unsubRegistry();
       window.removeEventListener('resize', scheduleApply);
+      sectionMaterialLibrary.set(null);
       libraryRef.current?.lib.dispose();
       libraryRef.current = null;
       prevStatesRef.current = new Map();

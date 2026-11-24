@@ -1,4 +1,4 @@
-import { Group, Mesh } from 'three';
+import { Group, Mesh, Plane, Vector3 } from 'three';
 import { describe, expect, it } from 'vitest';
 import {
   DOUBLE_TAP_MS,
@@ -7,6 +7,7 @@ import {
   STATIONARY_PX,
   classifyRelease,
   createTapTracker,
+  pickMeshHit,
   pickMeshId,
 } from './gestures';
 
@@ -59,5 +60,52 @@ describe('pickMeshId', () => {
       'femur--l',
     );
     expect(pickMeshId([{ object: ghost }])).toBeNull();
+  });
+
+  it('ignores hits on the removed side of a clip plane', () => {
+    const plane = new Plane(new Vector3(0, -1, 0), 0); // keeps y <= 0
+    const skull = new Mesh();
+    skull.name = 'skull';
+    skull.userData.pickable = true;
+
+    expect(
+      pickMeshId(
+        [{ object: skull, point: new Vector3(0, 0.5, 0) }] as unknown as Parameters<
+          typeof pickMeshId
+        >[0],
+        plane as unknown as Parameters<typeof pickMeshId>[1],
+      ),
+    ).toBeNull();
+  });
+
+  it('picks the back face of a cut mesh when the front hit is clipped', () => {
+    const plane = new Plane(new Vector3(0, -1, 0), 0); // keeps y <= 0
+    const femur = new Mesh();
+    femur.name = 'femur--l';
+    femur.userData.pickable = true;
+
+    const hits = [
+      { object: femur, point: new Vector3(0, 0.2, 0) },
+      { object: femur, point: new Vector3(0, -0.05, 0) },
+    ] as unknown as Parameters<typeof pickMeshHit>[0];
+
+    const picked = pickMeshHit(
+      hits,
+      plane as unknown as Parameters<typeof pickMeshHit>[1],
+    );
+    expect(picked?.meshId).toBe('femur--l');
+    expect(picked?.point?.y).toBeCloseTo(-0.05, 6);
+  });
+
+  it('behaves as before when no clip plane is passed', () => {
+    const skull = new Mesh();
+    skull.name = 'skull';
+    skull.userData.pickable = true;
+
+    expect(
+      pickMeshId([
+        { object: skull, point: new Vector3(0, 0.5, 0) },
+      ] as unknown as Parameters<typeof pickMeshId>[0]),
+    ).toBe('skull');
   });
 });

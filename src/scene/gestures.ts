@@ -1,4 +1,4 @@
-import type { Object3D } from 'three';
+import type { Object3D, Plane, Vector3 } from 'three';
 import type { MeshId } from '../data/ids';
 import { meshIdOf } from './meshRegistry';
 
@@ -53,12 +53,16 @@ export function createTapTracker(): {
   };
 }
 
-/** Returns the MeshId and world hit point of the closest intersection whose object is marked pickable. */
-export function pickMeshHit<P>(
+/** Returns the MeshId and world hit point of the closest unclipped intersection marked pickable. */
+export function pickMeshHit<P extends Vector3 = Vector3>(
   intersections: readonly { object: Object3D; point?: P }[],
+  clip?: Plane | null,
 ): { meshId: MeshId; point: P | undefined } | null {
   for (const hit of intersections) {
     if (hit.object.userData?.pickable !== true) {
+      continue;
+    }
+    if (clip && hit.point && clip.distanceToPoint(hit.point) < 0) {
       continue;
     }
     const id = meshIdOf(hit.object);
@@ -69,9 +73,10 @@ export function pickMeshHit<P>(
   return null;
 }
 
-/** Returns the MeshId of the closest intersection whose object is marked pickable. */
+/** Returns the MeshId of the closest unclipped intersection marked pickable. */
 export function pickMeshId(
-  intersections: readonly { object: Object3D }[],
+  intersections: readonly { object: Object3D; point?: Vector3 }[],
+  clip?: Plane | null,
 ): MeshId | null {
-  return pickMeshHit(intersections)?.meshId ?? null;
+  return pickMeshHit(intersections, clip)?.meshId ?? null;
 }

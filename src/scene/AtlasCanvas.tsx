@@ -19,6 +19,7 @@ import { Lights } from './Lights';
 import { MeshRegistryProvider, useMeshRegistry } from './meshRegistry';
 import { Picking, type ContextRequest } from './Picking';
 import { SceneStateApplier } from './SceneStateApplier';
+import { SectionController } from './SectionController';
 
 const PinProbe = lazy(() =>
   import('./PinProbe').then((m) => ({ default: m.PinProbe })),
@@ -116,6 +117,8 @@ export function AtlasCanvas({
               </Picking>
 
               <Effects />
+
+              <SectionController />
 
               {hasPins ? (
                 <Suspense fallback={null}>

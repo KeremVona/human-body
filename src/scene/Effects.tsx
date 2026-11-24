@@ -18,6 +18,7 @@ import { useMeshRegistry } from './meshRegistry';
 export function Effects(): JSX.Element | null {
   const qualitySetting = useAppSelector((s) => s.ui.quality);
   const selectedIds = useAppSelector((s) => s.selection.selectedIds);
+  const sectionEnabled = useAppSelector((s) => s.section.enabled);
   const structureLookup = useAppSelector(selectStructureLookup);
   const systems = useAppSelector((s) => s.systems);
   const hidden = useAppSelector((s) => s.dissection.hidden);
@@ -88,7 +89,7 @@ export function Effects(): JSX.Element | null {
 
   useEffect(() => {
     invalidate();
-  }, [resolvedQuality, selectedMeshes, invalidate]);
+  }, [resolvedQuality, selectedMeshes, sectionEnabled, invalidate]);
 
   if (resolvedQuality !== 'high') {
     return null;
@@ -104,7 +105,7 @@ export function Effects(): JSX.Element | null {
         quality="medium"
       />
       <Outline
-        selection={selectedMeshes}
+        selection={sectionEnabled ? [] : selectedMeshes}
         visibleEdgeColor={0x6fa8ff}
         hiddenEdgeColor={0x3b66a8}
         edgeStrength={2.5}
