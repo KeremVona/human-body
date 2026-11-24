@@ -136,22 +136,35 @@ export const bootstrap = createAsyncThunk<
   'content/bootstrap',
   async (_arg, { getState }) => {
     const base = import.meta.env.BASE_URL;
-    const locale: Locale = getState().ui?.locale ?? 'en';
-    const [manifest, taxonomy, enIndex, locIndex] = await Promise.all([
+    const initialLocale: Locale = getState().ui?.locale ?? 'en';
+    const [manifest, taxonomy, enIndex, initialLocIndex] = await Promise.all([
       loadManifest(),
       fetchValidated(`${base}content/taxonomy.json`, TaxonomySchema),
       fetchValidated(`${base}content/en/index.json`, IndexFileSchema),
-      locale !== 'en'
-        ? fetchOptional(`${base}content/${locale}/index.json`, IndexFileSchema)
+      initialLocale !== 'en'
+        ? fetchOptional(
+            `${base}content/${initialLocale}/index.json`,
+            IndexFileSchema,
+          )
         : Promise.resolve(null),
     ]);
-    if (locale === 'en') {
+    const latestLocale: Locale = getState().ui?.locale ?? initialLocale;
+    const locIndex =
+      latestLocale === initialLocale
+        ? initialLocIndex
+        : latestLocale !== 'en'
+          ? await fetchOptional(
+              `${base}content/${latestLocale}/index.json`,
+              IndexFileSchema,
+            )
+          : null;
+    if (latestLocale === 'en') {
       return {
         manifest,
         taxonomy,
         index: enIndex,
         enIndex,
-        locale,
+        locale: latestLocale,
         fallbackIndexIds: [],
       };
     }
@@ -161,7 +174,7 @@ export const bootstrap = createAsyncThunk<
       taxonomy,
       index: file,
       enIndex,
-      locale,
+      locale: latestLocale,
       fallbackIndexIds: [...fallbackIds],
     };
   },
@@ -179,21 +192,34 @@ export const loadStructures = createAsyncThunk<
   'content/loadStructures',
   async (system, { dispatch, getState }) => {
     const base = import.meta.env.BASE_URL;
-    const locale: Locale =
+    const initialLocale: Locale =
       getState().ui?.locale ?? getState().content.locale ?? 'en';
-    const enFile = await fetchEnStructureFile(base, system);
+    const [enFile, initialLoc] = await Promise.all([
+      fetchEnStructureFile(base, system),
+      initialLocale !== 'en'
+        ? fetchOptional(
+            `${base}content/${initialLocale}/structures/${system}.json`,
+            StructureFileSchema,
+          )
+        : Promise.resolve(null),
+    ]);
     if (!enFile) {
       dispatch(structureFallbacksRecorded({ system, ids: [] }));
       return {};
     }
-    if (locale === 'en') {
+    const latestLocale: Locale =
+      getState().ui?.locale ?? getState().content.locale ?? initialLocale;
+    if (latestLocale === 'en') {
       dispatch(structureFallbacksRecorded({ system, ids: [] }));
       return entriesRecord(enFile);
     }
-    const rawLoc = await fetchOptional(
-      `${base}content/${locale}/structures/${system}.json`,
-      StructureFileSchema,
-    );
+    const rawLoc =
+      latestLocale === initialLocale
+        ? initialLoc
+        : await fetchOptional(
+            `${base}content/${latestLocale}/structures/${system}.json`,
+            StructureFileSchema,
+          );
     const locFile = rawLoc && rawLoc.system === system ? rawLoc : null;
     const { file, fallbackIds } = localizeStructures(enFile, locFile);
     dispatch(structureFallbacksRecorded({ system, ids: [...fallbackIds] }));

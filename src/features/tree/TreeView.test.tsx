@@ -381,4 +381,27 @@ describe('TreeView', () => {
       "Couldn't load the Skeletal model.",
     );
   });
+
+  it('recomputes localized system labels when Turkish catalogue finishes loading after first render', async () => {
+    const { setActiveLocale, loadMessages, __resetI18nForTests } =
+      await import('../../i18n/t');
+    const store = setupSmallStore();
+    setActiveLocale('tr');
+
+    render(
+      <Provider store={store}>
+        <TreeView />
+      </Provider>,
+    );
+
+    expect(
+      screen.getByRole('treeitem', { name: /Skeletal/ }),
+    ).toBeInTheDocument();
+    await loadMessages('tr');
+    expect(
+      await screen.findByRole('treeitem', { name: /İskelet/ }),
+    ).toBeInTheDocument();
+
+    __resetI18nForTests();
+  });
 });

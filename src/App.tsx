@@ -331,14 +331,14 @@ function AtlasShell({
                     setShareLoaded(true);
                     setShareOpen((prev) => !prev);
                   }}
-                  className="rounded-lg px-2 py-1 text-xs font-medium text-slate-100 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400"
+                  className="whitespace-nowrap rounded-lg px-1.5 py-1 text-[11px] font-medium text-slate-100 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400 sm:px-2 sm:text-xs"
                 >
                   {tr('topbar.shareView')}
                 </button>
                 <button
                   type="button"
                   onClick={() => dispatch(startQuiz())}
-                  className="rounded-lg px-2 py-1 text-xs font-medium text-slate-100 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400"
+                  className="whitespace-nowrap rounded-lg px-1.5 py-1 text-[11px] font-medium text-slate-100 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400 sm:px-2 sm:text-xs"
                 >
                   {tr('topbar.startQuiz')}
                 </button>
@@ -451,9 +451,15 @@ export default function App({ store }: { store?: AppStore } = {}): JSX.Element {
   const [cameraRef] = useState<CameraRef>(() => ({ current: null }));
   const [cameraController] = useState(() => createCameraController(cameraRef));
   const [registry] = useState(() => createMeshRegistry());
-  const [defaultStore] = useState(
-    () => store ?? makeStore(undefined, { camera: cameraRef, registry }),
-  );
+  const [defaultStore] = useState(() => {
+    const resolved =
+      store ?? makeStore(undefined, { camera: cameraRef, registry });
+    const bootLocale = resolved.getState().ui.locale;
+    applyHtmlLang(bootLocale);
+    setActiveLocale(bootLocale);
+    void loadMessages(bootLocale);
+    return resolved;
+  });
 
   return (
     <Provider store={defaultStore}>

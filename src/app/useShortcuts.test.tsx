@@ -151,4 +151,56 @@ describe('useShortcuts', () => {
     await user.keyboard('X');
     expect(store.getState().section.enabled).toBe(false);
   });
+
+  it('focuses the search box on / even when UI locale is Turkish', async () => {
+    const user = userEvent.setup();
+    const { localeSet } = await import('../features/settings/uiSlice');
+    const { loadMessages, __resetI18nForTests } = await import('../i18n/t');
+    const { SearchBox } = await import('../features/search/SearchBox');
+    const { bootstrap } = await import('../features/content/contentSlice');
+    const taxonomy = (await import('../../content/taxonomy.json')).default;
+
+    const store = makeStore();
+    store.dispatch(
+      bootstrap.fulfilled(
+        {
+          manifest: {
+            version: 1,
+            generatedAt: '2026-11-21T00:00:00Z',
+            source: {
+              name: 'Z-Anatomy',
+              version: '1',
+              license: 'CC-BY-SA-4.0',
+            },
+            bundles: [],
+            meshes: {},
+          },
+          taxonomy: taxonomy as never,
+          index: { locale: 'tr', structures: [] },
+        },
+        'req-1',
+        undefined,
+      ),
+    );
+    store.dispatch(localeSet('tr'));
+    await loadMessages('tr');
+
+    render(
+      <Provider store={store}>
+        <CameraApiProvider value={noopCamera}>
+          <ShortcutMenuHarness initialMenu={null} />
+          <SearchBox />
+        </CameraApiProvider>
+      </Provider>,
+    );
+
+    const search = screen.getByRole('combobox', { name: 'Yapıları ara' });
+    expect(search).not.toHaveFocus();
+    await user.keyboard('/');
+    expect(search).toHaveFocus();
+
+    store.dispatch(localeSet('en'));
+    localStorage.clear();
+    __resetI18nForTests();
+  });
 });

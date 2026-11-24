@@ -6,6 +6,8 @@ export const tr = {
     description:
       'Tarayıcınızda çalışan etkileşimli, açık kaynaklı 3B insan anatomisi atlası.',
     viewerAria: 'Anatomi görüntüleyici',
+    canvasAria:
+      'İnsan vücudunun 3B modeli. Keşfetmek için panelleri ve klavye kısayollarını kullanın.',
     bootError: 'Atlas başlatılamadı. Lütfen sayfayı yenileyin.',
     bundleError: '{bundle} modeli yüklenemedi.',
     emptyPoolAlert:

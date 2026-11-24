@@ -82,4 +82,27 @@ describe('view-state codec', () => {
     expect(isViewHash('#debug')).toBe(false);
     expect(isViewHash('')).toBe(false);
   });
+
+  it('preserves integumentary: 1 and omits integumentary: 0.35 default opacity across encode/decode', async () => {
+    const extKnown = {
+      meshIds: known.meshIds,
+      systems: new Set(['skeletal', 'muscular', 'integumentary'] as const),
+    };
+    const opaqueHash = await encodeViewState({
+      ...view,
+      o: { integumentary: 1 },
+    });
+    const opaqueDecoded = await decodeViewState(opaqueHash, extKnown);
+    expect(opaqueDecoded).toMatchObject({
+      ok: true,
+      view: { o: { integumentary: 1 } },
+    });
+
+    const defaultHash = await encodeViewState({
+      ...view,
+      o: { integumentary: 0.35, skeletal: 1 },
+    });
+    const defaultDecoded = await decodeViewState(defaultHash, extKnown);
+    expect(defaultDecoded.ok && defaultDecoded.view.o).toBeUndefined();
+  });
 });

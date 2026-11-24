@@ -1,5 +1,6 @@
 import type { MeshId } from '../../data/ids';
 import type { SystemId } from '../../data/schema';
+import { DEFAULT_OPACITY } from '../systems/systemsSlice';
 import { ViewStateV1Schema, type ViewStateV1 } from './viewState';
 
 export type DecodeResult =
@@ -113,7 +114,7 @@ export async function encodeViewState(v: ViewStateV1): Promise<string> {
     const cleanOpacities: Partial<Record<SystemId, number>> = {};
     for (const sys of Object.keys(v.o).sort() as SystemId[]) {
       const val = v.o[sys];
-      if (typeof val === 'number' && val !== 1) {
+      if (typeof val === 'number' && val !== DEFAULT_OPACITY[sys]) {
         cleanOpacities[sys] = val;
       }
     }
@@ -223,7 +224,7 @@ export async function decodeViewState(
           dropped += 1;
           continue;
         }
-        if (val !== 1) {
+        if (val !== DEFAULT_OPACITY[sys]) {
           cleanOpacities[sys] = val;
         }
       }

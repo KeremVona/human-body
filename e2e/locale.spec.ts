@@ -139,18 +139,51 @@ test('switches language in Settings, persists across reload, and wraps longest T
   await expect(inspector).toBeVisible();
   await expect(inspector).toContainText(longest.names.common);
 
-  const asideOverflow = await inspector.evaluate(
-    (el) => el.scrollWidth > el.clientWidth + 1,
-  );
-  const docOverflow = await page.evaluate(() => {
+  const expandBtn = page.getByRole('button', { name: 'Paneli genişlet' });
+  if (await expandBtn.isVisible()) {
+    await expandBtn.click();
+  }
+  const tabNames = ['Sistemler', 'Göz at', 'İğneler', 'Hareket'];
+  for (const name of tabNames) {
+    const tab = page.getByRole('tab', { name });
+    await tab.click();
+    const tabOverflow = await tab.evaluate(
+      (el) => el.scrollWidth > el.clientWidth + 1,
+    );
+    expect(tabOverflow).toBe(false);
+  }
+
+  const layoutMetrics = await page.evaluate(() => {
     const g = globalThis as unknown as {
-      document: { documentElement: { scrollWidth: number } };
+      document: {
+        documentElement: { scrollWidth: number };
+        querySelector: (s: string) => {
+          scrollWidth: number;
+          clientWidth: number;
+          getBoundingClientRect: () => { right: number };
+        } | null;
+      };
       innerWidth: number;
     };
-    return g.document.documentElement.scrollWidth > g.innerWidth + 1;
+    const aside = g.document.querySelector(
+      'aside[aria-label="Yapı ayrıntıları"]',
+    );
+    const header = g.document.querySelector('header');
+    const toolbar = g.document.querySelector('[role="toolbar"]');
+    return {
+      docOverflow: g.document.documentElement.scrollWidth > g.innerWidth + 1,
+      asideOverflow: aside ? aside.scrollWidth > aside.clientWidth + 1 : false,
+      headerRight: header ? header.getBoundingClientRect().right : 0,
+      toolbarOverflow: toolbar
+        ? toolbar.scrollWidth > toolbar.clientWidth + 1
+        : false,
+      toolbarRight: toolbar ? toolbar.getBoundingClientRect().right : 0,
+      vw: g.innerWidth,
+    };
   });
-  expect({ docOverflow, asideOverflow }).toEqual({
-    docOverflow: false,
-    asideOverflow: false,
-  });
+  expect(layoutMetrics.docOverflow).toBe(false);
+  expect(layoutMetrics.asideOverflow).toBe(false);
+  expect(layoutMetrics.headerRight).toBeLessThanOrEqual(layoutMetrics.vw + 1);
+  expect(layoutMetrics.toolbarOverflow).toBe(false);
+  expect(layoutMetrics.toolbarRight).toBeLessThanOrEqual(layoutMetrics.vw + 1);
 });

@@ -305,3 +305,91 @@ it('reloads index and ready system structures when locale switches', async () =>
   });
   store.dispatch(localeSet('en'));
 });
+
+it('prevents an in-flight loadStructures from overwriting a newer locale switch', async () => {
+  vi.resetModules();
+  let resolveEnStructures!: (value: Response) => void;
+  const enStructuresDeferred = new Promise<Response>((r) => {
+    resolveEnStructures = r;
+  });
+
+  const trIndex: IndexFile = {
+    locale: 'tr',
+    structures: [
+      {
+        ...sampleIndex.structures[0]!,
+        names: { common: 'Uyluk kemiği', synonyms: [] },
+      },
+    ],
+  };
+  const enSkeletal: StructureFile = {
+    system: 'skeletal',
+    entries: [
+      {
+        id: 'femur',
+        overview: 'English stale overview.',
+        sources: [
+          {
+            title: 'OpenStax',
+            url: 'https://openstax.org/books/anatomy-and-physiology-2e',
+            license: 'CC-BY-4.0',
+          },
+        ],
+      },
+    ],
+  };
+  const trSkeletal: StructureFile = {
+    system: 'skeletal',
+    entries: [
+      {
+        id: 'femur',
+        overview: 'Güncel Türkçe özet.',
+        sources: [
+          {
+            title: 'OpenStax',
+            url: 'https://openstax.org/books/anatomy-and-physiology-2e',
+            license: 'CC-BY-4.0',
+          },
+        ],
+      },
+    ],
+  };
+
+  let enFetchCount = 0;
+  vi.stubGlobal(
+    'fetch',
+    vi.fn(async (input: RequestInfo | URL) => {
+      const url = String(input);
+      if (url.endsWith('models/manifest.json')) return okJson(sampleManifest);
+      if (url.endsWith('content/taxonomy.json')) return okJson(taxonomy);
+      if (url.endsWith('content/en/index.json')) return okJson(sampleIndex);
+      if (url.endsWith('content/tr/index.json')) return okJson(trIndex);
+      if (url.endsWith('content/en/structures/skeletal.json')) {
+        enFetchCount++;
+        return enFetchCount === 1 ? enStructuresDeferred : okJson(enSkeletal);
+      }
+      if (url.endsWith('content/tr/structures/skeletal.json')) {
+        return okJson(trSkeletal);
+      }
+      return new Response(null, { status: 404 });
+    }),
+  );
+
+  const { makeStore } = await import('../../app/store');
+  const { localeSet } = await import('../settings/uiSlice');
+  const { bootstrap, loadStructures } = await import('./contentSlice');
+
+  const store = makeStore();
+  await store.dispatch(bootstrap());
+  const inFlight = store.dispatch(loadStructures('skeletal'));
+  store.dispatch(localeSet('tr'));
+  resolveEnStructures(okJson(enSkeletal));
+  await inFlight;
+
+  await vi.waitFor(() => {
+    expect(
+      store.getState().content.structures.skeletal?.entries.femur?.overview,
+    ).toBe('Güncel Türkçe özet.');
+  });
+  store.dispatch(localeSet('en'));
+});

@@ -406,6 +406,11 @@ function checkLocaleFolder(
   if (!locIndexRes.success) {
     errors.push(...formatSchemaErrors(indexLabel, locIndexRes.error));
   } else {
+    if (locIndexRes.data.locale !== locale) {
+      errors.push(
+        `${indexLabel}: locale "${locIndexRes.data.locale}" does not match folder "${locale}"`,
+      );
+    }
     const seenIndex = new Set<StructureId>();
     for (const entry of locIndexRes.data.structures) {
       if (seenIndex.has(entry.id)) {
@@ -417,6 +422,12 @@ function checkLocaleFolder(
         errors.push(
           `${indexLabel}: "${entry.id}" is not in content/en/index.json`,
         );
+      }
+      if (
+        MARKUP_RE.test(entry.names.common) ||
+        entry.names.synonyms.some((syn) => MARKUP_RE.test(syn))
+      ) {
+        errors.push(`${indexLabel}: "${entry.id}" names contain markup`);
       }
     }
   }

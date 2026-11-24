@@ -1,4 +1,4 @@
-import { useSyncExternalStore } from 'react';
+import { useCallback, useSyncExternalStore } from 'react';
 import type { Locale } from './locale';
 import { en } from './messages/en';
 
@@ -103,8 +103,14 @@ function getSnapshot(): string {
 
 /** React hook subscribing components to locale changes and loaded catalogues. */
 export function useT(): typeof t {
-  useSyncExternalStore(subscribe, getSnapshot, getSnapshot);
-  return t;
+  const snapshot = useSyncExternalStore(subscribe, getSnapshot, getSnapshot);
+  return useCallback(
+    (key: MessageKey, params?: Record<string, string | number>) => {
+      void snapshot;
+      return t(key, params);
+    },
+    [snapshot],
+  );
 }
 
 export function __setCatalogueForTests(

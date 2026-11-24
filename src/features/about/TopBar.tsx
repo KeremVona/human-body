@@ -15,10 +15,10 @@ export function TopBar({
   return (
     <header
       aria-label={tr('topbar.headerAria')}
-      className="pointer-events-none fixed inset-x-0 top-0 z-20 flex flex-wrap items-center justify-between gap-2 px-3 pt-2 sm:h-14 sm:flex-nowrap sm:gap-3 sm:px-4 sm:py-0"
+      className="pointer-events-none fixed inset-x-0 top-0 z-20 flex flex-wrap items-center justify-between gap-1.5 px-2 pt-2 sm:h-14 sm:flex-nowrap sm:gap-3 sm:px-4 sm:py-0"
     >
-      <div className="pointer-events-auto flex shrink-0 items-center rounded-xl border border-white/10 bg-slate-900/75 px-3 py-1.5 shadow-lg backdrop-blur-md">
-        <span className="text-xs font-semibold tracking-tight text-white sm:text-sm">
+      <div className="pointer-events-auto flex shrink-0 items-center rounded-xl border border-white/10 bg-slate-900/75 px-2 py-1.5 shadow-lg backdrop-blur-md sm:px-3">
+        <span className="whitespace-nowrap text-[11px] font-semibold tracking-tight text-white sm:text-sm">
           {tr('app.title')}
         </span>
       </div>
@@ -30,7 +30,7 @@ export function TopBar({
         {searchSlot ?? null}
       </div>
 
-      <div className="pointer-events-auto flex shrink-0 items-center gap-1.5 rounded-xl border border-white/10 bg-slate-900/75 p-0.5 shadow-lg backdrop-blur-md">
+      <div className="pointer-events-auto flex shrink-0 items-center gap-0.5 rounded-xl border border-white/10 bg-slate-900/75 p-0.5 shadow-lg backdrop-blur-md sm:gap-1.5">
         {rightSlot ?? null}
         <AboutDialog
           trigger={

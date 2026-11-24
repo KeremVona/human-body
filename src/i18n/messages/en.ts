@@ -4,6 +4,8 @@ export const en = {
     description:
       'Interactive open-source 3D human anatomy atlas in your browser.',
     viewerAria: 'Anatomy viewer',
+    canvasAria:
+      '3D model of the human body. Use the panels and keyboard shortcuts to explore.',
     bootError: "Couldn't start the atlas. Please reload.",
     bundleError: "Couldn't load the {bundle} model.",
     emptyPoolAlert:

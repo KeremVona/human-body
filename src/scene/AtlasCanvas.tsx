@@ -8,6 +8,7 @@ import {
   hovered,
   selectionCleared,
 } from '../features/selection/selectionSlice';
+import { useT } from '../i18n/t';
 import { BundleErrorBoundary } from './BundleErrorBoundary';
 import { BundleModel } from './BundleModel';
 import { CameraApiContext, CameraApiProvider } from './camera';
@@ -55,6 +56,7 @@ export function AtlasCanvas({
 }: AtlasCanvasProps) {
   const store = useStore<RootState>();
   const dispatch = useAppDispatch();
+  const tr = useT();
   const hasPins = useAppSelector((s) => s.pins.items.length > 0);
   const hasMotion = useAppSelector((s) => s.motion.activeId !== null);
   const registry = useMeshRegistry();
@@ -63,7 +65,7 @@ export function AtlasCanvas({
   return (
     <div
       role="region"
-      aria-label="3D model of the human body. Use the panels and keyboard shortcuts to explore."
+      aria-label={tr('app.canvasAria')}
       className="h-full w-full"
       onContextMenu={(e) => e.preventDefault()}
       onPointerLeave={() => {

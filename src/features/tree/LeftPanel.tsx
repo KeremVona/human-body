@@ -105,25 +105,25 @@ export function LeftPanel(): JSX.Element | null {
           >
             <Tabs.Trigger
               value="systems"
-              className="rounded-md px-1 py-1 text-xs font-medium text-slate-300 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-sky-400 data-[state=active]:bg-sky-500/30 data-[state=active]:text-white"
+              className="min-w-0 truncate rounded-md px-1 py-1 text-xs font-medium text-slate-300 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-sky-400 data-[state=active]:bg-sky-500/30 data-[state=active]:text-white"
             >
               {tr('leftPanel.systems')}
             </Tabs.Trigger>
             <Tabs.Trigger
               value="browse"
-              className="rounded-md px-1 py-1 text-xs font-medium text-slate-300 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-sky-400 data-[state=active]:bg-sky-500/30 data-[state=active]:text-white"
+              className="min-w-0 truncate rounded-md px-1 py-1 text-xs font-medium text-slate-300 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-sky-400 data-[state=active]:bg-sky-500/30 data-[state=active]:text-white"
             >
               {tr('leftPanel.browse')}
             </Tabs.Trigger>
             <Tabs.Trigger
               value="pins"
-              className="rounded-md px-1 py-1 text-xs font-medium text-slate-300 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-sky-400 data-[state=active]:bg-sky-500/30 data-[state=active]:text-white"
+              className="min-w-0 truncate rounded-md px-1 py-1 text-xs font-medium text-slate-300 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-sky-400 data-[state=active]:bg-sky-500/30 data-[state=active]:text-white"
             >
               {tr('leftPanel.pins')}
             </Tabs.Trigger>
             <Tabs.Trigger
               value="motion"
-              className="rounded-md px-1 py-1 text-xs font-medium text-slate-300 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-sky-400 data-[state=active]:bg-sky-500/30 data-[state=active]:text-white"
+              className="min-w-0 truncate rounded-md px-1 py-1 text-xs font-medium text-slate-300 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-sky-400 data-[state=active]:bg-sky-500/30 data-[state=active]:text-white"
             >
               {tr('leftPanel.motion')}
             </Tabs.Trigger>

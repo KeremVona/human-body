@@ -95,7 +95,7 @@ export function useShortcuts(onContextMenu?: () => void): void {
         case 'focus-search': {
           e.preventDefault();
           const input = document.querySelector<HTMLElement>(
-            '[role="combobox"][aria-label="Search structures"]',
+            '[data-slot="search"] input[role="combobox"], [role="combobox"][aria-autocomplete="list"]',
           );
           input?.focus();
           break;
