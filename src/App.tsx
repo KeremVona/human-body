@@ -86,9 +86,32 @@ function AtlasShell({
   const [debugStats, setDebugStats] = useState<RenderStats | null>(null);
   const emptyPoolAlert = useAppSelector((s) => s.quiz.emptyPoolAlert);
   const shareNotice = useAppSelector((s) => s.share.notice);
+  const pinsStorageFailed = useAppSelector((s) => s.pins.storageFailed);
+  const pinsStorageNoticeShown = useAppSelector(
+    (s) => s.pins.storageNoticeShown,
+  );
   const systems = useAppSelector((s) => s.systems);
   const quizActive = useAppSelector((s) => s.quiz.status !== 'off');
   const bootShareStartedRef = useRef(false);
+  const pinsHydratedRef = useRef(false);
+
+  useEffect(() => {
+    if (pinsHydratedRef.current || boot !== 'ready') return;
+    pinsHydratedRef.current = true;
+    try {
+      const raw = localStorage.getItem('atlas.pins.v1');
+      if (raw && raw.length > 2) {
+        void Promise.all([
+          import('./features/pins/storage'),
+          import('./features/pins/pinsSlice'),
+        ]).then(([{ loadPins }, { pinsHydrated }]) => {
+          store.dispatch(pinsHydrated(loadPins()));
+        });
+      }
+    } catch {
+      // Ignore unavailable storage during boot
+    }
+  }, [boot, store]);
 
   useEffect(() => {
     if (bootShareStartedRef.current) return;
@@ -303,6 +326,29 @@ function AtlasShell({
             <Suspense fallback={null}>
               <ShareNotice />
             </Suspense>
+          ) : null}
+          {pinsStorageFailed && !pinsStorageNoticeShown ? (
+            <div className="pointer-events-none fixed inset-x-0 top-16 z-30 flex justify-center px-4">
+              <div
+                role="status"
+                className="pointer-events-auto flex items-center gap-2 rounded-lg bg-amber-950/90 px-4 py-2 text-xs text-amber-100 shadow-lg ring-1 ring-amber-400/40 backdrop-blur"
+              >
+                <span>Pins can&apos;t be saved on this device.</span>
+                <button
+                  type="button"
+                  aria-label="Dismiss storage notice"
+                  onClick={() => {
+                    void import('./features/pins/pinsSlice').then(
+                      ({ storageNoticeShown }) =>
+                        dispatch(storageNoticeShown()),
+                    );
+                  }}
+                  className="rounded px-1.5 py-0.5 text-amber-200 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-sky-400"
+                >
+                  Dismiss
+                </button>
+              </div>
+            </div>
           ) : null}
           <QuizBanner />
           <QuizSummary />

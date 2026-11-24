@@ -11,10 +11,11 @@ import {
   selectBundlesForSystem,
 } from '../assets/assetsSlice';
 import { dissectionBaselineSet } from '../dissection/dissectionSlice';
+import { sharedPinsLoaded } from '../pins/pinsSlice';
 import { waitForBundles } from '../search/revealAndFocus';
 import { selected, selectionCleared } from '../selection/selectionSlice';
 import { opacitySet, systemsSet } from '../systems/systemsSlice';
-import type { ViewStateV1 } from './viewState';
+import type { SharedPin, ViewStateV1 } from './viewState';
 
 function round3(n: number): number {
   const r = Math.round(n * 1000) / 1000;
@@ -32,12 +33,11 @@ function defaultAnteriorPose(
   return presetPose('anterior', body, dist);
 }
 
-/** Captures the current view (camera, enabled systems, non-default opacities, dissection, selection). */
+/** Captures the current view (camera, enabled systems, non-default opacities, dissection, selection, optional own pins). */
 export function captureViewState(opts: {
   includePins: boolean;
 }): AppThunk<ViewStateV1> {
   return (_dispatch, getState, extra) => {
-    void opts.includePins;
     const state = getState();
     const pose =
       extra.camera.current?.getPose() ??
@@ -77,6 +77,19 @@ export function captureViewState(opts: {
     }
     if (state.dissection.faded !== null) {
       view.f = [...state.dissection.faded].sort();
+    }
+    if (opts.includePins) {
+      const ownPins: SharedPin[] = state.pins.items
+        .filter((p) => !p.shared)
+        .map((p) => ({
+          m: p.meshId,
+          l: [round3(p.local[0]), round3(p.local[1]), round3(p.local[2])],
+          t: p.label,
+          ...(p.note ? { n: p.note } : {}),
+        }));
+      if (ownPins.length > 0) {
+        view.p = ownPins;
+      }
     }
 
     return view;
@@ -119,6 +132,8 @@ export function applyViewState(view: ViewStateV1): AppThunk<Promise<void>> {
     } else {
       dispatch(selectionCleared());
     }
+
+    dispatch(sharedPinsLoaded(view.p ?? []));
 
     await extra.camera.current?.setPose(
       {

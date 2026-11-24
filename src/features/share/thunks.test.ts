@@ -3,6 +3,7 @@ import rawTaxonomy from '../../../content/taxonomy.json';
 import { makeStore, type CameraRef } from '../../app/store';
 import { TaxonomySchema, type Manifest } from '../../data/schema';
 import { hide } from '../dissection/dissectionSlice';
+import { pinAdded } from '../pins/pinsSlice';
 import { selected } from '../selection/selectionSlice';
 import { opacitySet, systemToggled } from '../systems/systemsSlice';
 import { bootShare } from './bootShare';
@@ -181,5 +182,48 @@ describe('share thunks & bootShare', () => {
     expect(store.getState().share.notice).toBe('malformed');
     expect(store.getState().systems.skeletal.enabled).toBe(true);
     expect(store.getState().systems.muscular.enabled).toBe(false);
+  });
+
+  it('captures own pins only when asked', () => {
+    const { store } = setupStore();
+    store.dispatch(
+      pinAdded({
+        meshId: 'femur--l',
+        local: [0.1, 0.2, 0.3],
+        label: 'Femur spot',
+      }),
+    );
+
+    const withoutPins = store.dispatch(
+      captureViewState({ includePins: false }),
+    );
+    expect(withoutPins.p).toBeUndefined();
+
+    const withPins = store.dispatch(captureViewState({ includePins: true }));
+    expect(withPins.p).toEqual([
+      { m: 'femur--l', l: [0.1, 0.2, 0.3], t: 'Femur spot' },
+    ]);
+  });
+
+  it('applies shared pins read-only', async () => {
+    const { store } = setupStore();
+    await store.dispatch(
+      applyViewState({
+        c: [0, 0, 3, 0, 0, 0],
+        s: ['skeletal'],
+        h: [],
+        sel: [],
+        p: [{ m: 'femur--l', l: [0, 1, 0], t: 'Shared bone', n: 'Read only' }],
+      }),
+    );
+
+    expect(store.getState().pins.items).toHaveLength(1);
+    expect(store.getState().pins.items[0]).toMatchObject({
+      meshId: 'femur--l',
+      local: [0, 1, 0],
+      label: 'Shared bone',
+      note: 'Read only',
+      shared: true,
+    });
   });
 });

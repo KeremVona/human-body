@@ -14,8 +14,17 @@ import {
   selectStructureLookup,
   type ContentState,
 } from '../features/content/contentSlice';
+import {
+  pinsHydrated,
+  sharedPinsLoaded,
+  storageFailed,
+  storageNoticeShown,
+  type PinsState,
+} from '../features/pins/pinsSlice';
+import { savePins } from '../features/pins/storage';
 import { selected } from '../features/selection/selectionSlice';
 import {
+  systemsSet,
   systemToggled,
   uiGroupToggled,
   type SystemsState,
@@ -26,6 +35,7 @@ type ListenerState = {
   assets: AssetsState;
   content: ContentState;
   systems: SystemsState;
+  pins: PinsState;
 };
 
 /** App-wide Redux listener middleware for bundle cache clearing and lazy structure loading. */
@@ -67,7 +77,7 @@ listenerMiddleware.startListening({
 });
 
 listenerMiddleware.startListening({
-  matcher: isAnyOf(systemToggled, uiGroupToggled),
+  matcher: isAnyOf(systemToggled, uiGroupToggled, systemsSet),
   effect: (_action, listenerApi) => {
     const prev = listenerApi.getOriginalState();
     const next = listenerApi.getState();
@@ -104,6 +114,23 @@ listenerMiddleware.startListening({
     }
     for (const system of systems) {
       void listenerApi.dispatch(loadStructures(system));
+    }
+  },
+});
+
+listenerMiddleware.startListening({
+  predicate: (action) =>
+    typeof action.type === 'string' &&
+    action.type.startsWith('pins/') &&
+    !storageFailed.match(action) &&
+    !storageNoticeShown.match(action) &&
+    !pinsHydrated.match(action) &&
+    !sharedPinsLoaded.match(action),
+  effect: (_action, listenerApi) => {
+    const state = listenerApi.getState();
+    const ok = savePins(state.pins.items);
+    if (!ok && !state.pins.storageFailed) {
+      listenerApi.dispatch(storageFailed());
     }
   },
 });
