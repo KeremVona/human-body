@@ -5,6 +5,7 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
   type JSX,
 } from 'react';
@@ -53,6 +54,11 @@ const DissectionMenu = lazy(() =>
     default: m.DissectionMenu,
   })),
 );
+const ShareNotice = lazy(() =>
+  import('./features/share/ShareNotice').then((m) => ({
+    default: m.ShareNotice,
+  })),
+);
 import { DebugStats, type RenderStats } from './scene/DebugStats';
 import {
   createMeshRegistry,
@@ -79,8 +85,25 @@ function AtlasShell({
   const [meshCount, setMeshCount] = useState(0);
   const [debugStats, setDebugStats] = useState<RenderStats | null>(null);
   const emptyPoolAlert = useAppSelector((s) => s.quiz.emptyPoolAlert);
+  const shareNotice = useAppSelector((s) => s.share.notice);
   const systems = useAppSelector((s) => s.systems);
   const quizActive = useAppSelector((s) => s.quiz.status !== 'off');
+  const bootShareStartedRef = useRef(false);
+
+  useEffect(() => {
+    if (bootShareStartedRef.current) return;
+    if (boot !== 'ready' || bundles.skeletal !== 'ready') return;
+    if (
+      typeof window === 'undefined' ||
+      !/^#v\d+\./.test(window.location.hash)
+    ) {
+      return;
+    }
+    bootShareStartedRef.current = true;
+    void import('./features/share/bootShare').then(({ bootShare }) =>
+      bootShare(store),
+    );
+  }, [boot, bundles.skeletal, store]);
 
   useEffect(() => {
     if (emptyPoolAlert) {
@@ -276,6 +299,11 @@ function AtlasShell({
       {debug ? <DebugStats stats={debugStats} meshCount={meshCount} /> : null}
       {boot === 'ready' ? (
         <>
+          {shareNotice ? (
+            <Suspense fallback={null}>
+              <ShareNotice />
+            </Suspense>
+          ) : null}
           <QuizBanner />
           <QuizSummary />
           <LeftPanel />

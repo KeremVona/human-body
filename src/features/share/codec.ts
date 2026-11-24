@@ -186,9 +186,7 @@ export async function decodeViewState(
       new DecompressionStream('deflate-raw'),
       MAX_DECOMPRESSED_BYTES,
     );
-    const jsonText = new TextDecoder('utf-8', { fatal: true }).decode(
-      inflated,
-    );
+    const jsonText = new TextDecoder('utf-8', { fatal: true }).decode(inflated);
     const parsedJson: unknown = JSON.parse(jsonText);
     const validated = ViewStateV1Schema.safeParse(parsedJson);
     if (!validated.success) {

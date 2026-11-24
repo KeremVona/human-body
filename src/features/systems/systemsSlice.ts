@@ -53,9 +53,15 @@ const systemsSlice = createSlice({
         state[id].opacity = rounded;
       }
     },
+    systemsSet(state, action: PayloadAction<SystemId[]>) {
+      const enabledSet = new Set(action.payload);
+      for (const id of Object.keys(state) as SystemId[]) {
+        state[id].enabled = enabledSet.has(id);
+      }
+    },
   },
 });
 
 export const systemsReducer = systemsSlice.reducer;
-export const { systemToggled, uiGroupToggled, opacitySet } =
+export const { systemToggled, uiGroupToggled, opacitySet, systemsSet } =
   systemsSlice.actions;

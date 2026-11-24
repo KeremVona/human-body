@@ -62,12 +62,7 @@ describe('view-state codec', () => {
   });
 
   it('decode rejects malformed payloads', async () => {
-    for (const h of [
-      '#v1.',
-      '#v1.!!!',
-      '#v1.' + 'A'.repeat(40),
-      '#v1.e30',
-    ]) {
+    for (const h of ['#v1.', '#v1.!!!', '#v1.' + 'A'.repeat(40), '#v1.e30']) {
       expect(await decodeViewState(h, known)).toEqual({
         ok: false,
         reason: 'malformed',

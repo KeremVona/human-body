@@ -19,6 +19,7 @@ export type AtlasTestApi = {
   startQuiz(seed?: number): void;
   quizTarget(): MeshId | null;
   meshVisible(id: MeshId): boolean;
+  encodeView(): Promise<string>;
 };
 
 /** Exposes dev/e2e inspection hooks on `window.__atlas`; stripped from production builds. */
@@ -54,5 +55,13 @@ export function installTestHooks(api: {
       return q.status === 'asking' ? (q.questions[q.current] ?? null) : null;
     },
     meshVisible: (id) => api.registry.get(id)?.visible ?? false,
+    encodeView: async () => {
+      const [{ encodeViewState }, { captureViewState }] = await Promise.all([
+        import('../features/share/codec'),
+        import('../features/share/thunks'),
+      ]);
+      const view = api.store.dispatch(captureViewState({ includePins: false }));
+      return encodeViewState(view);
+    },
   };
 }

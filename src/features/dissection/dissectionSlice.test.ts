@@ -1,5 +1,6 @@
 import type { UnknownAction } from '@reduxjs/toolkit';
 import {
+  dissectionBaselineSet,
   dissectionReducer,
   exitFade,
   exitIsolate,
@@ -111,4 +112,23 @@ it('unhide removes only requested hidden ids and ignores no-ops', () => {
   expect(next.hidden).toEqual(['b']);
   expect(next.past).toHaveLength(hidden.past.length + 1);
   expect(r(hidden, unhide(['zz']))).toBe(hidden);
+});
+
+it('dissectionBaselineSet replaces the sets and empties past', () => {
+  const modified = r(s0, hide(['a']), isolate(['b', 'c']), fadeOthers(['b']));
+  expect(modified.past.length).toBeGreaterThan(0);
+
+  const baseline = dissectionReducer(
+    modified,
+    dissectionBaselineSet({
+      hidden: ['sternum'],
+      isolated: ['femur--l'],
+      faded: null,
+    }),
+  );
+
+  expect(baseline.hidden).toEqual(['sternum']);
+  expect(baseline.isolated).toEqual(['femur--l']);
+  expect(baseline.faded).toBeNull();
+  expect(baseline.past).toEqual([]);
 });

@@ -179,6 +179,19 @@ const dissectionSlice = createSlice({
         past: action.payload.map(snapshotOf),
       };
     },
+    dissectionBaselineSet(state, action: PayloadAction<DissectionSnapshot>) {
+      return {
+        hidden: [...new Set(action.payload.hidden)].sort(),
+        isolated: action.payload.isolated
+          ? [...new Set(action.payload.isolated)].sort()
+          : null,
+        faded: action.payload.faded
+          ? [...new Set(action.payload.faded)].sort()
+          : null,
+        fadeOpacity: state.fadeOpacity,
+        past: [],
+      };
+    },
   },
 });
 
@@ -196,6 +209,7 @@ export const {
   dissectionRestored,
   dissectionPastTruncated,
   dissectionPastRestored,
+  dissectionBaselineSet,
 } = dissectionSlice.actions;
 
 /** True when at least one undo snapshot is recorded. */
