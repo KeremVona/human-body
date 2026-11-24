@@ -6,7 +6,7 @@ For deeper design rationale and data contracts, see the [Design Specification](s
 
 ```text
 ┌─────────────────────────── React DOM (Tailwind + Radix) ───────────────────────────┐
-│  TopBar · SearchBox · SettingsMenu · AboutDialog · LeftPanel (Systems/Browse/Pins) │
+│  TopBar · SearchBox · SettingsMenu · AboutDialog · LeftPanel (Sys/Browse/Pins/Mot) │
 │  Inspector · Toolbar · HoverLabel · ExitChips · FirstRunHint · DissectionMenu      │
 │  QuizBanner · QuizSummary · SharePopover · ShareNotice · PinLayer · PinEditor      │
 │  SectionPopover · SelectionAnnouncer · DebugStats                                  │
@@ -14,23 +14,23 @@ For deeper design rationale and data contracts, see the [Design Specification](s
                 │ useAppSelector / useAppDispatch               │ CameraApi (context)
 ┌───────────────┴───────────── Redux Toolkit store ─────────────┴────────────────────┐
 │  assets · content · systems · dissection(+past) · selection · quiz · ui · share    │
-│  pins · section                                                                    │
+│  pins · section · motion                                                           │
 └───────────────▲────────────────────────────────────────────────────────────────────┘
                 │ store.subscribe (imperative)                ▲ dispatch on pointer events
 ┌───────────────┴────────────── R3F Scene ────────────────────┴──────────────────────┐
 │  <Canvas frameloop="demand"> · Lights · CameraRig · <Bvh> · BundleModel×N          │
-│  Picking · PinProbe · SectionController · SceneStateApplier · MeshRegistry         │
-│  MaterialLibrary ((system × tissue-or-color × variant) + shared clip/cap hook)     │
+│  Picking · PinProbe · SectionController · MotionPlayer · SceneStateApplier         │
+│  MeshRegistry · MaterialLibrary ((system × tissue-or-color × variant) + clip/cap)  │
 └───────────────▲────────────────────────────────────────────────────────────────────┘
                 │ fetch (static assets + content)
 ┌───────────────┴──────────── Static files ──────────────────────────────────────────┐
-│  models/manifest.json · models/*.glb · content/taxonomy.json · content/en/*.json   │
+│  models/manifest.json · models/*.glb · content/motions.json · content/en/*.json    │
 └────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
-- **UI shell (`src/features/`, `src/ui/`):** Presentational components and Radix primitives (`Dialog`, `Switch`, `Slider`, `Tabs`, `Popover`, `RadioGroup`, `DropdownMenu`) read slice state via memoized selectors and call `CameraApi` directly for imperative camera transitions (`focusMeshes`, `goToPreset`, `resetView`, `setPose`, `lookAtPoint`). Lazy-loaded overlays (`SharePopover`, `ShareNotice`, `PinLayer`, `PinEditor`, `PinsPanel`, `SectionPopover`) keep startup chunks small until used.
-- **Store (`src/app/store.ts`):** Coordinates application state and side-effect thunks (`assets/bootstrap`, bundle downloads, lazy structure content fetches, share link restore, pin placement).
-- **3D Scene (`src/scene/`):** React Three Fiber hosts `<Canvas frameloop="demand">`, lighting (`Lights.tsx`), `CameraRig.tsx` (`camera-controls`), pointer picking (`Picking.tsx`), `BundleModel.tsx`, `SceneStateApplier.tsx`, `SectionController.tsx` (mutates one shared `THREE.Plane` across `MaterialLibrary` with `DoubleSide` back-face unlit caps, skips clipped ray hits by setting `raycaster.firstHitOnly = false`, and suppresses selection outlines while sectioning), and lazy `PinProbe.tsx` (projects local pin positions into `pinScreens` and throttles occlusion raycasts).
+- **UI shell (`src/features/`, `src/ui/`):** Presentational components and Radix primitives (`Dialog`, `Switch`, `Slider`, `Tabs`, `Popover`, `RadioGroup`, `DropdownMenu`) read slice state via memoized selectors and call `CameraApi` directly for imperative camera transitions (`focusMeshes`, `goToPreset`, `resetView`, `setPose`, `lookAtPoint`). Lazy-loaded overlays (`SharePopover`, `ShareNotice`, `PinLayer`, `PinEditor`, `PinsPanel`, `MotionPanel`, `SectionPopover`) keep startup chunks small until used.
+- **Store (`src/app/store.ts`):** Coordinates application state and side-effect thunks (`assets/bootstrap`, bundle downloads, lazy structure content fetches, share link restore, pin placement, motion demo loading).
+- **3D Scene (`src/scene/`):** React Three Fiber hosts `<Canvas frameloop="demand">`, lighting (`Lights.tsx`), `CameraRig.tsx` (`camera-controls`), pointer picking (`Picking.tsx`), `BundleModel.tsx`, `SceneStateApplier.tsx`, `SectionController.tsx` (mutates one shared `THREE.Plane` across `MaterialLibrary` with `DoubleSide` back-face unlit caps, skips clipped ray hits by setting `raycaster.firstHitOnly = false`, and suppresses selection outlines while sectioning), lazy `PinProbe.tsx` (projects local pin positions into `pinScreens` and throttles occlusion raycasts), and lazy `MotionPlayer.tsx` (`src/scene/motionTransforms.ts` snapshots and restores mesh transforms cleanly, advances phase via `motionPhase.ts`, rotates/scales moving meshes in place, and updates agonist pulse intensity without Redux-per-frame dispatches).
 
 ## Key Performance Rule: Meshes Are Not React Components
 
@@ -38,9 +38,9 @@ Individual anatomical meshes (`1,011` meshes across the four Phase 1 bundles) ar
 
 1. **Register once (`BundleModel` + `MeshRegistry`):** When a glTF bundle resolves via `GLTFLoader` + `MeshoptDecoder`, `BundleModel` traverses its scene graph once, builds a `CENTER`-strategy BVH (`three-mesh-bvh`) per mesh, registers each `THREE.Mesh` inside `MeshRegistry` (`Map<MeshId, Mesh>`), and notifies `SceneStateApplier`.
 2. **Resolve → Diff → Apply (`SceneStateApplier.tsx`):**
-   - **Resolve:** `SceneStateApplier` subscribes imperatively to `store.subscribe(...)` (scheduled via microtask coalescing) and computes `selectResolvedMeshStates(state, meshIds)`, combining `systems` enabled flags/opacities, `dissection` sets (`hidden`, `isolated`, `faded`), `selection.selectedIds`, and `selection.hoveredId`.
+   - **Resolve:** `SceneStateApplier` subscribes imperatively to `store.subscribe(...)` (scheduled via microtask coalescing) and computes `selectResolvedMeshStates(state, meshIds)`, combining `systems` enabled flags/opacities, `dissection` sets (`hidden`, `isolated`, `faded`), `motion` ghost/active agonist overrides, `selection.selectedIds`, and `selection.hoveredId`.
    - **Diff:** `applyMeshStates` (`src/scene/applyMeshStates.ts`) compares each mesh's next `MeshState` (`visible`, `variant`, `opacity`, `renderOrder`) against `prevStatesRef.current`. Only changed meshes are touched.
-   - **Apply:** For each changed mesh, `MaterialLibrary` (`src/scene/materials.ts`) supplies a shared `MeshPhysicalMaterial` keyed by `(system × tissue-or-custom-color × variant)` (`base`, `hovered`, `selected`, `ghost`). After updating `visible`, `material`, and `renderOrder`, `SceneStateApplier` calls `invalidate()` so `<Canvas frameloop="demand">` renders only when state or camera changes.
+   - **Apply:** For each changed mesh, `MaterialLibrary` (`src/scene/materials.ts`) supplies a shared `MeshPhysicalMaterial` keyed by `(system × tissue-or-custom-color × variant)` (`base`, `hovered`, `selected`, `active`, `ghost`). After updating `visible`, `material`, and `renderOrder`, `SceneStateApplier` calls `invalidate()` so `<Canvas frameloop="demand">` renders only when state or camera changes.
 
 ## Redux Slices
 
@@ -58,6 +58,7 @@ Configured in `src/app/store.ts` with `listenerMiddleware` (`src/app/listeners.t
 | `share` | `src/features/share/shareSlice.ts` | Non-blocking view-link status banners (`skipped`, `newer-version`, `malformed`). |
 | `pins` | `src/features/pins/pinsSlice.ts` | Personal and shared `#v1.` 3D pins (`items`, 200 own-pin cap, single-step Delete Undo, active `editingId` target) and `localStorage` persistence (`atlas.pins.v1`). |
 | `section` | `src/features/section/sectionSlice.ts` | Single live cross-section plane (`enabled`, `axis`, `t` quantized to `0.005`, `flip`). |
+| `motion` | `src/features/motion/motionSlice.ts` | Illustrative motion demo catalog (`content/motions.json`), active demo, playback/speed/scrub phase, and ghost/agonist overrides. |
 
 ## Bundles vs. Biological Systems
 

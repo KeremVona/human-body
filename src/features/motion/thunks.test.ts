@@ -4,9 +4,13 @@ import { makeStore, type CameraRef } from '../../app/store';
 import { TaxonomySchema, type Manifest } from '../../data/schema';
 import { bundleReady, bundleRetry } from '../assets/assetsSlice';
 import { quizStarted } from '../quiz/quizSlice';
-import { systemToggled } from '../systems/systemsSlice';
+import {
+  systemsSet,
+  systemToggled,
+  uiGroupToggled,
+} from '../systems/systemsSlice';
 import type { MotionsFile } from './schema';
-import { startMotion, stopMotion } from './thunks';
+import { loadMotions, startMotion, stopMotion } from './thunks';
 
 const taxonomy = TaxonomySchema.parse(rawTaxonomy);
 const bounds = {
@@ -40,6 +44,13 @@ const manifest: Manifest = {
         'long-head-of-triceps-brachii--l',
       ],
     },
+    {
+      id: 'cardiovascular',
+      file: 'cardiovascular.glb',
+      bytes: 100,
+      sha256: 'c'.repeat(64),
+      meshIds: ['left-ventricle'],
+    },
   ],
   meshes: {
     'humerus--l': {
@@ -66,6 +77,12 @@ const manifest: Manifest = {
       triangles: 10,
       sizeClass: 'medium',
     },
+    'left-ventricle': {
+      bundle: 'cardiovascular',
+      bounds,
+      triangles: 10,
+      sizeClass: 'medium',
+    },
   },
 };
 
@@ -87,6 +104,16 @@ const motionsFixture: MotionsFile = {
       axis: [-1, 0, 0],
       range: [0, 145],
       periodS: 4,
+    },
+    {
+      id: 'heartbeat',
+      kind: 'pulse',
+      label: 'Heartbeat',
+      view: 'anterior',
+      systems: ['cardiovascular'],
+      bpm: 72,
+      amplitude: 0.08,
+      groups: [{ meshes: ['left-ventricle'], phase: 0.15 }],
     },
   ],
 };
@@ -253,5 +280,73 @@ describe('motion thunks and safety listeners', () => {
     ).resolves.toBeUndefined();
     expect(store.getState().motion.loadStatus).toBe('error');
     expect(store.getState().motion.activeId).toBeNull();
+  });
+
+  it('ignores stale startMotion completion when another demo starts or stops concurrently', async () => {
+    stubMotionsFetch();
+    const { store, camera } = setupStore({
+      skeletal: 'ready',
+      muscular: 'idle',
+      cardiovascular: 'ready',
+    });
+
+    const firstStart = store.dispatch(startMotion('elbow-flexion'));
+    await vi.waitFor(() => {
+      expect(store.getState().systems.muscular.enabled).toBe(true);
+    });
+
+    await store.dispatch(startMotion('heartbeat'));
+    expect(store.getState().motion.activeId).toBe('heartbeat');
+    expect(camera.current?.goToPreset).toHaveBeenCalledTimes(1);
+    expect(camera.current?.goToPreset).toHaveBeenCalledWith('anterior');
+
+    store.dispatch(bundleReady('muscular'));
+    await firstStart;
+    expect(store.getState().motion.activeId).toBe('heartbeat');
+    expect(camera.current?.goToPreset).toHaveBeenCalledTimes(1);
+  });
+
+  it('deduplicates concurrent loadMotions, handles HTTP errors + retry, and stops via systemsSet/uiGroupToggled', async () => {
+    const fetchSpy = vi.fn(
+      async () => new Response(JSON.stringify(motionsFixture), { status: 200 }),
+    );
+    vi.stubGlobal('fetch', fetchSpy);
+    const { store } = setupStore({
+      skeletal: 'ready',
+      muscular: 'ready',
+      cardiovascular: 'ready',
+    });
+
+    await Promise.all([
+      store.dispatch(loadMotions()),
+      store.dispatch(loadMotions()),
+    ]);
+    expect(fetchSpy).toHaveBeenCalledTimes(1);
+
+    await store.dispatch(startMotion('elbow-flexion'));
+    expect(store.getState().motion.activeId).toBe('elbow-flexion');
+    store.dispatch(systemsSet(['skeletal']));
+    expect(store.getState().motion.activeId).toBeNull();
+
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async () => new Response('nope', { status: 500 })),
+    );
+    const { store: storeErr } = setupStore({
+      skeletal: 'ready',
+      muscular: 'ready',
+      cardiovascular: 'ready',
+    });
+    await storeErr.dispatch(loadMotions());
+    expect(storeErr.getState().motion.loadStatus).toBe('error');
+
+    stubMotionsFetch();
+    await storeErr.dispatch(loadMotions());
+    expect(storeErr.getState().motion.loadStatus).toBe('ready');
+
+    await storeErr.dispatch(startMotion('elbow-flexion'));
+    expect(storeErr.getState().motion.activeId).toBe('elbow-flexion');
+    storeErr.dispatch(uiGroupToggled('major-organs'));
+    expect(storeErr.getState().motion.activeId).toBe('elbow-flexion');
   });
 });

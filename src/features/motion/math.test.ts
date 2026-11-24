@@ -55,6 +55,10 @@ describe('motion math', () => {
     expect(heartbeatScale(0.1, 0.04)).toBeCloseTo(1.04, 3);
     expect(heartbeatScale(0.35, 0.04)).toBeCloseTo(1.024, 3);
     expect(heartbeatScale(0.7, 0.04)).toBeCloseTo(1, 4);
+    expect(heartbeatScale(-0.15, 0.04)).toBeCloseTo(
+      heartbeatScale(0.85, 0.04),
+      9,
+    );
   });
 
   it('scales about a fixed centre', () => {

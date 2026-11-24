@@ -54,6 +54,7 @@ describe('motionSlice & selectMotionOverrides', () => {
       speed: 1,
       direction: null,
       scrubPhase: 0,
+      activationSeq: 0,
     });
 
     state = motionReducer(state, motionsLoaded([hingeDef, pulseDef]));
@@ -66,6 +67,13 @@ describe('motionSlice & selectMotionOverrides', () => {
     expect(state.activeId).toBe('elbow-flexion');
     expect(state.playing).toBe(true);
     expect(state.direction).toBe('flex');
+    expect(state.activationSeq).toBe(1);
+
+    state = motionReducer(
+      state,
+      motionActivated({ id: 'elbow-flexion', playing: true }),
+    );
+    expect(state.activationSeq).toBe(2);
 
     state = motionReducer(state, motionDirectionChanged('extend'));
     expect(state.direction).toBe('extend');
@@ -73,6 +81,10 @@ describe('motionSlice & selectMotionOverrides', () => {
     state = motionReducer(state, motionPaused(0.3));
     expect(state.playing).toBe(false);
     expect(state.scrubPhase).toBe(0.3);
+
+    state = motionReducer(state, motionScrubbed(1));
+    expect(state.scrubPhase).toBe(1);
+    expect(state.direction).toBe('extend');
 
     state = motionReducer(state, motionScrubbed(0.75));
     expect(state.scrubPhase).toBe(0.75);

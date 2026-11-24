@@ -77,6 +77,8 @@ export function AboutDialog({ trigger }: { trigger: ReactNode }): JSX.Element {
 
           <p className="mt-4 rounded-lg border border-amber-400/25 bg-amber-500/10 px-3.5 py-2.5 text-xs leading-relaxed text-amber-100">
             This atlas is for learning and curiosity. It is not medical advice.
+            Motion demos are illustrative simplifications, not biomechanical
+            simulations.
           </p>
 
           <section aria-labelledby="about-credits-heading" className="mt-5">

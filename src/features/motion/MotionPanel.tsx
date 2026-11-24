@@ -16,6 +16,7 @@ import {
   motionScrubbed,
   motionSpeedSet,
 } from './motionSlice';
+import { prefersReducedMotion } from './reducedMotion';
 import { loadMotions, startMotion, stopMotion } from './thunks';
 
 const SPEEDS: readonly { value: '0.5' | '1'; label: string }[] = [
@@ -37,6 +38,7 @@ export function MotionPanel(): JSX.Element {
   );
   const [stoppedAnnouncement, setStoppedAnnouncement] = useState(false);
   const prevActiveIdRef = useRef<string | null>(activeId);
+  const reducedMotion = prefersReducedMotion();
 
   useEffect(() => {
     if (loadStatus === 'idle') {
@@ -64,6 +66,104 @@ export function MotionPanel(): JSX.Element {
   } else if (stoppedAnnouncement) {
     statusMessage = 'Stopped.';
   }
+
+  const sliderBlock = (
+    <div key="slider" className="flex flex-col gap-1.5">
+      <div className="flex items-center justify-between text-xs">
+        <span className="text-slate-300">Motion position</span>
+        <span className="text-slate-200 tabular-nums">{pct}%</span>
+      </div>
+      <Slider.Root
+        min={0}
+        max={1}
+        step={0.01}
+        value={[displayPhase]}
+        onValueChange={([val]) => {
+          if (val === undefined) return;
+          motionPhase.set(val);
+          if (playing) {
+            dispatch(motionPaused(val));
+          } else {
+            dispatch(motionScrubbed(val));
+          }
+        }}
+        className="relative flex h-4 w-full touch-none items-center select-none"
+      >
+        <Slider.Track className="relative h-1 grow rounded-full bg-white/15">
+          <Slider.Range className="absolute h-full rounded-full bg-sky-400" />
+        </Slider.Track>
+        <Slider.Thumb
+          aria-label="Motion position"
+          className="block h-3.5 w-3.5 rounded-full bg-white shadow ring-1 ring-slate-900/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400"
+        />
+      </Slider.Root>
+    </div>
+  );
+
+  const transportBlock = (
+    <div key="transport" className="grid grid-cols-2 gap-1.5">
+      <button
+        type="button"
+        onClick={() => {
+          if (playing) {
+            dispatch(motionPaused(motionPhase.get()));
+          } else {
+            dispatch(motionPlayed());
+          }
+        }}
+        className="rounded-lg bg-sky-500/25 px-2.5 py-1.5 font-medium text-white hover:bg-sky-500/35 focus-visible:outline-2 focus-visible:outline-sky-400"
+      >
+        {playing ? 'Pause' : 'Play'}
+      </button>
+      <button
+        type="button"
+        onClick={() => {
+          setStoppedAnnouncement(true);
+          dispatch(stopMotion());
+        }}
+        className="rounded-lg bg-white/10 px-2.5 py-1.5 font-medium text-slate-100 hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-sky-400"
+      >
+        Stop
+      </button>
+    </div>
+  );
+
+  const speedBlock = (
+    <div key="speed" className="flex items-center justify-between gap-2">
+      <span
+        id={speedHeadingId}
+        className="text-[11px] font-semibold tracking-wide text-slate-400 uppercase"
+      >
+        Speed
+      </span>
+      <RadioGroup.Root
+        aria-labelledby={speedHeadingId}
+        value={String(speed)}
+        onValueChange={(val) => {
+          if (val === '0.5' || val === '1') {
+            dispatch(motionSpeedSet(val === '0.5' ? 0.5 : 1));
+          }
+        }}
+        className="grid grid-cols-2 gap-1"
+      >
+        {SPEEDS.map((option) => (
+          <label
+            key={option.value}
+            className="flex cursor-pointer items-center justify-center gap-1 rounded-md border border-white/10 px-2 py-1 text-xs font-medium hover:bg-white/10"
+          >
+            <RadioGroup.Item
+              value={option.value}
+              aria-label={option.label}
+              className="flex h-3 w-3 shrink-0 items-center justify-center rounded-full border border-slate-400 bg-slate-950 focus-visible:outline-2 focus-visible:outline-sky-400 data-[state=checked]:border-sky-400"
+            >
+              <RadioGroup.Indicator className="h-1.5 w-1.5 rounded-full bg-sky-400" />
+            </RadioGroup.Item>
+            <span>{option.label}</span>
+          </label>
+        ))}
+      </RadioGroup.Root>
+    </div>
+  );
 
   return (
     <div className="flex flex-col gap-3 text-xs text-slate-200">
@@ -119,97 +219,9 @@ export function MotionPanel(): JSX.Element {
 
       {activeDef ? (
         <div className="flex flex-col gap-3 rounded-lg border border-white/10 bg-slate-950/50 p-2.5">
-          <div className="grid grid-cols-2 gap-1.5">
-            <button
-              type="button"
-              onClick={() => {
-                if (playing) {
-                  dispatch(motionPaused(motionPhase.get()));
-                } else {
-                  dispatch(motionPlayed());
-                }
-              }}
-              className="rounded-lg bg-sky-500/25 px-2.5 py-1.5 font-medium text-white hover:bg-sky-500/35 focus-visible:outline-2 focus-visible:outline-sky-400"
-            >
-              {playing ? 'Pause' : 'Play'}
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                setStoppedAnnouncement(true);
-                dispatch(stopMotion());
-              }}
-              className="rounded-lg bg-white/10 px-2.5 py-1.5 font-medium text-slate-100 hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-sky-400"
-            >
-              Stop
-            </button>
-          </div>
-
-          <div className="flex items-center justify-between gap-2">
-            <span
-              id={speedHeadingId}
-              className="text-[11px] font-semibold tracking-wide text-slate-400 uppercase"
-            >
-              Speed
-            </span>
-            <RadioGroup.Root
-              aria-labelledby={speedHeadingId}
-              value={String(speed)}
-              onValueChange={(val) => {
-                if (val === '0.5' || val === '1') {
-                  dispatch(motionSpeedSet(val === '0.5' ? 0.5 : 1));
-                }
-              }}
-              className="grid grid-cols-2 gap-1"
-            >
-              {SPEEDS.map((option) => (
-                <label
-                  key={option.value}
-                  className="flex cursor-pointer items-center justify-center gap-1 rounded-md border border-white/10 px-2 py-1 text-xs font-medium hover:bg-white/10"
-                >
-                  <RadioGroup.Item
-                    value={option.value}
-                    aria-label={option.label}
-                    className="flex h-3 w-3 shrink-0 items-center justify-center rounded-full border border-slate-400 bg-slate-950 focus-visible:outline-2 focus-visible:outline-sky-400 data-[state=checked]:border-sky-400"
-                  >
-                    <RadioGroup.Indicator className="h-1.5 w-1.5 rounded-full bg-sky-400" />
-                  </RadioGroup.Item>
-                  <span>{option.label}</span>
-                </label>
-              ))}
-            </RadioGroup.Root>
-          </div>
-
-          <div className="flex flex-col gap-1.5">
-            <div className="flex items-center justify-between text-xs">
-              <span className="text-slate-300">Motion position</span>
-              <span className="text-slate-200 tabular-nums">{pct}%</span>
-            </div>
-            <Slider.Root
-              min={0}
-              max={1}
-              step={0.01}
-              value={[displayPhase]}
-              onValueChange={([val]) => {
-                if (val === undefined) return;
-                motionPhase.set(val);
-                if (playing) {
-                  dispatch(motionPaused(val));
-                } else {
-                  dispatch(motionScrubbed(val));
-                }
-              }}
-              className="relative flex h-4 w-full touch-none items-center select-none"
-            >
-              <Slider.Track className="relative h-1 grow rounded-full bg-white/15">
-                <Slider.Range className="absolute h-full rounded-full bg-sky-400" />
-              </Slider.Track>
-              <Slider.Thumb
-                aria-label="Motion position"
-                className="block h-3.5 w-3.5 rounded-full bg-white shadow ring-1 ring-slate-900/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400"
-              />
-            </Slider.Root>
-          </div>
+          {reducedMotion
+            ? [sliderBlock, transportBlock, speedBlock]
+            : [transportBlock, speedBlock, sliderBlock]}
         </div>
       ) : null}
 

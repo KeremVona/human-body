@@ -48,6 +48,7 @@ export function MotionPlayer(): null {
   const store = useStore<RootState>();
   const defs = useAppSelector((s) => s.motion.defs);
   const activeId = useAppSelector((s) => s.motion.activeId);
+  const activationSeq = useAppSelector((s) => s.motion.activationSeq);
   const playing = useAppSelector((s) => s.motion.playing);
   const speed = useAppSelector((s) => s.motion.speed);
   const scrubPhase = useAppSelector((s) => s.motion.scrubPhase);
@@ -61,9 +62,26 @@ export function MotionPlayer(): null {
     [defs, activeId],
   );
 
+  const motionAnchor = useMemo<[number, number, number]>(() => {
+    if (!def) return [0, 0, 0];
+    if (def.kind === 'hinge') {
+      const pivotEntry = manifest?.meshes[def.pivot.mesh];
+      return anchorPoint(
+        def.pivot.anchor,
+        pivotEntry?.bounds ?? DEFAULT_BODY_BOUNDS,
+      );
+    }
+    return manifest
+      ? pulseCenterFor(def, manifest.meshes)
+      : anchorPoint([0.5, 0.5, 0.5], DEFAULT_BODY_BOUNDS);
+  }, [def, manifest]);
+
   const transformsRef = useRef<ReturnType<
     typeof createMotionTransforms
   > | null>(null);
+  const pulseBufferRef = useRef<{ ids: readonly string[]; scale: number }[]>(
+    [],
+  );
   const phaseRef = useRef(scrubPhase);
   const lastDirRef = useRef<'flex' | 'extend' | null>(null);
 
@@ -74,6 +92,7 @@ export function MotionPlayer(): null {
     const transforms = transformsRef.current;
 
     if (!def) {
+      pulseBufferRef.current = [];
       transforms.restore();
       motionPhase.set(0);
       lastDirRef.current = null;
@@ -82,36 +101,43 @@ export function MotionPlayer(): null {
       return;
     }
 
+    pulseBufferRef.current =
+      def.kind === 'pulse'
+        ? def.groups.map((g) => ({ ids: g.meshes, scale: 1 }))
+        : [];
+
     const ids = movingIdsFor(def);
     const applyAtPhase = (p: number) => {
       if (def.kind === 'hinge') {
-        const pivotEntry = manifest?.meshes[def.pivot.mesh];
-        const pivot = anchorPoint(
-          def.pivot.anchor,
-          pivotEntry?.bounds ?? DEFAULT_BODY_BOUNDS,
-        );
         const angle = hingeAngleDeg(p, def.range);
-        transforms.applyHinge(def, pivot, angle);
+        transforms.applyHinge(def, motionAnchor, angle);
       } else {
-        const center = manifest
-          ? pulseCenterFor(def, manifest.meshes)
-          : anchorPoint([0.5, 0.5, 0.5], DEFAULT_BODY_BOUNDS);
-        transforms.applyPulse(
-          def.groups.map((g) => ({
-            ids: g.meshes,
-            scale: heartbeatScale(p - g.phase, def.amplitude),
-          })),
-          center,
-        );
+        const buf = pulseBufferRef.current;
+        for (let i = 0; i < def.groups.length; i++) {
+          buf[i].scale = heartbeatScale(p - def.groups[i].phase, def.amplitude);
+        }
+        transforms.applyPulse(buf, motionAnchor);
       }
       motionPhase.set(p);
     };
 
+    let disposed = false;
+    let queued = false;
     const rebindMeshes = () => {
+      if (disposed) return;
       transforms.restore();
       transforms.begin(ids);
       applyAtPhase(phaseRef.current);
       invalidate();
+    };
+
+    const scheduleRebind = () => {
+      if (disposed || queued) return;
+      queued = true;
+      queueMicrotask(() => {
+        queued = false;
+        rebindMeshes();
+      });
     };
 
     const initialPhase = store.getState().motion.scrubPhase;
@@ -120,8 +146,9 @@ export function MotionPlayer(): null {
       def.kind === 'hinge' ? hingeDirection(initialPhase) : null;
     rebindMeshes();
 
-    const unsubRegistry = registry.subscribe(rebindMeshes);
+    const unsubRegistry = registry.subscribe(scheduleRebind);
     return () => {
+      disposed = true;
       unsubRegistry();
       transforms.restore();
       motionPhase.set(0);
@@ -129,7 +156,7 @@ export function MotionPlayer(): null {
       sectionMaterialLibrary.get()?.setActivePulse(0.25);
       invalidate();
     };
-  }, [def, manifest, registry, store, invalidate]);
+  }, [def, activationSeq, motionAnchor, registry, store, invalidate]);
 
   useEffect(() => {
     if (!def || playing) return;
@@ -138,28 +165,25 @@ export function MotionPlayer(): null {
 
     phaseRef.current = scrubPhase;
     if (def.kind === 'hinge') {
-      const pivotEntry = manifest?.meshes[def.pivot.mesh];
-      const pivot = anchorPoint(
-        def.pivot.anchor,
-        pivotEntry?.bounds ?? DEFAULT_BODY_BOUNDS,
+      transforms.applyHinge(
+        def,
+        motionAnchor,
+        hingeAngleDeg(scrubPhase, def.range),
       );
-      transforms.applyHinge(def, pivot, hingeAngleDeg(scrubPhase, def.range));
       sectionMaterialLibrary.get()?.setActivePulse(0.45);
     } else {
-      const center = manifest
-        ? pulseCenterFor(def, manifest.meshes)
-        : anchorPoint([0.5, 0.5, 0.5], DEFAULT_BODY_BOUNDS);
-      transforms.applyPulse(
-        def.groups.map((g) => ({
-          ids: g.meshes,
-          scale: heartbeatScale(scrubPhase - g.phase, def.amplitude),
-        })),
-        center,
-      );
+      const buf = pulseBufferRef.current;
+      for (let i = 0; i < def.groups.length; i++) {
+        buf[i].scale = heartbeatScale(
+          scrubPhase - def.groups[i].phase,
+          def.amplitude,
+        );
+      }
+      transforms.applyPulse(buf, motionAnchor);
     }
     motionPhase.set(scrubPhase);
     invalidate();
-  }, [def, playing, scrubPhase, manifest, invalidate]);
+  }, [def, playing, scrubPhase, motionAnchor, invalidate]);
 
   useFrame((_, delta) => {
     if (!def || !playing) return;
@@ -172,12 +196,11 @@ export function MotionPlayer(): null {
     phaseRef.current = nextPhase;
 
     if (def.kind === 'hinge') {
-      const pivotEntry = manifest?.meshes[def.pivot.mesh];
-      const pivot = anchorPoint(
-        def.pivot.anchor,
-        pivotEntry?.bounds ?? DEFAULT_BODY_BOUNDS,
+      transforms.applyHinge(
+        def,
+        motionAnchor,
+        hingeAngleDeg(nextPhase, def.range),
       );
-      transforms.applyHinge(def, pivot, hingeAngleDeg(nextPhase, def.range));
       const nextDir = hingeDirection(nextPhase);
       if (nextDir !== lastDirRef.current) {
         lastDirRef.current = nextDir;
@@ -189,16 +212,14 @@ export function MotionPlayer(): null {
           0.25 + 0.35 * (0.5 - 0.5 * Math.cos(4 * Math.PI * nextPhase)),
         );
     } else {
-      const center = manifest
-        ? pulseCenterFor(def, manifest.meshes)
-        : anchorPoint([0.5, 0.5, 0.5], DEFAULT_BODY_BOUNDS);
-      transforms.applyPulse(
-        def.groups.map((g) => ({
-          ids: g.meshes,
-          scale: heartbeatScale(nextPhase - g.phase, def.amplitude),
-        })),
-        center,
-      );
+      const buf = pulseBufferRef.current;
+      for (let i = 0; i < def.groups.length; i++) {
+        buf[i].scale = heartbeatScale(
+          nextPhase - def.groups[i].phase,
+          def.amplitude,
+        );
+      }
+      transforms.applyPulse(buf, motionAnchor);
     }
 
     motionPhase.set(nextPhase);

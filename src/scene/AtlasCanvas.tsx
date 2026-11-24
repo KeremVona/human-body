@@ -124,15 +124,15 @@ export function AtlasCanvas({
 
               <SectionController />
 
-              {hasPins ? (
-                <Suspense fallback={null}>
-                  <PinProbe />
-                </Suspense>
-              ) : null}
-
               {hasMotion ? (
                 <Suspense fallback={null}>
                   <MotionPlayer />
+                </Suspense>
+              ) : null}
+
+              {hasPins ? (
+                <Suspense fallback={null}>
+                  <PinProbe />
                 </Suspense>
               ) : null}
 

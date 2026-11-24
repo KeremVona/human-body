@@ -13,10 +13,18 @@ import {
   motionsLoading,
   motionStopped,
 } from './motionSlice';
+import { prefersReducedMotion } from './reducedMotion';
 import { MotionsFileSchema, type MotionDef } from './schema';
 
 const inFlightLoads = new WeakMap<object, Promise<void>>();
+const startTokens = new WeakMap<object, number>();
 const fallbackLoadKey = {};
+
+function nextTokenFor(key: object): number {
+  const next = (startTokens.get(key) ?? 0) + 1;
+  startTokens.set(key, next);
+  return next;
+}
 
 function referencedMeshIds(def: MotionDef): Set<string> {
   if (def.kind === 'hinge') {
@@ -32,14 +40,6 @@ function referencedMeshIds(def: MotionDef): Set<string> {
     ...(def.center ? [def.center.mesh] : []),
     ...def.groups.flatMap((g) => g.meshes),
   ]);
-}
-
-function prefersReducedMotion(): boolean {
-  return (
-    typeof window !== 'undefined' &&
-    typeof window.matchMedia === 'function' &&
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  );
 }
 
 /** Fetches and validates `content/motions.json` once per store instance. */
@@ -82,9 +82,13 @@ export function loadMotions(): AppThunk<Promise<void>> {
 /** Loads motion data, enables required systems, waits for bundles, moves camera, and activates the demo. */
 export function startMotion(id: string): AppThunk<Promise<void>> {
   return async (dispatch, getState, extra) => {
+    const cacheKey = extra ?? fallbackLoadKey;
+    const token = nextTokenFor(cacheKey);
+
     if (getState().quiz.status !== 'off') return;
 
     await dispatch(loadMotions());
+    if (startTokens.get(cacheKey) !== token) return;
     const stateAfterLoad = getState();
     if (stateAfterLoad.quiz.status !== 'off') return;
 
@@ -125,8 +129,12 @@ export function startMotion(id: string): AppThunk<Promise<void>> {
       return;
     }
 
+    if (startTokens.get(cacheKey) !== token) return;
+    if (getState().quiz.status !== 'off') return;
+
     await extra?.camera?.current?.goToPreset(def.view);
 
+    if (startTokens.get(cacheKey) !== token) return;
     const stateAfterReady = getState();
     if (stateAfterReady.quiz.status !== 'off') return;
     if (def.systems.some((sys) => !stateAfterReady.systems[sys].enabled))
@@ -145,9 +153,10 @@ export function startMotion(id: string): AppThunk<Promise<void>> {
   };
 }
 
-/** Stops the currently active motion demo. */
+/** Stops the currently active motion demo and invalidates pending starts. */
 export function stopMotion(): AppThunk<void> {
-  return (dispatch) => {
+  return (dispatch, _getState, extra) => {
+    nextTokenFor(extra ?? fallbackLoadKey);
     motionPhase.set(0);
     dispatch(motionStopped());
   };

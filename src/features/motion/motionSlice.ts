@@ -15,6 +15,7 @@ export type MotionState = {
   speed: 0.5 | 1;
   direction: 'flex' | 'extend' | null;
   scrubPhase: number;
+  activationSeq: number;
 };
 
 const initialState: MotionState = {
@@ -25,6 +26,7 @@ const initialState: MotionState = {
   speed: 1,
   direction: null,
   scrubPhase: 0,
+  activationSeq: 0,
 };
 
 function clampPhase(phase: number): number {
@@ -39,7 +41,7 @@ function directionFor(
 ): 'flex' | 'extend' | null {
   const def = defs?.find((d) => d.id === activeId);
   if (!def || def.kind !== 'hinge') return null;
-  return hingeDirection(phase);
+  return phase === 1 ? 'extend' : hingeDirection(phase);
 }
 
 const motionSlice = createSlice({
@@ -66,6 +68,7 @@ const motionSlice = createSlice({
       state.playing = playing;
       state.scrubPhase = p;
       state.direction = directionFor(state.defs, id, p);
+      state.activationSeq += 1;
     },
     motionPlayed(state) {
       if (state.activeId) {

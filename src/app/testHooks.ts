@@ -1,4 +1,5 @@
 import type { MeshId } from '../data/ids';
+import { motionPhase } from '../features/motion/motionPhase';
 import { pinScreens, type PinScreen } from '../features/pins/pinProjection';
 import { startQuiz } from '../features/quiz/thunks';
 import type { SectionState } from '../features/section/sectionSlice';
@@ -25,6 +26,12 @@ export type AtlasTestApi = {
   getPose(): Pose | null;
   pinScreenPoints(): PinScreen[];
   section(): SectionState;
+  motionPhase(): number;
+  meshTransform(id: MeshId): {
+    position: number[];
+    quaternion: number[];
+    scale: number[];
+  } | null;
 };
 
 /** Exposes dev/e2e inspection hooks on `window.__atlas`; stripped from production builds. */
@@ -71,5 +78,15 @@ export function installTestHooks(api: {
     getPose: () => api.camera?.api.getPose() ?? null,
     pinScreenPoints: () => pinScreens.get(),
     section: () => api.store.getState().section,
+    motionPhase: () => motionPhase.get(),
+    meshTransform: (id) => {
+      const obj = api.registry.get(id);
+      if (!obj) return null;
+      return {
+        position: obj.position.toArray(),
+        quaternion: obj.quaternion.toArray(),
+        scale: obj.scale.toArray(),
+      };
+    },
   };
 }

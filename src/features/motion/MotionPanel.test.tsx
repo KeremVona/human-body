@@ -308,4 +308,57 @@ describe('MotionPanel and LeftPanel Motion tab', () => {
       ),
     ).toBeInTheDocument();
   });
+
+  it('places the Motion position slider first under prefers-reduced-motion and supports Retry on load error', async () => {
+    vi.stubGlobal(
+      'matchMedia',
+      vi.fn((q: string) => ({
+        matches: q.includes('prefers-reduced-motion'),
+        media: q,
+        onchange: null,
+        addListener: vi.fn(),
+        removeListener: vi.fn(),
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+        dispatchEvent: vi.fn(),
+      })),
+    );
+
+    const user = userEvent.setup();
+    const { store } = setupStore();
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async () => new Response('err', { status: 500 })),
+    );
+
+    render(
+      <Provider store={store}>
+        <MotionPanel />
+      </Provider>,
+    );
+
+    const retryBtn = await screen.findByRole('button', { name: 'Retry' });
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(
+        async () =>
+          new Response(JSON.stringify(motionsFixture), { status: 200 }),
+      ),
+    );
+    await user.click(retryBtn);
+
+    const elbowBtn = await screen.findByRole('button', {
+      name: 'Elbow flexion and extension',
+    });
+    await user.click(elbowBtn);
+
+    const slider = await screen.findByRole('slider', {
+      name: 'Motion position',
+    });
+    const playBtn = screen.getByRole('button', { name: 'Play' });
+    expect(
+      slider.compareDocumentPosition(playBtn) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+  });
 });

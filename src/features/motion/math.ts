@@ -32,6 +32,10 @@ export function hingeDirection(phase: number): 'flex' | 'extend' {
   return wrapPhase(phase) < 0.5 ? 'flex' : 'extend';
 }
 
+const _axisVec = new Vector3();
+const _q = new Quaternion();
+const _rotatedPivot = new Vector3();
+
 /** Computes rigid position + quaternion rotation about `pivot` by `angleDeg` around `axis`. */
 export function rotateAboutPivot(
   pivot: readonly [number, number, number],
@@ -41,30 +45,23 @@ export function rotateAboutPivot(
   position: [number, number, number];
   quaternion: [number, number, number, number];
 } {
-  const axisVec = new Vector3(axis[0], axis[1], axis[2]);
-  if (axisVec.lengthSq() === 0) {
+  _axisVec.set(axis[0], axis[1], axis[2]);
+  if (_axisVec.lengthSq() === 0) {
     return {
       position: [0, 0, 0],
       quaternion: [0, 0, 0, 1],
     };
   }
-  axisVec.normalize();
-  const q = new Quaternion().setFromAxisAngle(
-    axisVec,
-    (angleDeg * Math.PI) / 180,
-  );
-  const rotatedPivot = new Vector3(
-    pivot[0],
-    pivot[1],
-    pivot[2],
-  ).applyQuaternion(q);
+  _axisVec.normalize();
+  _q.setFromAxisAngle(_axisVec, (angleDeg * Math.PI) / 180);
+  _rotatedPivot.set(pivot[0], pivot[1], pivot[2]).applyQuaternion(_q);
   return {
     position: [
-      pivot[0] - rotatedPivot.x,
-      pivot[1] - rotatedPivot.y,
-      pivot[2] - rotatedPivot.z,
+      pivot[0] - _rotatedPivot.x,
+      pivot[1] - _rotatedPivot.y,
+      pivot[2] - _rotatedPivot.z,
     ],
-    quaternion: [q.x, q.y, q.z, q.w],
+    quaternion: [_q.x, _q.y, _q.z, _q.w],
   };
 }
 
