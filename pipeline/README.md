@@ -123,3 +123,29 @@ Phase 1 adds the `muscular` (`459` meshes), `cardiovascular` (`216` meshes), and
 - **Licensing exclusions upheld:** Neither `.blend` object metadata nor upstream author tags separate BodyParts3D/Z-Anatomy from third-party imports on a per-object basis. Therefore `Kidney.l`/`.r` & `Renal pelvis.l`/`.r` (`CC-BY-NC 4.0`), `Bonus collection/.../Brain` & `White matter*` (`Brainder` / Univ. of Washington, no license stated), `Internal ear` / `Tympanic membrane` & `Auditory ossicles` (`CC-BY-NC-SA 4.0`), and `Cranial nerves` (University of Dundee — excluded to keep shipped geometry strictly Z-Anatomy/BodyParts3D) remain excluded. `Intrarenal` vessels (`cardiovascular`) and `Mucosa of stomach` (`0` vertices) are also excluded.
 - **Beveled `CURVE` vessels/organs (`rule.types`):** Systemic arteries/veins (`5: Cardiovascular system`), `Oesophagus`, `Jejunum`, lobar/main bronchi, `Ureter.{l,r}`, `Urethra`, and major spinal nerves (`Sciatic`, `Femoral`, `Median`, `Radial`, `Ulnar`, `Sympathetic trunk`) are stored as beveled `CURVE` objects (`bevel_depth > 0`) rather than `MESH` objects in `Z-Anatomy.blend`. Rules opt in via `types: ["MESH", "CURVE"]`, and `export.py` converts selected curves to solid meshes cleanly before glTF export.
 - **Name curation fixes:** Source object `Iliocostalis colli muscle` lacks `.l` in Z-Anatomy despite sitting on `+X` (patient left, symmetric with `Iliocostalis colli muscle.r` on `-X`) and maps to `iliocostalis-colli-muscle--l`; `Middle lobar bronchus.r` maps to unpaired `right-middle-lobar-bronchus`.
+
+---
+
+## Phase 3D Survey
+
+Inspection of `pipeline/out/inventory.json`, `pipeline/source/Z-Anatomy-License.txt`, embedded `1.Licence`, and headless Blender 5.3 inspection of `Z-Anatomy.blend`:
+
+### Provenance Verdict
+
+- **License checks (`1.Licence` & `Z-Anatomy-License.txt`):** Third-party attributions remain strictly the four previously excluded modules (Dundee inner ear, Lissiecowley kidney, UW Brainder/white matter, Dundee cranial nerves). Neither `6: Lymphoid organs` nor `9: Regions of human body` carries any third-party credit; both originate from BodyParts3D (`CC-BY-SA 2.1 Japan`) / Z-Anatomy (`CC-BY-SA 4.0`).
+
+### Skin (`9: Regions of human body` & `Bonus collection/Regions of human body`)
+
+- **Skin: ship** — `9: Regions of human body` directly contains `256` anatomical `MESH` objects (`Bonus collection/Regions of human body` tags existing bones/muscles under anatomical regions alongside the surface meshes).
+- **Surface integrity:** Excluding the `14` hair and nail appendages (`Hairs of head` [`8,282` verts], `Hairs of eyebrow.{l,r}` [`397` each], `Eyelashes.{l,r}` [`45` each], `Pubic hairs` [`820`], `Nail plate.{l,r}` [`197` each], `Nail plate (foot).{l,r}` [`148` each], `Perionyx.{l,r}` [`64` each], `Perionyx (foot).{l,r}` [`54` each]), the remaining **`242` meshes** (`27,726` total vertices, `24,946` polygons; `Skin-1`..`Skin-8` and `Skin-in` materials; `0` zero-polygon objects) tile into a contiguous full-body skin envelope covering head, face, neck, trunk, perineum, and all limbs. Verified visually via headless Workbench render.
+
+### Lymphatic Detail (`6: Lymphoid organs`)
+
+- `6: Lymphoid organs` contains `220` `MESH` objects total (`0` `CURVE` objects): `57` `.j`/`.i`/`.s`/`.t`/`.g` helper objects and `163` anatomical `MESH` objects:
+  - `Bonus collection/Visceral systems/Lymphoid system` (`54` objects, including `Spleen`, `Left lobe of thymus`, `Right lobe of thymus`, `Palatine tonsil.{l,r}`, plus major cervical, axillary, iliac, epigastric, and tibial nodes; `54` share membership in `6: Lymphoid organs`)
+  - Directly in `6: Lymphoid organs` (`109` additional node groups across jugular, supraclavicular, mediastinal/tracheobronchial, coeliac/mesenteric/para-aortic, pelvic, inguinal, and popliteal groups)
+- **Exclusions (`10` meshes):**
+  - `5` already shipped in `organs` (`Spleen`, `Left lobe of thymus`, `Right lobe of thymus`, `Palatine tonsil.l`, `Palatine tonsil.r`) to prevent cross-bundle duplicate IDs.
+  - `5` degenerate `0`-polygon placeholders (`Median sacral nodes`, `(Medial lacunar node).{l,r}`, `(Intermediate lacunar node).{l,r}`).
+- **Selected lymphatic set:** **`153` meshes** (`55,814` total vertices, `62,304` polygons; `Lymph-1`..`Lymph-8` materials).
+- **Combined 3D budget:** `242` (`skin`) + `153` (`lymphatic`) = **`395` new meshes** (`<= 450` hard cap; `1,406` total atlas meshes `<= 1,461`).
