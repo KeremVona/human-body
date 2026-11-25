@@ -43,6 +43,7 @@ describe('applyMeshStates', () => {
     expect(bicep.visible).toBe(true);
     expect(bicep.renderOrder).toBe(3);
     expect(bicep.userData.pickable).toBe(true);
+    expect(bicep.userData.atlasVisible).toBe(true);
     const firstMaterial = bicep.material;
 
     const changed2 = applyMeshStates({

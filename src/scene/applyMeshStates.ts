@@ -100,6 +100,7 @@ export function applyMeshStates({
     }
 
     mesh.visible = state.visible;
+    mesh.userData.atlasVisible = state.visible;
     mesh.userData.pickable = state.pickable;
     appliedMeshes.set(id, mesh);
     changed += 1;

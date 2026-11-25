@@ -53,29 +53,59 @@ export function createTapTracker(): {
   };
 }
 
+/** Resolves a raycast hit (individual mesh or BatchedMesh instance) to its MeshId and pickability. */
+export function meshIdOfHit(hit: {
+  object: Object3D;
+  batchId?: number;
+}): { id: MeshId; pickable: boolean } | null {
+  const data = hit.object.userData;
+  if (data?.atlasBatch === true && typeof hit.batchId === 'number') {
+    const meshIds = data.meshIds as MeshId[] | undefined;
+    const pickableArr = data.pickable as Uint8Array | undefined;
+    const id = meshIds?.[hit.batchId];
+    if (!id) {
+      return null;
+    }
+    return {
+      id,
+      pickable: pickableArr?.[hit.batchId] === 1,
+    };
+  }
+  const id = meshIdOf(hit.object);
+  if (!id) {
+    return null;
+  }
+  return {
+    id,
+    pickable: data?.pickable === true,
+  };
+}
+
 /** Returns the MeshId and world hit point of the closest unclipped intersection marked pickable. */
 export function pickMeshHit<P extends Vector3 = Vector3>(
-  intersections: readonly { object: Object3D; point?: P }[],
+  intersections: readonly { object: Object3D; point?: P; batchId?: number }[],
   clip?: Plane | null,
 ): { meshId: MeshId; point: P | undefined } | null {
   for (const hit of intersections) {
-    if (hit.object.userData?.pickable !== true) {
+    const resolved = meshIdOfHit(hit);
+    if (!resolved || !resolved.pickable) {
       continue;
     }
     if (clip && hit.point && clip.distanceToPoint(hit.point) < 0) {
       continue;
     }
-    const id = meshIdOf(hit.object);
-    if (id) {
-      return { meshId: id, point: hit.point };
-    }
+    return { meshId: resolved.id, point: hit.point };
   }
   return null;
 }
 
 /** Returns the MeshId of the closest unclipped intersection marked pickable. */
 export function pickMeshId(
-  intersections: readonly { object: Object3D; point?: Vector3 }[],
+  intersections: readonly {
+    object: Object3D;
+    point?: Vector3;
+    batchId?: number;
+  }[],
   clip?: Plane | null,
 ): MeshId | null {
   return pickMeshHit(intersections, clip)?.meshId ?? null;

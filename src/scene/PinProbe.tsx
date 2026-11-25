@@ -58,7 +58,11 @@ export function PinProbe(): null {
     const pickables: Mesh[] = [];
     for (const id of registry.ids()) {
       const m = registry.get(id);
-      if (m && m.visible && m.userData?.pickable === true) {
+      if (
+        m &&
+        m.userData?.atlasVisible === true &&
+        m.userData?.pickable === true
+      ) {
         pickables.push(m);
       }
     }

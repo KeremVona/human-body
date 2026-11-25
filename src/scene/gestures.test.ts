@@ -7,6 +7,7 @@ import {
   STATIONARY_PX,
   classifyRelease,
   createTapTracker,
+  meshIdOfHit,
   pickMeshHit,
   pickMeshId,
 } from './gestures';
@@ -107,5 +108,59 @@ describe('pickMeshId', () => {
         { object: skull, point: new Vector3(0, 0.5, 0) },
       ] as unknown as Parameters<typeof pickMeshId>[0]),
     ).toBe('skull');
+  });
+
+  it('maps a batch hit to its mesh id and pickable flag', () => {
+    const batch = new Mesh();
+    batch.userData = {
+      atlasBatch: true,
+      meshIds: ['femur--l', 'sternum'],
+      pickable: new Uint8Array([1, 0]),
+    };
+
+    expect(meshIdOfHit({ object: batch, batchId: 0 })).toEqual({
+      id: 'femur--l',
+      pickable: true,
+    });
+    expect(meshIdOfHit({ object: batch, batchId: 1 })).toEqual({
+      id: 'sternum',
+      pickable: false,
+    });
+  });
+
+  it('skips non-pickable batch instances', () => {
+    const batch = new Mesh();
+    batch.userData = {
+      atlasBatch: true,
+      meshIds: ['femur--l', 'sternum'],
+      pickable: new Uint8Array([1, 0]),
+    };
+
+    expect(
+      pickMeshId([
+        { object: batch, batchId: 1 },
+        { object: batch, batchId: 0 },
+      ]),
+    ).toBe('femur--l');
+  });
+
+  it('applies section clip filter to batch hits', () => {
+    const plane = new Plane(new Vector3(0, -1, 0), 0); // keeps y <= 0
+    const batch = new Mesh();
+    batch.userData = {
+      atlasBatch: true,
+      meshIds: ['femur--l', 'sternum'],
+      pickable: new Uint8Array([1, 1]),
+    };
+
+    expect(
+      pickMeshId(
+        [
+          { object: batch, batchId: 1, point: new Vector3(0, 0.4, 0) },
+          { object: batch, batchId: 0, point: new Vector3(0, -0.2, 0) },
+        ],
+        plane,
+      ),
+    ).toBe('femur--l');
   });
 });
