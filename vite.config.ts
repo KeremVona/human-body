@@ -9,6 +9,7 @@ import {
   type Plugin,
   type ResolvedConfig,
 } from 'vite';
+import { VitePWA } from 'vite-plugin-pwa';
 
 function copyContentPlugin(): Plugin {
   let resolved: ResolvedConfig | null = null;
@@ -180,6 +181,9 @@ function preloadAssetsPlugin(): Plugin {
   };
 }
 
+const appBase = process.env.ATLAS_BASE_PATH ?? '/';
+const normalizedAppBase = appBase.endsWith('/') ? appBase : `${appBase}/`;
+
 export default defineConfig({
   plugins: [
     react(),
@@ -187,8 +191,86 @@ export default defineConfig({
     copyContentPlugin(),
     content404Plugin(),
     preloadAssetsPlugin(),
+    VitePWA({
+      registerType: 'prompt',
+      injectRegister: null,
+      includeAssets: ['icons/*.png', 'icons/*.svg'],
+      manifest: {
+        name: 'Anatomy Atlas',
+        short_name: 'Atlas',
+        description:
+          'Interactive open-source 3D human anatomy atlas in your browser.',
+        start_url: normalizedAppBase,
+        scope: normalizedAppBase,
+        display: 'standalone',
+        theme_color: '#0f172a',
+        background_color: '#0f172a',
+        icons: [
+          {
+            src: 'icons/icon-192.png',
+            sizes: '192x192',
+            type: 'image/png',
+            purpose: 'any',
+          },
+          {
+            src: 'icons/icon-512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'any',
+          },
+          {
+            src: 'icons/icon-512-maskable.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'maskable',
+          },
+        ],
+      },
+      workbox: {
+        globPatterns: ['**/*.{js,css,html,svg,png,wasm}'],
+        globIgnores: ['models/**', 'content/**'],
+        cleanupOutdatedCaches: true,
+        clientsClaim: true,
+        skipWaiting: false,
+        navigateFallback: 'index.html',
+        runtimeCaching: [
+          {
+            urlPattern: /\/models\/.*\.(glb|json)$/,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'atlas-models',
+              expiration: {
+                maxEntries: 32,
+                maxAgeSeconds: 30 * 24 * 60 * 60,
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
+          {
+            urlPattern: /\/content\/.*\.json$/,
+            handler: 'StaleWhileRevalidate',
+            options: {
+              cacheName: 'atlas-content',
+              expiration: {
+                maxEntries: 64,
+                maxAgeSeconds: 14 * 24 * 60 * 60,
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
+        ],
+      },
+      devOptions: {
+        enabled: process.env.E2E_SW === '1',
+        type: 'module',
+      },
+    }),
   ],
-  base: process.env.ATLAS_BASE_PATH ?? '/',
+  base: appBase,
   build: {
     rolldownOptions: {
       output: {

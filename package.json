@@ -15,6 +15,7 @@
     "test:e2e:base": "cross-env ATLAS_BASE_PATH=/atlas-check/ npm run build && cross-env E2E_BASE=/atlas-check/ playwright test --project=base-path",
     "check:content": "tsx scripts/check-content.ts",
     "content:report": "tsx scripts/content-report.ts",
+    "icons": "tsx scripts/make-icons.ts",
     "assets:inventory": "tsx pipeline/cli.ts inventory",
     "assets:namemap": "tsx pipeline/cli.ts namemap",
     "assets:build": "tsx pipeline/cli.ts build",
@@ -73,6 +74,7 @@
     "typescript": "~6.0.3",
     "typescript-eslint": "^8.72.1",
     "vite": "^8.3.6",
+    "vite-plugin-pwa": "^2.0.0",
     "vitest": "^5.1.1"
   }
 }
