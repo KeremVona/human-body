@@ -313,4 +313,77 @@ describe('share thunks & bootShare', () => {
     );
     expect(store.getState().systems.integumentary.opacity).toBe(0.35);
   });
+
+  it('keepHistory preserves dissection undo stack while restoring target sets', async () => {
+    const { store } = setupStore();
+    store.dispatch(hide(['femur--l']));
+    store.dispatch(hide(['sternum']));
+    store.dispatch(hide(['biceps-brachii--l']));
+    expect(store.getState().dissection.past).toHaveLength(3);
+
+    await store.dispatch(
+      applyViewState(
+        {
+          c: [0, 0, 3, 0, 0, 0],
+          s: ['skeletal'],
+          h: ['sternum'],
+          i: ['femur--l'],
+          sel: [],
+        },
+        { keepHistory: true },
+      ),
+    );
+
+    expect(store.getState().dissection.past).toHaveLength(3);
+    expect(store.getState().dissection.hidden).toEqual(['sternum']);
+    expect(store.getState().dissection.isolated).toEqual(['femur--l']);
+    expect(store.getState().dissection.faded).toBeNull();
+  });
+
+  it('keepPins leaves existing shared pins untouched', async () => {
+    const { store } = setupStore();
+    await store.dispatch(
+      applyViewState({
+        c: [0, 0, 3, 0, 0, 0],
+        s: ['skeletal'],
+        h: [],
+        sel: [],
+        p: [{ m: 'femur--l', l: [0, 1, 0], t: 'Keep me' }],
+      }),
+    );
+    expect(store.getState().pins.items).toHaveLength(1);
+
+    await store.dispatch(
+      applyViewState(
+        {
+          c: [0, 0, 2, 0, 0, 0],
+          s: ['skeletal'],
+          h: [],
+          sel: [],
+        },
+        { keepPins: true },
+      ),
+    );
+    expect(store.getState().pins.items).toHaveLength(1);
+    expect(store.getState().pins.items[0].label).toBe('Keep me');
+  });
+
+  it('animate forwards animate option to camera setPose', async () => {
+    const { store, camera } = setupStore();
+    await store.dispatch(
+      applyViewState(
+        {
+          c: [1, 2, 3, 0, 0, 0],
+          s: ['skeletal'],
+          h: [],
+          sel: [],
+        },
+        { animate: true },
+      ),
+    );
+    expect(camera.setPose).toHaveBeenCalledWith(
+      { position: [1, 2, 3], target: [0, 0, 0] },
+      true,
+    );
+  });
 });

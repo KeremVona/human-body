@@ -11,7 +11,10 @@ import {
   bundlesRequested,
   selectBundlesForSystem,
 } from '../assets/assetsSlice';
-import { dissectionBaselineSet } from '../dissection/dissectionSlice';
+import {
+  dissectionBaselineSet,
+  dissectionRestored,
+} from '../dissection/dissectionSlice';
 import { sharedPinsLoaded } from '../pins/pinsSlice';
 import { waitForBundles } from '../search/revealAndFocus';
 import type { SectionAxis } from '../section/sectionPlane';
@@ -117,8 +120,17 @@ export function captureViewState(opts: {
   };
 }
 
-/** Applies a decoded `ViewStateV1` to systems, bundles, dissection (clearing undo), selection, and camera. */
-export function applyViewState(view: ViewStateV1): AppThunk<Promise<void>> {
+export type ApplyViewOptions = {
+  animate?: boolean;
+  keepHistory?: boolean;
+  keepPins?: boolean;
+};
+
+/** Applies a decoded `ViewStateV1` to systems, bundles, dissection, selection, and camera. */
+export function applyViewState(
+  view: ViewStateV1,
+  opts: ApplyViewOptions = {},
+): AppThunk<Promise<void>> {
   return async (dispatch, getState, extra) => {
     dispatch(systemsSet(view.s));
 
@@ -149,12 +161,15 @@ export function applyViewState(view: ViewStateV1): AppThunk<Promise<void>> {
       }
     }
 
+    const snapshot = {
+      hidden: [...new Set(view.h)].sort(),
+      isolated: view.i ? [...new Set(view.i)].sort() : null,
+      faded: view.f ? [...new Set(view.f)].sort() : null,
+    };
     dispatch(
-      dissectionBaselineSet({
-        hidden: view.h,
-        isolated: view.i ?? null,
-        faded: view.f ?? null,
-      }),
+      opts.keepHistory
+        ? dissectionRestored(snapshot)
+        : dissectionBaselineSet(snapshot),
     );
 
     if (view.sel.length > 0) {
@@ -163,7 +178,9 @@ export function applyViewState(view: ViewStateV1): AppThunk<Promise<void>> {
       dispatch(selectionCleared());
     }
 
-    dispatch(sharedPinsLoaded(view.p ?? []));
+    if (!opts.keepPins) {
+      dispatch(sharedPinsLoaded(view.p ?? []));
+    }
 
     if (view.x) {
       const axis = SECTION_AXES[view.x[0]] ?? 'axial';
@@ -180,7 +197,7 @@ export function applyViewState(view: ViewStateV1): AppThunk<Promise<void>> {
         position: [view.c[0], view.c[1], view.c[2]],
         target: [view.c[3], view.c[4], view.c[5]],
       },
-      false,
+      Boolean(opts.animate),
     );
   };
 }
