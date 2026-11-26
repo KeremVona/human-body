@@ -42,6 +42,7 @@ export function applyBatchPlan({
     const tracked = getTrackedVisibility(handle);
     const pickableArr = (handle.batch.userData as BatchUserData).pickable;
     let anyInstanceVisible = false;
+    let visibilityChanged = false;
 
     for (let i = 0; i < handle.meshIdAt.length; i += 1) {
       const id = handle.meshIdAt[i];
@@ -51,6 +52,7 @@ export function applyBatchPlan({
       if (tracked[i] !== nextBit) {
         handle.batch.setVisibleAt(i, nextInst);
         tracked[i] = nextBit;
+        visibilityChanged = true;
       }
 
       pickableArr[i] = nextInst && states.get(id)?.pickable === true ? 1 : 0;
@@ -63,6 +65,9 @@ export function applyBatchPlan({
         const shouldShowMesh = plan.promoted.has(id);
         if (shouldShowMesh) {
           attachMeshBvh(mesh);
+          mesh.layers.enable(0);
+        } else {
+          mesh.layers.disable(0);
         }
         if (mesh.visible !== shouldShowMesh) {
           mesh.visible = shouldShowMesh;
@@ -95,6 +100,10 @@ export function applyBatchPlan({
       handle.batch.sortObjects = mat.transparent;
     }
     handle.batch.perObjectFrustumCulled = true;
+    if (visibilityChanged && anyInstanceVisible) {
+      handle.batch.computeBoundingBox();
+      handle.batch.computeBoundingSphere();
+    }
     if (handle.batch.visible !== shouldShowBatch) {
       handle.batch.visible = shouldShowBatch;
     }

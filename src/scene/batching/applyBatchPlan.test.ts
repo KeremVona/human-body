@@ -61,8 +61,11 @@ describe('applyBatchPlan', () => {
     expect(stats.visibleBatches).toBe(1);
 
     expect(registry.get('femur--l' as MeshId)?.visible).toBe(true);
+    expect(registry.get('femur--l' as MeshId)?.layers.isEnabled(0)).toBe(true);
     expect(registry.get('tibia--l' as MeshId)?.visible).toBe(false);
+    expect(registry.get('tibia--l' as MeshId)?.layers.isEnabled(0)).toBe(false);
     expect(registry.get('fibula--l' as MeshId)?.visible).toBe(false);
+    expect(registry.get('fibula--l' as MeshId)?.layers.isEnabled(0)).toBe(false);
 
     const batch = handles[0].batch;
     expect(batch.visible).toBe(true);

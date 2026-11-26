@@ -2,12 +2,14 @@ import {
   BatchedMesh,
   BufferAttribute,
   BufferGeometry,
+  Mesh,
+  type Intersection,
   type Material,
-  type Mesh,
+  type Raycaster,
 } from 'three';
 import {
   CENTER,
-  acceleratedRaycast,
+  MeshBVH,
   computeBatchedBoundsTree,
   disposeBatchedBoundsTree,
 } from 'three-mesh-bvh';
@@ -41,9 +43,56 @@ export type BatchUserData = {
 };
 
 type BatchedWithBvh = BatchedMesh & {
+  boundsTrees?: Array<MeshBVH | null>;
   computeBoundsTree?: typeof computeBatchedBoundsTree;
   disposeBoundsTree?: typeof disposeBatchedBoundsTree;
 };
+
+const _raycastProxy = new Mesh();
+const _emptyGeometry = new BufferGeometry();
+const _batchIntersects: Intersection[] = [];
+
+/**
+ * Raycasts each visible instance of a `BatchedMesh` directly against its per-geometry
+ * `MeshBVH` without requiring a global patch on `THREE.Mesh.prototype.raycast`.
+ */
+export function raycastBatchedMesh(
+  this: BatchedWithBvh,
+  raycaster: Raycaster,
+  intersects: Intersection[],
+): void {
+  const boundsTrees = this.boundsTrees;
+  if (!boundsTrees) {
+    BatchedMesh.prototype.raycast.call(this, raycaster, intersects);
+    return;
+  }
+
+  const count =
+    (this.userData as Partial<BatchUserData> | undefined)?.meshIds?.length ??
+    this.instanceCount;
+  const matrixWorld = this.matrixWorld;
+  _raycastProxy.material = this.material;
+  _raycastProxy.geometry = this.geometry;
+
+  for (let i = 0; i < count; i += 1) {
+    if (!this.getVisibleAt(i)) continue;
+    const geomId = this.getGeometryIdAt(i);
+    const bvh = boundsTrees[geomId];
+    if (!bvh) continue;
+    this.getMatrixAt(i, _raycastProxy.matrixWorld).premultiply(matrixWorld);
+    bvh.raycastObject3D(_raycastProxy, raycaster, _batchIntersects);
+    for (let j = 0; j < _batchIntersects.length; j += 1) {
+      const hit = _batchIntersects[j] as Intersection & { batchId?: number };
+      hit.object = this;
+      hit.batchId = i;
+      intersects.push(hit);
+    }
+    _batchIntersects.length = 0;
+  }
+
+  _raycastProxy.material = [];
+  _raycastProxy.geometry = _emptyGeometry;
+}
 
 function commonAttributeNames(entries: readonly BatchEntry[]): string[] {
   const first = entries[0]?.mesh.geometry;
@@ -128,73 +177,82 @@ export function buildBatches(
 
   const handles: BatchHandle[] = [];
 
-  for (const [key, { appearance, members }] of groups) {
-    const attributeNames = commonAttributeNames(members);
-    const anyIndexed = members.some((m) => Boolean(m.mesh.geometry.index));
+  try {
+    for (const [key, { appearance, members }] of groups) {
+      const attributeNames = commonAttributeNames(members);
+      const anyIndexed = members.some((m) => Boolean(m.mesh.geometry.index));
 
-    let maxVertexCount = 0;
-    let maxIndexCount = 0;
-    for (const { mesh } of members) {
-      const pos = mesh.geometry.attributes.position;
-      const vCount = pos ? pos.count : 0;
-      maxVertexCount += vCount;
-      maxIndexCount += mesh.geometry.index ? mesh.geometry.index.count : vCount;
+      let maxVertexCount = 0;
+      let maxIndexCount = 0;
+      for (const { mesh } of members) {
+        const pos = mesh.geometry.attributes.position;
+        const vCount = pos ? pos.count : 0;
+        maxVertexCount += vCount;
+        maxIndexCount += mesh.geometry.index
+          ? mesh.geometry.index.count
+          : vCount;
+      }
+
+      const batch = new BatchedMesh(
+        members.length,
+        maxVertexCount,
+        maxIndexCount,
+        material(appearance),
+      ) as BatchedWithBvh;
+      batch.name = `batch:${key}`;
+      batch.visible = false;
+
+      const instanceOf = new Map<MeshId, number>();
+      const meshIdAt: MeshId[] = new Array<MeshId>(members.length);
+
+      for (const { id, mesh } of members) {
+        const prepared = normalizeGeometry(
+          mesh.geometry,
+          attributeNames,
+          anyIndexed,
+        );
+        const geomId = batch.addGeometry(prepared);
+        const instanceId = batch.addInstance(geomId);
+        mesh.updateWorldMatrix(true, false);
+        batch.setMatrixAt(instanceId, mesh.matrixWorld);
+        batch.setVisibleAt(instanceId, false);
+        instanceOf.set(id, instanceId);
+        meshIdAt[instanceId] = id;
+      }
+
+      const userData: BatchUserData = {
+        atlasBatch: true,
+        meshIds: meshIdAt,
+        pickable: new Uint8Array(members.length),
+      };
+      batch.userData = userData;
+
+      batch.computeBoundsTree = computeBatchedBoundsTree;
+      batch.disposeBoundsTree = disposeBatchedBoundsTree;
+      batch.computeBoundsTree(-1, {
+        strategy: CENTER,
+        targetLeafSize: 10,
+        setBoundingBox: true,
+      });
+      batch.raycast = raycastBatchedMesh;
+
+      handles.push({
+        key,
+        bundleId,
+        appearance,
+        batch,
+        instanceOf,
+        meshIdAt,
+        state: 'hidden',
+      });
     }
-
-    const batch = new BatchedMesh(
-      members.length,
-      maxVertexCount,
-      maxIndexCount,
-      material(appearance),
-    ) as BatchedWithBvh;
-    batch.name = `batch:${key}`;
-    batch.visible = false;
-
-    const instanceOf = new Map<MeshId, number>();
-    const meshIdAt: MeshId[] = new Array<MeshId>(members.length);
-
-    for (const { id, mesh } of members) {
-      const prepared = normalizeGeometry(
-        mesh.geometry,
-        attributeNames,
-        anyIndexed,
-      );
-      const geomId = batch.addGeometry(prepared);
-      const instanceId = batch.addInstance(geomId);
-      mesh.updateWorldMatrix(true, false);
-      batch.setMatrixAt(instanceId, mesh.matrixWorld);
-      batch.setVisibleAt(instanceId, false);
-      instanceOf.set(id, instanceId);
-      meshIdAt[instanceId] = id;
+  } catch (error) {
+    for (const handle of handles) {
+      handle.batch.visible = false;
+      (handle.batch as BatchedWithBvh).disposeBoundsTree?.();
+      handle.batch.dispose();
     }
-
-    const userData: BatchUserData = {
-      atlasBatch: true,
-      meshIds: meshIdAt,
-      pickable: new Uint8Array(members.length),
-    };
-    batch.userData = userData;
-
-    batch.computeBoundsTree = computeBatchedBoundsTree;
-    batch.disposeBoundsTree = disposeBatchedBoundsTree;
-    batch.computeBoundsTree(-1, {
-      strategy: CENTER,
-      targetLeafSize: 10,
-      setBoundingBox: true,
-    });
-    batch.raycast = acceleratedRaycast;
-    batch.computeBoundingBox();
-    batch.computeBoundingSphere();
-
-    handles.push({
-      key,
-      bundleId,
-      appearance,
-      batch,
-      instanceOf,
-      meshIdAt,
-      state: 'hidden',
-    });
+    throw error;
   }
 
   return handles;

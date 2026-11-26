@@ -1,16 +1,17 @@
 import {
+  BatchedMesh,
   BoxGeometry,
   BufferAttribute,
   BufferGeometry,
   Matrix4,
   Mesh,
   MeshBasicMaterial,
+  Raycaster,
   Vector3,
 } from 'three';
-import { acceleratedRaycast } from 'three-mesh-bvh';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import type { MeshId } from '../../data/ids';
-import { buildBatches } from './buildBatches';
+import { buildBatches, raycastBatchedMesh } from './buildBatches';
 
 function makeBoxMesh(
   name: string,
@@ -50,8 +51,17 @@ describe('buildBatches', () => {
     expect(boneHandle!.instanceOf.get('tibia--l' as MeshId)).toBe(1);
     expect(boneHandle!.instanceOf.get('fibula--l' as MeshId)).toBe(2);
     expect(boneHandle!.batch.name).toBe('batch:skeletal|skeletal|bone|');
-    expect(boneHandle!.batch.raycast).toBe(acceleratedRaycast);
+    expect(boneHandle!.batch.raycast).toBe(raycastBatchedMesh);
     expect(boneHandle!.batch.boundsTrees?.length).toBe(3);
+
+    boneHandle!.batch.visible = true;
+    boneHandle!.batch.setVisibleAt(0, true);
+    const hits = new Raycaster(
+      new Vector3(0, 0, 5),
+      new Vector3(0, 0, -1),
+    ).intersectObject(boneHandle!.batch, false);
+    expect(hits.length).toBeGreaterThan(0);
+    expect((hits[0] as { batchId?: number }).batchId).toBe(0);
 
     const fallbackHandle = handles.find((h) => h.key === 'skeletal|fallback');
     expect(fallbackHandle).toBeDefined();
@@ -181,5 +191,36 @@ describe('buildBatches', () => {
     expect(
       handles[0].batch.geometry.attributes.position instanceof BufferAttribute,
     ).toBe(true);
+  });
+
+  it('disposes already-built batches if a subsequent group throws', () => {
+    const bone = { system: 'skeletal' as const, tissue: 'bone' as const };
+    const cart = { system: 'skeletal' as const, tissue: 'cartilage' as const };
+    const disposeSpy = vi.spyOn(BatchedMesh.prototype, 'dispose');
+
+    let calls = 0;
+    expect(() =>
+      buildBatches(
+        'skeletal',
+        [
+          { id: 'femur--l' as MeshId, mesh: makeBoxMesh('femur--l'), appearance: bone },
+          {
+            id: 'costal-cartilage-of-first-rib--l' as MeshId,
+            mesh: makeBoxMesh('costal-cartilage-of-first-rib--l'),
+            appearance: cart,
+          },
+        ],
+        () => {
+          calls += 1;
+          if (calls === 2) {
+            throw new Error('material failure');
+          }
+          return new MeshBasicMaterial();
+        },
+      ),
+    ).toThrow('material failure');
+
+    expect(disposeSpy).toHaveBeenCalledTimes(1);
+    disposeSpy.mockRestore();
   });
 });

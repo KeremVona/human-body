@@ -100,6 +100,11 @@ export function applyMeshStates({
     }
 
     mesh.visible = state.visible;
+    if (state.visible) {
+      mesh.layers.enable(0);
+    } else {
+      mesh.layers.disable(0);
+    }
     mesh.userData.atlasVisible = state.visible;
     mesh.userData.pickable = state.pickable;
     appliedMeshes.set(id, mesh);

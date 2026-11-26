@@ -31,6 +31,10 @@ export function SceneStateApplier(): null {
   const prevQualityRef = useRef<ResolvedQuality | null>(null);
   const prevMovingRef = useRef<ReadonlySet<MeshId> | null>(null);
   const prevBatchCountRef = useRef(0);
+  const prevMembersRef = useRef<{
+    handles: unknown;
+    members: Map<string, readonly MeshId[]>;
+  } | null>(null);
   const libraryRef = useRef<{
     fadeOpacity: number;
     lib: ReturnType<typeof createMaterialLibrary>;
@@ -103,15 +107,22 @@ export function SceneStateApplier(): null {
       });
 
       let batchChanged = false;
+      const search =
+        typeof window !== 'undefined' ? window.location.search : '';
       const handles =
-        batchRegistry && batchingEnabled(window.location.search)
-          ? batchRegistry.all()
-          : [];
+        batchRegistry && batchingEnabled(search) ? batchRegistry.all() : [];
       if (handles.length > 0) {
         const moving = selectMotionMoving(state);
-        const members = new Map<string, readonly MeshId[]>(
-          handles.map((h) => [h.key, h.meshIdAt]),
-        );
+        let members =
+          prevMembersRef.current?.handles === handles
+            ? prevMembersRef.current.members
+            : null;
+        if (!members) {
+          members = new Map<string, readonly MeshId[]>(
+            handles.map((h) => [h.key, h.meshIdAt]),
+          );
+          prevMembersRef.current = { handles, members };
+        }
         const plan = planBatches({ members, states: next, moving });
         applyBatchPlan({ handles, plan, states: next, registry, library });
         if (
@@ -160,6 +171,7 @@ export function SceneStateApplier(): null {
       prevQualityRef.current = null;
       prevMovingRef.current = null;
       prevBatchCountRef.current = 0;
+      prevMembersRef.current = null;
     };
   }, [store, registry, batchRegistry, invalidate]);
 

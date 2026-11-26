@@ -58,7 +58,10 @@ export function BundleModel({ url, bundleId, onReady }: BundleModelProps) {
   }, [onReady]);
 
   const useBatching = Boolean(
-    batchRegistry && batchingEnabled(window.location.search),
+    batchRegistry &&
+      batchingEnabled(
+        typeof window !== 'undefined' ? window.location.search : '',
+      ),
   );
 
   useEffect(() => {
@@ -76,6 +79,10 @@ export function BundleModel({ url, bundleId, onReady }: BundleModelProps) {
           return;
         }
         mesh.visible = false;
+        // Disable default raycast layer 0 while hidden so R3F skips unpromoted individual meshes;
+        // keep layer 1 enabled for PinProbe occlusion raycasts against registry meshes.
+        mesh.layers.disable(0);
+        mesh.layers.enable(1);
         if (!useBatching) {
           attachMeshBvh(mesh);
         }
@@ -86,6 +93,7 @@ export function BundleModel({ url, bundleId, onReady }: BundleModelProps) {
     } catch (error) {
       registry.unregister(registeredIds);
       for (const mesh of registeredMeshes) {
+        mesh.layers.enable(0);
         detachMeshBvh(mesh);
       }
       throw error;
@@ -98,6 +106,7 @@ export function BundleModel({ url, bundleId, onReady }: BundleModelProps) {
     return () => {
       registry.unregister(registeredIds);
       for (const mesh of registeredMeshes) {
+        mesh.layers.enable(0);
         detachMeshBvh(mesh);
       }
       invalidate();
@@ -144,6 +153,7 @@ export function BundleModel({ url, bundleId, onReady }: BundleModelProps) {
     return () => {
       const removed = batchRegistry.removeBundle(bundleId);
       for (const handle of removed) {
+        handle.batch.visible = false;
         (
           handle.batch as { disposeBoundsTree?: () => void }
         ).disposeBoundsTree?.();

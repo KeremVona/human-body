@@ -90,24 +90,43 @@ async function pixelDiffRatio(
   const b64B = pngB.toString('base64');
   return page.evaluate(
     async ({ a, b }) => {
+      type MinimalCanvas2D = {
+        drawImage: (img: unknown, x: number, y: number) => void;
+        getImageData: (
+          x: number,
+          y: number,
+          w: number,
+          h: number,
+        ) => { data: Uint8ClampedArray };
+      };
+      type MinimalCanvas = {
+        width: number;
+        height: number;
+        getContext: (id: '2d') => MinimalCanvas2D | null;
+      };
+      type BrowserGlobals = {
+        createImageBitmap: (b: Blob) => Promise<{ width: number; height: number }>;
+        document: { createElement: (tag: 'canvas') => MinimalCanvas };
+      };
+      const dom = globalThis as unknown as BrowserGlobals;
       const load = async (b64: string) => {
         const res = await fetch(`data:image/png;base64,${b64}`);
         const blob = await res.blob();
-        return createImageBitmap(blob);
+        return dom.createImageBitmap(blob);
       };
       const [bmpA, bmpB] = await Promise.all([load(a), load(b)]);
       const w = bmpA.width;
       const h = bmpA.height;
       if (bmpB.width !== w || bmpB.height !== h) return 1;
 
-      const cA = document.createElement('canvas');
+      const cA = dom.document.createElement('canvas');
       cA.width = w;
       cA.height = h;
       const ctxA = cA.getContext('2d')!;
       ctxA.drawImage(bmpA, 0, 0);
       const dataA = ctxA.getImageData(0, 0, w, h).data;
 
-      const cB = document.createElement('canvas');
+      const cB = dom.document.createElement('canvas');
       cB.width = w;
       cB.height = h;
       const ctxB = cB.getContext('2d')!;
@@ -260,11 +279,8 @@ test('pixel equivalence across rendering scenarios (batching on vs off)', async 
 }) => {
   test.setTimeout(180_000);
   await initLowQuality(page);
-  await waitForAtlas(page);
-  await dismissHint(page);
 
   for (const scenario of EQUIVALENCE_SCENARIOS) {
-    await page.goto('/');
     await waitForAtlas(page, '/');
     await dismissHint(page);
 
@@ -354,7 +370,6 @@ test('clicks pass through unpickable muscular batch at 0.3 opacity to select ste
   });
   await expect(muscleSlider).toHaveAttribute('aria-valuenow', '30');
 
-  // Set integumentary to 0 so skin stays out of focus or remains unpickable at 0.35
   const sternumPt = await page.evaluate(() =>
     (globalThis as AtlasBatchGlobal).__atlas?.screenPointOf(
       'body-of-sternum',
@@ -416,4 +431,78 @@ test('motion promotes moving radius and demotes it on stop', async ({
     (globalThis as AtlasBatchGlobal).__atlas!.drawStats(),
   );
   expect(stoppedStats.promoted).toBe(0);
+});
+
+test('cut interior face of a batched mesh is pickable through the clipped side', async ({
+  page,
+}) => {
+  await initLowQuality(page);
+  await waitForAtlas(page);
+  await dismissHint(page);
+
+  // Enable axial section at femur--l midpoint and orbit camera upward so the ray
+  // enters through the clipped upper shaft onto the cut lower back face.
+  const cutT = await page.evaluate(() => {
+    const atlas = (globalThis as AtlasBatchGlobal).__atlas! as unknown as {
+      getState: () => {
+        assets: {
+          manifest: {
+            bundles: { id: string; meshIds: string[] }[];
+            meshes: Record<string, { bounds: { min: number[]; max: number[] } }>;
+          } | null;
+        };
+      };
+    };
+    const manifest = atlas.getState().assets.manifest;
+    const meshes = manifest?.meshes ?? {};
+    const skelIds =
+      manifest?.bundles.find((b) => b.id === 'skeletal')?.meshIds ?? [];
+    let minY = Infinity;
+    let maxY = -Infinity;
+    for (const id of skelIds) {
+      const m = meshes[id];
+      if (!m) continue;
+      if (m.bounds.min[1] < minY) minY = m.bounds.min[1];
+      if (m.bounds.max[1] > maxY) maxY = m.bounds.max[1];
+    }
+    const femur = meshes['femur--l'];
+    const femurMidY = (femur.bounds.min[1] + femur.bounds.max[1]) / 2;
+    return (femurMidY - minY) / (maxY - minY);
+  });
+
+  await page.evaluate((t) => {
+    (globalThis as AtlasBatchGlobal).__atlas!.dispatch({
+      type: 'section/sectionSet',
+      payload: { enabled: true, axis: 'axial', t, flip: false },
+    });
+  }, cutT);
+  await page.evaluate(() =>
+    (globalThis as AtlasBatchGlobal).__atlas?.waitIdle(),
+  );
+
+  // Orbit camera slightly downward-looking so the clipped top of the cut femur sits in front of the cut interior.
+  const box = await page.locator('canvas').boundingBox();
+  expect(box).not.toBeNull();
+  const cx = box!.x + box!.width * 0.5;
+  const cy = box!.y + box!.height * 0.5;
+  await page.mouse.move(cx, cy);
+  await page.mouse.down({ button: 'left' });
+  await page.mouse.move(cx, cy + 90, { steps: 6 });
+  await page.mouse.up({ button: 'left' });
+  await page.evaluate(() =>
+    (globalThis as AtlasBatchGlobal).__atlas?.waitIdle(),
+  );
+
+  const pt = await page.evaluate(() =>
+    (globalThis as AtlasBatchGlobal).__atlas?.screenPointOf('femur--l'),
+  );
+  expect(pt).not.toBeNull();
+  await page.mouse.click(pt!.x, pt!.y);
+
+  const selectedIds = await page.evaluate(
+    () =>
+      (globalThis as AtlasBatchGlobal).__atlas?.getState().selection
+        .selectedIds ?? [],
+  );
+  expect(selectedIds).toEqual(['femur--l']);
 });

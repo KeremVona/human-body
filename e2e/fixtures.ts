@@ -22,7 +22,7 @@ function wrapPageGoto(page: Page): Page {
 }
 
 export const test = base.extend({
-  context: async ({ context }, use, testInfo) => {
+  context: async ({ context }, accept, testInfo) => {
     if (testInfo.project.name === 'chromium-batching-off') {
       const origNewPage = context.newPage.bind(context);
       context.newPage = (async (
@@ -32,14 +32,15 @@ export const test = base.extend({
         return wrapPageGoto(p);
       }) as typeof context.newPage;
     }
-    await use(context);
+    await accept(context);
   },
-  page: async ({ page }, use, testInfo) => {
+  page: async ({ page }, accept, testInfo) => {
     if (testInfo.project.name === 'chromium-batching-off') {
       wrapPageGoto(page);
     }
-    await use(page);
+    await accept(page);
   },
 });
 
 export { expect };
+export type { Page };

@@ -49,6 +49,7 @@ export function PinProbe(): null {
 
     if (!raycasterRef.current) {
       const r = new Raycaster();
+      r.layers.enable(1);
       Object.assign(r, { firstHitOnly: true });
       raycasterRef.current = r;
     }

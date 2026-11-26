@@ -7,6 +7,7 @@ import {
   type ReactNode,
 } from 'react';
 import { useStore } from 'react-redux';
+import { Raycaster, type Group, type Plane } from 'three';
 import { useAppDispatch } from '../app/hooks';
 import type { RootState } from '../app/store';
 import type { MeshId } from '../data/ids';
@@ -22,6 +23,7 @@ import {
   STATIONARY_PX,
   classifyRelease,
   createTapTracker,
+  meshIdOfHit,
   pickMeshHit,
   pickMeshId,
   type PointerKind,
@@ -68,7 +70,10 @@ export function Picking({
   const store = useStore<RootState>();
   const cameraApi = useCameraApi();
   const gl = useThree((s) => s.gl);
+  const camera = useThree((s) => s.camera);
 
+  const groupRef = useRef<Group>(null);
+  const pickRaycasterRef = useRef<Raycaster | null>(null);
   const pressRef = useRef<ActivePress | null>(null);
   const activePointersRef = useRef(new Set<number>());
   const pickTimingRef = useRef({ count: 0, totalMs: 0 });
@@ -250,6 +255,28 @@ export function Picking({
     };
   }, [dispatch, store, cameraApi, gl, clearPress, beginPress]);
 
+  const resolveIntersections = (
+    e: ThreeEvent<PointerEvent>,
+    clip: Plane | null,
+  ) => {
+    if (e.intersections.length === 0) return e.intersections;
+    const firstHit = meshIdOfHit(e.intersections[0]);
+    const needsFullRaycast =
+      clip !== null ||
+      (!firstHit?.pickable &&
+        e.intersections.some((h) => h.object.userData?.atlasBatch === true));
+    if (!needsFullRaycast || !groupRef.current) {
+      return e.intersections;
+    }
+    if (!pickRaycasterRef.current) {
+      pickRaycasterRef.current = new Raycaster();
+    }
+    const r = pickRaycasterRef.current;
+    r.setFromCamera(e.pointer, camera);
+    Object.assign(r, { firstHitOnly: !clip });
+    return r.intersectObject(groupRef.current, true);
+  };
+
   const handlePointerMove = (e: ThreeEvent<PointerEvent>) => {
     e.stopPropagation();
     pointerPosition.set(e.clientX, e.clientY);
@@ -268,11 +295,12 @@ export function Picking({
     }
 
     const clip = sectionPlaneStore.get();
-    const rawHit = pickMeshHit(e.intersections, clip);
+    const intersections = resolveIntersections(e, clip);
+    const rawHit = pickMeshHit(intersections, clip);
     let id: MeshId | null;
     if (import.meta.env.DEV && window.location.search.includes('debug')) {
       const t0 = performance.now();
-      id = pickMeshId(e.intersections, clip);
+      id = pickMeshId(intersections, clip);
       const dt = performance.now() - t0;
       const stat = pickTimingRef.current;
       stat.totalMs += dt;
@@ -303,7 +331,8 @@ export function Picking({
     if (toPointerKind(e.pointerType) !== 'mouse') return;
     if (store.getState().quiz.status !== 'off') return;
 
-    const hit = pickMeshHit(e.intersections, sectionPlaneStore.get());
+    const clip = sectionPlaneStore.get();
+    const hit = pickMeshHit(resolveIntersections(e, clip), clip);
     lastHit.set(
       hit && hit.point
         ? { meshId: hit.meshId, point: hit.point.clone() }
@@ -321,7 +350,8 @@ export function Picking({
       clearPress();
       return;
     }
-    const hit = pickMeshHit(e.intersections, sectionPlaneStore.get());
+    const clip = sectionPlaneStore.get();
+    const hit = pickMeshHit(resolveIntersections(e, clip), clip);
     if (store.getState().quiz.status === 'off') {
       lastHit.set(
         hit && hit.point
@@ -342,6 +372,7 @@ export function Picking({
 
   return (
     <group
+      ref={groupRef}
       onPointerMove={handlePointerMove}
       onPointerOut={handlePointerOut}
       onPointerDown={handlePointerDown}
