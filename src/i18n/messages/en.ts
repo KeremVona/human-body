@@ -247,6 +247,9 @@ export const en = {
     mouse: 'Drag to rotate · Scroll to zoom · Click any part',
     gotIt: 'Got it',
   },
+  loading: {
+    details: 'Loading anatomy details…',
+  },
   settings: {
     title: 'Settings',
     qualityHeading: 'Graphics quality',

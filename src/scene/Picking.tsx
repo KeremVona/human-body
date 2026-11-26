@@ -150,6 +150,7 @@ export function Picking({
         return;
       }
       if (ev.target !== gl.domElement) return;
+      if (store.getState().assets.bundles.skeletal !== 'ready') return;
       if (pressRef.current?.pointerId === ev.pointerId) return;
 
       const pointerType = toPointerKind(ev.pointerType);
@@ -281,7 +282,10 @@ export function Picking({
     e.stopPropagation();
     pointerPosition.set(e.clientX, e.clientY);
     if (toPointerKind(e.pointerType) !== 'mouse') return;
-    if (store.getState().quiz.status !== 'off') {
+    if (
+      store.getState().assets.bundles.skeletal !== 'ready' ||
+      store.getState().quiz.status !== 'off'
+    ) {
       if (store.getState().selection.hoveredId !== null) {
         dispatch(hovered(null));
       }
@@ -329,7 +333,12 @@ export function Picking({
 
   const handlePointerOut = (e: ThreeEvent<PointerEvent>) => {
     if (toPointerKind(e.pointerType) !== 'mouse') return;
-    if (store.getState().quiz.status !== 'off') return;
+    if (
+      store.getState().assets.bundles.skeletal !== 'ready' ||
+      store.getState().quiz.status !== 'off'
+    ) {
+      return;
+    }
 
     const clip = sectionPlaneStore.get();
     const hit = pickMeshHit(resolveIntersections(e, clip), clip);
@@ -346,6 +355,7 @@ export function Picking({
 
   const handlePointerDown = (e: ThreeEvent<PointerEvent>) => {
     e.stopPropagation();
+    if (store.getState().assets.bundles.skeletal !== 'ready') return;
     if (activePointersRef.current.size >= 1) {
       clearPress();
       return;

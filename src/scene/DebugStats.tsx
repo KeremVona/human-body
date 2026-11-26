@@ -64,7 +64,13 @@ function formatTriangles(triangles: number): string {
   return String(triangles);
 }
 
-/** DOM overlay displaying FPS, draw calls, triangles, meshes, and batch counts when `?debug` is set. */
+function markStartMs(name: string): number | null {
+  if (typeof performance === 'undefined') return null;
+  const entry = performance.getEntriesByName(name, 'mark')[0];
+  return entry ? Math.round(entry.startTime) : null;
+}
+
+/** DOM overlay displaying FPS, draw calls, triangles, meshes, batch counts, and boot timing marks when `?debug` is set. */
 export function DebugStats({
   stats,
   meshCount,
@@ -73,6 +79,8 @@ export function DebugStats({
   meshCount: number;
 }) {
   if (!stats) return null;
+  const firstViewMs = markStartMs('atlas:first-view');
+  const interactiveMs = markStartMs('atlas:interactive-skeleton');
   return (
     <aside
       aria-label="Renderer statistics"
@@ -83,6 +91,8 @@ export function DebugStats({
       {formatTriangles(stats.triangles)} · meshes {meshCount} · batches{' '}
       {stats.batches} · promoted {stats.promoted} · individual{' '}
       {stats.individual}
+      {firstViewMs !== null ? ` · first-view ${firstViewMs} ms` : ''}
+      {interactiveMs !== null ? ` · interactive ${interactiveMs} ms` : ''}
     </aside>
   );
 }

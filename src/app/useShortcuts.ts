@@ -44,53 +44,56 @@ export function useShortcuts(onContextMenu?: () => void): void {
       const state = store.getState();
       const selectedIds = state.selection.selectedIds;
       const quizActive = state.quiz.status !== 'off';
+      const skeletalReady = state.assets.bundles.skeletal === 'ready';
 
       switch (cmd) {
         case 'hide':
-          if (!quizActive && selectedIds.length > 0) {
+          if (skeletalReady && !quizActive && selectedIds.length > 0) {
             dispatch(hide(selectedIds));
           }
           break;
         case 'isolate':
-          if (!quizActive && selectedIds.length > 0) {
+          if (skeletalReady && !quizActive && selectedIds.length > 0) {
             dispatch(isolate(selectedIds));
             void cameraApi.focusMeshes(selectedIds);
           }
           break;
         case 'fade':
-          if (!quizActive && selectedIds.length > 0) {
+          if (skeletalReady && !quizActive && selectedIds.length > 0) {
             dispatch(fadeOthers(selectedIds));
           }
           break;
         case 'focus':
-          if (!quizActive && selectedIds.length > 0) {
+          if (skeletalReady && !quizActive && selectedIds.length > 0) {
             void cameraApi.focusMeshes(selectedIds);
           }
           break;
         case 'undo':
           e.preventDefault();
-          if (!quizActive) dispatch(undo());
+          if (skeletalReady && !quizActive) dispatch(undo());
           break;
         case 'add-pin':
-          if (!quizActive && selectedIds.length > 0) {
+          if (skeletalReady && !quizActive && selectedIds.length > 0) {
             void import('../features/pins/thunks').then(({ addPinAtPointer }) =>
               dispatch(addPinAtPointer()),
             );
           }
           break;
         case 'toggle-section':
-          if (!quizActive) {
+          if (skeletalReady && !quizActive) {
             dispatch(sectionToggled());
           }
           break;
         case 'deselect':
-          if (!quizActive && selectedIds.length > 0) {
+          if (skeletalReady && !quizActive && selectedIds.length > 0) {
             dispatch(selectionCleared());
           }
           break;
         case 'context-menu':
           e.preventDefault();
-          onContextMenu?.();
+          if (skeletalReady) {
+            onContextMenu?.();
+          }
           break;
         case 'focus-search': {
           e.preventDefault();

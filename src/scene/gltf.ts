@@ -52,6 +52,18 @@ export function useGltf(url: string): GLTF {
   return entry.gltf;
 }
 
+/** Suspends while fetching an optional GLB, returning `null` instead of throwing on error. */
+export function useOptionalGltf(url: string): GLTF | null {
+  const entry = startLoad(url);
+  if (entry.status === 'pending') {
+    throw entry.promise;
+  }
+  if (entry.status === 'error') {
+    return null;
+  }
+  return entry.gltf;
+}
+
 /** Starts fetching and decoding a GLB bundle ahead of mount. */
 export function preloadGltf(url: string): void {
   startLoad(url);

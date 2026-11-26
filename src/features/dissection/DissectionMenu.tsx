@@ -35,8 +35,11 @@ export function DissectionMenu({
   const cameraApi = useCameraApi();
   const hasDissection = useAppSelector(selectHasDissection);
   const quizStatus = useAppSelector((s) => s.quiz.status);
+  const skeletalReady = useAppSelector(
+    (s) => s.assets.bundles.skeletal === 'ready',
+  );
 
-  const open = target !== null && quizStatus === 'off';
+  const open = target !== null && quizStatus === 'off' && skeletalReady;
   const x = target?.x ?? 0;
   const y = target?.y ?? 0;
   const meshIds = target?.meshIds ?? [];

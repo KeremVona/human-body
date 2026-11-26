@@ -16,7 +16,7 @@ import { installTestHooks } from './app/testHooks';
 import { useShortcuts } from './app/useShortcuts';
 import { bundleUrl, loadManifest } from './data/manifest';
 import { bundleFailed, bundleReady } from './features/assets/assetsSlice';
-import { preloadGltf } from './scene/gltfCache';
+import { fetchGltfBuffer, preloadGltf } from './scene/gltfCache';
 import { TopBar } from './features/about/TopBar';
 import { applyHtmlLang } from './i18n/locale';
 import { loadMessages, setActiveLocale, useT } from './i18n/t';
@@ -26,6 +26,7 @@ import type { ContextMenuTarget } from './features/dissection/DissectionMenu';
 import { ExitChips } from './features/dissection/ExitChips';
 import { Toolbar } from './features/dissection/Toolbar';
 import { FirstRunHint } from './features/onboarding/FirstRunHint';
+import { LoadingDetailsChip } from './features/onboarding/LoadingDetailsChip';
 import { QuizBanner } from './features/quiz/QuizBanner';
 import { emptyPoolDismissed } from './features/quiz/quizSlice';
 import { QuizSummary } from './features/quiz/QuizSummary';
@@ -173,7 +174,9 @@ function AtlasShell({
   );
 
   const openKeyboardContextMenu = useCallback(() => {
-    const selectedIds = store.getState().selection.selectedIds;
+    const state = store.getState();
+    if (state.assets.bundles.skeletal !== 'ready') return;
+    const selectedIds = state.selection.selectedIds;
     setContextMenu({
       x: typeof window !== 'undefined' ? window.innerWidth / 2 : 0,
       y: typeof window !== 'undefined' ? window.innerHeight / 2 : 0,
@@ -185,6 +188,7 @@ function AtlasShell({
 
   const handleContextRequest = useCallback(
     (req: ContextRequest) => {
+      if (store.getState().assets.bundles.skeletal !== 'ready') return;
       if (req.meshId) {
         dispatch(selected([req.meshId]));
         setContextMenu({
@@ -197,7 +201,7 @@ function AtlasShell({
         setContextMenu({ x: req.x, y: req.y, meshIds: [], point: null });
       }
     },
-    [dispatch],
+    [dispatch, store],
   );
 
   const debug = useMemo(() => {
@@ -226,7 +230,12 @@ function AtlasShell({
     void loadAtlasCanvas();
     void dispatch(bootstrap());
     void loadManifest()
-      .then((m) => {
+      .then(async (m) => {
+        if (m.preview) {
+          const previewAssetUrl = bundleUrl(m.preview.file);
+          preloadGltf(previewAssetUrl);
+          await fetchGltfBuffer(previewAssetUrl).catch(() => {});
+        }
         const skeletal = m.bundles.find((b) => b.id === 'skeletal');
         if (skeletal) {
           preloadGltf(bundleUrl(skeletal.file));
@@ -241,6 +250,11 @@ function AtlasShell({
       setMeshCount(registry.size);
     });
   }, [debug, registry]);
+
+  const previewUrl = useMemo(
+    () => (manifest?.preview ? bundleUrl(manifest.preview.file) : null),
+    [manifest],
+  );
 
   const canvasBundles: CanvasBundle[] = useMemo(() => {
     if (!manifest) return [];
@@ -262,6 +276,20 @@ function AtlasShell({
       setMeshCount(registry.size);
       dispatch(bundleReady(bundleId));
       if (bundleId === 'skeletal') {
+        if (typeof performance !== 'undefined') {
+          if (
+            performance.getEntriesByName('atlas:first-view', 'mark').length ===
+            0
+          ) {
+            performance.mark('atlas:first-view');
+          }
+          if (
+            performance.getEntriesByName('atlas:interactive-skeleton', 'mark')
+              .length === 0
+          ) {
+            performance.mark('atlas:interactive-skeleton');
+          }
+        }
         void loadInspector();
       }
     },
@@ -284,6 +312,7 @@ function AtlasShell({
         <Suspense fallback={null}>
           <AtlasCanvas
             debug={debug}
+            previewUrl={previewUrl}
             bundles={canvasBundles}
             onBundleReady={handleBundleReady}
             onBundleError={handleBundleError}
@@ -441,6 +470,7 @@ function AtlasShell({
             </Suspense>
           ) : null}
           <div className="pointer-events-none fixed bottom-16 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2">
+            <LoadingDetailsChip />
             <FirstRunHint />
             <ExitChips />
           </div>

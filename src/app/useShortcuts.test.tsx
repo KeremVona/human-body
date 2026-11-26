@@ -6,6 +6,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { makeStore } from './store';
 import { useShortcuts } from './useShortcuts';
 import { TopBar } from '../features/about/TopBar';
+import { bundleReady } from '../features/assets/assetsSlice';
 import {
   DissectionMenu,
   type ContextMenuTarget,
@@ -39,6 +40,7 @@ describe('useShortcuts', () => {
   it('lets Escape close an open DissectionMenu without clearing the selection, then clears on the second Escape', async () => {
     const user = userEvent.setup();
     const store = makeStore();
+    store.dispatch(bundleReady('skeletal'));
     store.dispatch(selected(['femur--l']));
 
     render(
@@ -64,6 +66,7 @@ describe('useShortcuts', () => {
   it('suppresses viewer shortcuts while a modal dialog is open', async () => {
     const user = userEvent.setup();
     const store = makeStore();
+    store.dispatch(bundleReady('skeletal'));
     store.dispatch(selected(['femur--l']));
     const camera: CameraApi = {
       focusMeshes: vi.fn(async () => {}),
@@ -137,6 +140,7 @@ describe('useShortcuts', () => {
   it('toggles cross-section on X outside quiz', async () => {
     const user = userEvent.setup();
     const store = makeStore();
+    store.dispatch(bundleReady('skeletal'));
 
     render(
       <Provider store={store}>
@@ -150,6 +154,30 @@ describe('useShortcuts', () => {
     expect(store.getState().section.enabled).toBe(true);
     await user.keyboard('X');
     expect(store.getState().section.enabled).toBe(false);
+  });
+
+  it('keeps dissection and selection shortcuts inert until skeletal is ready', async () => {
+    const user = userEvent.setup();
+    const store = makeStore();
+    store.dispatch(selected(['femur--l']));
+
+    render(
+      <Provider store={store}>
+        <CameraApiProvider value={noopCamera}>
+          <ShortcutMenuHarness
+            initialMenu={{ x: 100, y: 100, meshIds: ['femur--l'] }}
+          />
+        </CameraApiProvider>
+      </Provider>,
+    );
+
+    expect(screen.queryByRole('menu')).not.toBeInTheDocument();
+    await user.keyboard('h');
+    await user.keyboard('x');
+    await user.keyboard('{Escape}');
+    expect(store.getState().dissection.hidden).toEqual([]);
+    expect(store.getState().section.enabled).toBe(false);
+    expect(store.getState().selection.selectedIds).toEqual(['femur--l']);
   });
 
   it('focuses the search box on / even when UI locale is Turkish', async () => {

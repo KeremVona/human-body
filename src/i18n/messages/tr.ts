@@ -253,6 +253,9 @@ export const tr = {
       'Döndürmek için sürükleyin · Yakınlaştırmak için kaydırın · Herhangi bir parçaya tıklayın',
     gotIt: 'Anladım',
   },
+  loading: {
+    details: 'Anatomi ayrıntıları yükleniyor…',
+  },
   settings: {
     title: 'Ayarlar',
     qualityHeading: 'Grafik kalitesi',

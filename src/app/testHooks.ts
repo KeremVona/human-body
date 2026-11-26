@@ -12,6 +12,7 @@ import {
 import type { CameraController, Pose } from '../scene/camera';
 import type { MeshRegistry } from '../scene/meshRegistry';
 import { pointerPosition } from '../scene/pointerPosition';
+import { previewState, type PreviewLifecycle } from '../scene/previewState';
 import type { AppDispatch, AppStore, RootState } from './store';
 
 export type AtlasTestApi = {
@@ -33,6 +34,7 @@ export type AtlasTestApi = {
   pinScreenPoints(): PinScreen[];
   section(): SectionState;
   motionPhase(): number;
+  previewState(): PreviewLifecycle;
   meshTransform(id: MeshId): {
     position: number[];
     quaternion: number[];
@@ -101,6 +103,7 @@ export function installTestHooks(api: {
     pinScreenPoints: () => pinScreens.get(),
     section: () => api.store.getState().section,
     motionPhase: () => motionPhase.get(),
+    previewState: () => previewState.get(),
     meshTransform: (id) => {
       const obj = api.registry.get(id);
       if (!obj) return null;

@@ -1,5 +1,5 @@
 import { Canvas } from '@react-three/fiber';
-import { lazy, Suspense, useContext, useState } from 'react';
+import { lazy, Suspense, useContext, useEffect, useState } from 'react';
 import { Provider, useStore } from 'react-redux';
 import { AgXToneMapping, type Scene } from 'three';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
@@ -25,6 +25,12 @@ import { lastHit } from './lastHit';
 import { Lights } from './Lights';
 import { MeshRegistryProvider, useMeshRegistry } from './meshRegistry';
 import { Picking, type ContextRequest } from './Picking';
+import { PreviewModel } from './PreviewModel';
+import {
+  nextPreviewState,
+  previewState,
+  usePreviewState,
+} from './previewState';
 import { SceneStateApplier } from './SceneStateApplier';
 import { SectionController } from './SectionController';
 
@@ -42,6 +48,7 @@ export type CanvasBundle = {
 
 type AtlasCanvasProps = {
   debug: boolean;
+  previewUrl?: string | null;
   bundles: CanvasBundle[];
   onBundleReady?: (bundleId: string, count: number) => void;
   onBundleError: (bundleId: string) => void;
@@ -55,6 +62,7 @@ const noopContextRequest = () => {};
 /** Full-bleed WebGL viewer hosting camera controls, lighting, BVH picking acceleration, and bundles. */
 export function AtlasCanvas({
   debug,
+  previewUrl,
   bundles,
   onBundleReady,
   onBundleError,
@@ -67,11 +75,23 @@ export function AtlasCanvas({
   const tr = useT();
   const hasPins = useAppSelector((s) => s.pins.items.length > 0);
   const hasMotion = useAppSelector((s) => s.motion.activeId !== null);
+  const skeletalReady = useAppSelector(
+    (s) => s.assets.bundles.skeletal === 'ready',
+  );
+  const previewLifecycle = usePreviewState();
   const registry = useMeshRegistry();
   const outerBatchRegistry = useOptionalBatchRegistry();
   const [fallbackBatchRegistry] = useState(() => createBatchRegistry());
   const batchRegistry = outerBatchRegistry ?? fallbackBatchRegistry;
   const cameraController = useContext(CameraApiContext);
+
+  useEffect(() => {
+    if ((!previewUrl || skeletalReady) && previewState.get() === 'loading') {
+      previewState.set(
+        nextPreviewState('loading', 'skeletal-ready', false),
+      );
+    }
+  }, [previewUrl, skeletalReady]);
 
   return (
     <div
@@ -94,6 +114,7 @@ export function AtlasCanvas({
         gl={{ alpha: true, antialias: true, toneMapping: AgXToneMapping }}
         onPointerMissed={(e) => {
           if (
+            store.getState().assets.bundles.skeletal === 'ready' &&
             store.getState().quiz.status === 'off' &&
             (!('button' in e) || e.button === 0)
           ) {
@@ -114,6 +135,20 @@ export function AtlasCanvas({
                 <CameraRig />
 
                 <SceneStateApplier />
+
+                {previewUrl && previewLifecycle !== 'gone' ? (
+                  <BundleErrorBoundary
+                    bundleId="skeletal-preview"
+                    onError={() => previewState.set('gone')}
+                  >
+                    <Suspense fallback={null}>
+                      <PreviewModel
+                        url={previewUrl}
+                        skeletalReady={skeletalReady}
+                      />
+                    </Suspense>
+                  </BundleErrorBoundary>
+                ) : null}
 
                 <Picking
                   onContextRequest={onContextRequest ?? noopContextRequest}
