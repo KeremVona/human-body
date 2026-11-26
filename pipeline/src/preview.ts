@@ -102,14 +102,7 @@ export async function buildPreview(
     );
   }
 
-  // Strip any existing normals, recompute smooth normals, quantize, and apply Meshopt compression.
-  for (const mesh of doc.getRoot().listMeshes()) {
-    for (const prim of mesh.listPrimitives()) {
-      if (prim.getAttribute('NORMAL')) {
-        prim.setAttribute('NORMAL', null);
-      }
-    }
-  }
+  // Recompute smooth vertex normals over the simplified mesh.
   await doc.transform(normals({ overwrite: true }));
 
   const targetScene =
@@ -117,10 +110,13 @@ export async function buildPreview(
   const rawBounds = targetScene
     ? getBounds(targetScene)
     : { min: [0, 0, 0] as Vec3, max: [0, 0, 0] as Vec3 };
-  const bounds = {
-    min: [rawBounds.min[0], rawBounds.min[1], rawBounds.min[2]] as Vec3,
-    max: [rawBounds.max[0], rawBounds.max[1], rawBounds.max[2]] as Vec3,
-  };
+  const validBounds = Number.isFinite(rawBounds.min[0]);
+  const bounds = validBounds
+    ? {
+        min: [rawBounds.min[0], rawBounds.min[1], rawBounds.min[2]] as Vec3,
+        max: [rawBounds.max[0], rawBounds.max[1], rawBounds.max[2]] as Vec3,
+      }
+    : { min: [0, 0, 0] as Vec3, max: [0, 0, 0] as Vec3 };
 
   for (const node of doc.getRoot().listNodes()) {
     if (node.getMesh()) {

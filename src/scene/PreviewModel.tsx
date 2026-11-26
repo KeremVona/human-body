@@ -2,6 +2,7 @@ import { useFrame, useThree } from '@react-three/fiber';
 import { useEffect, useRef, type JSX } from 'react';
 import { Mesh, MeshPhysicalMaterial, type Group } from 'three';
 import { useOptionalGltf } from './gltf';
+import { clearGltf } from './gltfCache';
 import { RENDER_ORDER, TISSUE_LOOKS } from './materials';
 import { nextPreviewState, previewState } from './previewState';
 
@@ -47,7 +48,7 @@ export function PreviewModel({
       roughness: TISSUE_LOOKS.bone.roughness,
       clearcoat: TISSUE_LOOKS.bone.clearcoat,
       sheen: TISSUE_LOOKS.bone.sheen,
-      transparent: true,
+      transparent: false,
       opacity: 1,
       depthWrite: true,
     });
@@ -68,8 +69,16 @@ export function PreviewModel({
       group.remove(cloned);
       materialRef.current = null;
       material.dispose();
+      if (previewState.get() === 'gone') {
+        cloned.traverse((obj) => {
+          if (obj instanceof Mesh) {
+            obj.geometry.dispose();
+          }
+        });
+        clearGltf(url);
+      }
     };
-  }, [gltf, invalidate]);
+  }, [gltf, url, invalidate]);
 
   useEffect(() => {
     const reduced = prefersReducedMotion();
@@ -80,9 +89,17 @@ export function PreviewModel({
       return;
     }
     if (skeletalReady) {
-      previewState.set(
-        nextPreviewState(previewState.get(), 'skeletal-ready', reduced),
+      const next = nextPreviewState(
+        previewState.get(),
+        'skeletal-ready',
+        reduced,
       );
+      previewState.set(next);
+      if (next === 'fading' && materialRef.current) {
+        materialRef.current.transparent = true;
+        materialRef.current.depthWrite = false;
+        materialRef.current.needsUpdate = true;
+      }
       invalidate();
       return;
     }
@@ -106,6 +123,11 @@ export function PreviewModel({
 
     const material = materialRef.current;
     if (material && previewState.get() === 'fading') {
+      if (!material.transparent) {
+        material.transparent = true;
+        material.depthWrite = false;
+        material.needsUpdate = true;
+      }
       fadeElapsedRef.current += Math.min(delta, 0.1);
       const t = Math.min(1, fadeElapsedRef.current / FADE_SECONDS);
       material.opacity = 1 - t;

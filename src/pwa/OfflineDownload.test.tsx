@@ -6,7 +6,10 @@ import { makeStore } from '../app/store';
 import { bootstrap } from '../features/content/contentSlice';
 import type { Manifest } from '../data/schema';
 import { OfflineDownload } from './OfflineDownload';
-import { markOfflineReady } from './offline';
+import {
+  __resetOfflineStoreForTests,
+  markOfflineReady,
+} from './offline';
 
 const manifest: Manifest = {
   version: 1,
@@ -49,6 +52,7 @@ function makeBootedStore() {
 
 afterEach(() => {
   cleanup();
+  __resetOfflineStoreForTests();
   localStorage.clear();
   vi.restoreAllMocks();
 });
@@ -148,5 +152,44 @@ describe('OfflineDownload', () => {
         ),
       ).toBeInTheDocument();
     });
+  });
+
+  it('preserves live download progress across unmount and remount', async () => {
+    const user = userEvent.setup();
+    const store = makeBootedStore();
+    let resolveDownload!: () => void;
+    const downloadFn = vi.fn(
+      ({ urls, onProgress }) =>
+        new Promise<void>((resolve) => {
+          onProgress?.({ done: 2, total: urls.length });
+          resolveDownload = resolve;
+        }),
+    );
+
+    const first = render(
+      <Provider store={store}>
+        <OfflineDownload hasController download={downloadFn} />
+      </Provider>,
+    );
+
+    await user.click(
+      screen.getByRole('button', { name: 'Make available offline (10 MB)' }),
+    );
+    expect(screen.getByText(/Downloading 2 of/)).toBeInTheDocument();
+
+    first.unmount();
+
+    render(
+      <Provider store={store}>
+        <OfflineDownload hasController download={downloadFn} />
+      </Provider>,
+    );
+    expect(screen.getByText(/Downloading 2 of/)).toBeInTheDocument();
+
+    resolveDownload();
+    await waitFor(() => {
+      expect(screen.getByText('Available offline')).toBeInTheDocument();
+    });
+    expect(downloadFn).toHaveBeenCalledTimes(1);
   });
 });

@@ -18,6 +18,7 @@ Live demo: **[keremvona.github.io/human-body](https://keremvona.github.io/human-
 - **Personal 3D pins:** Right-click (or long-press on touch) any part and select **Add pin** (`P`) to anchor labeled notes onto the mesh surface with occlusion dimming, mesh-visibility tracking, Undo on delete, and `localStorage` persistence (`atlas.pins.v1`).
 - **Motion demos:** Illustrative playback in the `Motion` tab (`Elbow flexion and extension`, `Knee flexion and extension`, `Shoulder abduction`, and `Heartbeat`) featuring play/pause, `0.5×`/`1×` speeds, a scrubbable timeline, semi-transparent cross-joint muscles, agonist highlights, live 3D pin tracking, and cross-section compatibility. Note: these demos are simplified illustrative animations, not clinical biomechanical simulations.
 - **Configurable graphics quality & visual effects:** Top-bar `Settings` menu (`Auto`, `High`, `Low`) controlling N8AO contact shadows, `#6FA8FF` selection outlines, Fresnel-rimmed x-ray ghosts, and muscle sheen.
+- **Fast first view & offline PWA support:** Loads a simplified `490 KB` `skeletal-preview` GLB before streaming the interactive skeleton, installs cleanly with icons and prompt-based updates (`Reload` toast), and includes an opt-in full offline download in `Settings`.
 - **Camera presets & responsive UI:** Anterior/Posterior/Left/Right/Superior/Inferior presets (`1–6`), zoom (`+`/`-`), reset view (`0`), desktop side Inspector (`>= 768px`), and touch-friendly bottom sheet on mobile viewports.
 
 ## Tech Stack
@@ -49,7 +50,9 @@ Verification commands:
 ```sh
 npm run ci            # typecheck, lint, Vitest suites, check:content, assets:verify, production build
 npm run test:e2e      # Playwright Desktop Chrome + Pixel 7 e2e suites against Vite dev server
+npm run test:e2e:sw   # Service Worker update toast & offline E2E checks against built preview
 npm run test:e2e:base # Sub-path production build (ATLAS_BASE_PATH=/atlas-check/) + Vite preview smoke test
+npm run icons         # Regenerate PNG app & maskable icons in public/icons/
 ```
 
 ## Rebuilding 3D Assets

@@ -60,10 +60,14 @@ function cloneDistWithVersion(dest: string, version: string): void {
   writeFileSync(htmlPath, html, 'utf8');
 
   const swPath = path.join(dest, 'sw.js');
-  const sw = readFileSync(swPath, 'utf8').replace(
+  const rawSw = readFileSync(swPath, 'utf8');
+  const sw = rawSw.replace(
     /("index\.html",revision:")([^"]+)(")/,
     `$1${version}-rev$3`,
   );
+  if (sw === rawSw) {
+    throw new Error('Failed to patch index.html revision inside cloned sw.js');
+  }
   writeFileSync(swPath, sw, 'utf8');
 }
 

@@ -7,11 +7,13 @@ import { usePreviewState } from '../../scene/previewState';
 export function LoadingDetailsChip(): JSX.Element | null {
   const tr = useT();
   const preview = usePreviewState();
-  const skeletalReady = useAppSelector(
-    (s) => s.assets.bundles.skeletal === 'ready',
-  );
+  const skeletalStatus = useAppSelector((s) => s.assets.bundles.skeletal);
 
-  if (skeletalReady || preview !== 'shown') {
+  if (
+    skeletalStatus === 'ready' ||
+    skeletalStatus === 'error' ||
+    preview !== 'shown'
+  ) {
     return null;
   }
 

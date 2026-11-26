@@ -27,7 +27,9 @@ export function UpdateToast({
           disabled={reloading}
           onClick={() => {
             setReloading(true);
-            void onReload();
+            void onReload().catch(() => {
+              setReloading(false);
+            });
           }}
           className="rounded-full bg-sky-500 px-3 py-0.5 font-medium text-slate-950 transition-colors hover:bg-sky-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-300 disabled:opacity-60"
         >

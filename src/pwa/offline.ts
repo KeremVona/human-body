@@ -1,3 +1,4 @@
+import { useSyncExternalStore } from 'react';
 import type { Manifest } from '../data/schema';
 import type { Locale } from '../i18n/locale';
 
@@ -18,6 +19,49 @@ export type DownloadProgress = {
   done: number;
   total: number;
 };
+
+export type OfflineErrorKind = 'quota' | 'failed' | null;
+
+export type OfflineDownloadSnapshot = {
+  completedGeneratedAt: string | null;
+  progress: DownloadProgress | null;
+  errorKind: OfflineErrorKind;
+};
+
+let snapshot: OfflineDownloadSnapshot = {
+  completedGeneratedAt: null,
+  progress: null,
+  errorKind: null,
+};
+const listeners = new Set<() => void>();
+let inFlightPromise: Promise<void> | null = null;
+
+function setSnapshot(patch: Partial<OfflineDownloadSnapshot>): void {
+  snapshot = { ...snapshot, ...patch };
+  for (const listener of listeners) {
+    listener();
+  }
+}
+
+export function __resetOfflineStoreForTests(): void {
+  inFlightPromise = null;
+  snapshot = {
+    completedGeneratedAt: null,
+    progress: null,
+    errorKind: null,
+  };
+}
+
+/** Subscribes a React component to persistent offline-download progress and errors. */
+export function useOfflineDownloadState(): OfflineDownloadSnapshot {
+  return useSyncExternalStore(
+    (listener) => {
+      listeners.add(listener);
+      return () => listeners.delete(listener);
+    },
+    () => snapshot,
+  );
+}
 
 /** Returns all model, preview, manifest, and content JSON URLs needed for full offline use. */
 export function offlineUrls(
@@ -48,12 +92,17 @@ export function offlineUrls(
   return urls;
 }
 
+/** Computes total bundle and preview size in raw bytes. */
+export function offlineTotalBytes(manifest: Manifest): number {
+  return (
+    manifest.bundles.reduce((sum, bundle) => sum + bundle.bytes, 0) +
+    (manifest.preview?.bytes ?? 0)
+  );
+}
+
 /** Computes total bundle and preview size in rounded whole megabytes. */
 export function offlineSizeMB(manifest: Manifest): number {
-  const bytes =
-    manifest.bundles.reduce((sum, bundle) => sum + bundle.bytes, 0) +
-    (manifest.preview?.bytes ?? 0);
-  return Math.max(1, Math.round(bytes / (1024 * 1024)));
+  return Math.max(1, Math.round(offlineTotalBytes(manifest) / (1024 * 1024)));
 }
 
 /** Records that offline assets matching `manifest.generatedAt` have been cached. */
@@ -124,4 +173,48 @@ export async function downloadForOffline(opts: {
     }
     opts.onProgress?.({ done: i + 1, total });
   }
+}
+
+/** Single-flight offline download manager surviving SettingsMenu unmount/remount cycles. */
+export function startOfflineDownload(
+  manifest: Manifest,
+  baseUrl: string,
+  download: typeof downloadForOffline = downloadForOffline,
+): Promise<void> {
+  if (inFlightPromise) {
+    return inFlightPromise;
+  }
+
+  const urls = offlineUrls(manifest, baseUrl);
+  const requiredBytes = offlineTotalBytes(manifest);
+  setSnapshot({
+    errorKind: null,
+    progress: { done: 0, total: urls.length },
+  });
+
+  inFlightPromise = download({
+    urls,
+    requiredBytes,
+    onProgress: (progress) => setSnapshot({ progress }),
+  })
+    .then(() => {
+      markOfflineReady(manifest.generatedAt);
+      setSnapshot({
+        completedGeneratedAt: manifest.generatedAt,
+        progress: null,
+        errorKind: null,
+      });
+    })
+    .catch((err: unknown) => {
+      setSnapshot({
+        progress: null,
+        errorKind:
+          err instanceof Error && err.message === 'quota' ? 'quota' : 'failed',
+      });
+    })
+    .finally(() => {
+      inFlightPromise = null;
+    });
+
+  return inFlightPromise;
 }

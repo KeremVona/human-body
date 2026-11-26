@@ -127,6 +127,7 @@ export function AboutDialog({ trigger }: { trigger: ReactNode }): JSX.Element {
               </li>
               <li>{tr('about.licensesSummary')}</li>
               <li>{tr('about.translationNote')}</li>
+              <li>{tr('about.offlineNote')}</li>
             </ul>
           </section>
 

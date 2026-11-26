@@ -244,7 +244,21 @@ export default defineConfig({
         navigateFallback: 'index.html',
         runtimeCaching: [
           {
-            urlPattern: /\/models\/.*\.(glb|json)$/,
+            urlPattern: /\/models\/manifest\.json$/,
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'atlas-models',
+              networkTimeoutSeconds: 4,
+              matchOptions: {
+                ignoreVary: true,
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
+          {
+            urlPattern: /\/models\/.*\.glb$/,
             handler: 'CacheFirst',
             options: {
               cacheName: 'atlas-models',
@@ -286,6 +300,10 @@ export default defineConfig({
     }),
   ],
   base: appBase,
+  define:
+    process.env.E2E_SW === '1'
+      ? { 'import.meta.env.VITE_E2E_SW': JSON.stringify('1') }
+      : undefined,
   build: {
     rolldownOptions: {
       output: {

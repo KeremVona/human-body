@@ -267,12 +267,14 @@ test('preview-to-skeletal swap aligns silhouette within 4 px', async ({
     { timeout: 30_000 },
   );
 
-  // Sample strictly from the WebGL canvas buffer by masking overlay chrome or hiding overlay status chip isn't included in canvas? Actually capture middle skeleton band excluding topbar (0..48px) and bottom chips (bottom 110px).
+  // Exclude TopBar (top 52px), LeftPanel (left 320px), symmetrical right band, and bottom hints (110px)
+  // so silhouetteBbox strictly measures the centered skeletal viewport silhouette.
   const box = (await canvas.boundingBox())!;
+  const xPad = box.width > 760 ? 320 : Math.floor(box.width * 0.35);
   const clip = {
-    x: box.x,
+    x: box.x + xPad,
     y: box.y + 52,
-    width: box.width,
+    width: Math.max(120, box.width - xPad * 2),
     height: box.height - 160,
   };
 

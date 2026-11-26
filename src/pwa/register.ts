@@ -6,10 +6,15 @@ export function shouldRegisterSW(env: {
   return env.prod || env.e2eSw;
 }
 
+let registered = false;
+
 /** Registers the prompt-based Workbox service worker in production or when `VITE_E2E_SW=1`. */
 export function registerAtlasSW(
   onNeedRefresh: (update: () => Promise<void>) => void,
 ): void {
+  if (registered) {
+    return;
+  }
   if (typeof navigator === 'undefined' || !('serviceWorker' in navigator)) {
     return;
   }
@@ -20,6 +25,7 @@ export function registerAtlasSW(
   if (!enabled) {
     return;
   }
+  registered = true;
 
   void import('virtual:pwa-register')
     .then(({ registerSW }) => {

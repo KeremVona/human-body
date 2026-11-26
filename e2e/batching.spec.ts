@@ -11,6 +11,7 @@ type DrawStats = {
 type AtlasBatchGlobal = typeof globalThis & {
   __atlas?: {
     ready: boolean;
+    previewState?: () => string;
     screenPointOf: (id: string) => { x: number; y: number } | null;
     waitIdle: () => Promise<void>;
     drawStats: () => DrawStats;
@@ -36,7 +37,9 @@ async function initLowQuality(page: Page) {
 async function waitForAtlas(page: Page, url = '/') {
   await page.goto(url);
   await page.waitForFunction(
-    () => (globalThis as AtlasBatchGlobal).__atlas?.ready === true,
+    () =>
+      (globalThis as AtlasBatchGlobal).__atlas?.ready === true &&
+      (globalThis as AtlasBatchGlobal).__atlas?.previewState?.() === 'gone',
     null,
     { timeout: 30_000 },
   );

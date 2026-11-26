@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 import { UpdateToast } from './UpdateToast';
@@ -22,5 +22,20 @@ describe('UpdateToast', () => {
 
     expect(onReload).toHaveBeenCalledTimes(1);
     expect(button).toBeDisabled();
+  });
+
+  it('re-enables Reload if onReload rejects', async () => {
+    const user = userEvent.setup();
+    const onReload = vi.fn(async () => {
+      throw new Error('reload interrupted');
+    });
+    render(<UpdateToast onReload={onReload} />);
+
+    const button = screen.getByRole('button', { name: 'Reload' });
+    await user.click(button);
+
+    await waitFor(() => {
+      expect(button).not.toBeDisabled();
+    });
   });
 });

@@ -281,6 +281,8 @@ export const en = {
     disclaimer:
       'This atlas is for learning and curiosity. It is not medical advice. Motion demos are illustrative simplifications, not biomechanical simulations.',
     translationNote: 'Translations are machine-assisted drafts.',
+    offlineNote:
+      'Installable as a standalone app; once loaded, you can cache all 3D models and text for offline use in Settings.',
     creditsHeading: 'Credits & Licenses',
     modelsLabel: '3D models:',
     modelsTextAfterLink:

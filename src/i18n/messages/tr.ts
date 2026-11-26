@@ -287,6 +287,8 @@ export const tr = {
     disclaimer:
       'Bu atlas öğrenme ve merak içindir; tıbbi tavsiye değildir. Hareket demoları biyomekanik simülasyon değil, açıklayıcı sadeleştirmelerdir.',
     translationNote: 'Çeviriler makine destekli taslaklardır.',
+    offlineNote:
+      'Bağımsız uygulama olarak yüklenebilir; açıldıktan sonra tüm 3B modelleri ve metinleri Ayarlar üzerinden çevrimdışı kullanım için kaydedebilirsiniz.',
     creditsHeading: 'Katkılar ve Lisanslar',
     modelsLabel: '3B modeller:',
     modelsTextAfterLink:

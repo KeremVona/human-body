@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { afterEach, describe, expect, it } from 'vitest';
 import { makeStore } from '../../app/store';
 import { previewState } from '../../scene/previewState';
-import { bundleReady } from '../assets/assetsSlice';
+import { bundleFailed, bundleReady } from '../assets/assetsSlice';
 import { LoadingDetailsChip } from './LoadingDetailsChip';
 
 afterEach(() => {
@@ -50,6 +50,26 @@ describe('LoadingDetailsChip', () => {
         <LoadingDetailsChip />
       </Provider>,
     );
+    expect(
+      screen.queryByText('Loading anatomy details…'),
+    ).not.toBeInTheDocument();
+  });
+
+  it('hides when skeletal bundle transitions to error', () => {
+    const store = makeStore();
+    act(() => {
+      previewState.set('shown');
+    });
+    render(
+      <Provider store={store}>
+        <LoadingDetailsChip />
+      </Provider>,
+    );
+    expect(screen.getByText('Loading anatomy details…')).toBeInTheDocument();
+
+    act(() => {
+      store.dispatch(bundleFailed('skeletal'));
+    });
     expect(
       screen.queryByText('Loading anatomy details…'),
     ).not.toBeInTheDocument();

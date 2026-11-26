@@ -1,16 +1,13 @@
-import { useState, type JSX } from 'react';
+import type { JSX } from 'react';
 import { useAppSelector } from '../app/hooks';
 import { useT } from '../i18n/t';
 import {
   downloadForOffline,
   isOfflineReady,
-  markOfflineReady,
   offlineSizeMB,
-  offlineUrls,
-  type DownloadProgress,
+  startOfflineDownload,
+  useOfflineDownloadState,
 } from './offline';
-
-type OfflineErrorKind = 'quota' | 'failed' | null;
 
 /** Settings control allowing full offline download when a Service Worker controls the page. */
 export function OfflineDownload({
@@ -22,11 +19,8 @@ export function OfflineDownload({
 }): JSX.Element | null {
   const tr = useT();
   const manifest = useAppSelector((s) => s.assets.manifest);
-  const [completedGeneratedAt, setCompletedGeneratedAt] = useState<
-    string | null
-  >(null);
-  const [progress, setProgress] = useState<DownloadProgress | null>(null);
-  const [errorKind, setErrorKind] = useState<OfflineErrorKind>(null);
+  const { completedGeneratedAt, progress, errorKind } =
+    useOfflineDownloadState();
 
   const controlled =
     hasController ??
@@ -42,30 +36,6 @@ export function OfflineDownload({
     completedGeneratedAt === manifest.generatedAt ||
     isOfflineReady(manifest.generatedAt);
   const sizeMB = offlineSizeMB(manifest);
-  const totalBytes =
-    manifest.bundles.reduce((sum, bundle) => sum + bundle.bytes, 0) +
-    (manifest.preview?.bytes ?? 0);
-
-  const handleDownload = async () => {
-    setErrorKind(null);
-    const urls = offlineUrls(manifest, import.meta.env.BASE_URL);
-    setProgress({ done: 0, total: urls.length });
-    try {
-      await download({
-        urls,
-        requiredBytes: totalBytes,
-        onProgress: setProgress,
-      });
-      markOfflineReady(manifest.generatedAt);
-      setCompletedGeneratedAt(manifest.generatedAt);
-    } catch (err) {
-      setErrorKind(
-        err instanceof Error && err.message === 'quota' ? 'quota' : 'failed',
-      );
-    } finally {
-      setProgress(null);
-    }
-  };
 
   return (
     <>
@@ -96,7 +66,11 @@ export function OfflineDownload({
         <button
           type="button"
           onClick={() => {
-            void handleDownload();
+            void startOfflineDownload(
+              manifest,
+              import.meta.env.BASE_URL,
+              download,
+            );
           }}
           className="w-full rounded-lg border border-white/15 bg-white/5 px-3 py-1.5 text-left text-xs font-medium text-white transition-colors hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400"
         >
