@@ -7,6 +7,7 @@ function makeConfig(
     region?: PipelineConfig['bundles'][number]['rules'][number]['region'];
     name?: string;
   }> = [{ region: 'lower-limb' }],
+  curves?: Array<{ id: string; source: string; reverse?: boolean }>,
 ): PipelineConfig {
   return PipelineConfigSchema.parse({
     source: {
@@ -20,6 +21,7 @@ function makeConfig(
       defaultBundleBytes: 15_728_640,
       totalBytes: 41_943_040,
     },
+    ...(curves ? { centerlines: { curves } } : {}),
     bundles: [
       {
         id: 'skeletal',
@@ -38,17 +40,29 @@ function makeConfig(
   });
 }
 
-function makeInventory(names: string[]): Inventory {
+function makeInventory(
+  names: string[],
+  curves: string[] = [],
+): Inventory {
   return {
     blenderVersion: '5.3.0',
     sourceFile: 'Z-Anatomy.blend',
-    objects: names.map((name) => ({
-      name,
-      type: 'MESH',
-      collections: ['Skeletal'],
-      vertices: 100,
-      hasUV: false,
-    })),
+    objects: [
+      ...names.map((name) => ({
+        name,
+        type: 'MESH',
+        collections: ['Skeletal'],
+        vertices: 100,
+        hasUV: false,
+      })),
+      ...curves.map((name) => ({
+        name,
+        type: 'CURVE',
+        collections: ['Digestive'],
+        vertices: 0,
+        hasUV: false,
+      })),
+    ],
   };
 }
 
@@ -137,4 +151,29 @@ it('copies origin and orientation settings', () => {
   expect(plan.originBundle).toBe('skeletal');
   expect(plan.rotateZDeg).toBe(0);
   expect(plan.scale).toBe(1);
+});
+
+it('copies configured curve centerlines into plan including unexported duct curves', () => {
+  const config = makeConfig(undefined, [
+    { id: 'bile-duct', source: 'Bile duct' },
+    { id: 'jejunum', source: 'Jejunum', reverse: true },
+  ]);
+  const { plan, problems } = resolvePlan(
+    config,
+    makeInventory(baseNames, ['Bile duct', 'Jejunum']),
+    baseMap,
+  );
+  expect(problems).toEqual([]);
+  expect(plan.centerlines).toEqual([
+    { id: 'bile-duct', source: 'Bile duct', reverse: false },
+    { id: 'jejunum', source: 'Jejunum', reverse: true },
+  ]);
+});
+
+it('reports an error when a configured centerline curve source is missing from inventory', () => {
+  const config = makeConfig(undefined, [
+    { id: 'bile-duct', source: 'Missing duct' },
+  ]);
+  const { problems } = resolvePlan(config, makeInventory(baseNames), baseMap);
+  expect(problems.some((p) => p.includes('Missing duct'))).toBe(true);
 });

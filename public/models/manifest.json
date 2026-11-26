@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-11-26T17:38:25.820Z",
+  "generatedAt": "2026-11-26T17:45:34.012Z",
   "source": {
     "name": "Z-Anatomy",
     "version": "2023-05-02",
@@ -977,9 +977,9 @@
     },
     {
       "id": "organs",
-      "file": "organs.e4d9e85e.glb",
+      "file": "organs.e9899176.glb",
       "bytes": 3266324,
-      "sha256": "e4d9e85e9047f059c351aecb0e62260480bf9e2cf5b57901b081b9e631813c1c",
+      "sha256": "e9899176f7b88cba7bdd08677b9ef58575ec28f3b69b35dcaa4d5e10fadbb1b4",
       "meshIds": [
         "ascending-colon",
         "cornea--l",

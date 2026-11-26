@@ -25,6 +25,7 @@ export type ExportPlan = {
     id: string;
     objects: { source: string; meshId: MeshId }[];
   }[];
+  centerlines?: { id: string; source: string; reverse: boolean }[];
 };
 
 /** Metadata stub derived from pipeline rules and name mappings for scaffolding index.json. */
@@ -174,11 +175,39 @@ export function resolvePlan(
     stubs.push(stub);
   }
 
+  const inventoryByName = new Map(
+    inventory.objects.map((o) => [o.name, o] as const),
+  );
+  const curves = config.centerlines?.curves ?? [];
+  const centerlines: Array<{ id: string; source: string; reverse: boolean }> =
+    [];
+  for (const curve of curves) {
+    const invObj = inventoryByName.get(curve.source);
+    if (!invObj) {
+      problems.push(
+        `centerlines: curve "${curve.id}" source "${curve.source}" not found in inventory`,
+      );
+      continue;
+    }
+    if (invObj.type !== 'CURVE') {
+      problems.push(
+        `centerlines: curve "${curve.id}" source "${curve.source}" has type ${invObj.type}, expected CURVE`,
+      );
+      continue;
+    }
+    centerlines.push({
+      id: curve.id,
+      source: curve.source,
+      reverse: curve.reverse,
+    });
+  }
+
   const plan: ExportPlan = {
     originBundle: config.originBundle,
     rotateZDeg: config.orientation.rotateZDeg,
     scale: config.orientation.scale,
     bundles,
+    ...(centerlines.length > 0 ? { centerlines } : {}),
   };
 
   return { plan, stubs, problems };

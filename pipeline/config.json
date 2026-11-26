@@ -34,6 +34,15 @@
     "defaultBundleBytes": 15728640,
     "totalBytes": 41943040
   },
+  "centerlines": {
+    "curves": [
+      { "id": "esophagus", "source": "Oesophagus", "reverse": false },
+      { "id": "jejunum", "source": "Jejunum", "reverse": true },
+      { "id": "bile-duct", "source": "Bile duct", "reverse": false },
+      { "id": "pancreatic-duct", "source": "Pancreatic duct", "reverse": false }
+    ],
+    "meshes": []
+  },
   "bundles": [
     {
       "id": "skeletal",
