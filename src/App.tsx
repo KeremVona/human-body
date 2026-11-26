@@ -27,6 +27,8 @@ import { ExitChips } from './features/dissection/ExitChips';
 import { Toolbar } from './features/dissection/Toolbar';
 import { FirstRunHint } from './features/onboarding/FirstRunHint';
 import { LoadingDetailsChip } from './features/onboarding/LoadingDetailsChip';
+import { registerAtlasSW } from './pwa/register';
+import { UpdateToast } from './pwa/UpdateToast';
 import { QuizBanner } from './features/quiz/QuizBanner';
 import { emptyPoolDismissed } from './features/quiz/quizSlice';
 import { QuizSummary } from './features/quiz/QuizSummary';
@@ -112,6 +114,9 @@ function AtlasShell({
   );
   const [meshCount, setMeshCount] = useState(0);
   const [debugStats, setDebugStats] = useState<RenderStats | null>(null);
+  const [pendingUpdate, setPendingUpdate] = useState<
+    (() => Promise<void>) | null
+  >(null);
   const sceneRef = useRef<Scene | null>(null);
   const [shareOpen, setShareOpen] = useState(false);
   const [shareLoaded, setShareLoaded] = useState(false);
@@ -207,6 +212,12 @@ function AtlasShell({
   const debug = useMemo(() => {
     if (typeof window === 'undefined') return false;
     return new URLSearchParams(window.location.search).has('debug');
+  }, []);
+
+  useEffect(() => {
+    registerAtlasSW((update) => {
+      setPendingUpdate(() => update);
+    });
   }, []);
 
   useEffect(() => {
@@ -487,6 +498,7 @@ function AtlasShell({
       ) : null}
       <HoverLabel />
       <SelectionAnnouncer />
+      <UpdateToast onReload={pendingUpdate} />
     </main>
   );
 }

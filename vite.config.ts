@@ -176,6 +176,15 @@ function preloadAssetsPlugin(): Plugin {
         });
       }
 
+      tags.push({
+        tag: 'meta',
+        attrs: {
+          name: 'atlas-build',
+          content: process.env.VITE_BUILD_ID ?? 'dev',
+        },
+        injectTo: 'head',
+      });
+
       return tags;
     },
   };

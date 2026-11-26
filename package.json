@@ -12,6 +12,7 @@
     "format": "prettier --write .",
     "test": "vitest run",
     "test:e2e": "playwright test",
+    "test:e2e:sw": "cross-env E2E_SW=1 playwright test --project=chromium-sw",
     "test:e2e:base": "cross-env ATLAS_BASE_PATH=/atlas-check/ npm run build && cross-env E2E_BASE=/atlas-check/ playwright test --project=base-path",
     "check:content": "tsx scripts/check-content.ts",
     "content:report": "tsx scripts/content-report.ts",

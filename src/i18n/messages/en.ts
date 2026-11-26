@@ -250,6 +250,10 @@ export const en = {
   loading: {
     details: 'Loading anatomy details…',
   },
+  pwa: {
+    updateAvailable: 'New version ready',
+    reload: 'Reload',
+  },
   settings: {
     title: 'Settings',
     qualityHeading: 'Graphics quality',

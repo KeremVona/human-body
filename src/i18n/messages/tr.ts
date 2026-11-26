@@ -256,6 +256,10 @@ export const tr = {
   loading: {
     details: 'Anatomi ayrıntıları yükleniyor…',
   },
+  pwa: {
+    updateAvailable: 'Yeni sürüm hazır',
+    reload: 'Yenile',
+  },
   settings: {
     title: 'Ayarlar',
     qualityHeading: 'Grafik kalitesi',

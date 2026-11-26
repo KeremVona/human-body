@@ -25,7 +25,23 @@ export function registerAtlasSW(
     .then(({ registerSW }) => {
       const updateSW = registerSW({
         onNeedRefresh() {
-          onNeedRefresh(() => updateSW(true));
+          onNeedRefresh(async () => {
+            const controllerChanged = new Promise<void>((resolve) => {
+              navigator.serviceWorker.addEventListener(
+                'controllerchange',
+                () => resolve(),
+                { once: true },
+              );
+            });
+            await updateSW(true);
+            // Workbox only auto-reloads when an SW was already controlling at register();
+            // explicitly wait for the waiting SW to claim before reloading on any visit.
+            await Promise.race([
+              controllerChanged,
+              new Promise<void>((resolve) => setTimeout(resolve, 1500)),
+            ]);
+            window.location.reload();
+          });
         },
       });
     })
