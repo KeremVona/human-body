@@ -260,6 +260,14 @@ export const tr = {
     updateAvailable: 'Yeni sürüm hazır',
     reload: 'Yenile',
   },
+  offline: {
+    heading: 'Çevrimdışı erişim',
+    download: 'Çevrimdışı kullanılabilir yap ({sizeMB} MB)',
+    progress: 'İndiriliyor: {done} / {total}…',
+    ready: 'Çevrimdışı kullanılabilir',
+    quota: 'Çevrimdışı kullanım için cihazda yeterli depolama alanı yok.',
+    failed: 'Çevrimdışı indirme başarısız oldu. Bağlantınızı kontrol edin.',
+  },
   settings: {
     title: 'Ayarlar',
     qualityHeading: 'Grafik kalitesi',

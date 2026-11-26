@@ -248,6 +248,9 @@ export default defineConfig({
             handler: 'CacheFirst',
             options: {
               cacheName: 'atlas-models',
+              matchOptions: {
+                ignoreVary: true,
+              },
               expiration: {
                 maxEntries: 32,
                 maxAgeSeconds: 30 * 24 * 60 * 60,
@@ -262,6 +265,9 @@ export default defineConfig({
             handler: 'StaleWhileRevalidate',
             options: {
               cacheName: 'atlas-content',
+              matchOptions: {
+                ignoreVary: true,
+              },
               expiration: {
                 maxEntries: 64,
                 maxAgeSeconds: 14 * 24 * 60 * 60,

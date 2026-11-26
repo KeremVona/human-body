@@ -254,6 +254,14 @@ export const en = {
     updateAvailable: 'New version ready',
     reload: 'Reload',
   },
+  offline: {
+    heading: 'Offline access',
+    download: 'Make available offline ({sizeMB} MB)',
+    progress: 'Downloading {done} of {total}…',
+    ready: 'Available offline',
+    quota: 'Not enough device storage for offline use.',
+    failed: 'Offline download failed. Please check your connection.',
+  },
   settings: {
     title: 'Settings',
     qualityHeading: 'Graphics quality',

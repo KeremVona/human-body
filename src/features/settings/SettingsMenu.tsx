@@ -4,6 +4,7 @@ import { useId, type JSX } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { type Locale } from '../../i18n/locale';
 import { useT, type MessageKey } from '../../i18n/t';
+import { OfflineDownload } from '../../pwa/OfflineDownload';
 import { IconButton } from '../../ui/IconButton';
 import type { QualitySetting } from './quality';
 import { localeSet, qualitySet } from './uiSlice';
@@ -153,6 +154,7 @@ export function SettingsMenu(): JSX.Element {
               </label>
             ))}
           </RadioGroup.Root>
+          <OfflineDownload />
         </Popover.Content>
       </Popover.Portal>
     </Popover.Root>
