@@ -2,6 +2,8 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import rawTaxonomy from '../../../content/taxonomy.json';
 import { makeStore, type CameraRef } from '../../app/store';
 import { TaxonomySchema, type Manifest } from '../../data/schema';
+import { bootstrap } from '../content/contentSlice';
+import { bundleReady } from '../assets/assetsSlice';
 import { hide } from '../dissection/dissectionSlice';
 import { quizEnded, quizStarted } from '../quiz/quizSlice';
 import { startQuiz } from '../quiz/thunks';
@@ -208,6 +210,7 @@ describe('tour thunks', () => {
     expect(store.getState().tour.stepIndex).toBe(2);
     expect(motionSpies.startMotion).toHaveBeenCalledWith('elbow-flexion', {
       skipCamera: true,
+      phase: 0.4,
     });
     expect(store.getState().motion.playing).toBe(false);
     expect(store.getState().motion.scrubPhase).toBe(0.4);
@@ -379,5 +382,66 @@ describe('tour thunks', () => {
       true,
     );
     expect(store.getState().tour.defs).toEqual([]);
+  });
+
+  it('passes step.motion.phase into startMotion even when play is true', async () => {
+    const { store } = setupStore();
+    const playStepTour: Tour = {
+      ...fixtureTour,
+      steps: fixtureTour.steps.map((s, idx) =>
+        idx === 1
+          ? { ...s, motion: { id: 'heartbeat', phase: 0.35, play: true } }
+          : s,
+      ),
+    };
+    store.dispatch(toursLoaded({ defs: [playStepTour], texts: enTexts }));
+    const motionSpies = {
+      startMotion: vi.fn(() => async () => {}),
+      stopMotion: vi.fn(() => () => {}),
+    };
+
+    await store.dispatch(startTour('arm-bone-to-muscle', 1, motionSpies));
+    expect(motionSpies.startMotion).toHaveBeenCalledWith('heartbeat', {
+      skipCamera: true,
+      phase: 0.35,
+    });
+  });
+
+  it('cancels pending applyViewState after waitForBundles when exitTour interrupts a step', async () => {
+    const camera: CameraRef = {
+      current: {
+        focusMeshes: vi.fn(async () => {}),
+        goToPreset: vi.fn(async () => {}),
+        resetView: vi.fn(async () => {}),
+        zoom: vi.fn(),
+        getPose: vi.fn(() => ({
+          position: [0, 0, 3] as [number, number, number],
+          target: [0, 0, 0] as [number, number, number],
+        })),
+        setPose: vi.fn(async () => {}),
+        lookAtPoint: vi.fn(async () => {}),
+      },
+    };
+    const store = makeStore(undefined, { camera });
+    store.dispatch(bootstrap.fulfilled({ manifest, taxonomy, index: { locale: 'en', structures: [] } }, 'req', undefined));
+    store.dispatch(bundleReady('skeletal'));
+    // Leave 'muscular' idle so step 2 suspends in waitForBundles
+    store.dispatch(toursLoaded({ defs: [fixtureTour], texts: enTexts }));
+
+    await store.dispatch(startTour('arm-bone-to-muscle', 0));
+    const step2Promise = store.dispatch(nextStep());
+
+    // User immediately exits tour before muscular bundle finishes loading
+    await store.dispatch(exitTour());
+    expect(store.getState().tour.activeId).toBeNull();
+    expect(store.getState().selection.selectedIds).toEqual([]);
+
+    // Now the muscular bundle arrives late: stale step 2 must NOT overwrite selection/dissection
+    store.dispatch(bundleReady('muscular'));
+    await step2Promise;
+
+    expect(store.getState().tour.activeId).toBeNull();
+    expect(store.getState().selection.selectedIds).toEqual([]);
+    expect(store.getState().dissection.hidden).toEqual([]);
   });
 });

@@ -9,12 +9,12 @@ For deeper design rationale and data contracts, see the [Design Specification](s
 │  TopBar · SearchBox · SettingsMenu · AboutDialog · LeftPanel (Sys/Browse/Pins/Mot) │
 │  Inspector · Toolbar · HoverLabel · ExitChips · FirstRunHint · DissectionMenu      │
 │  QuizBanner · QuizSummary · SharePopover · ShareNotice · PinLayer · PinEditor      │
-│  SectionPopover · SelectionAnnouncer · DebugStats                                  │
+│  SectionPopover · ToursDialog · TourBar · SelectionAnnouncer · DebugStats          │
 └───────────────▲───────────────────────────────────────────────▲────────────────────┘
                 │ useAppSelector / useAppDispatch               │ CameraApi (context)
 ┌───────────────┴───────────── Redux Toolkit store ─────────────┴────────────────────┐
 │  assets · content · systems · dissection(+past) · selection · quiz · ui · share    │
-│  pins · section · motion                                                           │
+│  pins · section · motion · tour                                                    │
 └───────────────▲────────────────────────────────────────────────────────────────────┘
                 │ store.subscribe (imperative)                ▲ dispatch on pointer events
 ┌────────────────────────────── R3F Scene ────────────────────┴──────────────────────┐
@@ -28,7 +28,7 @@ For deeper design rationale and data contracts, see the [Design Specification](s
 └────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
-- **UI shell (`src/features/`, `src/ui/`):** Presentational components and Radix primitives (`Dialog`, `Switch`, `Slider`, `Tabs`, `Popover`, `RadioGroup`, `DropdownMenu`) read slice state via memoized selectors and call `CameraApi` directly for imperative camera transitions (`focusMeshes`, `goToPreset`, `resetView`, `setPose`, `lookAtPoint`). Lazy-loaded overlays (`SharePopover`, `ShareNotice`, `PinLayer`, `PinEditor`, `PinsPanel`, `MotionPanel`, `SectionPopover`) keep startup chunks small until used.
+- **UI shell (`src/features/`, `src/ui/`):** Presentational components and Radix primitives (`Dialog`, `Switch`, `Slider`, `Tabs`, `Popover`, `RadioGroup`, `DropdownMenu`) read slice state via memoized selectors and call `CameraApi` directly for imperative camera transitions (`focusMeshes`, `goToPreset`, `resetView`, `setPose`, `lookAtPoint`). Lazy-loaded overlays (`SharePopover`, `ShareNotice`, `PinLayer`, `PinEditor`, `PinsPanel`, `MotionPanel`, `SectionPopover`, `ToursDialog`, `TourBar`) keep startup chunks small until used.
 - **Store (`src/app/store.ts`):** Coordinates application state and side-effect thunks (`assets/bootstrap`, bundle downloads, lazy structure content fetches, share link restore, pin placement, motion demo loading).
 - **3D Scene (`src/scene/`):** React Three Fiber hosts `<Canvas frameloop="demand">`, lighting (`Lights.tsx`), `CameraRig.tsx` (`camera-controls`), pointer picking (`Picking.tsx`), `BundleModel.tsx`, `SceneStateApplier.tsx`, `SectionController.tsx` (mutates one shared `THREE.Plane` across `MaterialLibrary` with `DoubleSide` back-face unlit caps, skips clipped ray hits by setting `raycaster.firstHitOnly = false`, and suppresses selection outlines while sectioning), lazy `PinProbe.tsx` (projects local pin positions into `pinScreens` and throttles occlusion raycasts), and lazy `MotionPlayer.tsx` (`src/scene/motionTransforms.ts` snapshots and restores mesh transforms cleanly, advances phase via `motionPhase.ts`, rotates/scales moving meshes in place, and updates agonist pulse intensity without Redux-per-frame dispatches).
 
@@ -63,6 +63,7 @@ Configured in `src/app/store.ts` with `listenerMiddleware` (`src/app/listeners.t
 | `pins` | `src/features/pins/pinsSlice.ts` | Personal and shared `#v1.` 3D pins (`items`, 200 own-pin cap, single-step Delete Undo, active `editingId` target) and `localStorage` persistence (`atlas.pins.v1`). |
 | `section` | `src/features/section/sectionSlice.ts` | Single live cross-section plane (`enabled`, `axis`, `t` quantized to `0.005`, `flip`). |
 | `motion` | `src/features/motion/motionSlice.ts` | Illustrative motion demo catalog (`content/motions.json`), active demo, playback/speed/scrub phase, and ghost/agonist overrides. |
+| `tour` | `src/features/tours/tourSlice.ts` | Lazily loaded guided tour catalog (`content/tours.json` + `content/<locale>/tours.json`), active tour/step index, pre-tour `savedView` restore snapshot, and `#tour/` notice state. |
 
 ## Bundles vs. Biological Systems
 
@@ -85,4 +86,4 @@ Storage bundles are shaped for download budgets and progressive streaming, where
 - **Asset pipeline (`Vitest`, node project):** Unit tests under `pipeline/src/*.test.ts` cover name curation (`nameMap`), Blender selection rules (`resolvePlan`), Meshopt optimization (`optimize`), manifest serialization, and verification probes (`verify`).
 - **Application & UI (`Vitest`, jsdom project):** Unit tests verify schema parsing (`src/data/schema.test.ts`), featured content rules (`src/data/checkContent.test.ts`), selectors, state resolution (`resolveMeshState`, `applyMeshStates`), keyboard shortcuts, Inspector/Toolbar/SystemsPanel/`AboutDialog` accessibility, and suspense glTF caching.
 - **Content & Asset Integrity Gates (`npm run check:content`, `npm run assets:verify`):** Enforce plain-text limits, featured completeness (`125` featured entries), verified citations, GLB dimensions, and body orientation probes.
-- **Browser End-to-End (`Playwright`, `npm run test:e2e`, `npm run test:e2e:sw`, & `npm run test:e2e:base`):** Tests real WebGL picking, preview-before-skeletal progressive view (`e2e/first-view.spec.ts`), orbit/pan gestures, dissection undo/isolate/fade flows, mobile bottom-sheet layout (`Pixel 7`), long-name wrapping (`e2e/layout.spec.ts`), prompt-based Service Worker updates and offline caching (`e2e/pwa-update.spec.ts`, `e2e/offline.spec.ts`), and production sub-path builds (`ATLAS_BASE_PATH=/atlas-check/`).
+- **Browser End-to-End (`Playwright`, `npm run test:e2e`, `npm run test:e2e:sw`, & `npm run test:e2e:base`):** Tests real WebGL picking, preview-before-skeletal progressive view (`e2e/first-view.spec.ts`), orbit/pan gestures, dissection undo/isolate/fade flows, guided tour playback and deep links (`e2e/tours.spec.ts`), mobile bottom-sheet layout (`Pixel 7`), long-name wrapping (`e2e/layout.spec.ts`), prompt-based Service Worker updates and offline caching (`e2e/pwa-update.spec.ts`, `e2e/offline.spec.ts`), and production sub-path builds (`ATLAS_BASE_PATH=/atlas-check/`).

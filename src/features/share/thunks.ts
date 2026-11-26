@@ -124,6 +124,7 @@ export type ApplyViewOptions = {
   animate?: boolean;
   keepHistory?: boolean;
   keepPins?: boolean;
+  shouldContinue?: () => boolean;
 };
 
 /** Applies a decoded `ViewStateV1` to systems, bundles, dissection, selection, and camera. */
@@ -132,6 +133,7 @@ export function applyViewState(
   opts: ApplyViewOptions = {},
 ): AppThunk<Promise<void>> {
   return async (dispatch, getState, extra) => {
+    if (opts.shouldContinue && !opts.shouldContinue()) return;
     dispatch(systemsSet(view.s));
 
     const allSystems = Object.keys(getState().systems) as SystemId[];
@@ -160,6 +162,8 @@ export function applyViewState(
         // Apply remaining applicable state if a bundle load fails or times out
       }
     }
+
+    if (opts.shouldContinue && !opts.shouldContinue()) return;
 
     const snapshot = {
       hidden: [...new Set(view.h)].sort(),
@@ -191,6 +195,8 @@ export function applyViewState(
     } else {
       dispatch(sectionSet({ enabled: false }));
     }
+
+    if (opts.shouldContinue && !opts.shouldContinue()) return;
 
     await extra.camera.current?.setPose(
       {

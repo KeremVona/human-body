@@ -30,7 +30,10 @@ export function localizeTourTexts(
   const result: Record<TourId, TourText> = {};
 
   for (const [tourId, enEntry] of Object.entries(en.tours)) {
-    const locEntry = loc?.tours?.[tourId];
+    const locEntry =
+      loc?.tours && Object.hasOwn(loc.tours, tourId)
+        ? loc.tours[tourId]
+        : undefined;
     let fallback = loc === null || !locEntry;
 
     const title = pickField(locEntry?.title, enEntry.title);
@@ -41,7 +44,10 @@ export function localizeTourTexts(
 
     const steps: Record<StepId, TourStepTextLocalized> = {};
     for (const [stepId, enStep] of Object.entries(enEntry.steps ?? {})) {
-      const locStep = locEntry?.steps?.[stepId];
+      const locStep =
+        locEntry?.steps && Object.hasOwn(locEntry.steps, stepId)
+          ? locEntry.steps[stepId]
+          : undefined;
       const stepTitle = pickField(locStep?.title, enStep.title);
       const stepBody = pickField(locStep?.body, enStep.body);
       if (stepTitle.fellBack || stepBody.fellBack) {

@@ -31,12 +31,8 @@ export function ToursDialog({
   }, [open, loadStatus, dispatch]);
 
   const handleStart = (id: TourId): void => {
-    const action = onStartTour
-      ? Promise.resolve(onStartTour(id))
-      : dispatch(startTour(id));
-    void action.then(() => {
-      onOpenChange(false);
-    });
+    onOpenChange(false);
+    void (onStartTour ? onStartTour(id) : dispatch(startTour(id)));
   };
 
   return (
@@ -76,7 +72,7 @@ export function ToursDialog({
 
           {loadStatus === 'error' ? (
             <div className="mt-4 flex items-center justify-between gap-3 rounded-xl border border-red-400/25 bg-red-500/10 px-4 py-3 text-xs text-red-100">
-              <span>{tr('motion.error')}</span>
+              <span>{tr('tour.error')}</span>
               <button
                 type="button"
                 onClick={() => void dispatch(loadTours())}

@@ -211,6 +211,7 @@ export const tr = {
     finish: 'Bitir',
     exit: 'Turdan çık',
     notFound: 'Bu tur bulunamadı.',
+    error: 'Rehberli turlar yüklenemedi.',
     linkStep: 'Bu adıma bağlantı',
     finishFirst: 'Önce turu bitirin',
     dialogTitle: 'Rehberli turlar',

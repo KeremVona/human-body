@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { makeStore } from '../../app/store';
 import { quizStarted } from '../quiz/quizSlice';
-import { toursLoaded } from './tourSlice';
+import { toursFailed, toursLoaded } from './tourSlice';
 import { ToursDialog } from './ToursDialog';
 import type { Tour } from './schema';
 import type { TourText } from './localizeTours';
@@ -130,5 +130,18 @@ describe('ToursDialog', () => {
       expect(btn).toBeDisabled();
       expect(btn).toHaveAttribute('title', 'Finish the quiz first');
     }
+  });
+
+  it('shows the tour-specific error message when loading tours fails', () => {
+    const store = makeStore();
+    store.dispatch(toursFailed());
+
+    render(
+      <Provider store={store}>
+        <ToursDialog open onOpenChange={() => {}} />
+      </Provider>,
+    );
+
+    expect(screen.getByText('Could not load guided tours.')).toBeInTheDocument();
   });
 });

@@ -1,7 +1,7 @@
 import type { ThunkAction, UnknownAction } from '@reduxjs/toolkit';
 import type { AppThunk } from '../../app/store';
 import type { Locale } from '../../i18n/locale';
-import { motionPaused, motionScrubbed } from '../motion/motionSlice';
+import { motionPaused } from '../motion/motionSlice';
 import { startMotion, stopMotion } from '../motion/thunks';
 import { applyViewState, captureViewState } from '../share/thunks';
 import { localizeTourTexts } from './localizeTours';
@@ -26,7 +26,7 @@ import {
 export type TourMotionApi = {
   startMotion: (
     id: string,
-    opts?: { skipCamera?: boolean },
+    opts?: { skipCamera?: boolean; phase?: number },
   ) => AppThunk<Promise<void>>;
   stopMotion: () => AppThunk<void>;
 };
@@ -162,32 +162,37 @@ export function goToStep(
     const step = tour.steps[clamped];
     dispatch(tourStepSet(clamped));
 
+    const shouldContinue = (): boolean =>
+      stepTokens.get(key) === token && getState().tour.activeId === activeId;
+
     await dispatch(
       applyViewState(step.view, {
         animate: true,
         keepHistory: true,
         keepPins: true,
+        shouldContinue,
       }),
     );
 
-    if (stepTokens.get(key) !== token || getState().tour.activeId !== activeId) {
+    if (!shouldContinue()) {
       return;
     }
 
     if (step.motion) {
       await dispatch(
-        motionApi.startMotion(step.motion.id, { skipCamera: true }),
+        motionApi.startMotion(step.motion.id, {
+          skipCamera: true,
+          ...(step.motion.phase !== undefined
+            ? { phase: step.motion.phase }
+            : {}),
+        }),
       );
-      if (
-        stepTokens.get(key) !== token ||
-        getState().tour.activeId !== activeId
-      ) {
+      if (!shouldContinue()) {
         return;
       }
       if (step.motion.play !== true) {
         const phase = step.motion.phase ?? 0.25;
         dispatch(motionPaused(phase));
-        dispatch(motionScrubbed(phase));
       }
     } else {
       dispatch(motionApi.stopMotion());
@@ -231,7 +236,8 @@ export function exitTour(
   motionApi: TourMotionApi = defaultMotionApi,
 ): AppThunk<Promise<void>> {
   return async (dispatch, getState, extra) => {
-    nextToken(extra ?? fallbackKey);
+    const key = extra ?? fallbackKey;
+    const token = nextToken(key);
     dispatch(motionApi.stopMotion());
     const savedView = getState().tour.savedView;
     dispatch(tourEnded());
@@ -241,6 +247,9 @@ export function exitTour(
           animate: true,
           keepHistory: true,
           keepPins: true,
+          shouldContinue: () =>
+            stepTokens.get(key) === token &&
+            getState().tour.activeId === null,
         }),
       );
     }

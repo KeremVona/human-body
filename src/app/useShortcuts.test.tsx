@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { useState, type JSX } from 'react';
 import { Provider } from 'react-redux';
@@ -230,5 +230,62 @@ describe('useShortcuts', () => {
     store.dispatch(localeSet('en'));
     localStorage.clear();
     __resetI18nForTests();
+  });
+
+  it('handles ArrowRight/ArrowLeft stepping and Escape deselect-then-exit during a tour', async () => {
+    const user = userEvent.setup();
+    const { toursLoaded, tourStarted } = await import(
+      '../features/tours/tourSlice'
+    );
+    const store = makeStore();
+    store.dispatch(bundleReady('skeletal'));
+    store.dispatch(
+      toursLoaded({
+        defs: [
+          {
+            id: 'arm-bone-to-muscle',
+            steps: [
+              { id: 'step-1', view: { c: [0, 0, 2, 0, 0, 0], s: ['skeletal'], h: [], sel: ['femur--l'] } },
+              { id: 'step-2', view: { c: [0, 0, 2, 0, 0, 0], s: ['skeletal'], h: [], sel: [] } },
+              { id: 'step-3', view: { c: [0, 0, 2, 0, 0, 0], s: ['skeletal'], h: [], sel: [] } },
+              { id: 'step-4', view: { c: [0, 0, 2, 0, 0, 0], s: ['skeletal'], h: [], sel: [] } },
+            ],
+          },
+        ],
+        texts: {},
+      }),
+    );
+    store.dispatch(
+      tourStarted({
+        id: 'arm-bone-to-muscle',
+        savedView: { c: [0, 0, 3, 0, 0, 0], s: ['skeletal'], h: [], sel: [] },
+      }),
+    );
+
+    render(
+      <Provider store={store}>
+        <CameraApiProvider value={noopCamera}>
+          <ShortcutMenuHarness initialMenu={null} />
+        </CameraApiProvider>
+      </Provider>,
+    );
+
+    await user.keyboard('{ArrowRight}');
+    await waitFor(() => expect(store.getState().tour.stepIndex).toBe(1));
+
+    await user.keyboard('{ArrowLeft}');
+    await waitFor(() => expect(store.getState().tour.stepIndex).toBe(0));
+
+    // Step 1 selects femur--l; first Escape clears selection without exiting tour
+    await waitFor(() =>
+      expect(store.getState().selection.selectedIds).toEqual(['femur--l']),
+    );
+    await user.keyboard('{Escape}');
+    expect(store.getState().selection.selectedIds).toEqual([]);
+    expect(store.getState().tour.activeId).toBe('arm-bone-to-muscle');
+
+    // Second Escape exits tour
+    await user.keyboard('{Escape}');
+    await waitFor(() => expect(store.getState().tour.activeId).toBeNull());
   });
 });

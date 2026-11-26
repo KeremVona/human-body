@@ -35,6 +35,7 @@ export type AtlasTestApi = {
   section(): SectionState;
   motionPhase(): number;
   previewState(): PreviewLifecycle;
+  tour(): { activeId: string | null; stepIndex: number };
   meshTransform(id: MeshId): {
     position: number[];
     quaternion: number[];
@@ -104,6 +105,10 @@ export function installTestHooks(api: {
     section: () => api.store.getState().section,
     motionPhase: () => motionPhase.get(),
     previewState: () => previewState.get(),
+    tour: () => ({
+      activeId: api.store.getState().tour.activeId,
+      stepIndex: api.store.getState().tour.stepIndex,
+    }),
     meshTransform: (id) => {
       const obj = api.registry.get(id);
       if (!obj) return null;

@@ -208,6 +208,7 @@ export const en = {
     finish: 'Finish',
     exit: 'Exit tour',
     notFound: "This tour couldn't be found.",
+    error: 'Could not load guided tours.',
     linkStep: 'Link to this step',
     finishFirst: 'Finish the tour first',
     dialogTitle: 'Guided tours',

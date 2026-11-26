@@ -175,7 +175,7 @@ export function CameraRig(): null {
         if (manifest) {
           const body = bodyBounds(manifest);
           const limits = distanceLimits(null, body);
-          controls.minDistance = limits.min;
+          controls.minDistance = Math.min(limits.min, 0.05);
           controls.maxDistance = limits.max;
         }
         const promise = controls.setLookAt(

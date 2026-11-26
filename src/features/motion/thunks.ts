@@ -82,7 +82,7 @@ export function loadMotions(): AppThunk<Promise<void>> {
 /** Loads motion data, enables required systems, waits for bundles, moves camera, and activates the demo. */
 export function startMotion(
   id: string,
-  opts?: { skipCamera?: boolean },
+  opts?: { skipCamera?: boolean; phase?: number },
 ): AppThunk<Promise<void>> {
   return async (dispatch, getState, extra) => {
     const cacheKey = extra ?? fallbackLoadKey;
@@ -146,7 +146,11 @@ export function startMotion(
       return;
 
     const reduced = prefersReducedMotion();
-    const initialPhase = reduced ? 0.25 : 0;
+    const explicitPhase =
+      opts?.phase !== undefined && Number.isFinite(opts.phase)
+        ? Math.max(0, Math.min(1, opts.phase))
+        : undefined;
+    const initialPhase = explicitPhase ?? (reduced ? 0.25 : 0);
     motionPhase.set(initialPhase);
     dispatch(
       motionActivated({

@@ -237,4 +237,55 @@ describe('Inspector', () => {
 
     store.dispatch(localeSet('en'));
   });
+
+  it('hides bottom sheet on mobile viewports during a guided tour while keeping desktop drawer visible', async () => {
+    const { tourStarted } = await import('../tours/tourSlice');
+    const store = makeStore();
+    store.dispatch(
+      bootstrap.fulfilled(
+        { manifest, taxonomy, index: { locale: 'en', structures } },
+        'req-1',
+        undefined,
+      ),
+    );
+    store.dispatch(loadStructures.fulfilled({}, 'req-2', 'skeletal'));
+    store.dispatch(selected(['femur--l']));
+    store.dispatch(
+      tourStarted({
+        id: 'arm-bone-to-muscle',
+        savedView: { c: [0, 0, 3, 0, 0, 0], s: ['skeletal'], h: [], sel: [] },
+      }),
+    );
+
+    vi.stubGlobal('innerWidth', 375);
+    vi.stubGlobal(
+      'matchMedia',
+      vi.fn((query: string) => ({
+        matches: query.includes('767px'),
+        media: query,
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+      })),
+    );
+    const { unmount } = renderInspector(store);
+    expect(
+      screen.queryByRole('complementary', { name: 'Structure details' }),
+    ).not.toBeInTheDocument();
+    unmount();
+
+    vi.stubGlobal('innerWidth', 1280);
+    vi.stubGlobal(
+      'matchMedia',
+      vi.fn((query: string) => ({
+        matches: false,
+        media: query,
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+      })),
+    );
+    renderInspector(store);
+    expect(
+      screen.getByRole('complementary', { name: 'Structure details' }),
+    ).toHaveAttribute('data-layout', 'drawer');
+  });
 });
