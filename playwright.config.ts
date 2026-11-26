@@ -37,6 +37,20 @@ export default defineConfig({
           },
         },
         {
+          name: 'chromium-batching-off',
+          testIgnore: [
+            /mobile\.spec\.ts/,
+            /base-path\.spec\.ts/,
+            /batching\.spec\.ts/,
+          ],
+          use: {
+            ...devices['Desktop Chrome'],
+            launchOptions: {
+              args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader'],
+            },
+          },
+        },
+        {
           name: 'mobile',
           testMatch: /(?:mobile|layout|pins|locale)\.spec\.ts/,
           use: {
