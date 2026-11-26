@@ -4,6 +4,11 @@ import { pinScreens, type PinScreen } from '../features/pins/pinProjection';
 import { startQuiz } from '../features/quiz/thunks';
 import type { SectionState } from '../features/section/sectionSlice';
 import { selected } from '../features/selection/selectionSlice';
+import {
+  computeDrawStats,
+  type BatchRegistry,
+  type DrawStats,
+} from '../scene/batching/batchRegistry';
 import type { CameraController, Pose } from '../scene/camera';
 import type { MeshRegistry } from '../scene/meshRegistry';
 import { pointerPosition } from '../scene/pointerPosition';
@@ -22,6 +27,7 @@ export type AtlasTestApi = {
   startQuiz(seed?: number): void;
   quizTarget(): MeshId | null;
   meshVisible(id: MeshId): boolean;
+  drawStats(): DrawStats & { sceneChildren: number };
   encodeView(): Promise<string>;
   getPose(): Pose | null;
   pinScreenPoints(): PinScreen[];
@@ -37,6 +43,8 @@ export type AtlasTestApi = {
 /** Exposes dev/e2e inspection hooks on `window.__atlas`; stripped from production builds. */
 export function installTestHooks(api: {
   registry: MeshRegistry;
+  batchRegistry?: BatchRegistry;
+  getSceneChildren?: () => number;
   store: AppStore;
   camera: CameraController | null;
   isReady(): boolean;
@@ -66,7 +74,21 @@ export function installTestHooks(api: {
       const q = api.store.getState().quiz;
       return q.status === 'asking' ? (q.questions[q.current] ?? null) : null;
     },
-    meshVisible: (id) => api.registry.get(id)?.visible ?? false,
+    meshVisible: (id) => {
+      const mesh = api.registry.get(id);
+      if (!mesh) return false;
+      if (mesh.visible) return true;
+      const batched = api.batchRegistry?.byMesh(id);
+      return Boolean(
+        batched &&
+          batched.handle.batch.visible &&
+          batched.handle.batch.getVisibleAt(batched.instance),
+      );
+    },
+    drawStats: () => ({
+      ...computeDrawStats(api.registry, api.batchRegistry ?? null),
+      sceneChildren: api.getSceneChildren?.() ?? 0,
+    }),
     encodeView: async () => {
       const [{ encodeViewState }, { captureViewState }] = await Promise.all([
         import('../features/share/codec'),

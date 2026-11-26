@@ -11,6 +11,7 @@ import {
   motionSpeedSet,
   motionStopped,
   motionsLoaded,
+  selectMotionMoving,
   selectMotionOverrides,
 } from './motionSlice';
 
@@ -150,5 +151,39 @@ describe('motionSlice & selectMotionOverrides', () => {
     >);
     expect(pulseOverrides.ghost.size).toBe(0);
     expect(pulseOverrides.active.size).toBe(0);
+  });
+
+  it('selectMotionMoving returns hinge moving meshes, pulse group meshes, and empty when stopped', () => {
+    const base = motionReducer(undefined, motionsLoaded([hingeDef, pulseDef]));
+    expect(
+      selectMotionMoving({ motion: base } as Pick<RootState, 'motion'>).size,
+    ).toBe(0);
+
+    const activeHinge = motionReducer(
+      base,
+      motionActivated({ id: 'elbow-flexion', playing: true }),
+    );
+    expect([
+      ...selectMotionMoving({ motion: activeHinge } as Pick<
+        RootState,
+        'motion'
+      >),
+    ]).toEqual(['radius--l']);
+
+    const activePulse = motionReducer(
+      base,
+      motionActivated({ id: 'heartbeat', playing: true }),
+    );
+    expect([
+      ...selectMotionMoving({ motion: activePulse } as Pick<
+        RootState,
+        'motion'
+      >),
+    ]).toEqual(['left-atrium']);
+
+    const stopped = motionReducer(activeHinge, motionStopped());
+    expect(
+      selectMotionMoving({ motion: stopped } as Pick<RootState, 'motion'>).size,
+    ).toBe(0);
   });
 });

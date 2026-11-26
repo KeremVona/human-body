@@ -4,25 +4,33 @@ import { useStore } from 'react-redux';
 import type { RootState } from '../app/store';
 import { isMeshId, parseMeshId, type MeshId } from '../data/ids';
 import { selectStructureLookup } from '../features/content/contentSlice';
+import { selectMotionMoving } from '../features/motion/motionSlice';
 import {
   resolveQuality,
   type ResolvedQuality,
 } from '../features/settings/quality';
 import { applyMeshStates } from './applyMeshStates';
+import { applyBatchPlan } from './batching/applyBatchPlan';
+import { useOptionalBatchRegistry } from './batching/batchRegistry';
+import { batchingEnabled } from './batching/flag';
+import { planBatches } from './batching/planBatches';
 import { createMaterialLibrary } from './materials';
 import { useMeshRegistry } from './meshRegistry';
 import { selectResolvedMeshStates, type MeshState } from './resolveMeshState';
 import { sectionMaterialLibrary, sectionPlaneStore } from './sectionPlaneStore';
 
-/** Subscribes imperatively to store and registry changes to diff-apply mesh appearance inside Canvas. */
+/** Subscribes imperatively to store and registry changes to diff-apply mesh and batch appearance inside Canvas. */
 export function SceneStateApplier(): null {
   const store = useStore<RootState>();
   const registry = useMeshRegistry();
+  const batchRegistry = useOptionalBatchRegistry();
   const invalidate = useThree((s) => s.invalidate);
 
   const prevStatesRef = useRef<Map<MeshId, MeshState>>(new Map());
   const prevOpacitiesRef = useRef<Map<string, number>>(new Map());
   const prevQualityRef = useRef<ResolvedQuality | null>(null);
+  const prevMovingRef = useRef<ReadonlySet<MeshId> | null>(null);
+  const prevBatchCountRef = useRef(0);
   const libraryRef = useRef<{
     fadeOpacity: number;
     lib: ReturnType<typeof createMaterialLibrary>;
@@ -94,8 +102,34 @@ export function SceneStateApplier(): null {
         library,
       });
 
+      let batchChanged = false;
+      const handles =
+        batchRegistry && batchingEnabled(window.location.search)
+          ? batchRegistry.all()
+          : [];
+      if (handles.length > 0) {
+        const moving = selectMotionMoving(state);
+        const members = new Map<string, readonly MeshId[]>(
+          handles.map((h) => [h.key, h.meshIdAt]),
+        );
+        const plan = planBatches({ members, states: next, moving });
+        applyBatchPlan({ handles, plan, states: next, registry, library });
+        if (
+          prevMovingRef.current !== moving ||
+          prevBatchCountRef.current !== handles.length
+        ) {
+          batchChanged = true;
+        }
+        prevMovingRef.current = moving;
+        prevBatchCountRef.current = handles.length;
+      } else if (prevBatchCountRef.current !== 0) {
+        prevBatchCountRef.current = 0;
+        prevMovingRef.current = null;
+        batchChanged = true;
+      }
+
       prevStatesRef.current = next;
-      if (changed > 0 || opacityChanged || qualityChanged) {
+      if (changed > 0 || opacityChanged || qualityChanged || batchChanged) {
         invalidate();
       }
     };
@@ -109,12 +143,14 @@ export function SceneStateApplier(): null {
     applyNow();
     const unsubStore = store.subscribe(scheduleApply);
     const unsubRegistry = registry.subscribe(scheduleApply);
+    const unsubBatch = batchRegistry?.subscribe(scheduleApply);
     window.addEventListener('resize', scheduleApply);
 
     return () => {
       disposed = true;
       unsubStore();
       unsubRegistry();
+      unsubBatch?.();
       window.removeEventListener('resize', scheduleApply);
       sectionMaterialLibrary.set(null);
       libraryRef.current?.lib.dispose();
@@ -122,8 +158,10 @@ export function SceneStateApplier(): null {
       prevStatesRef.current = new Map();
       prevOpacitiesRef.current = new Map();
       prevQualityRef.current = null;
+      prevMovingRef.current = null;
+      prevBatchCountRef.current = 0;
     };
-  }, [store, registry, invalidate]);
+  }, [store, registry, batchRegistry, invalidate]);
 
   return null;
 }

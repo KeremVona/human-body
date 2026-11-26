@@ -6,7 +6,16 @@ import {
   type ReactNode,
 } from 'react';
 import type { MeshId } from '../../data/ids';
+import type { MeshRegistry } from '../meshRegistry';
 import type { BatchHandle } from './buildBatches';
+
+/** Live draw breakdown counts across batches and individual meshes. */
+export type DrawStats = {
+  batches: number;
+  promoted: number;
+  individual: number;
+  doubleDrawn?: number;
+};
 
 /** Registry tracking live appearance-keyed BatchedMesh handles across loaded bundles. */
 export type BatchRegistry = {
@@ -20,6 +29,7 @@ export type BatchRegistry = {
 /** Creates an isolated BatchRegistry tracking handles by bundle and mesh id. */
 export function createBatchRegistry(): BatchRegistry {
   const handles: BatchHandle[] = [];
+  let snapshot: BatchHandle[] = [];
   const byMeshMap = new Map<
     MeshId,
     { handle: BatchHandle; instance: number }
@@ -27,6 +37,7 @@ export function createBatchRegistry(): BatchRegistry {
   const listeners = new Set<() => void>();
 
   function notify(): void {
+    snapshot = [...handles];
     for (const listener of listeners) {
       listener();
     }
@@ -62,7 +73,7 @@ export function createBatchRegistry(): BatchRegistry {
       return removed;
     },
     all(): BatchHandle[] {
-      return [...handles];
+      return snapshot;
     },
     byMesh(id: MeshId): { handle: BatchHandle; instance: number } | undefined {
       return byMeshMap.get(id);
@@ -91,6 +102,11 @@ export function BatchRegistryProvider({
   return createElement(BatchRegistryContext.Provider, { value }, children);
 }
 
+/** Returns the active BatchRegistry from context if mounted, or null otherwise. */
+export function useOptionalBatchRegistry(): BatchRegistry | null {
+  return useContext(BatchRegistryContext);
+}
+
 /** Returns the active BatchRegistry inside `<AtlasCanvas>`. */
 export function useBatchRegistry(): BatchRegistry {
   const registry = useContext(BatchRegistryContext);
@@ -98,4 +114,45 @@ export function useBatchRegistry(): BatchRegistry {
     throw new Error('useBatchRegistry requires BatchRegistryProvider');
   }
   return registry;
+}
+
+/** Counts visible batches, promoted batched meshes, individual visible meshes, and any double-draws. */
+export function computeDrawStats(
+  meshRegistry: MeshRegistry,
+  batchRegistry: BatchRegistry | null,
+): DrawStats {
+  let batches = 0;
+  let promoted = 0;
+  let individual = 0;
+  let doubleDrawn = 0;
+
+  if (batchRegistry) {
+    for (const handle of batchRegistry.all()) {
+      if (handle.batch.visible) {
+        batches += 1;
+      }
+    }
+  }
+
+  for (const id of meshRegistry.ids()) {
+    const mesh = meshRegistry.get(id);
+    if (!mesh) continue;
+    const batchEntry = batchRegistry?.byMesh(id);
+    const inBatchVisible = Boolean(
+      batchEntry &&
+        batchEntry.handle.batch.visible &&
+        batchEntry.handle.batch.getVisibleAt(batchEntry.instance),
+    );
+    if (mesh.visible) {
+      individual += 1;
+      if (batchEntry) {
+        promoted += 1;
+      }
+      if (inBatchVisible) {
+        doubleDrawn += 1;
+      }
+    }
+  }
+
+  return { batches, promoted, individual, doubleDrawn };
 }

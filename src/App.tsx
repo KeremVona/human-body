@@ -76,6 +76,11 @@ const SharePopover = lazy(() =>
     default: m.SharePopover,
   })),
 );
+import {
+  BatchRegistryProvider,
+  createBatchRegistry,
+  type BatchRegistry,
+} from './scene/batching/batchRegistry';
 import { DebugStats, type RenderStats } from './scene/DebugStats';
 import {
   createMeshRegistry,
@@ -83,12 +88,15 @@ import {
   type MeshRegistry,
 } from './scene/meshRegistry';
 import type { ContextRequest } from './scene/Picking';
+import type { Scene } from 'three';
 
 function AtlasShell({
   registry,
+  batchRegistry,
   store,
 }: {
   registry: MeshRegistry;
+  batchRegistry: BatchRegistry;
   store: AppStore;
 }): JSX.Element {
   const dispatch = useAppDispatch();
@@ -103,6 +111,7 @@ function AtlasShell({
   );
   const [meshCount, setMeshCount] = useState(0);
   const [debugStats, setDebugStats] = useState<RenderStats | null>(null);
+  const sceneRef = useRef<Scene | null>(null);
   const [shareOpen, setShareOpen] = useState(false);
   const [shareLoaded, setShareLoaded] = useState(false);
   const emptyPoolAlert = useAppSelector((s) => s.quiz.emptyPoolAlert);
@@ -205,11 +214,13 @@ function AtlasShell({
   useEffect(() => {
     installTestHooks({
       registry,
+      batchRegistry,
+      getSceneChildren: () => sceneRef.current?.children.length ?? 0,
       store,
       camera: cameraController,
       isReady: () => store.getState().assets.bundles.skeletal === 'ready',
     });
-  }, [registry, store, cameraController]);
+  }, [registry, batchRegistry, store, cameraController]);
 
   useEffect(() => {
     void loadAtlasCanvas();
@@ -278,6 +289,9 @@ function AtlasShell({
             onBundleError={handleBundleError}
             onDebugSample={debug ? setDebugStats : undefined}
             onContextRequest={handleContextRequest}
+            onSceneReady={(scene) => {
+              sceneRef.current = scene;
+            }}
           />
         </Suspense>
       ) : null}
@@ -451,6 +465,7 @@ export default function App({ store }: { store?: AppStore } = {}): JSX.Element {
   const [cameraRef] = useState<CameraRef>(() => ({ current: null }));
   const [cameraController] = useState(() => createCameraController(cameraRef));
   const [registry] = useState(() => createMeshRegistry());
+  const [batchRegistry] = useState(() => createBatchRegistry());
   const [defaultStore] = useState(() => {
     const resolved =
       store ?? makeStore(undefined, { camera: cameraRef, registry });
@@ -464,10 +479,16 @@ export default function App({ store }: { store?: AppStore } = {}): JSX.Element {
   return (
     <Provider store={defaultStore}>
       <MeshRegistryProvider registry={registry}>
-        <CameraApiProvider controller={cameraController}>
-          <BundleScheduler />
-          <AtlasShell registry={registry} store={defaultStore} />
-        </CameraApiProvider>
+        <BatchRegistryProvider registry={batchRegistry}>
+          <CameraApiProvider controller={cameraController}>
+            <BundleScheduler />
+            <AtlasShell
+              registry={registry}
+              batchRegistry={batchRegistry}
+              store={defaultStore}
+            />
+          </CameraApiProvider>
+        </BatchRegistryProvider>
       </MeshRegistryProvider>
     </Provider>
   );

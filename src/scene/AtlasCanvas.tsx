@@ -1,7 +1,7 @@
 import { Canvas } from '@react-three/fiber';
-import { lazy, Suspense, useContext } from 'react';
+import { lazy, Suspense, useContext, useState } from 'react';
 import { Provider, useStore } from 'react-redux';
-import { AgXToneMapping } from 'three';
+import { AgXToneMapping, type Scene } from 'three';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import type { RootState } from '../app/store';
 import {
@@ -9,6 +9,12 @@ import {
   selectionCleared,
 } from '../features/selection/selectionSlice';
 import { useT } from '../i18n/t';
+import { BatchLayer } from './batching/BatchLayer';
+import {
+  BatchRegistryProvider,
+  createBatchRegistry,
+  useOptionalBatchRegistry,
+} from './batching/batchRegistry';
 import { BundleErrorBoundary } from './BundleErrorBoundary';
 import { BundleModel } from './BundleModel';
 import { CameraApiContext, CameraApiProvider } from './camera';
@@ -41,6 +47,7 @@ type AtlasCanvasProps = {
   onBundleError: (bundleId: string) => void;
   onDebugSample?: (stats: RenderStats) => void;
   onContextRequest?: (request: ContextRequest) => void;
+  onSceneReady?: (scene: Scene) => void;
 };
 
 const noopContextRequest = () => {};
@@ -53,6 +60,7 @@ export function AtlasCanvas({
   onBundleError,
   onDebugSample,
   onContextRequest,
+  onSceneReady,
 }: AtlasCanvasProps) {
   const store = useStore<RootState>();
   const dispatch = useAppDispatch();
@@ -60,6 +68,9 @@ export function AtlasCanvas({
   const hasPins = useAppSelector((s) => s.pins.items.length > 0);
   const hasMotion = useAppSelector((s) => s.motion.activeId !== null);
   const registry = useMeshRegistry();
+  const outerBatchRegistry = useOptionalBatchRegistry();
+  const [fallbackBatchRegistry] = useState(() => createBatchRegistry());
+  const batchRegistry = outerBatchRegistry ?? fallbackBatchRegistry;
   const cameraController = useContext(CameraApiContext);
 
   return (
@@ -89,59 +100,63 @@ export function AtlasCanvas({
             dispatch(selectionCleared());
           }
         }}
-        onCreated={({ raycaster }) => {
+        onCreated={({ raycaster, scene }) => {
           Object.assign(raycaster, { firstHitOnly: true });
+          onSceneReady?.(scene);
         }}
       >
         <Provider store={store}>
           <MeshRegistryProvider registry={registry}>
-            <CameraApiProvider controller={cameraController ?? undefined}>
-              <Lights />
+            <BatchRegistryProvider registry={batchRegistry}>
+              <CameraApiProvider controller={cameraController ?? undefined}>
+                <Lights />
 
-              <CameraRig />
+                <CameraRig />
 
-              <SceneStateApplier />
+                <SceneStateApplier />
 
-              <Picking
-                onContextRequest={onContextRequest ?? noopContextRequest}
-              >
-                {bundles.map((bundle) => (
-                  <BundleErrorBoundary
-                    key={bundle.id}
-                    bundleId={bundle.id}
-                    onError={onBundleError}
-                  >
-                    <Suspense fallback={null}>
-                      <BundleModel
-                        url={bundle.url}
-                        bundleId={bundle.id}
-                        onReady={(count) => onBundleReady?.(bundle.id, count)}
-                      />
-                    </Suspense>
-                  </BundleErrorBoundary>
-                ))}
-              </Picking>
+                <Picking
+                  onContextRequest={onContextRequest ?? noopContextRequest}
+                >
+                  <BatchLayer />
+                  {bundles.map((bundle) => (
+                    <BundleErrorBoundary
+                      key={bundle.id}
+                      bundleId={bundle.id}
+                      onError={onBundleError}
+                    >
+                      <Suspense fallback={null}>
+                        <BundleModel
+                          url={bundle.url}
+                          bundleId={bundle.id}
+                          onReady={(count) => onBundleReady?.(bundle.id, count)}
+                        />
+                      </Suspense>
+                    </BundleErrorBoundary>
+                  ))}
+                </Picking>
 
-              <Effects />
+                <Effects />
 
-              <SectionController />
+                <SectionController />
 
-              {hasMotion ? (
-                <Suspense fallback={null}>
-                  <MotionPlayer />
-                </Suspense>
-              ) : null}
+                {hasMotion ? (
+                  <Suspense fallback={null}>
+                    <MotionPlayer />
+                  </Suspense>
+                ) : null}
 
-              {hasPins ? (
-                <Suspense fallback={null}>
-                  <PinProbe />
-                </Suspense>
-              ) : null}
+                {hasPins ? (
+                  <Suspense fallback={null}>
+                    <PinProbe />
+                  </Suspense>
+                ) : null}
 
-              {debug && onDebugSample ? (
-                <DebugStatsProbe onSample={onDebugSample} />
-              ) : null}
-            </CameraApiProvider>
+                {debug && onDebugSample ? (
+                  <DebugStatsProbe onSample={onDebugSample} />
+                ) : null}
+              </CameraApiProvider>
+            </BatchRegistryProvider>
           </MeshRegistryProvider>
         </Provider>
       </Canvas>

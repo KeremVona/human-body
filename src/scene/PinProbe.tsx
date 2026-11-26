@@ -8,6 +8,7 @@ import {
   pinScreens,
   selectOcclusionBatch,
 } from '../features/pins/pinProjection';
+import { attachMeshBvh } from './bvh';
 import { useMeshRegistry } from './meshRegistry';
 import { sectionPlaneStore } from './sectionPlaneStore';
 
@@ -63,6 +64,7 @@ export function PinProbe(): null {
         m.userData?.atlasVisible === true &&
         m.userData?.pickable === true
       ) {
+        attachMeshBvh(m);
         pickables.push(m);
       }
     }

@@ -1,11 +1,19 @@
 import { useFrame } from '@react-three/fiber';
 import { useRef } from 'react';
+import {
+  computeDrawStats,
+  useOptionalBatchRegistry,
+} from './batching/batchRegistry';
+import { useMeshRegistry } from './meshRegistry';
 
 /** Sampled WebGL renderer performance snapshot. */
 export type RenderStats = {
   fps: number;
   calls: number;
   triangles: number;
+  batches: number;
+  promoted: number;
+  individual: number;
 };
 
 /** Canvas-internal probe sampling FPS and `gl.info.render` counts every 500 ms. */
@@ -16,6 +24,8 @@ export function DebugStatsProbe({
 }) {
   const framesRef = useRef(0);
   const lastSampleRef = useRef<number | null>(null);
+  const meshRegistry = useMeshRegistry();
+  const batchRegistry = useOptionalBatchRegistry();
 
   useFrame(({ gl }) => {
     const now = performance.now();
@@ -27,10 +37,14 @@ export function DebugStatsProbe({
     const elapsed = now - lastSampleRef.current;
     if (elapsed >= 500) {
       const fps = Math.round((framesRef.current * 1000) / elapsed);
+      const draw = computeDrawStats(meshRegistry, batchRegistry);
       onSample({
         fps,
         calls: gl.info.render.calls,
         triangles: gl.info.render.triangles,
+        batches: draw.batches,
+        promoted: draw.promoted,
+        individual: draw.individual,
       });
       framesRef.current = 0;
       lastSampleRef.current = now;
@@ -50,7 +64,7 @@ function formatTriangles(triangles: number): string {
   return String(triangles);
 }
 
-/** DOM overlay displaying FPS, draw calls, triangles, and registered mesh count when `?debug` is set. */
+/** DOM overlay displaying FPS, draw calls, triangles, meshes, and batch counts when `?debug` is set. */
 export function DebugStats({
   stats,
   meshCount,
@@ -66,7 +80,9 @@ export function DebugStats({
       className="pointer-events-none fixed top-14 left-1/2 z-20 -translate-x-1/2 rounded-md bg-slate-950/80 px-3 py-1.5 font-mono text-xs text-slate-200 ring-1 ring-white/10 backdrop-blur"
     >
       fps {stats.fps} · draw calls {stats.calls} · triangles{' '}
-      {formatTriangles(stats.triangles)} · meshes {meshCount}
+      {formatTriangles(stats.triangles)} · meshes {meshCount} · batches{' '}
+      {stats.batches} · promoted {stats.promoted} · individual{' '}
+      {stats.individual}
     </aside>
   );
 }

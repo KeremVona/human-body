@@ -39,10 +39,15 @@ describe('pinProjection', () => {
     const registry = createMeshRegistry();
     const visibleMesh = new Mesh();
     visibleMesh.visible = true;
+    const batchedMesh = new Mesh();
+    batchedMesh.visible = false;
+    batchedMesh.userData.atlasVisible = true;
     const hiddenMesh = new Mesh();
     hiddenMesh.visible = false;
+    hiddenMesh.userData.atlasVisible = false;
 
     registry.register('femur--l', visibleMesh);
+    registry.register('tibia--l', batchedMesh);
     registry.register('sternum', hiddenMesh);
 
     const camera = new PerspectiveCamera(50, 800 / 600, 0.1, 100);
@@ -53,6 +58,7 @@ describe('pinProjection', () => {
     const out = projectPins({
       pins: [
         makePin('a', 'femur--l'),
+        makePin('batched', 'tibia--l'),
         makePin('b', 'sternum'),
         makePin('c', 'gone'),
       ],
@@ -62,7 +68,7 @@ describe('pinProjection', () => {
       occlusion: () => false,
     });
 
-    expect(out.map((p) => p.id)).toEqual(['a']);
+    expect(out.map((p) => p.id)).toEqual(['a', 'batched']);
     expect(out[0]).toMatchObject({ x: 400, y: 300, dimmed: false });
   });
 

@@ -51,7 +51,10 @@ export function collectProjectedPins(args: {
 
   for (const pin of pins) {
     const mesh = registry.get(pin.meshId);
-    if (!mesh || !mesh.visible) continue;
+    const isVisible = mesh
+      ? ((mesh.userData?.atlasVisible as boolean | undefined) ?? mesh.visible)
+      : false;
+    if (!mesh || !isVisible) continue;
 
     const worldArr = localToWorld(mesh, pin.local);
     const world = new Vector3(worldArr[0], worldArr[1], worldArr[2]);

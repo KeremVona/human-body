@@ -1,8 +1,17 @@
 import { render } from '@testing-library/react';
 import { BoxGeometry, Group, Mesh, MeshBasicMaterial } from 'three';
 import { acceleratedRaycast } from 'three-mesh-bvh';
+import { afterEach } from 'vitest';
+import {
+  BatchRegistryProvider,
+  createBatchRegistry,
+} from './batching/batchRegistry';
 import { BundleModel } from './BundleModel';
 import { createMeshRegistry, MeshRegistryProvider } from './meshRegistry';
+
+afterEach(() => {
+  window.history.replaceState(null, '', '/');
+});
 
 const mocks = vi.hoisted(() => ({
   scene: null as unknown as Group,
@@ -72,4 +81,54 @@ it('rolls back partial registrations and BVH if duplicate meshId throws', () => 
   expect(registry.size).toBe(1);
   expect(first.geometry.boundsTree).toBeNull();
   expect(first.raycast).toBe(Mesh.prototype.raycast);
+});
+
+it('builds batches on mount and disposes them cleanly on unmount', () => {
+  const femur = makeTestMesh('femur--l');
+  mocks.scene = new Group();
+  mocks.scene.add(femur);
+
+  const registry = createMeshRegistry();
+  const batchRegistry = createBatchRegistry();
+  const removeSpy = vi.spyOn(batchRegistry, 'removeBundle');
+
+  const { unmount } = render(
+    <MeshRegistryProvider registry={registry}>
+      <BatchRegistryProvider registry={batchRegistry}>
+        <BundleModel url="/models/skeletal.glb" bundleId="skeletal" />
+      </BatchRegistryProvider>
+    </MeshRegistryProvider>,
+  );
+
+  const handles = batchRegistry.all();
+  expect(handles).toHaveLength(1);
+  const disposeSpies = handles.map((h) => vi.spyOn(h.batch, 'dispose'));
+
+  unmount();
+  expect(removeSpy).toHaveBeenCalledWith('skeletal');
+  for (const spy of disposeSpies) {
+    expect(spy).toHaveBeenCalledTimes(1);
+  }
+  expect(batchRegistry.all()).toHaveLength(0);
+});
+
+it('skips batch creation when ?batching=off is set', () => {
+  window.history.replaceState(null, '', '/?batching=off');
+  const femur = makeTestMesh('femur--l');
+  mocks.scene = new Group();
+  mocks.scene.add(femur);
+
+  const registry = createMeshRegistry();
+  const batchRegistry = createBatchRegistry();
+
+  render(
+    <MeshRegistryProvider registry={registry}>
+      <BatchRegistryProvider registry={batchRegistry}>
+        <BundleModel url="/models/skeletal.glb" bundleId="skeletal" />
+      </BatchRegistryProvider>
+    </MeshRegistryProvider>,
+  );
+
+  expect(batchRegistry.all()).toHaveLength(0);
+  expect(registry.get('femur--l')).toBe(femur);
 });

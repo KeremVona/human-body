@@ -157,3 +157,23 @@ export const selectMotionOverrides = createSelector(
     };
   },
 );
+
+/** Memoized selector returning the set of meshes animated by the active motion demo. */
+export const selectMotionMoving = createSelector(
+  [
+    (state: { motion?: MotionState }) => state.motion?.defs ?? null,
+    (state: { motion?: MotionState }) => state.motion?.activeId ?? null,
+  ],
+  (defs, activeId): ReadonlySet<MeshId> => {
+    if (!defs || !activeId) return EMPTY_SET;
+    const def = defs.find((d) => d.id === activeId);
+    if (!def) return EMPTY_SET;
+    if (def.kind === 'hinge') {
+      return new Set(def.moving);
+    }
+    if (def.kind === 'pulse') {
+      return new Set(def.groups.flatMap((g) => g.meshes));
+    }
+    return EMPTY_SET;
+  },
+);
