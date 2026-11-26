@@ -14,6 +14,8 @@ export type Command =
   | 'zoom-in'
   | 'zoom-out'
   | 'reset-view'
+  | 'tour-next'
+  | 'tour-prev'
   | `preset:${Preset}`;
 
 const PLAIN_KEY_MAP: Record<string, Command> = {
@@ -46,6 +48,7 @@ export function shortcutFor(e: {
   shiftKey: boolean;
   targetTag: string;
   targetEditable: boolean;
+  tourActive?: boolean;
 }): Command | null {
   if (e.altKey || e.targetEditable) return null;
   const tag = e.targetTag.toUpperCase();
@@ -56,6 +59,11 @@ export function shortcutFor(e: {
       return 'undo';
     }
     return null;
+  }
+
+  if (e.tourActive && !e.shiftKey) {
+    if (e.key === 'ArrowRight') return 'tour-next';
+    if (e.key === 'ArrowLeft') return 'tour-prev';
   }
 
   if (e.shiftKey && e.key === 'F10') {

@@ -386,4 +386,164 @@ describe('share thunks & bootShare', () => {
       true,
     );
   });
+
+  it('bootShare starts a tour at the requested 1-based step without importing tours for non-tour hashes', async () => {
+    const { store } = setupStore();
+    const loadToursSpy = vi.fn();
+
+    await bootShare(store, { hash: '#debug', loadTours: loadToursSpy });
+    expect(loadToursSpy).not.toHaveBeenCalled();
+
+    const { tourStarted: ts } = await import('../tours/tourSlice');
+    expect(typeof ts).toBe('function');
+
+    await bootShare(store, {
+      hash: '#tour/sample-tour/2',
+      loadTours: async () => {
+        loadToursSpy();
+        const { toursLoaded } = await import('../tours/tourSlice');
+        return {
+          loadTours: () => async (dispatch) => {
+            dispatch(
+              toursLoaded({
+                defs: [
+                  {
+                    id: 'sample-tour',
+                    steps: [
+                      {
+                        id: 'step-1',
+                        view: {
+                          c: [0, 0, 3, 0, 0, 0],
+                          s: ['skeletal'],
+                          h: [],
+                          sel: [],
+                        },
+                      },
+                      {
+                        id: 'step-2',
+                        view: {
+                          c: [1, 1, 2, 0, 0, 0],
+                          s: ['skeletal', 'muscular'],
+                          h: ['sternum'],
+                          sel: ['biceps-brachii--l'],
+                        },
+                      },
+                      {
+                        id: 'step-3',
+                        view: {
+                          c: [0, 0, 3, 0, 0, 0],
+                          s: ['skeletal'],
+                          h: [],
+                          sel: [],
+                        },
+                      },
+                      {
+                        id: 'step-4',
+                        view: {
+                          c: [0, 0, 3, 0, 0, 0],
+                          s: ['skeletal'],
+                          h: [],
+                          sel: [],
+                        },
+                      },
+                    ],
+                  },
+                ],
+                texts: {
+                  'sample-tour': {
+                    title: 'Sample Tour',
+                    summary: 'Summary',
+                    fallback: false,
+                    steps: {
+                      'step-1': { title: 'One', body: 'One' },
+                      'step-2': { title: 'Two', body: 'Two' },
+                      'step-3': { title: 'Three', body: 'Three' },
+                      'step-4': { title: 'Four', body: 'Four' },
+                    },
+                  },
+                },
+              }),
+            );
+          },
+          startTour: (await import('../tours/thunks')).startTour,
+        };
+      },
+    });
+
+    expect(loadToursSpy).toHaveBeenCalledTimes(1);
+    expect(store.getState().tour.activeId).toBe('sample-tour');
+    expect(store.getState().tour.stepIndex).toBe(1);
+    expect(store.getState().selection.selectedIds).toEqual([
+      'biceps-brachii--l',
+    ]);
+  });
+
+  it('bootShare sets tour not-found notice and leaves defaults unchanged for out-of-range step', async () => {
+    const { store } = setupStore();
+
+    await bootShare(store, {
+      hash: '#tour/sample-tour/9',
+      loadTours: async () => {
+        const { toursLoaded } = await import('../tours/tourSlice');
+        return {
+          loadTours: () => async (dispatch) => {
+            dispatch(
+              toursLoaded({
+                defs: [
+                  {
+                    id: 'sample-tour',
+                    steps: [
+                      {
+                        id: 'step-1',
+                        view: {
+                          c: [0, 0, 3, 0, 0, 0],
+                          s: ['skeletal'],
+                          h: [],
+                          sel: [],
+                        },
+                      },
+                      {
+                        id: 'step-2',
+                        view: {
+                          c: [0, 0, 3, 0, 0, 0],
+                          s: ['skeletal'],
+                          h: [],
+                          sel: [],
+                        },
+                      },
+                      {
+                        id: 'step-3',
+                        view: {
+                          c: [0, 0, 3, 0, 0, 0],
+                          s: ['skeletal'],
+                          h: [],
+                          sel: [],
+                        },
+                      },
+                      {
+                        id: 'step-4',
+                        view: {
+                          c: [0, 0, 3, 0, 0, 0],
+                          s: ['skeletal'],
+                          h: [],
+                          sel: [],
+                        },
+                      },
+                    ],
+                  },
+                ],
+                texts: {},
+              }),
+            );
+          },
+          startTour: (await import('../tours/thunks')).startTour,
+        };
+      },
+    });
+
+    expect(store.getState().tour.notice).toBe('not-found');
+    expect(store.getState().tour.activeId).toBeNull();
+    expect(store.getState().systems.skeletal.enabled).toBe(true);
+    expect(store.getState().systems.muscular.enabled).toBe(false);
+  });
 });

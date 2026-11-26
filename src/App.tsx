@@ -122,6 +122,7 @@ function AtlasShell({
   const [shareLoaded, setShareLoaded] = useState(false);
   const emptyPoolAlert = useAppSelector((s) => s.quiz.emptyPoolAlert);
   const shareNotice = useAppSelector((s) => s.share.notice);
+  const tourNotice = useAppSelector((s) => s.tour.notice);
   const pinsStorageFailed = useAppSelector((s) => s.pins.storageFailed);
   const pinsStorageNoticeShown = useAppSelector(
     (s) => s.pins.storageNoticeShown,
@@ -157,7 +158,7 @@ function AtlasShell({
     if (boot !== 'ready' || bundles.skeletal !== 'ready') return;
     if (
       typeof window === 'undefined' ||
-      !/^#v\d+\./.test(window.location.hash)
+      !/^(?:#v\d+\.|#tour\/)/.test(window.location.hash)
     ) {
       return;
     }
@@ -432,9 +433,11 @@ function AtlasShell({
       {debug ? <DebugStats stats={debugStats} meshCount={meshCount} /> : null}
       {boot === 'ready' ? (
         <>
-          {shareNotice || (pinsStorageFailed && !pinsStorageNoticeShown) ? (
+          {shareNotice ||
+          tourNotice ||
+          (pinsStorageFailed && !pinsStorageNoticeShown) ? (
             <div className="pointer-events-none fixed inset-x-0 top-16 z-30 flex flex-col items-center gap-2 px-4">
-              {shareNotice ? (
+              {shareNotice || tourNotice ? (
                 <Suspense fallback={null}>
                   <ShareNotice />
                 </Suspense>

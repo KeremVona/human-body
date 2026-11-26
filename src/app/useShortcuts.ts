@@ -29,6 +29,8 @@ export function useShortcuts(onContextMenu?: () => void): void {
         return;
       }
       const target = e.target;
+      const state = store.getState();
+      const tourActive = state.tour?.activeId != null;
       const cmd = shortcutFor({
         key: e.key,
         ctrlKey: e.ctrlKey,
@@ -38,10 +40,10 @@ export function useShortcuts(onContextMenu?: () => void): void {
         targetTag: target instanceof Element ? target.tagName : '',
         targetEditable:
           target instanceof HTMLElement ? target.isContentEditable : false,
+        tourActive,
       });
       if (!cmd) return;
 
-      const state = store.getState();
       const selectedIds = state.selection.selectedIds;
       const quizActive = state.quiz.status !== 'off';
       const skeletalReady = state.assets.bundles.skeletal === 'ready';
@@ -85,8 +87,30 @@ export function useShortcuts(onContextMenu?: () => void): void {
           }
           break;
         case 'deselect':
-          if (skeletalReady && !quizActive && selectedIds.length > 0) {
-            dispatch(selectionCleared());
+          if (skeletalReady && !quizActive) {
+            if (selectedIds.length > 0) {
+              dispatch(selectionCleared());
+            } else if (tourActive) {
+              void import('../features/tours/thunks').then(({ exitTour }) =>
+                dispatch(exitTour()),
+              );
+            }
+          }
+          break;
+        case 'tour-next':
+          e.preventDefault();
+          if (skeletalReady && !quizActive && tourActive) {
+            void import('../features/tours/thunks').then(({ nextStep }) =>
+              dispatch(nextStep()),
+            );
+          }
+          break;
+        case 'tour-prev':
+          e.preventDefault();
+          if (skeletalReady && !quizActive && tourActive) {
+            void import('../features/tours/thunks').then(({ prevStep }) =>
+              dispatch(prevStep()),
+            );
           }
           break;
         case 'context-menu':

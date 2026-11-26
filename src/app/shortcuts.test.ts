@@ -57,4 +57,13 @@ describe('shortcutFor', () => {
     expect(k('h', { targetEditable: true })).toBeNull();
     expect(k('h', { altKey: true })).toBeNull();
   });
+
+  it('maps ArrowRight and ArrowLeft only when tourActive is true', () => {
+    expect(k('ArrowRight')).toBeNull();
+    expect(k('ArrowLeft')).toBeNull();
+    expect(k('ArrowRight', { tourActive: false })).toBeNull();
+    expect(k('ArrowRight', { tourActive: true })).toBe('tour-next');
+    expect(k('ArrowLeft', { tourActive: true })).toBe('tour-prev');
+    expect(k('ArrowRight', { tourActive: true, targetTag: 'INPUT' })).toBeNull();
+  });
 });

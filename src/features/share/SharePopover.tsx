@@ -10,6 +10,8 @@ import {
 } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { useT } from '../../i18n/t';
+import { tourHash } from '../tours/tourHash';
+import { selectCurrentStep } from '../tours/tourSlice';
 import { encodeViewState } from './codec';
 import { captureViewState } from './thunks';
 
@@ -22,12 +24,14 @@ export function SharePopover({
   trigger,
   triggerRef,
   encode = encodeViewState,
+  isDev = import.meta.env.DEV,
 }: {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   trigger?: ReactNode;
   triggerRef?: RefObject<HTMLButtonElement | null>;
   encode?: typeof encodeViewState;
+  isDev?: boolean;
 }): JSX.Element {
   const dispatch = useAppDispatch();
   const tr = useT();
@@ -43,6 +47,7 @@ export function SharePopover({
   const selectedIds = useAppSelector((s) => s.selection.selectedIds);
   const section = useAppSelector((s) => s.section);
   const pins = useAppSelector((s) => s.pins.items);
+  const activeTourStep = useAppSelector(selectCurrentStep);
 
   useEffect(() => {
     if (!open) return;
@@ -72,9 +77,9 @@ export function SharePopover({
     pins,
   ]);
 
-  const handleCopy = async () => {
+  const handleCopyText = async (text: string) => {
     try {
-      await navigator.clipboard.writeText(link);
+      await navigator.clipboard.writeText(text);
       setCopied(true);
     } catch {
       const input = inputRef.current;
@@ -83,6 +88,26 @@ export function SharePopover({
         input.setSelectionRange(0, link.length);
       }
     }
+  };
+
+  const handleCopyStepLink = async () => {
+    if (!activeTourStep) return;
+    const base =
+      typeof window !== 'undefined'
+        ? `${window.location.origin}${window.location.pathname}`
+        : '';
+    await handleCopyText(
+      `${base}${tourHash(activeTourStep.tourId, activeTourStep.index)}`,
+    );
+  };
+
+  const handleCopyTourStepJson = async () => {
+    const view = dispatch(captureViewState({ includePins: false }));
+    const { p: _ignored, ...stepView } = view;
+    void _ignored;
+    await handleCopyText(
+      JSON.stringify({ id: 'step-x', view: stepView }, null, 2),
+    );
   };
 
   return (
@@ -136,13 +161,33 @@ export function SharePopover({
               />
               <button
                 type="button"
-                onClick={() => void handleCopy()}
+                onClick={() => void handleCopyText(link)}
                 disabled={!link}
                 className="shrink-0 rounded-lg bg-sky-700 px-3 py-1.5 font-medium text-white hover:bg-sky-600 focus-visible:outline-2 focus-visible:outline-sky-300 disabled:pointer-events-none disabled:opacity-40"
               >
                 {tr('share.copyLink')}
               </button>
             </div>
+
+            {activeTourStep ? (
+              <button
+                type="button"
+                onClick={() => void handleCopyStepLink()}
+                className="w-full rounded-lg border border-white/15 bg-white/5 px-3 py-1.5 text-left font-medium text-slate-100 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-sky-400"
+              >
+                {tr('tour.linkStep')}
+              </button>
+            ) : null}
+
+            {isDev ? (
+              <button
+                type="button"
+                onClick={() => void handleCopyTourStepJson()}
+                className="w-full rounded-lg border border-white/15 bg-white/5 px-3 py-1.5 text-left font-mono text-[11px] text-slate-200 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-sky-400"
+              >
+                Copy as tour step
+              </button>
+            ) : null}
 
             <label
               htmlFor={checkId}
