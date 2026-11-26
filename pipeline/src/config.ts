@@ -44,6 +44,13 @@ const SimplifySchema = z.object({
   error: z.number().nonnegative().default(0.001),
 });
 
+const PreviewSchema = z.object({
+  from: BundleIdString.default('skeletal'),
+  ratio: z.number().gt(0).lte(1).default(0.12),
+  error: z.number().nonnegative().default(0.01),
+  maxBytes: z.number().int().positive().default(600_000),
+});
+
 /** Configuration driving object selection, normalization, optimization, and verification. */
 export const PipelineConfigSchema = z
   .object({
@@ -56,6 +63,7 @@ export const PipelineConfigSchema = z
     originBundle: BundleIdString.default('skeletal'),
     orientation: OrientationSchema.prefault({}),
     simplify: SimplifySchema.prefault({}),
+    preview: PreviewSchema.prefault({}),
     budgets: z.object({
       perBundleBytes: z.record(z.string(), z.number().int().positive()),
       defaultBundleBytes: z.number().int().positive(),

@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto';
 import { mkdirSync, readdirSync, unlinkSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import type { MeshId } from '../../src/data/ids';
-import type { Manifest } from '../../src/data/schema';
+import type { Manifest, Vec3 } from '../../src/data/schema';
 import { bundleFileName, type MeshStats } from './optimize';
 
 function compareAscii(a: string, b: string): number {
@@ -18,6 +18,10 @@ export function writeOutputs(
     meshes: Record<MeshId, MeshStats>;
   }>,
   source: Manifest['source'],
+  preview?: {
+    glb: Uint8Array;
+    bounds: { min: Vec3; max: Vec3 };
+  },
 ): Manifest {
   mkdirSync(dir, { recursive: true });
 
@@ -52,11 +56,26 @@ export function writeOutputs(
     meshes[meshId] = stats;
   }
 
+  let manifestPreview: Manifest['preview'];
+  if (preview) {
+    const file = bundleFileName('skeletal-preview', preview.glb);
+    const sha256 = createHash('sha256').update(preview.glb).digest('hex');
+    writeFileSync(path.join(dir, file), preview.glb);
+    writtenFiles.add(file);
+    manifestPreview = {
+      file,
+      bytes: preview.glb.byteLength,
+      sha256,
+      bounds: preview.bounds,
+    };
+  }
+
   const manifest: Manifest = {
     version: 1,
     generatedAt: new Date().toISOString(),
     source,
     bundles: manifestBundles,
+    ...(manifestPreview ? { preview: manifestPreview } : {}),
     meshes,
   };
 

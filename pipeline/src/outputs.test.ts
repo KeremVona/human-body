@@ -53,3 +53,44 @@ it('writeOutputs removes stale bundle files', () => {
     rmSync(dir, { recursive: true, force: true });
   }
 });
+
+it('writeOutputs keeps preview file in manifest and removes stale preview glb', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'outputs-preview-'));
+  try {
+    writeFileSync(join(dir, 'skeletal-preview.deadbeef.glb'), 'stale');
+
+    const bundleBytes = new TextEncoder().encode('glb-data');
+    const previewBytes = new TextEncoder().encode('preview-glb');
+    const meshes: Record<string, MeshStats> = {
+      'femur--l': {
+        bounds: { min: [0, 0, 0], max: [0.1, 0.4, 0.1] },
+        triangles: 12,
+        sizeClass: 'large',
+      },
+    };
+    const source = {
+      name: 'Z-Anatomy',
+      version: '2023-05-02',
+      license: 'CC-BY-SA-4.0',
+    };
+
+    const m = writeOutputs(
+      dir,
+      [{ id: 'skeletal', glb: bundleBytes, meshes }],
+      source,
+      {
+        glb: previewBytes,
+        bounds: { min: [0, 0, 0], max: [0.1, 0.4, 0.1] },
+      },
+    );
+
+    expect(m.preview).toBeDefined();
+    expect(m.preview?.file).toMatch(/^skeletal-preview\.[0-9a-f]{8}\.glb$/);
+    expect(readdirSync(dir).sort()).toEqual(
+      [m.bundles[0].file, m.preview!.file, 'manifest.json'].sort(),
+    );
+    expect(readdirSync(dir)).not.toContain('skeletal-preview.deadbeef.glb');
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});

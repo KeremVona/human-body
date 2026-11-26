@@ -19,6 +19,12 @@
     "ratio": 0.7,
     "error": 0.001
   },
+  "preview": {
+    "from": "skeletal",
+    "ratio": 0.03,
+    "error": 0.02,
+    "maxBytes": 600000
+  },
   "budgets": {
     "perBundleBytes": {
       "skeletal": 5242880,

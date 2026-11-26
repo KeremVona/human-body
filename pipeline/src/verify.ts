@@ -46,6 +46,57 @@ export function verifyManifest(
     }
   }
 
+  if (manifest.preview) {
+    const preview = manifest.preview;
+    expectedFiles.add(preview.file);
+    if (preview.bytes > config.preview.maxBytes) {
+      problems.push(
+        `preview is ${preview.bytes} bytes, over its ${config.preview.maxBytes}-byte budget`,
+      );
+    }
+
+    const disk = files[preview.file];
+    if (!disk) {
+      problems.push(`preview: file ${preview.file} not found`);
+    } else {
+      if (disk.sha256 !== preview.sha256) {
+        problems.push('preview: file hash does not match manifest');
+      }
+      if (disk.bytes !== preview.bytes) {
+        problems.push(
+          `preview: file size ${disk.bytes} does not match manifest (${preview.bytes})`,
+        );
+      }
+    }
+
+    const sourceMeshes = Object.values(manifest.meshes).filter(
+      (m) => m.bundle === config.preview.from,
+    );
+    if (sourceMeshes.length > 0) {
+      const unionMin: Vec3 = [Infinity, Infinity, Infinity];
+      const unionMax: Vec3 = [-Infinity, -Infinity, -Infinity];
+      for (const m of sourceMeshes) {
+        for (let i = 0; i < 3; i += 1) {
+          unionMin[i] = Math.min(unionMin[i], m.bounds.min[i]);
+          unionMax[i] = Math.max(unionMax[i], m.bounds.max[i]);
+        }
+      }
+      let maxDiff = 0;
+      for (let i = 0; i < 3; i += 1) {
+        maxDiff = Math.max(
+          maxDiff,
+          Math.abs(preview.bounds.min[i] - unionMin[i]),
+          Math.abs(preview.bounds.max[i] - unionMax[i]),
+        );
+      }
+      if (maxDiff > 0.01) {
+        problems.push(
+          `preview bounds differ from ${config.preview.from} bounds by ${maxDiff.toFixed(3)} m`,
+        );
+      }
+    }
+  }
+
   for (const file of Object.keys(files).sort()) {
     if (file.endsWith('.glb') && !expectedFiles.has(file)) {
       problems.push(

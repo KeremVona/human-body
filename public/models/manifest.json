@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-11-24T15:08:11.540Z",
+  "generatedAt": "2026-11-26T13:38:01.104Z",
   "source": {
     "name": "Z-Anatomy",
     "version": "2023-05-02",
@@ -1462,6 +1462,23 @@
       ]
     }
   ],
+  "preview": {
+    "file": "skeletal-preview.7b4156d0.glb",
+    "bytes": 490452,
+    "sha256": "7b4156d0fda576581bf49114a92f5ce8974ff77a0c4826a940a9462f21cc4a38",
+    "bounds": {
+      "min": [
+        -0.33373722434043884,
+        -0.8478837609291077,
+        -0.12480325996875763
+      ],
+      "max": [
+        0.3340006470680237,
+        0.8479291796684265,
+        0.12505768239498138
+      ]
+    }
+  },
   "meshes": {
     "abdominal-aorta": {
       "bundle": "cardiovascular",

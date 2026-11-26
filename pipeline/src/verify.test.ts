@@ -169,3 +169,32 @@ it('reports an empty origin bundle', () => {
 it('passes a good manifest', () => {
   expect(verifyManifest(...fixture({}))).toEqual([]);
 });
+
+it('verifies preview byte budget and bounds against skeletal bundle', () => {
+  const [manifest, config, files] = fixture({});
+  const previewFile = 'skeletal-preview.12345678.glb';
+  const previewSha = 'c'.repeat(64);
+  manifest.preview = {
+    file: previewFile,
+    bytes: 700_000,
+    sha256: previewSha,
+    bounds: {
+      min: [-0.05, -0.85, -0.1],
+      max: [0.15, 0.85, 0.15],
+    },
+  };
+  files[previewFile] = { bytes: 700_000, sha256: previewSha };
+
+  expect(verifyManifest(manifest, config, files)).toContain(
+    'preview is 700000 bytes, over its 600000-byte budget',
+  );
+
+  manifest.preview.bytes = 400_000;
+  files[previewFile] = { bytes: 400_000, sha256: previewSha };
+  manifest.preview.bounds = {
+    min: [-0.05, -0.8, -0.1], // offset by 0.05m on minY
+    max: [0.15, 0.85, 0.15],
+  };
+  const errs = verifyManifest(manifest, config, files);
+  expect(errs.some((e) => e.startsWith('preview bounds differ from skeletal bounds by '))).toBe(true);
+});

@@ -19,6 +19,7 @@ import { PipelineConfigSchema, type PipelineConfig } from './src/config';
 import { updateNameMap, type NameMap } from './src/nameMap';
 import { optimizeBundle, type MeshStats } from './src/optimize';
 import { writeOutputs } from './src/outputs';
+import { buildPreview } from './src/preview';
 import { resolvePlan } from './src/resolvePlan';
 import { scaffoldIndex } from './src/scaffold';
 import { selectObjects } from './src/select';
@@ -137,6 +138,9 @@ function runVerify(): boolean {
     for (const bundle of parsedManifest.data.bundles) {
       recordModelFile(bundle.file);
     }
+    if (parsedManifest.data.preview) {
+      recordModelFile(parsedManifest.data.preview.file);
+    }
     problems.push(...verifyManifest(parsedManifest.data, config, files));
   }
 
@@ -210,15 +214,35 @@ async function runBuild(): Promise<void> {
     });
   }
 
+  const previewRawPath = path.join(rawDir, `${config.preview.from}.glb`);
+  const previewResult = existsSync(previewRawPath)
+    ? await buildPreview(new Uint8Array(readFileSync(previewRawPath)), {
+        ratio: config.preview.ratio,
+        error: config.preview.error,
+      })
+    : undefined;
+
   const modelsDir = path.join(root, 'public', 'models');
-  const manifest = writeOutputs(modelsDir, optimized, {
-    name: config.source.name,
-    version: config.source.version,
-    license: config.source.license,
-  });
+  const manifest = writeOutputs(
+    modelsDir,
+    optimized,
+    {
+      name: config.source.name,
+      version: config.source.version,
+      license: config.source.license,
+    },
+    previewResult
+      ? { glb: previewResult.glb, bounds: previewResult.bounds }
+      : undefined,
+  );
   for (const bundle of manifest.bundles) {
     console.log(
       `Wrote ${bundle.file}: ${bundle.bytes} bytes, ${bundle.meshIds.length} meshes`,
+    );
+  }
+  if (manifest.preview) {
+    console.log(
+      `Wrote ${manifest.preview.file}: ${manifest.preview.bytes} bytes`,
     );
   }
 

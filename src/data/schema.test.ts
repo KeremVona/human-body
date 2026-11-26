@@ -27,8 +27,30 @@ const manifest = {
   meshes: { 'femur--l': mesh },
 };
 
-it('accepts a valid manifest', () => {
+it('accepts a valid manifest with or without optional preview', () => {
   expect(ManifestSchema.safeParse(manifest).success).toBe(true);
+  expect(
+    ManifestSchema.safeParse({
+      ...manifest,
+      preview: {
+        file: 'skeletal-preview.1a2b3c4d.glb',
+        bytes: 450_000,
+        sha256: 'b'.repeat(64),
+        bounds: { min: [-0.2, -0.8, -0.1], max: [0.2, 0.8, 0.1] },
+      },
+    }).success,
+  ).toBe(true);
+  expect(
+    ManifestSchema.safeParse({
+      ...manifest,
+      preview: {
+        file: 'bad-name.1a2b3c4d.glb',
+        bytes: 450_000,
+        sha256: 'b'.repeat(64),
+        bounds: { min: [-0.2, -0.8, -0.1], max: [0.2, 0.8, 0.1] },
+      },
+    }).success,
+  ).toBe(false);
 });
 
 it('rejects bundle files that contain a path or lack a hash', () => {

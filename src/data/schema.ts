@@ -113,6 +113,17 @@ export const ManifestSchema = z.object({
       meshIds: z.array(MeshIdString),
     }),
   ),
+  preview: z.optional(
+    z.object({
+      file: z.string().check(z.regex(/^skeletal-preview\.[0-9a-f]{8}\.glb$/)),
+      bytes: z.number().check(z.int(), z.nonnegative()),
+      sha256: z.string().check(z.regex(/^[0-9a-f]{64}$/)),
+      bounds: z.object({
+        min: Vec3Schema,
+        max: Vec3Schema,
+      }),
+    }),
+  ),
   meshes: z.record(
     MeshIdString,
     z.object({
