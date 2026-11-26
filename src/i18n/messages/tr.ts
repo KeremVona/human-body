@@ -327,6 +327,7 @@ export const tr = {
       pin: 'İşaretçi konumuna iğne ekle',
       section: 'Kesit düzlemini aç/kapat',
       esc: 'Menüyü kapat veya seçimi temizle',
+      tours: 'Sonraki / önceki rehberli tur adımı',
       presets: 'Standart anatomik görünüme geç',
       reset: 'Kamera görünümünü sıfırla',
       zoom: 'Yakınlaştır veya uzaklaştır',

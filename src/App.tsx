@@ -79,6 +79,16 @@ const SharePopover = lazy(() =>
     default: m.SharePopover,
   })),
 );
+const ToursDialog = lazy(() =>
+  import('./features/tours/ToursDialog').then((m) => ({
+    default: m.ToursDialog,
+  })),
+);
+const TourBar = lazy(() =>
+  import('./features/tours/TourBar').then((m) => ({
+    default: m.TourBar,
+  })),
+);
 import {
   BatchRegistryProvider,
   createBatchRegistry,
@@ -120,9 +130,12 @@ function AtlasShell({
   const sceneRef = useRef<Scene | null>(null);
   const [shareOpen, setShareOpen] = useState(false);
   const [shareLoaded, setShareLoaded] = useState(false);
+  const [toursOpen, setToursOpen] = useState(false);
+  const [toursLoadedOnce, setToursLoadedOnce] = useState(false);
   const emptyPoolAlert = useAppSelector((s) => s.quiz.emptyPoolAlert);
   const shareNotice = useAppSelector((s) => s.share.notice);
   const tourNotice = useAppSelector((s) => s.tour.notice);
+  const tourActive = useAppSelector((s) => s.tour.activeId !== null);
   const pinsStorageFailed = useAppSelector((s) => s.pins.storageFailed);
   const pinsStorageNoticeShown = useAppSelector(
     (s) => s.pins.storageNoticeShown,
@@ -378,6 +391,16 @@ function AtlasShell({
             {boot === 'ready' && !quizActive ? (
               <>
                 <button
+                  type="button"
+                  onClick={() => {
+                    setToursLoadedOnce(true);
+                    setToursOpen(true);
+                  }}
+                  className="whitespace-nowrap rounded-lg px-1.5 py-1 text-[11px] font-medium text-slate-100 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400 sm:px-2 sm:text-xs"
+                >
+                  {tr('tour.button')}
+                </button>
+                <button
                   ref={shareButtonRef}
                   type="button"
                   aria-expanded={shareOpen}
@@ -392,12 +415,19 @@ function AtlasShell({
                 </button>
                 <button
                   type="button"
+                  disabled={tourActive}
+                  title={tourActive ? tr('tour.finishFirst') : undefined}
                   onClick={() => dispatch(startQuiz())}
-                  className="whitespace-nowrap rounded-lg px-1.5 py-1 text-[11px] font-medium text-slate-100 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400 sm:px-2 sm:text-xs"
+                  className="whitespace-nowrap rounded-lg px-1.5 py-1 text-[11px] font-medium text-slate-100 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400 disabled:cursor-not-allowed disabled:opacity-45 disabled:hover:bg-transparent sm:px-2 sm:text-xs"
                 >
                   {tr('topbar.startQuiz')}
                 </button>
               </>
+            ) : null}
+            {toursLoadedOnce ? (
+              <Suspense fallback={null}>
+                <ToursDialog open={toursOpen} onOpenChange={setToursOpen} />
+              </Suspense>
             ) : null}
             {shareLoaded ? (
               <Suspense fallback={null}>
@@ -483,10 +513,15 @@ function AtlasShell({
               <Inspector />
             </Suspense>
           ) : null}
-          <div className="pointer-events-none fixed bottom-16 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2">
+          <div className="pointer-events-none fixed bottom-16 left-1/2 z-30 flex -translate-x-1/2 flex-col items-center gap-2">
             <LoadingDetailsChip />
             <FirstRunHint />
             <ExitChips />
+            {tourActive ? (
+              <Suspense fallback={null}>
+                <TourBar />
+              </Suspense>
+            ) : null}
           </div>
           <Toolbar />
           {contextMenu ? (

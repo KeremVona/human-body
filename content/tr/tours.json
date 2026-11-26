@@ -1,0 +1,130 @@
+{
+  "tours": {
+    "arm-bone-to-muscle": {
+      "title": "Kemikten kasa: kol",
+      "summary": "Üst kol kemiğinden başlayarak dirseği büken ve düzelten derin ve yüzeyel kaslara doğru katman katman ilerleyin.",
+      "steps": {
+        "step-1": {
+          "title": "Üst kolun kemik çatısı",
+          "body": "Humerus, küre-yuva biçimli omuz ekleminden menteşe biçimli dirsek eklemine kadar uzanan tek uzun üst kol kemiğidir ve kol kasları için temel tutunma iskelesini oluşturur."
+        },
+        "step-2": {
+          "title": "Ön kolun iki kemiği",
+          "body": "Dirseğin altında iki paralel kemik uzanır: serçe parmak yanındaki ulna alt humerusu bir anahtar gibi kavrarken, başparmak yanındaki radius onun çevresinde döner."
+        },
+        "step-3": {
+          "title": "Derin dirsek bükücü: brakialis",
+          "body": "Üstteki pazı başları gizlendiğinde, ön alt humerus üzerine düz biçimde yerleşen brakialis kası ortaya çıkar. Ulnayı çekerek dirseğin güçlü bir bükücüsü olarak çalışır."
+        },
+        "step-4": {
+          "title": "İki başlı pazı kası",
+          "body": "Brakialis kasının üzerinde yer alan biseps brakiinin uzun ve kısa başları hem omuzu hem dirseği geçerek dirseği büker ve avuç içini yukarı çevirir."
+        },
+        "step-5": {
+          "title": "Arka dengeleyici: triseps",
+          "body": "Üst kolun arka yüzünde triseps brakiinin uzun, dış ve iç başları ön bükücülere karşı çalışır; ulnayı arkaya doğru çekerek dirseği düzeltir."
+        }
+      }
+    },
+    "how-the-heart-beats": {
+      "title": "Kalp nasıl atar",
+      "summary": "Göğüs kafesinin ötesine kesit alarak kalbin üst ve alt odacıklarının sırayla atışını ve büyük damarları izleyin.",
+      "steps": {
+        "step-1": {
+          "title": "Göğüs kemiğinin arkasında",
+          "body": "Kalp, koruyucu göğüs kafesinin içinde, orta hattın biraz solunda ve doğrudan göğüs kemiği gövdesinin arkasında yer alır. Ön göğüs duvarının sağ karıncığı nasıl koruduğuna dikkat edin."
+        },
+        "step-2": {
+          "title": "Göğse açılan bir pencere",
+          "body": "Koronal kesit göğüs kafesinin ön bölümünü kaldırarak çevre göğüs yapısını tamamen gizlemeden kalbin bütün atışını içeride izlemenizi sağlar."
+        },
+        "step-3": {
+          "title": "Önce kulakçıklar kasılır",
+          "body": "Her kalp atışı ince duvarlı üst alıcı odacıklar olan sağ ve sol kulakçıklarda başlar. Burada nabız sıfır fazında başlayarak kanı karıncıklara yönlendirir."
+        },
+        "step-4": {
+          "title": "Karıncıklar ritimle pompalar",
+          "body": "Kısa bir an sonra kaslı sağ ve sol karıncıklar kasılarak kanı akciğerlere ve tüm vücuda gönderir. Kalın duvarlı sol karıncık kalbin sivri ucunu oluşturur."
+        },
+        "step-5": {
+          "title": "Büyük damarlar",
+          "body": "Kalbin tepesinde üst ana toplardamar kanı sağ kulakçığa getirir, pulmoner gövde akciğerlere yönelir ve çıkan aort vücuda dağılmak üzere kavis çizer."
+        }
+      }
+    },
+    "bending-the-elbow": {
+      "title": "Dirseği bükmek",
+      "summary": "Dirsek menteşe eklemini hareket halindeyken inceleyin; ön ve arka kol kaslarının bükme ve düzeltmede nasıl eşleştiğini görün.",
+      "steps": {
+        "step-1": {
+          "title": "Koldaki menteşe eklem",
+          "body": "Alt humerus, ulnanın C biçimli çentiği ve radiusun disk biçimli başıyla buluşarak ön kolu omuza doğru büken sağlam bir menteşe eklem oluşturur."
+        },
+        "step-2": {
+          "title": "Ön yüzden çekiş gücü",
+          "body": "Biseps brakii ve daha derindeki brakialis kaslarının ikisi de dirsek ekleminin önünden geçer. Lifleri kısaldığında ön kol kemiklerini yukarı çeker."
+        },
+        "step-3": {
+          "title": "Hareket halinde bükülme",
+          "body": "Dirsek bükülürken radius ve ulna alt humerus çevresinde döner ve ön bükücü kaslar temel hareket ettiriciler olarak vurgulanır. Gerçek eklemler bu sırada hafif kayma da yapar."
+        },
+        "step-4": {
+          "title": "Triseps ile kolu düzeltme",
+          "body": "Kolu yeniden düzeltmek için triseps brakiinin üç başı dirsek ekseninin arkasından ulnanın arka ucunu çekerken ön bükücü kaslar gevşer."
+        }
+      }
+    },
+    "slice-through-the-chest": {
+      "title": "Göğüsten bir kesit",
+      "summary": "Koronal ve aksiyal kesitlerle göğüs kemiğinden akciğerlere, kalbe ve diyafram kubbesine doğru göğüs boşluğunu inceleyin.",
+      "steps": {
+        "step-1": {
+          "title": "Dış göğüs kafesi",
+          "body": "Dıştan bakıldığında göğüs kemiği kabzası, gövdesi ve kıkırdak uçlu kaburgalar alttaki kalbi ve akciğerleri koruyan sağlam bir kafes oluşturur."
+        },
+        "step-2": {
+          "title": "Göğüs kemiğinin ardında kesit",
+          "body": "Yüzeyel bir koronal düzlem doğrudan göğüs kemiğinin arkasını açarak iki akciğerin kalbin ön yüzüyle birlikte göğüs merkezini nasıl sardığını gösterir."
+        },
+        "step-3": {
+          "title": "Hava yolları ve göğüs aortu",
+          "body": "Koronal kesiti derinleştirmek halkalı soluk borusunu, akciğer köklerine ayrılan ana bronşları ve omurga boyunca inen göğüs aortunu net biçimde ortaya çıkarır."
+        },
+        "step-4": {
+          "title": "Göğüs boyunca yatay kesit",
+          "body": "Aksiyal düzleme geçmek göğsün içine doğrudan yukarıdan bakmanızı sağlar; böylece akciğerlerin alt lobları kalp ve kaburgalarla yan yana görülür."
+        },
+        "step-5": {
+          "title": "Solunum tabanı: diyafram",
+          "body": "Göğüs kafesi soluklaştırıldığında kubbe biçimli geniş diyafram kası göğsün tüm tabanını kaplayarak akciğerler ile kalbi alttaki karın boşluğundan ayırır."
+        }
+      }
+    },
+    "lymph-nodes": {
+      "title": "Lenf düğümleri ve bağışıklık",
+      "summary": "Sıvıyı süzen ve bağışıklık yanıtlarını yönlendiren dağınık lenf organlarını ve bölgesel düğüm kümelerini keşfedin.",
+      "steps": {
+        "step-1": {
+          "title": "Vücuda yayılan süzme ağı",
+          "body": "Merkezi bir pompaya sahip dolaşım sisteminin aksine lenfatik sistem, boyundan kasığa büyük damarlar boyunca uzanan dağınık düğüm ve organlara dayanır."
+        },
+        "step-2": {
+          "title": "Göğüs kemiği arkasında timus",
+          "body": "Üst göğüs kemiğinin hemen arkasında ve büyük damarların önünde yer alan timusun iki yumuşak lobu, T hücrelerinin olgunlaştığı temel merkez olarak görev yapar."
+        },
+        "step-3": {
+          "title": "Sol kaburgalar altında dalak",
+          "body": "Sol alt kaburgaların altında midenin yanında oturan dalak en büyük lenfoid organdır; kan hücrelerini süzer ve kan dolaşımındaki etkenlere yanıt verir."
+        },
+        "step-4": {
+          "title": "Boyun ve koltuk altı kümeleri",
+          "body": "Boyun damarları yanındaki servikal düğümler baş ve boyundan, koltuk altı tepesi ve merkezindeki aksiller düğümler ise koldan gelen lenf sıvısını süzer."
+        },
+        "step-5": {
+          "title": "Derin göğüs ve kasık geçitleri",
+          "body": "Alt solunum yolları çevresindeki trakeobronşiyal düğümler ile kasıktaki yüzeyel inguinal kümeler akciğerlerden ve bacaklardan dönen lenfi denetler."
+        }
+      }
+    }
+  }
+}

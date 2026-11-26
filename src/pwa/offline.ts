@@ -82,8 +82,10 @@ export function offlineUrls(
 
   urls.push(`${base}content/taxonomy.json`);
   urls.push(`${base}content/motions.json`);
+  urls.push(`${base}content/tours.json`);
   for (const locale of locales) {
     urls.push(`${base}content/${locale}/index.json`);
+    urls.push(`${base}content/${locale}/tours.json`);
     for (const system of systems) {
       urls.push(`${base}content/${locale}/structures/${system}.json`);
     }

@@ -321,6 +321,7 @@ export const en = {
       pin: 'Add pin at pointer',
       section: 'Toggle cross-section',
       esc: 'Close menu or clear selection',
+      tours: 'Next / previous guided tour step',
       presets: 'Switch to standard anatomical view',
       reset: 'Reset camera view',
       zoom: 'Zoom in or out',

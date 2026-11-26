@@ -57,8 +57,12 @@ describe('offline utilities', () => {
     expect(urls).toContain('/human-body/models/skeletal.aaaaaaaa.glb');
     expect(urls).toContain('/human-body/models/muscular.bbbbbbbb.glb');
     expect(urls).toContain('/human-body/content/taxonomy.json');
+    expect(urls).toContain('/human-body/content/motions.json');
+    expect(urls).toContain('/human-body/content/tours.json');
     expect(urls).toContain('/human-body/content/en/index.json');
+    expect(urls).toContain('/human-body/content/en/tours.json');
     expect(urls).toContain('/human-body/content/tr/index.json');
+    expect(urls).toContain('/human-body/content/tr/tours.json');
     expect(urls).toContain(
       '/human-body/content/en/structures/skeletal.json',
     );

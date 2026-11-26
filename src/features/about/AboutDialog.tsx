@@ -28,6 +28,7 @@ const SHORTCUT_ROWS: readonly [string, MessageKey][] = [
   ['P', 'about.shortcuts.pin'],
   ['X', 'about.shortcuts.section'],
   ['Esc', 'about.shortcuts.esc'],
+  ['← / →', 'about.shortcuts.tours'],
   ['1–6', 'about.shortcuts.presets'],
   ['0', 'about.shortcuts.reset'],
   ['+/−', 'about.shortcuts.zoom'],

@@ -121,10 +121,11 @@ export function Inspector(): JSX.Element | null {
   const locale = getActiveLocale();
   const cameraApi = useCameraApi();
   const quizStatus = useAppSelector((s) => s.quiz.status);
+  const tourActive = useAppSelector((s) => s.tour.activeId !== null);
   const model = useAppSelector(selectInspectorModel);
   const layout = useInspectorLayout();
 
-  if (quizStatus !== 'off' || !model) {
+  if (quizStatus !== 'off' || (tourActive && layout === 'sheet') || !model) {
     return null;
   }
 

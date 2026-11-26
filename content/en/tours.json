@@ -1,3 +1,130 @@
 {
-  "tours": {}
+  "tours": {
+    "arm-bone-to-muscle": {
+      "title": "From bone to muscle: the arm",
+      "summary": "Move layer by layer from the upper arm bone to the deep and superficial muscles that bend and straighten the elbow.",
+      "steps": {
+        "step-1": {
+          "title": "The upper arm scaffold",
+          "body": "The humerus is the single long bone of the upper arm. It runs from the ball-and-socket shoulder joint down to the hinge of the elbow and anchors the arm muscles."
+        },
+        "step-2": {
+          "title": "Two forearm bones",
+          "body": "Below the elbow sit two parallel bones: the ulna on the little-finger side grips the lower humerus like a wrench, while the radius on the thumb side rotates around it."
+        },
+        "step-3": {
+          "title": "Deep elbow flexor: brachialis",
+          "body": "With the superficial biceps heads hidden, you can see the brachialis lying flat against the front lower humerus. Pulling on the ulna makes it a workhorse elbow flexor."
+        },
+        "step-4": {
+          "title": "The two-headed biceps",
+          "body": "Sitting on top of the brachialis, the long and short heads of the biceps brachii cross both the shoulder and elbow to bend the elbow and turn the palm upward."
+        },
+        "step-5": {
+          "title": "Balancing the back: triceps",
+          "body": "Along the back of the upper arm, the long, lateral, and medial heads of the triceps brachii oppose the front flexors by pulling the ulna backward to straighten the elbow."
+        }
+      }
+    },
+    "how-the-heart-beats": {
+      "title": "How the heart beats",
+      "summary": "Slice past the rib cage to watch the upper and lower chambers beat in sequence and trace the great vessels leaving the chest.",
+      "steps": {
+        "step-1": {
+          "title": "Behind the breastbone",
+          "body": "The heart rests slightly left of the midline inside the protective rib cage, right behind the body of the sternum. Notice how closely the front chest wall shields the right ventricle."
+        },
+        "step-2": {
+          "title": "A window through the chest",
+          "body": "A coronal slice peels away the front of the rib cage so you can watch the whole heart beat inside the chest cavity without removing the surrounding thoracic landmark."
+        },
+        "step-3": {
+          "title": "Atria contract first",
+          "body": "Each heartbeat begins in the thin-walled upper receiving chambers, the right and left atria. Here the pulse starts at phase zero as the atria gently push blood into the ventricles."
+        },
+        "step-4": {
+          "title": "Ventricles pump in rhythm",
+          "body": "A fraction of a second later, the muscular right and left ventricles squeeze to drive blood to the lungs and the rest of the body. The left ventricle forms the pointed tip of the heart."
+        },
+        "step-5": {
+          "title": "The great vessels",
+          "body": "At the top of the heart, the superior vena cava returns venous blood to the right atrium, the pulmonary trunk heads toward the lungs, and the ascending aorta arches into the body."
+        }
+      }
+    },
+    "bending-the-elbow": {
+      "title": "Bending the elbow",
+      "summary": "Explore the hinge joint of the elbow in motion and see how front and back upper arm muscles pair up to flex and extend.",
+      "steps": {
+        "step-1": {
+          "title": "A hinge in the arm",
+          "body": "The lower humerus meets the C-shaped notch of the ulna and the disc-like head of the radius to form a stable hinge for bending the forearm toward the shoulder."
+        },
+        "step-2": {
+          "title": "Pulling on the front",
+          "body": "The biceps brachii and the deeper brachialis both cross in front of the elbow joint. When their fibers shorten, they pull the forearm bones upward."
+        },
+        "step-3": {
+          "title": "Flexion in motion",
+          "body": "During elbow flexion, the radius and ulna swing smoothly around the lower humerus while the front flexors are highlighted as the primary movers. Real joints glide subtly as they hinge."
+        },
+        "step-4": {
+          "title": "Straightening with the triceps",
+          "body": "To straighten the arm back out, the three heads of the triceps brachii pull behind the elbow axis on the back of the ulna while the front flexors relax."
+        }
+      }
+    },
+    "slice-through-the-chest": {
+      "title": "Slice through the chest",
+      "summary": "Step through coronal and axial cross-sections of the thorax from the breastbone through the lungs and heart down to the diaphragm.",
+      "steps": {
+        "step-1": {
+          "title": "The outer thoracic cage",
+          "body": "From the outside, the manubrium, body of the sternum, and curved costal cartilages form an armor-like cage shielding the heart and lungs underneath."
+        },
+        "step-2": {
+          "title": "Coronal slice behind the sternum",
+          "body": "A shallow coronal plane cuts right behind the breastbone, revealing how the two lungs wrap around the center of the chest alongside the front surface of the heart."
+        },
+        "step-3": {
+          "title": "Airways and thoracic aorta",
+          "body": "Moving the coronal slice deeper brings the ringed trachea, the branching main bronchi entering each lung root, and the descending thoracic aorta along the spine into clear view."
+        },
+        "step-4": {
+          "title": "Axial slice across the chest",
+          "body": "Switching to a horizontal axial plane lets you look straight down across the chest, comparing the lower lobes of the lungs beside the heart and ribs at once."
+        },
+        "step-5": {
+          "title": "The breathing floor: diaphragm",
+          "body": "With the rib cage faded at the base of the thorax, the broad dome-shaped diaphragm spans the entire chest floor, separating the lungs and heart from the abdomen below."
+        }
+      }
+    },
+    "lymph-nodes": {
+      "title": "Lymph nodes & immunity",
+      "summary": "Tour the dispersed lymphatic organs and regional lymph node clusters that filter fluid and coordinate immune responses.",
+      "steps": {
+        "step-1": {
+          "title": "A body-wide drainage network",
+          "body": "Unlike the circulatory loop with a central pump, the lymphatic system relies on dispersed nodes and lymphoid organs tucked beside major blood vessels from neck to pelvis."
+        },
+        "step-2": {
+          "title": "The thymus behind the sternum",
+          "body": "Tucked directly behind the upper breastbone, the two soft lobes of the thymus sit in front of the great vessels and serve as the training ground where T cells mature."
+        },
+        "step-3": {
+          "title": "The spleen under the left ribs",
+          "body": "High under the left lower rib cage beside the stomach sits the spleen, the largest lymphoid organ, filtering blood cells and mounting responses to blood-borne microbes."
+        },
+        "step-4": {
+          "title": "Neck and underarm clusters",
+          "body": "Small bean-shaped cervical nodes run beside neck vessels, while apical and central axillary nodes sit in the upper armpit, filtering lymph draining from the head and arm."
+        },
+        "step-5": {
+          "title": "Deep chest and groin gateways",
+          "body": "Deeper hubs like the tracheobronchial nodes around the lower airway and the superficial inguinal clusters in the groin monitor fluid returning from the lungs and lower limbs."
+        }
+      }
+    }
+  }
 }
