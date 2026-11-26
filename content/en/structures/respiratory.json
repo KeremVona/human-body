@@ -121,6 +121,30 @@
           "license": "CC-BY-SA-4.0"
         }
       ]
+    },
+    {
+      "id": "epiglottis",
+      "overview": "A leaf-shaped flap of flexible cartilage behind the root of the tongue, at the top of the voice box.",
+      "function": "Folds down over the entrance to the windpipe during each swallow so food and drink go into the esophagus instead of the lungs.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Composed of elastic cartilage attached anteriorly to the thyroid cartilage.",
+          "Acts as a directional valve keeping swallowed food and drink out of the lower airway."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Larynx",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/22-1-organs-and-structures-of-the-respiratory-system#fs-id1938446",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Epiglottis",
+          "url": "https://en.wikipedia.org/wiki/Epiglottis",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
     }
   ]
 }

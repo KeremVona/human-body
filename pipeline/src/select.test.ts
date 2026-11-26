@@ -1,3 +1,5 @@
+import { readFileSync } from 'node:fs';
+import path from 'node:path';
 import { PipelineConfigSchema, type PipelineConfig } from './config';
 import { selectObjects } from './select';
 import type { InventoryObject } from './types';
@@ -104,4 +106,47 @@ it('skips CURVE objects by default and selects them only when rule types include
       objs,
     ).selected.map((s) => s.object.name),
   ).toEqual(['Femur.l', 'Abdominal aorta']);
+});
+
+it('config selects Epiglottis and the six pharyngeal constrictors into expected bundles and systems', () => {
+  const realConfig = PipelineConfigSchema.parse(
+    JSON.parse(
+      readFileSync(path.resolve(import.meta.dirname, '..', 'config.json'), 'utf8'),
+    ),
+  );
+  const objs = [
+    obj('Epiglottis', ['Bonus collection/Visceral systems/Digestive system']),
+    obj('Ligaments of epiglottis.j', ['3: Joints']),
+    obj('Superior pharyngeal constrictor.l', [
+      'Bonus collection/Muscular system/Cervical part of muscular system/Muscles of neck/Pharyngeal muscles',
+    ]),
+    obj('Superior pharyngeal constrictor.r', [
+      'Bonus collection/Muscular system/Cervical part of muscular system/Muscles of neck/Pharyngeal muscles',
+    ]),
+    obj('Middle pharyngeal constrictor.l', [
+      'Bonus collection/Muscular system/Cervical part of muscular system/Muscles of neck/Pharyngeal muscles',
+    ]),
+    obj('Middle pharyngeal constrictor.r', [
+      'Bonus collection/Muscular system/Cervical part of muscular system/Muscles of neck/Pharyngeal muscles',
+    ]),
+    obj('Inferior pharyngeal constrictor.l', [
+      'Bonus collection/Muscular system/Cervical part of muscular system/Muscles of neck/Pharyngeal muscles',
+    ]),
+    obj('Inferior pharyngeal constrictor.r', [
+      'Bonus collection/Muscular system/Cervical part of muscular system/Muscles of neck/Pharyngeal muscles',
+    ]),
+  ];
+
+  const { selected } = selectObjects(realConfig, objs);
+  expect(
+    selected.map((s) => [s.object.name, s.bundleId, s.rule.system, s.rule.tissue]),
+  ).toEqual([
+    ['Epiglottis', 'organs', 'respiratory', 'cartilage'],
+    ['Superior pharyngeal constrictor.l', 'muscular', 'muscular', 'muscle'],
+    ['Superior pharyngeal constrictor.r', 'muscular', 'muscular', 'muscle'],
+    ['Middle pharyngeal constrictor.l', 'muscular', 'muscular', 'muscle'],
+    ['Middle pharyngeal constrictor.r', 'muscular', 'muscular', 'muscle'],
+    ['Inferior pharyngeal constrictor.l', 'muscular', 'muscular', 'muscle'],
+    ['Inferior pharyngeal constrictor.r', 'muscular', 'muscular', 'muscle'],
+  ]);
 });

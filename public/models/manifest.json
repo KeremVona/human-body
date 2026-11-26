@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-11-26T13:38:01.104Z",
+  "generatedAt": "2026-11-26T17:38:25.820Z",
   "source": {
     "name": "Z-Anatomy",
     "version": "2023-05-02",
@@ -280,9 +280,9 @@
     },
     {
       "id": "muscular",
-      "file": "muscular.2ea164df.glb",
-      "bytes": 13703256,
-      "sha256": "2ea164df940f74f710fb0fcb05a19182647ea7b5176c98cb39093e99c1e6f467",
+      "file": "muscular.06869024.glb",
+      "bytes": 13915172,
+      "sha256": "06869024530f5b614d6c7b8a046d53aac137c6e66888ff2d88a72501d7ebd056",
       "meshIds": [
         "abdominal-part-of-pectoralis-major--l",
         "abdominal-part-of-pectoralis-major--r",
@@ -444,6 +444,8 @@
         "inferior-head-of-lateral-pterygoid-muscle--r",
         "inferior-oblique-muscle--l",
         "inferior-oblique-muscle--r",
+        "inferior-pharyngeal-constrictor--l",
+        "inferior-pharyngeal-constrictor--r",
         "inferior-rectus-muscle--l",
         "inferior-rectus-muscle--r",
         "inferior-tarsus--l",
@@ -521,6 +523,8 @@
         "medial-rectus-muscle--r",
         "mentalis-muscle--l",
         "mentalis-muscle--r",
+        "middle-pharyngeal-constrictor--l",
+        "middle-pharyngeal-constrictor--r",
         "multifidus-colli-muscle--l",
         "multifidus-colli-muscle--r",
         "multifidus-lumborum-muscle--l",
@@ -691,6 +695,8 @@
         "superior-head-of-lateral-pterygoid-muscle--r",
         "superior-oblique-muscle--l",
         "superior-oblique-muscle--r",
+        "superior-pharyngeal-constrictor--l",
+        "superior-pharyngeal-constrictor--r",
         "superior-rectus-muscle--l",
         "superior-rectus-muscle--r",
         "superior-tarsus--l",
@@ -971,15 +977,16 @@
     },
     {
       "id": "organs",
-      "file": "organs.8059acba.glb",
-      "bytes": 3246064,
-      "sha256": "8059acbadd11d519c3715f5e900072778cff3a174ae0938152369bd099a8c333",
+      "file": "organs.e4d9e85e.glb",
+      "bytes": 3266324,
+      "sha256": "e4d9e85e9047f059c351aecb0e62260480bf9e2cf5b57901b081b9e631813c1c",
       "meshIds": [
         "ascending-colon",
         "cornea--l",
         "cornea--r",
         "descending-colon",
         "duodenum",
+        "epiglottis",
         "esophagus",
         "falx-cerebri",
         "femoral-nerve--l",
@@ -6257,6 +6264,23 @@
       "triangles": 184,
       "sizeClass": "medium"
     },
+    "epiglottis": {
+      "bundle": "organs",
+      "bounds": {
+        "min": [
+          -0.007848159410059452,
+          0.6236563324928284,
+          0.0071660480462014675
+        ],
+        "max": [
+          0.007848159410059452,
+          0.6531562805175781,
+          0.01485302485525608
+        ]
+      },
+      "triangles": 2362,
+      "sizeClass": "small"
+    },
     "esophagus": {
       "bundle": "organs",
       "bounds": {
@@ -9673,6 +9697,40 @@
       },
       "triangles": 1072,
       "sizeClass": "small"
+    },
+    "inferior-pharyngeal-constrictor--l": {
+      "bundle": "muscular",
+      "bounds": {
+        "min": [
+          0.0005914829671382904,
+          0.6027405858039856,
+          -0.01595187559723854
+        ],
+        "max": [
+          0.022615499794483185,
+          0.6678303480148315,
+          -0.0016116490587592125
+        ]
+      },
+      "triangles": 3270,
+      "sizeClass": "medium"
+    },
+    "inferior-pharyngeal-constrictor--r": {
+      "bundle": "muscular",
+      "bounds": {
+        "min": [
+          -0.022615455090999603,
+          0.6027405858039856,
+          -0.01595187373459339
+        ],
+        "max": [
+          -0.0005914382636547089,
+          0.6678303480148315,
+          -0.0016116471961140633
+        ]
+      },
+      "triangles": 3268,
+      "sizeClass": "medium"
     },
     "inferior-rectus-muscle--l": {
       "bundle": "muscular",
@@ -14619,6 +14677,40 @@
         ]
       },
       "triangles": 292,
+      "sizeClass": "small"
+    },
+    "middle-pharyngeal-constrictor--l": {
+      "bundle": "muscular",
+      "bounds": {
+        "min": [
+          0.00042200274765491486,
+          0.6421414017677307,
+          -0.010138328187167645
+        ],
+        "max": [
+          0.019200820475816727,
+          0.6879048943519592,
+          0.021435104310512543
+        ]
+      },
+      "triangles": 2820,
+      "sizeClass": "small"
+    },
+    "middle-pharyngeal-constrictor--r": {
+      "bundle": "muscular",
+      "bounds": {
+        "min": [
+          -0.019200775772333145,
+          0.6421414017677307,
+          -0.01013832725584507
+        ],
+        "max": [
+          -0.0004219580441713333,
+          0.6879048943519592,
+          0.02143510803580284
+        ]
+      },
+      "triangles": 2832,
       "sizeClass": "small"
     },
     "multifidus-colli-muscle--l": {
@@ -22202,6 +22294,40 @@
       },
       "triangles": 504,
       "sizeClass": "small"
+    },
+    "superior-pharyngeal-constrictor--l": {
+      "bundle": "muscular",
+      "bounds": {
+        "min": [
+          0.0006534261628985405,
+          0.6636132597923279,
+          -0.006399989128112793
+        ],
+        "max": [
+          0.033640529960393906,
+          0.7172304391860962,
+          0.026278408244252205
+        ]
+      },
+      "triangles": 4948,
+      "sizeClass": "medium"
+    },
+    "superior-pharyngeal-constrictor--r": {
+      "bundle": "muscular",
+      "bounds": {
+        "min": [
+          -0.033640485256910324,
+          0.6636132597923279,
+          -0.006399992853403091
+        ],
+        "max": [
+          -0.000653381459414959,
+          0.7172304391860962,
+          0.026278410106897354
+        ]
+      },
+      "triangles": 4968,
+      "sizeClass": "medium"
     },
     "superior-rectus-muscle--l": {
       "bundle": "muscular",

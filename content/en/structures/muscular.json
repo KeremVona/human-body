@@ -1125,6 +1125,81 @@
           "license": "CC-BY-SA-4.0"
         }
       ]
+    },
+    {
+      "id": "superior-pharyngeal-constrictor",
+      "overview": "The uppermost of three curved muscle sheets that wrap the back and sides of the throat, behind the nose and mouth.",
+      "function": "Squeezes the upper throat during swallowing and helps seal it off from the nasal cavity together with the soft palate.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Pterygoid hamulus, pterygomandibular raphe, and posterior inner lower jaw (mandible)",
+        "insertion": "Pharyngeal tubercle of the skull base and midline pharyngeal raphe",
+        "innervation": "Vagus nerve (cranial nerve X via pharyngeal plexus)",
+        "bloodSupply": "Ascending pharyngeal and facial artery branches",
+        "action": "Constricts the upper pharynx wall during swallowing"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — The Pharynx",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-3-the-mouth-pharynx-and-esophagus#fs-id1376256",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Superior pharyngeal constrictor muscle",
+          "url": "https://en.wikipedia.org/wiki/Superior_pharyngeal_constrictor_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "middle-pharyngeal-constrictor",
+      "overview": "A fan-shaped muscle sheet in the middle of the throat wall, fanning back from the hyoid bone.",
+      "function": "Contracts in sequence with the other constrictors to push swallowed food downward.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Greater and lesser horns of the hyoid bone and lower stylohyoid ligament",
+        "insertion": "Midline pharyngeal raphe",
+        "innervation": "Vagus nerve (cranial nerve X via pharyngeal plexus)",
+        "bloodSupply": "Ascending pharyngeal and inferior thyroid artery branches",
+        "action": "Constricts the middle pharynx to propel swallowed food downward"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — The Pharynx",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-3-the-mouth-pharynx-and-esophagus#fs-id1376256",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Middle pharyngeal constrictor muscle",
+          "url": "https://en.wikipedia.org/wiki/Middle_pharyngeal_constrictor_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "inferior-pharyngeal-constrictor",
+      "overview": "The thickest and lowest throat constrictor, wrapping around from the voice-box cartilages.",
+      "function": "Gives the final squeeze of a swallow, and its lowest fibers act as the upper esophageal sphincter that relaxes to let food in.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Oblique line of the thyroid cartilage and side of the cricoid cartilage",
+        "insertion": "Midline pharyngeal raphe (lowest fibers form upper esophageal sphincter)",
+        "innervation": "Vagus nerve (cranial nerve X via pharyngeal plexus and recurrent laryngeal nerve)",
+        "bloodSupply": "Inferior and superior thyroid arteries",
+        "action": "Constricts the lower throat and regulates entry into the esophagus"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — The Pharynx",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-3-the-mouth-pharynx-and-esophagus#fs-id1376256",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Inferior pharyngeal constrictor muscle",
+          "url": "https://en.wikipedia.org/wiki/Inferior_pharyngeal_constrictor_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
     }
   ]
 }

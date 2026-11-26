@@ -1125,6 +1125,81 @@
           "license": "CC-BY-SA-4.0"
         }
       ]
+    },
+    {
+      "id": "superior-pharyngeal-constrictor",
+      "overview": "Burun ve ağzın arkasında, boğazın arka ve yan duvarlarını saran üç kıvrımlı kas tabakasının en üstte olanıdır.",
+      "function": "Yutma sırasında üst yutağı sıkar ve yumuşak damakla birlikte burun boşluğundan kapatılmasına yardımcı olur.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Pterigoid çengel, pterigomandibular rafe ve arka alt çene (mandibula) iç yüzü",
+        "insertion": "Kafatası tabanındaki farengeal tüberkül ve orta hat farengeal rafe",
+        "innervation": "Vagus siniri (kraniyal sinir X, farengeal pleksus yoluyla)",
+        "bloodSupply": "Çıkan farengeal ve fasiyal arter dalları",
+        "action": "Yutma sırasında üst yutak duvarını daraltır"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — The Pharynx",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-3-the-mouth-pharynx-and-esophagus#fs-id1376256",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Superior pharyngeal constrictor muscle",
+          "url": "https://en.wikipedia.org/wiki/Superior_pharyngeal_constrictor_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "middle-pharyngeal-constrictor",
+      "overview": "Yutak duvarının ortasında, dil kemiğinden (hyoid) arkaya doğru yelpaze gibi açılan kas tabakasıdır.",
+      "function": "Diğer büzücü kaslarla sırayla kasılarak yutulan yiyeceği aşağı doğru iter.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Dil kemiğinin (hyoid) büyük ve küçük boynuzları ile alt stilohyoid bağ",
+        "insertion": "Orta hat farengeal rafe",
+        "innervation": "Vagus siniri (kraniyal sinir X, farengeal pleksus yoluyla)",
+        "bloodSupply": "Çıkan farengeal ve alt tiroid arter dalları",
+        "action": "Yutulan yiyeceği aşağı itmek için orta yutağı daraltır"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — The Pharynx",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-3-the-mouth-pharynx-and-esophagus#fs-id1376256",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Middle pharyngeal constrictor muscle",
+          "url": "https://en.wikipedia.org/wiki/Middle_pharyngeal_constrictor_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "inferior-pharyngeal-constrictor",
+      "overview": "Ses kutusu kıkırdaklarından çevreye doğru uzanan en kalın ve en alt yutak büzücü kasıdır.",
+      "function": "Yutmanın son sıkışını sağlar ve en alt lifleri yiyeceğin girişine izin vermek için gevşeyen üst yemek borusu sfinkteri gibi çalışır.",
+      "details": {
+        "kind": "muscle",
+        "origin": "Tiroid kıkırdağın eğik çizgisi ve krikoid kıkırdağın yan yüzü",
+        "insertion": "Orta hat farengeal rafe (en alt lifler üst yemek borusu sfinkterini oluşturur)",
+        "innervation": "Vagus siniri (kraniyal sinir X, farengeal pleksus ve rekürren laringeal sinir yoluyla)",
+        "bloodSupply": "Alt ve üst tiroid arterleri",
+        "action": "Alt boğazı daraltır ve yemek borusuna geçişi düzenler"
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — The Pharynx",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-3-the-mouth-pharynx-and-esophagus#fs-id1376256",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Inferior pharyngeal constrictor muscle",
+          "url": "https://en.wikipedia.org/wiki/Inferior_pharyngeal_constrictor_muscle",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
     }
   ]
 }

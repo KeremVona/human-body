@@ -299,6 +299,17 @@
           "kind": "muscle",
           "tissue": "muscle",
           "match": {
+            "collection": "Bonus collection/Muscular system/Cervical part of muscular system/Muscles of neck/Pharyngeal muscles",
+            "name": "^(Superior|Middle|Inferior) pharyngeal constrictor(\\.(l|r))?$"
+          },
+          "exclude": ["\\.(i|j|s|t|g|[oe]\\d*[lr])$"]
+        },
+        {
+          "system": "muscular",
+          "region": "neck",
+          "kind": "muscle",
+          "tissue": "muscle",
+          "match": {
             "collection": "Bonus collection/Muscular system/Cervical part of muscular system"
           },
           "exclude": [
@@ -578,6 +589,18 @@
             "collection": "Bonus collection/Visceral systems/Respiratory system",
             "name": "^Trachea$"
           }
+        },
+        {
+          "system": "respiratory",
+          "region": "neck",
+          "kind": "other",
+          "tissue": "cartilage",
+          "color": "#E89AA6",
+          "match": {
+            "collection": "Bonus collection/Visceral systems/Digestive system",
+            "name": "^Epiglottis$"
+          },
+          "exclude": ["\\.(i|j|s|t|g)$"]
         },
         {
           "system": "respiratory",

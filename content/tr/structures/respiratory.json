@@ -121,6 +121,30 @@
           "license": "CC-BY-SA-4.0"
         }
       ]
+    },
+    {
+      "id": "epiglottis",
+      "overview": "Ses kutusunun tepesinde, dil kökünün arkasında yer alan yaprak biçimli esnek kıkırdak kapağıdır.",
+      "function": "Her yutma sırasında soluk borusunun girişinin üzerine kapanarak yiyecek ve içeceğin akciğerler yerine yemek borusuna gitmesini sağlar.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Ön yüzünden tiroid kıkırdağa tutunan elastik kıkırdaktan oluşur.",
+          "Yutulan yiyecek ve sıvıyı alt solunum yolundan uzak tutan yönlendirici bir kapak gibi çalışır."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Larynx",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/22-1-organs-and-structures-of-the-respiratory-system#fs-id1938446",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Epiglottis",
+          "url": "https://en.wikipedia.org/wiki/Epiglottis",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
     }
   ]
 }
