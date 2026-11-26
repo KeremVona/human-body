@@ -92,14 +92,18 @@ function preloadAssetsPlugin(): Plugin {
       const normalizedBase = base.endsWith('/') ? base : `${base}/`;
       const manifestPath = path.resolve(root, 'public/models/manifest.json');
       let skeletalFile: string | undefined;
+      let previewFile: string | undefined;
       if (existsSync(manifestPath)) {
         try {
           const parsed = JSON.parse(readFileSync(manifestPath, 'utf8')) as {
             bundles?: Array<{ id?: string; file?: string }>;
+            preview?: { file?: string };
           };
           skeletalFile = parsed.bundles?.find((b) => b.id === 'skeletal')?.file;
+          previewFile = parsed.preview?.file;
         } catch {
           skeletalFile = undefined;
+          previewFile = undefined;
         }
       }
 
@@ -135,6 +139,30 @@ function preloadAssetsPlugin(): Plugin {
           injectTo: 'head',
         },
       ];
+
+      if (previewFile) {
+        tags.push(
+          {
+            tag: 'link',
+            attrs: {
+              rel: 'preload',
+              as: 'fetch',
+              crossorigin: 'anonymous',
+              fetchpriority: 'high',
+              href: `${normalizedBase}models/${previewFile}`,
+            },
+            injectTo: 'head',
+          },
+          {
+            tag: 'meta',
+            attrs: {
+              name: 'atlas-preview',
+              content: `${normalizedBase}models/${previewFile}`,
+            },
+            injectTo: 'head',
+          },
+        );
+      }
 
       if (skeletalFile) {
         tags.push({

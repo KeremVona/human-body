@@ -2,14 +2,13 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import App from './App.tsx';
-import { preloadGltf } from './scene/gltfCache';
+import { fetchGltfBuffer, preloadGltf } from './scene/gltfCache';
+import { startPreloads } from './scene/preloadOrder';
 
-const skeletalUrl = document
-  .querySelector('meta[name="atlas-skeletal"]')
-  ?.getAttribute('content');
-if (skeletalUrl) {
-  preloadGltf(skeletalUrl);
-}
+void startPreloads(document, (url) => {
+  preloadGltf(url);
+  return fetchGltfBuffer(url);
+});
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
