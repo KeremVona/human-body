@@ -36,6 +36,7 @@ import {
   uiGroupToggled,
   type SystemsState,
 } from '../features/systems/systemsSlice';
+import type { TourState } from '../features/tours/tourSlice';
 import { clearGltf } from '../scene/gltfCache';
 
 type ListenerState = {
@@ -44,6 +45,7 @@ type ListenerState = {
   systems: SystemsState;
   pins: PinsState;
   motion: MotionState;
+  tour?: TourState;
   ui?: UiState;
 };
 
@@ -53,8 +55,14 @@ export const listenerMiddleware = createListenerMiddleware<ListenerState>();
 listenerMiddleware.startListening({
   actionCreator: localeSet,
   effect: (action, listenerApi) => {
-    if (listenerApi.getState().content.index) {
+    const state = listenerApi.getState();
+    if (state.content.index) {
       void listenerApi.dispatch(reloadLocaleContent(action.payload));
+    }
+    if (state.tour?.defs !== null && state.tour?.defs !== undefined) {
+      void import('../features/tours/thunks').then(({ reloadTourTexts }) =>
+        listenerApi.dispatch(reloadTourTexts(action.payload)),
+      );
     }
   },
 });

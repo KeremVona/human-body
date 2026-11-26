@@ -80,7 +80,10 @@ export function loadMotions(): AppThunk<Promise<void>> {
 }
 
 /** Loads motion data, enables required systems, waits for bundles, moves camera, and activates the demo. */
-export function startMotion(id: string): AppThunk<Promise<void>> {
+export function startMotion(
+  id: string,
+  opts?: { skipCamera?: boolean },
+): AppThunk<Promise<void>> {
   return async (dispatch, getState, extra) => {
     const cacheKey = extra ?? fallbackLoadKey;
     const token = nextTokenFor(cacheKey);
@@ -132,7 +135,9 @@ export function startMotion(id: string): AppThunk<Promise<void>> {
     if (startTokens.get(cacheKey) !== token) return;
     if (getState().quiz.status !== 'off') return;
 
-    await extra?.camera?.current?.goToPreset(def.view);
+    if (!opts?.skipCamera) {
+      await extra?.camera?.current?.goToPreset(def.view);
+    }
 
     if (startTokens.get(cacheKey) !== token) return;
     const stateAfterReady = getState();

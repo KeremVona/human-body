@@ -60,8 +60,11 @@ function writeBestScore(best: number): void {
 /** Starts a Find & Click quiz round from featured visible/pickable medium+large meshes in ready enabled systems. */
 export function startQuiz(
   seed = Date.now(),
-): AppThunk<'started' | 'empty-pool'> {
+): AppThunk<'started' | 'empty-pool' | 'refused'> {
   return (dispatch, getState) => {
+    if (getState().tour?.activeId != null) {
+      return 'refused';
+    }
     clearWrongFlashTimer();
     const state = getState();
     const index = state.content.index;
