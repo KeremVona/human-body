@@ -30,8 +30,8 @@ if (allGaps.length > 0) {
 
 const localeRows = contentLocaleReport(input);
 if (localeRows.length > 0) {
-  console.log('\nlocale | names            | featured');
-  console.log('-------|------------------|-----------------');
+  console.log('\nlocale | names            | featured          | tours');
+  console.log('-------|------------------|-------------------|----------');
   for (const row of localeRows) {
     const namesPct =
       row.namesTotal > 0
@@ -41,8 +41,12 @@ if (localeRows.length > 0) {
       row.featuredTotal > 0
         ? Math.round((row.featuredTranslated / row.featuredTotal) * 100)
         : 0;
+    const toursPct =
+      row.toursTotal > 0
+        ? Math.round((row.toursTranslated / row.toursTotal) * 100)
+        : 100;
     console.log(
-      `${row.locale.padEnd(6)} | ${`${row.namesTranslated}/${row.namesTotal} (${namesPct}%)`.padEnd(16)} | ${row.featuredTranslated}/${row.featuredTotal} (${featPct}%)`,
+      `${row.locale.padEnd(6)} | ${`${row.namesTranslated}/${row.namesTotal} (${namesPct}%)`.padEnd(16)} | ${`${row.featuredTranslated}/${row.featuredTotal} (${featPct}%)`.padEnd(17)} | ${row.toursTranslated}/${row.toursTotal} (${toursPct}%)`,
     );
   }
 }

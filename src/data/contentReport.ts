@@ -11,6 +11,10 @@ import {
   type StructureEntry,
   type SystemId,
 } from './schema';
+import {
+  ToursFileSchema,
+  TourTextsFileSchema,
+} from '../features/tours/schema';
 
 export type ContentReportRow = {
   system: SystemId;
@@ -109,17 +113,24 @@ export type LocaleCoverageRow = {
   namesTotal: number;
   featuredTranslated: number;
   featuredTotal: number;
+  toursTranslated: number;
+  toursTotal: number;
 };
 
-/** Summarizes translated index name and featured structure entry coverage per non-en locale. */
+/** Summarizes translated index name, featured structure, and tour coverage per locale. */
 export function contentLocaleReport(input: {
   index: unknown;
   locales?: Record<string, LocaleContentInput>;
+  tours?: unknown;
+  tourTexts?: Record<string, unknown>;
 }): LocaleCoverageRow[] {
   const enIndex = IndexFileSchema.parse(input.index);
   const locales = input.locales ?? {};
   const featured = enIndex.structures.filter((s) => s.featured);
   const enIds = new Set(enIndex.structures.map((s) => s.id));
+  const parsedTours = input.tours ? ToursFileSchema.safeParse(input.tours) : null;
+  const tourDefs = parsedTours?.success ? parsedTours.data.tours : [];
+  const tourTexts = input.tourTexts ?? {};
 
   return Object.entries(locales)
     .sort(([a], [b]) => a.localeCompare(b))
@@ -168,12 +179,34 @@ export function contentLocaleReport(input: {
         }
       }
 
+      const rawTourTexts = tourTexts[locale];
+      const parsedTourTexts = rawTourTexts
+        ? TourTextsFileSchema.safeParse(rawTourTexts)
+        : null;
+      let toursTranslated = 0;
+      if (parsedTourTexts?.success) {
+        for (const tour of tourDefs) {
+          const entry = parsedTourTexts.data.tours[tour.id];
+          const hasTourMeta =
+            Boolean(entry?.title?.trim()) && Boolean(entry?.summary?.trim());
+          const hasAllSteps = tour.steps.every((step) => {
+            const st = entry?.steps?.[step.id];
+            return Boolean(st?.title?.trim()) && Boolean(st?.body?.trim());
+          });
+          if (hasTourMeta && hasAllSteps) {
+            toursTranslated++;
+          }
+        }
+      }
+
       return {
         locale,
         namesTranslated: translatedNameIds.size,
         namesTotal: enIndex.structures.length,
         featuredTranslated,
         featuredTotal: featured.length,
+        toursTranslated,
+        toursTotal: tourDefs.length,
       };
     });
 }

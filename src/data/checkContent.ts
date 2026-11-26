@@ -1,6 +1,14 @@
 import { parseMeshId, type MeshId, type Side, type StructureId } from './ids';
 import { MotionsFileSchema, type MotionsFile } from '../features/motion/schema';
 import {
+  ToursFileSchema,
+  TourTextsFileSchema,
+  type StepId,
+  type TourId,
+  type ToursFile,
+  type TourTextsFile,
+} from '../features/tours/schema';
+import {
   IndexFileSchema,
   ManifestSchema,
   StructureFileSchema,
@@ -18,6 +26,10 @@ import {
 const TARGET_FEATURED = 125;
 const MAX_OVERVIEW = 400;
 const MAX_FUNCTION = 600;
+const MAX_TOUR_TITLE = 60;
+const MAX_TOUR_SUMMARY = 160;
+const MAX_STEP_TITLE = 60;
+const MAX_STEP_BODY = 400;
 const MARKUP_RE = /<\/?[a-z][^>]*>|\*\*|\[[^\]]+\]\([^)]+\)/i;
 const Z_ANATOMY_RE = /z-anatomy/i;
 
@@ -390,6 +402,180 @@ function checkMotions(
   }
 }
 
+function checkTourTextField(
+  fileLabel: string,
+  target: string,
+  field: 'title' | 'summary' | 'body',
+  value: string,
+  maxLength: number,
+  errors: string[],
+): void {
+  if (value.length > maxLength) {
+    errors.push(
+      `${fileLabel}: "${target}" ${field} is ${value.length} characters (max ${maxLength})`,
+    );
+  }
+  if (MARKUP_RE.test(value)) {
+    errors.push(`${fileLabel}: "${target}" ${field} contains markup`);
+  }
+}
+
+function checkTours(
+  toursFile: ToursFile,
+  tourTexts: Record<string, TourTextsFile>,
+  manifest: Manifest,
+  taxonomy: Taxonomy,
+  motionsFile: MotionsFile | null,
+  errors: string[],
+): void {
+  const knownMeshes = new Set(Object.keys(manifest.meshes));
+  const knownSystems = new Set(taxonomy.systems.map((s) => s.id));
+  const knownMotions = new Set(motionsFile?.motions.map((m) => m.id) ?? []);
+  const stepsByTour = new Map<TourId, Set<StepId>>();
+
+  for (const tour of toursFile.tours) {
+    if (stepsByTour.has(tour.id)) {
+      errors.push(`tours.json: duplicate tour id "${tour.id}"`);
+      continue;
+    }
+
+    if (tour.steps.length < 4 || tour.steps.length > 7) {
+      errors.push(
+        `tours.json: "${tour.id}" has ${tour.steps.length} steps (allowed 4–7)`,
+      );
+    }
+
+    for (const sys of tour.systems ?? []) {
+      if (!knownSystems.has(sys)) {
+        errors.push(`tours.json: "${tour.id}" references unknown system "${sys}"`);
+      }
+    }
+
+    const stepIds = new Set<StepId>();
+    stepsByTour.set(tour.id, stepIds);
+
+    for (const step of tour.steps) {
+      const target = `${tour.id}/${step.id}`;
+      if (stepIds.has(step.id)) {
+        errors.push(`tours.json: "${tour.id}" has duplicate step id "${step.id}"`);
+        continue;
+      }
+      stepIds.add(step.id);
+
+      const referencedSystems = new Set<string>([
+        ...step.view.s,
+        ...Object.keys(step.view.o ?? {}),
+      ]);
+      for (const sys of referencedSystems) {
+        if (!knownSystems.has(sys as Taxonomy['systems'][number]['id'])) {
+          errors.push(`tours.json: "${target}" references unknown system "${sys}"`);
+        }
+      }
+
+      const meshArrays = [
+        step.view.h,
+        step.view.i ?? [],
+        step.view.f ?? [],
+        step.view.sel,
+      ];
+      for (const list of meshArrays) {
+        for (const meshId of list) {
+          if (!knownMeshes.has(meshId)) {
+            errors.push(`tours.json: "${target}" references unknown mesh "${meshId}"`);
+          }
+        }
+      }
+
+      if (step.motion && !knownMotions.has(step.motion.id)) {
+        errors.push(
+          `tours.json: "${target}" references unknown motion "${step.motion.id}"`,
+        );
+      }
+    }
+  }
+
+  const enTexts = tourTexts.en;
+  if (enTexts || toursFile.tours.length > 0) {
+    for (const tour of toursFile.tours) {
+      const entry = enTexts?.tours[tour.id];
+      if (!entry?.title?.trim()) {
+        errors.push(`content/en/tours.json: missing title for "${tour.id}"`);
+      }
+      if (!entry?.summary?.trim()) {
+        errors.push(`content/en/tours.json: missing summary for "${tour.id}"`);
+      }
+      for (const step of tour.steps) {
+        const stepEntry = entry?.steps?.[step.id];
+        const target = `${tour.id}/${step.id}`;
+        if (!stepEntry?.title?.trim()) {
+          errors.push(`content/en/tours.json: missing title for "${target}"`);
+        }
+        if (!stepEntry?.body?.trim()) {
+          errors.push(`content/en/tours.json: missing body for "${target}"`);
+        }
+      }
+    }
+  }
+
+  for (const [locale, textFile] of Object.entries(tourTexts)) {
+    const fileLabel = `content/${locale}/tours.json`;
+    for (const [tourId, entry] of Object.entries(textFile.tours)) {
+      const validSteps = stepsByTour.get(tourId);
+      if (!validSteps) {
+        errors.push(`${fileLabel}: "${tourId}" is not in tours.json`);
+        continue;
+      }
+      if (entry.title !== undefined) {
+        checkTourTextField(
+          fileLabel,
+          tourId,
+          'title',
+          entry.title,
+          MAX_TOUR_TITLE,
+          errors,
+        );
+      }
+      if (entry.summary !== undefined) {
+        checkTourTextField(
+          fileLabel,
+          tourId,
+          'summary',
+          entry.summary,
+          MAX_TOUR_SUMMARY,
+          errors,
+        );
+      }
+      for (const [stepId, stepText] of Object.entries(entry.steps ?? {})) {
+        const target = `${tourId}/${stepId}`;
+        if (!validSteps.has(stepId)) {
+          errors.push(`${fileLabel}: "${target}" is not in tours.json`);
+          continue;
+        }
+        if (stepText.title !== undefined) {
+          checkTourTextField(
+            fileLabel,
+            target,
+            'title',
+            stepText.title,
+            MAX_STEP_TITLE,
+            errors,
+          );
+        }
+        if (stepText.body !== undefined) {
+          checkTourTextField(
+            fileLabel,
+            target,
+            'body',
+            stepText.body,
+            MAX_STEP_BODY,
+            errors,
+          );
+        }
+      }
+    }
+  }
+}
+
 export type LocaleContentInput = {
   index: unknown;
   structureFiles: Record<string, unknown>;
@@ -472,7 +658,7 @@ function checkLocaleFolder(
   }
 }
 
-/** Validates schemas and cross-references across manifest, taxonomy, index, structure files, optional motions, and extra locale folders. */
+/** Validates schemas and cross-references across manifest, taxonomy, index, structure files, optional motions, tours, and extra locale folders. */
 export function checkContent(input: {
   manifest: unknown;
   taxonomy: unknown;
@@ -480,6 +666,8 @@ export function checkContent(input: {
   structureFiles: Record<string, unknown>;
   motions?: unknown;
   locales?: Record<string, LocaleContentInput>;
+  tours?: unknown;
+  tourTexts?: Record<string, unknown>;
 }): ContentReport {
   const schemaErrors: string[] = [];
 
@@ -522,12 +710,33 @@ export function checkContent(input: {
     );
   }
 
+  const toursResult =
+    input.tours !== undefined ? ToursFileSchema.safeParse(input.tours) : null;
+  if (toursResult && !toursResult.success) {
+    schemaErrors.push(...formatSchemaErrors('tours.json', toursResult.error));
+  }
+
+  const parsedTourTexts: Record<string, TourTextsFile> = {};
+  if (input.tourTexts) {
+    for (const [locale, raw] of Object.entries(input.tourTexts)) {
+      const res = TourTextsFileSchema.safeParse(raw);
+      if (!res.success) {
+        schemaErrors.push(
+          ...formatSchemaErrors(`content/${locale}/tours.json`, res.error),
+        );
+      } else {
+        parsedTourTexts[locale] = res.data;
+      }
+    }
+  }
+
   if (
     schemaErrors.length > 0 ||
     !manifestResult.success ||
     !taxonomyResult.success ||
     !indexResult.success ||
-    (motionsResult && !motionsResult.success)
+    (motionsResult && !motionsResult.success) ||
+    (toursResult && !toursResult.success)
   ) {
     return { errors: schemaErrors, warnings: [] };
   }
@@ -540,6 +749,16 @@ export function checkContent(input: {
   checkFeaturedStructures(byId, entriesById, errors, warnings);
   if (motionsResult?.success) {
     checkMotions(motionsResult.data, manifestResult.data, errors);
+  }
+  if (toursResult?.success) {
+    checkTours(
+      toursResult.data,
+      parsedTourTexts,
+      manifestResult.data,
+      taxonomyResult.data,
+      motionsResult?.success ? motionsResult.data : null,
+      errors,
+    );
   }
   if (input.locales) {
     for (const [locale, locInput] of Object.entries(input.locales)) {

@@ -174,6 +174,8 @@ describe('contentReport', () => {
         namesTotal: 2,
         featuredTranslated: 1,
         featuredTotal: 1,
+        toursTranslated: 0,
+        toursTotal: 0,
       },
     ]);
   });

@@ -37,7 +37,20 @@ function loadLocaleDirs(root: string): Record<string, LocaleContentInput> {
   return locales;
 }
 
-/** Loads manifest, taxonomy, English content, non-en locale folders, and optional motions file from disk. */
+function loadTourTexts(root: string): Record<string, unknown> {
+  const result: Record<string, unknown> = {};
+  const contentDir = path.join(root, 'content');
+  for (const entry of readdirSync(contentDir, { withFileTypes: true })) {
+    if (!entry.isDirectory()) continue;
+    const toursPath = path.join(contentDir, entry.name, 'tours.json');
+    if (existsSync(toursPath)) {
+      result[entry.name] = readJson(toursPath);
+    }
+  }
+  return result;
+}
+
+/** Loads manifest, taxonomy, English content, non-en locale folders, optional motions, and tours from disk. */
 export function loadContentInput(root: string): {
   manifest: unknown;
   taxonomy: unknown;
@@ -45,9 +58,13 @@ export function loadContentInput(root: string): {
   structureFiles: Record<string, unknown>;
   motions?: unknown;
   locales?: Record<string, LocaleContentInput>;
+  tours?: unknown;
+  tourTexts?: Record<string, unknown>;
 } {
   const motionsPath = path.join(root, 'content', 'motions.json');
+  const toursPath = path.join(root, 'content', 'tours.json');
   const locales = loadLocaleDirs(root);
+  const tourTexts = loadTourTexts(root);
   return {
     manifest: readJson(path.join(root, 'public', 'models', 'manifest.json')),
     taxonomy: readJson(path.join(root, 'content', 'taxonomy.json')),
@@ -57,5 +74,7 @@ export function loadContentInput(root: string): {
     ),
     motions: existsSync(motionsPath) ? readJson(motionsPath) : undefined,
     locales,
+    tours: existsSync(toursPath) ? readJson(toursPath) : undefined,
+    tourTexts: Object.keys(tourTexts).length > 0 ? tourTexts : undefined,
   };
 }

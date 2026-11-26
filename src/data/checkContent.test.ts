@@ -759,3 +759,209 @@ it('validates non-en locale folders for unknown ids and mismatched systems while
     'content/tr/structures/muscular.json: "femur" belongs to system "skeletal"',
   );
 });
+
+describe('checkContent tours validation', () => {
+  function makeTourFixture() {
+    const base = makeFixture();
+    const motions = {
+      motions: [
+        {
+          id: 'elbow-flexion',
+          kind: 'hinge',
+          label: 'Elbow flexion',
+          view: 'left',
+          systems: ['skeletal'],
+          moving: ['femur--l'],
+          ghost: [],
+          agonists: { flex: [], extend: [] },
+          pivot: { mesh: 'femur--l', anchor: [0.5, 0.5, 0.5] },
+          axis: [1, 0, 0],
+          range: [0, 90],
+          periodS: 4,
+        },
+      ],
+    };
+
+    const stepView = {
+      c: [0, 0, 2, 0, 0, 0],
+      s: ['skeletal'],
+      h: [],
+      sel: ['femur--l'],
+    };
+
+    const tours = {
+      tours: [
+        {
+          id: 'arm-bone-to-muscle',
+          systems: ['skeletal'],
+          steps: [
+            { id: 'step-1', view: stepView },
+            { id: 'step-2', view: { ...stepView, sel: ['femur--l'] } },
+            {
+              id: 'step-3',
+              view: stepView,
+              motion: { id: 'elbow-flexion', phase: 0.25 },
+            },
+            { id: 'step-4', view: stepView },
+          ],
+        },
+      ],
+    };
+
+    const enTexts = {
+      tours: {
+        'arm-bone-to-muscle': {
+          title: 'From bone to muscle',
+          summary: 'Explore the bones and muscles of the arm.',
+          steps: {
+            'step-1': { title: 'Step one', body: 'Skeleton overview.' },
+            'step-2': { title: 'Step two', body: 'Look at the femur.' },
+            'step-3': { title: 'Step three', body: 'Elbow motion demo.' },
+            'step-4': { title: 'Step four', body: 'Summary step.' },
+          },
+        },
+      },
+    };
+
+    const trTexts = {
+      tours: {
+        'arm-bone-to-muscle': {
+          title: 'Kemikten kasa',
+          summary: 'Kol kemiklerini ve kaslarını keşfedin.',
+          steps: {
+            'step-1': { title: 'Birinci adım', body: 'İskelet genel görünümü.' },
+            'step-2': { title: 'İkinci adım', body: 'Femura bakın.' },
+            'step-3': { title: 'Üçüncü adım', body: 'Dirsek hareketi demosu.' },
+          },
+        },
+      },
+    };
+
+    return {
+      ...base,
+      motions,
+      tours,
+      tourTexts: { en: enTexts, tr: trTexts },
+    };
+  }
+
+  it('passes valid tours with partial non-English translations', () => {
+    const f = makeTourFixture();
+    const res = checkContent({
+      manifest: f.manifest,
+      taxonomy: f.taxonomy,
+      index: f.index,
+      structureFiles: f.structureFiles,
+      motions: f.motions,
+      tours: f.tours,
+      tourTexts: f.tourTexts,
+    });
+    expect(res.errors).toEqual([]);
+  });
+
+  it('reports unknown mesh and unknown motion references', () => {
+    const f = makeTourFixture();
+    f.tours.tours[0].steps[1].view.sel = ['gone--l'];
+    f.tours.tours[0].steps[2].motion = { id: 'jump', phase: 0.5 };
+    const res = checkContent({
+      manifest: f.manifest,
+      taxonomy: f.taxonomy,
+      index: f.index,
+      structureFiles: f.structureFiles,
+      motions: f.motions,
+      tours: f.tours,
+      tourTexts: f.tourTexts,
+    });
+    expect(res.errors).toContain(
+      'tours.json: "arm-bone-to-muscle/step-2" references unknown mesh "gone--l"',
+    );
+    expect(res.errors).toContain(
+      'tours.json: "arm-bone-to-muscle/step-3" references unknown motion "jump"',
+    );
+  });
+
+  it('reports invalid step count outside 4-7', () => {
+    const f = makeTourFixture();
+    f.tours.tours[0].steps = f.tours.tours[0].steps.slice(0, 3);
+    const res = checkContent({
+      manifest: f.manifest,
+      taxonomy: f.taxonomy,
+      index: f.index,
+      structureFiles: f.structureFiles,
+      motions: f.motions,
+      tours: f.tours,
+      tourTexts: { en: f.tourTexts.en },
+    });
+    expect(res.errors).toContain(
+      'tours.json: "arm-bone-to-muscle" has 3 steps (allowed 4–7)',
+    );
+  });
+
+  it('requires English text for every tour and step', () => {
+    const f = makeTourFixture();
+    delete (
+      f.tourTexts.en.tours['arm-bone-to-muscle'].steps['step-3'] as {
+        body?: string;
+      }
+    ).body;
+    const res = checkContent({
+      manifest: f.manifest,
+      taxonomy: f.taxonomy,
+      index: f.index,
+      structureFiles: f.structureFiles,
+      motions: f.motions,
+      tours: f.tours,
+      tourTexts: f.tourTexts,
+    });
+    expect(res.errors).toContain(
+      'content/en/tours.json: missing body for "arm-bone-to-muscle/step-3"',
+    );
+  });
+
+  it('flags unknown tour or step ids in locale text and validates limits and markup', () => {
+    const f = makeTourFixture();
+    (f.tourTexts.tr.tours as Record<string, unknown>)['ghost-tour'] = {
+      title: 'Hayalet tur',
+    };
+    f.tourTexts.tr.tours['arm-bone-to-muscle'].steps['step-1'].body =
+      'x'.repeat(401);
+    f.tourTexts.en.tours['arm-bone-to-muscle'].title = '**Bold** title';
+
+    const res = checkContent({
+      manifest: f.manifest,
+      taxonomy: f.taxonomy,
+      index: f.index,
+      structureFiles: f.structureFiles,
+      motions: f.motions,
+      tours: f.tours,
+      tourTexts: f.tourTexts,
+    });
+
+    expect(res.errors).toContain(
+      'content/tr/tours.json: "ghost-tour" is not in tours.json',
+    );
+    expect(res.errors).toContain(
+      'content/tr/tours.json: "arm-bone-to-muscle/step-1" body is 401 characters (max 400)',
+    );
+    expect(res.errors).toContain(
+      'content/en/tours.json: "arm-bone-to-muscle" title contains markup',
+    );
+  });
+
+  it('rejects pins (p) in a step view with tours.json schema error', () => {
+    const f = makeTourFixture();
+    (f.tours.tours[0].steps[0].view as Record<string, unknown>).p = [
+      { m: 'femur--l', l: [0, 0, 0], t: 'Pin' },
+    ];
+    const res = checkContent({
+      manifest: f.manifest,
+      taxonomy: f.taxonomy,
+      index: f.index,
+      structureFiles: f.structureFiles,
+      motions: f.motions,
+      tours: f.tours,
+      tourTexts: f.tourTexts,
+    });
+    expect(res.errors.some((e) => e.startsWith('tours.json:'))).toBe(true);
+  });
+});
