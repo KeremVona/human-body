@@ -17,10 +17,10 @@ For deeper design rationale and data contracts, see the [Design Specification](s
 │  pins · section · motion                                                           │
 └───────────────▲────────────────────────────────────────────────────────────────────┘
                 │ store.subscribe (imperative)                ▲ dispatch on pointer events
-┌───────────────┴────────────── R3F Scene ────────────────────┴──────────────────────┐
-│  <Canvas frameloop="demand"> · Lights · CameraRig · <Bvh> · BundleModel×N          │
-│  Picking · PinProbe · SectionController · MotionPlayer · SceneStateApplier         │
-│  MeshRegistry · MaterialLibrary ((system × tissue-or-color × variant) + clip/cap)  │
+┌────────────────────────────── R3F Scene ────────────────────┴──────────────────────┐
+│  <Canvas frameloop="demand"> · Lights · CameraRig · Picking · BatchLayer           │
+│  BundleModel×N · PinProbe · SectionController · MotionPlayer · SceneStateApplier   │
+│  MeshRegistry · BatchRegistry · MaterialLibrary ((system × tissue/color × state))  │
 └───────────────▲────────────────────────────────────────────────────────────────────┘
                 │ fetch (static assets + content)
 ┌───────────────┴──────────── Static files ──────────────────────────────────────────┐
@@ -36,11 +36,15 @@ For deeper design rationale and data contracts, see the [Design Specification](s
 
 Individual anatomical meshes (`1,406` meshes across the six asset bundles) are **never** mounted as React components subscribed to Redux:
 
-1. **Register once (`BundleModel` + `MeshRegistry`):** When a glTF bundle resolves via `GLTFLoader` + `MeshoptDecoder`, `BundleModel` traverses its scene graph once, builds a `CENTER`-strategy BVH (`three-mesh-bvh`) per mesh, registers each `THREE.Mesh` inside `MeshRegistry` (`Map<MeshId, Mesh>`), and notifies `SceneStateApplier`.
-2. **Resolve → Diff → Apply (`SceneStateApplier.tsx`):**
-   - **Resolve:** `SceneStateApplier` subscribes imperatively to `store.subscribe(...)` (scheduled via microtask coalescing) and computes `selectResolvedMeshStates(state, meshIds)`, combining `systems` enabled flags/opacities, `dissection` sets (`hidden`, `isolated`, `faded`), `motion` ghost/active agonist overrides, `selection.selectedIds`, and `selection.hoveredId`.
-   - **Diff:** `applyMeshStates` (`src/scene/applyMeshStates.ts`) compares each mesh's next `MeshState` (`visible`, `variant`, `opacity`, `renderOrder`) against `prevStatesRef.current`. Only changed meshes are touched.
-   - **Apply:** For each changed mesh, `MaterialLibrary` (`src/scene/materials.ts`) supplies a shared `MeshPhysicalMaterial` keyed by `(system × tissue-or-custom-color × variant)` (`base`, `hovered`, `selected`, `active`, `ghost`). After updating `visible`, `material`, and `renderOrder`, `SceneStateApplier` calls `invalidate()` so `<Canvas frameloop="demand">` renders only when state or camera changes.
+1. **Register once (`BundleModel`, `MeshRegistry`, & `BatchRegistry`):** When a glTF bundle resolves via `GLTFLoader` + `MeshoptDecoder`, `BundleModel` traverses its scene graph once, registers each `THREE.Mesh` inside `MeshRegistry` (`Map<MeshId, Mesh>`), and (unless `?batching=off`) calls `buildBatches` (`src/scene/batching/buildBatches.ts`) to group normalized geometries by appearance key into `THREE.BatchedMesh` handles with `three-mesh-bvh` `computeBatchedBoundsTree`. Individual mesh BVHs are built lazily only when promoted or needed for pin occlusion (`PinProbe`), and all batches are disposed and removed from `BatchRegistry` on bundle unload/retry.
+2. **Resolve → Diff → Plan → Apply (`SceneStateApplier.tsx`):**
+   - **Resolve:** `SceneStateApplier` subscribes imperatively to `store.subscribe(...)`, `MeshRegistry`, and `BatchRegistry` (scheduled via microtask coalescing) and computes `selectResolvedMeshStates(state, meshIds)`, combining `systems` enabled flags/opacities, `dissection` sets (`hidden`, `isolated`, `faded`), `motion` ghost/active agonist overrides, `selection.selectedIds`, and `selection.hoveredId`.
+   - **Diff & Materials:** `applyMeshStates` (`src/scene/applyMeshStates.ts`) tracks `userData.atlasVisible` and `userData.pickable` and swaps shared `MeshPhysicalMaterial`s from `MaterialLibrary` (`src/scene/materials.ts`).
+   - **Batch Plan & Promotion (`src/scene/batching/`):**
+     - **Appearance key:** `${bundleId}|${system}|${tissue}|${color ?? ''}` (or `${bundleId}|fallback` when unindexed).
+     - **State rule (`planBatches.ts`):** For each batch's visible members, counts `ghost` states against `base` states (`ghost` if `ghosts > bases`, `base` on ties or base majority, `hidden` if zero visible members).
+     - **Exclusive promotion (`applyBatchPlan.ts`):** A visible mesh whose material state differs from its batch's state (`hovered`, `selected`, `active`, minority `base`/`ghost`) or that is moving in `MotionPlayer` (`selectMotionMoving`) is **promoted** (`mesh.visible = true`, batch instance hidden); all other visible members render inside the batch (`mesh.visible = false`, batch instance visible), keeping `mesh.userData.atlasVisible`, `mesh.userData.pickable`, and `batch.userData.pickable` (`Uint8Array`) synchronized for `meshIdOfHit` / `PinProbe`. Unchanged frames skip `BatchedMesh.setVisibleAt` calls.
+     - **Kill switch (`flag.ts`):** `?batching=off` disables batch creation and promotion, falling back directly to individual mesh visibility (`Phase 3` path).
 
 ## Redux Slices
 

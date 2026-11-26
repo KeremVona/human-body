@@ -29,9 +29,9 @@ Live demo: **[keremvona.github.io/human-body](https://keremvona.github.io/human-
 
 ## Architecture
 
-Individual meshes are never mounted as React components subscribing to Redux. Instead, `BundleModel` registers every decoded `THREE.Mesh` into `MeshRegistry` (`Map<MeshId, Mesh>`), while `SceneStateApplier` subscribes imperatively to the store, computes only changed states (`selectResolvedMeshStates` → `applyMeshStates`), swaps shared materials from `MaterialLibrary`, and calls `invalidate()` on demand.
+Individual meshes are never mounted as React components subscribing to Redux. Instead, `BundleModel` registers every decoded `THREE.Mesh` into `MeshRegistry` (`Map<MeshId, Mesh>`) and builds appearance-keyed `BatchedMesh` groups (`src/scene/batching/`), while `SceneStateApplier` subscribes imperatively to the store, computes only changed states (`selectResolvedMeshStates` → `applyMeshStates`), plans per-batch states and per-mesh promotions (`planBatches` → `applyBatchPlan`), swaps shared materials from `MaterialLibrary`, and calls `invalidate()` on demand.
 
-Read [docs/architecture.md](docs/architecture.md) for the full layer diagram, slice responsibilities, bundle loading order, and testing strategy, and [docs/pipeline-writeup.md](docs/pipeline-writeup.md) for how a `304.8 MB` `.blend` archive was distilled to `29.99 MB` across six compressed GLB bundles.
+Read [docs/architecture.md](docs/architecture.md) for the full layer diagram, slice responsibilities, `BatchRenderer` layer, bundle loading order, and testing strategy, and [docs/pipeline-writeup.md](docs/pipeline-writeup.md) for how a `304.8 MB` `.blend` archive was distilled to `29.99 MB` across six compressed GLB bundles.
 
 ## Running Locally
 
@@ -42,7 +42,7 @@ npm install
 npm run dev
 ```
 
-Append `?debug` to the URL to display the live FPS, draw-call, triangle, and mesh count overlay.
+Append `?debug` to the URL to display live FPS, draw-call, triangle, mesh, batch, promoted, and individual counts (append `?batching=off` to bypass `BatchedMesh` rendering and use the Phase 3 unbatched draw path).
 
 Verification commands:
 
