@@ -1,5 +1,7 @@
 import type { MeshId } from '../data/ids';
 import { motionPhase } from '../features/motion/motionPhase';
+import { journeyClock } from '../features/journey/journeyClock';
+import { journeyLayerProbe } from '../features/journey/journeyLayerProbe';
 import { pinScreens, type PinScreen } from '../features/pins/pinProjection';
 import { startQuiz } from '../features/quiz/thunks';
 import type { SectionState } from '../features/section/sectionSlice';
@@ -36,6 +38,15 @@ export type AtlasTestApi = {
   motionPhase(): number;
   previewState(): PreviewLifecycle;
   tour(): { activeId: string | null; stepIndex: number };
+  journey(): {
+    activeId: string | null;
+    stageIndex: number;
+    progress: number;
+    playing: boolean;
+    following: boolean;
+  };
+  setJourneyProgress(u: number): Promise<void>;
+  journeyDrawCalls(): number;
   meshTransform(id: MeshId): {
     position: number[];
     quaternion: number[];
@@ -109,6 +120,24 @@ export function installTestHooks(api: {
       activeId: api.store.getState().tour.activeId,
       stepIndex: api.store.getState().tour.stepIndex,
     }),
+    journey: () => {
+      const j = api.store.getState().journey;
+      return {
+        activeId: j.activeId,
+        stageIndex: j.stageIndex,
+        progress: journeyClock.get(),
+        playing: j.playing,
+        following: j.following,
+      };
+    },
+    setJourneyProgress: async (u) => {
+      const { scrubJourney } = await import('../features/journey/thunks');
+      await api.store.dispatch(scrubJourney(u));
+      await new Promise<void>((resolve) =>
+        requestAnimationFrame(() => requestAnimationFrame(() => resolve())),
+      );
+    },
+    journeyDrawCalls: () => journeyLayerProbe.getDrawCalls(),
     meshTransform: (id) => {
       const obj = api.registry.get(id);
       if (!obj) return null;

@@ -1,4 +1,6 @@
 import type { AppStore, AppThunk } from '../../app/store';
+import { parseJourneyHash } from '../journey/journeyHash';
+import { journeyNoticeSet } from '../journey/journeySlice';
 import { parseTourHash } from '../tours/tourHash';
 import { tourNoticeSet } from '../tours/tourSlice';
 import type { DecodeResult, KnownAtlasIds } from './codec';
@@ -24,7 +26,15 @@ export type ToursLoader = () => Promise<{
   ) => AppThunk<Promise<'started' | 'refused' | 'not-found'>>;
 }>;
 
-/** Lazy-imports share codec or tours thunks only when URL hash matches `#v<N>.` or `#tour/`. */
+export type JourneysLoader = () => Promise<{
+  loadJourneys: () => AppThunk<Promise<void>>;
+  startJourney: (
+    id: string,
+    stage?: number,
+  ) => AppThunk<Promise<'started' | 'refused' | 'not-found'>>;
+}>;
+
+/** Lazy-imports share codec, tours, or journey thunks only when URL hash matches `#v<N>.`, `#tour/`, or `#journey/`. */
 export async function bootShare(
   store: AppStore,
   options?: {
@@ -32,6 +42,7 @@ export async function bootShare(
     loadCodec?: ShareCodecLoader;
     loadThunks?: ShareThunksLoader;
     loadTours?: ToursLoader;
+    loadJourneys?: JourneysLoader;
   },
 ): Promise<void> {
   const hash =
@@ -42,6 +53,20 @@ export async function bootShare(
   const manifest = state.assets.manifest;
   const taxonomy = state.content.taxonomy;
   if (!manifest || !taxonomy) {
+    return;
+  }
+
+  if (hash.startsWith('#journey/')) {
+    const parsed = parseJourneyHash(hash);
+    if (!parsed) {
+      store.dispatch(journeyNoticeSet('not-found'));
+      return;
+    }
+    const loadJourneysMod =
+      options?.loadJourneys ?? (() => import('../journey/thunks'));
+    const { loadJourneys, startJourney } = await loadJourneysMod();
+    await store.dispatch(loadJourneys());
+    await store.dispatch(startJourney(parsed.id, parsed.stage));
     return;
   }
 

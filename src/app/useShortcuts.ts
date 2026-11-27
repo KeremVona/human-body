@@ -31,6 +31,7 @@ export function useShortcuts(onContextMenu?: () => void): void {
       const target = e.target;
       const state = store.getState();
       const tourActive = state.tour?.activeId != null;
+      const journeyActive = state.journey?.activeId != null;
       const cmd = shortcutFor({
         key: e.key,
         ctrlKey: e.ctrlKey,
@@ -41,6 +42,7 @@ export function useShortcuts(onContextMenu?: () => void): void {
         targetEditable:
           target instanceof HTMLElement ? target.isContentEditable : false,
         tourActive,
+        journeyActive,
       });
       if (!cmd) return;
 
@@ -90,11 +92,44 @@ export function useShortcuts(onContextMenu?: () => void): void {
           if (skeletalReady && !quizActive) {
             if (selectedIds.length > 0) {
               dispatch(selectionCleared());
+            } else if (journeyActive) {
+              void import('../features/journey/thunks').then(
+                ({ exitJourney }) => dispatch(exitJourney()),
+              );
             } else if (tourActive) {
               void import('../features/tours/thunks').then(({ exitTour }) =>
                 dispatch(exitTour()),
               );
             }
+          }
+          break;
+        case 'journey-toggle':
+          e.preventDefault();
+          if (skeletalReady && !quizActive && journeyActive) {
+            void Promise.all([
+              import('../features/journey/journeySlice'),
+              import('../features/motion/reducedMotion'),
+            ]).then(([{ journeyPlayingSet }, { prefersReducedMotion }]) => {
+              if (!prefersReducedMotion()) {
+                dispatch(journeyPlayingSet(!store.getState().journey.playing));
+              }
+            });
+          }
+          break;
+        case 'journey-next':
+          e.preventDefault();
+          if (skeletalReady && !quizActive && journeyActive) {
+            void import('../features/journey/thunks').then(({ nextStage }) =>
+              dispatch(nextStage()),
+            );
+          }
+          break;
+        case 'journey-prev':
+          e.preventDefault();
+          if (skeletalReady && !quizActive && journeyActive) {
+            void import('../features/journey/thunks').then(({ prevStage }) =>
+              dispatch(prevStage()),
+            );
           }
           break;
         case 'tour-next':

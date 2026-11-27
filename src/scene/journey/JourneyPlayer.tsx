@@ -16,6 +16,7 @@ import { prefersReducedMotion } from '../../features/motion/reducedMotion';
 import { useCameraApi } from '../camera';
 import { sectionMaterialLibrary } from '../sectionPlaneStore';
 import { BITE_LOOKS, cloneLook, lerpLook } from './biteLook';
+import { journeyLayerProbe } from '../../features/journey/journeyLayerProbe';
 import {
   advanceJourneyProgress,
   buildCenterlineTable,
@@ -23,15 +24,6 @@ import {
   type CenterlineTable,
   type JourneyLayer,
 } from './JourneyLayer';
-
-let activeLayer: JourneyLayer | null = null;
-
-/** Exposes active journey layer visible draw calls for telemetry / test hooks. */
-export const journeyLayerProbe = {
-  getDrawCalls(): number {
-    return activeLayer ? activeLayer.visibleDrawCalls() : 0;
-  },
-};
 
 const PROGRESS_THROTTLE_MS = 250;
 const SECRETE_WINDOW_S = 1.2;
@@ -122,7 +114,7 @@ export function JourneyPlayer(): null {
     if (!route || !journey) return undefined;
     const layer = createJourneyLayer(route);
     layerRef.current = layer;
-    activeLayer = layer;
+    journeyLayerProbe.setReader(() => layer.visibleDrawCalls());
     scene.add(layer.group);
 
     const st = journey.stages[store.getState().journey.stageIndex] ?? journey.stages[0];
@@ -145,9 +137,7 @@ export function JourneyPlayer(): null {
     return () => {
       scene.remove(layer.group);
       layer.dispose();
-      if (activeLayer === layer) {
-        activeLayer = null;
-      }
+      journeyLayerProbe.setReader(null);
       layerRef.current = null;
       sectionMaterialLibrary.get()?.setActivePulse(0.25);
       cameraApi.followTarget(null);

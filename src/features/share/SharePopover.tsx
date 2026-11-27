@@ -12,6 +12,7 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { useT } from '../../i18n/t';
 import { tourHash } from '../tours/tourHash';
 import { selectCurrentStep } from '../tours/tourSlice';
+import { journeyHash } from '../journey/journeyHash';
 import { encodeViewState } from './codec';
 import { captureViewState } from './thunks';
 
@@ -48,6 +49,8 @@ export function SharePopover({
   const section = useAppSelector((s) => s.section);
   const pins = useAppSelector((s) => s.pins.items);
   const activeTourStep = useAppSelector(selectCurrentStep);
+  const activeJourneyId = useAppSelector((s) => s.journey.activeId);
+  const activeJourneyStage = useAppSelector((s) => s.journey.stageIndex);
 
   useEffect(() => {
     if (!open) return;
@@ -98,6 +101,17 @@ export function SharePopover({
         : '';
     await handleCopyText(
       `${base}${tourHash(activeTourStep.tourId, activeTourStep.index)}`,
+    );
+  };
+
+  const handleCopyJourneyStageLink = async () => {
+    if (!activeJourneyId) return;
+    const base =
+      typeof window !== 'undefined'
+        ? `${window.location.origin}${window.location.pathname}`
+        : '';
+    await handleCopyText(
+      `${base}${journeyHash(activeJourneyId, activeJourneyStage)}`,
     );
   };
 
@@ -176,6 +190,16 @@ export function SharePopover({
                 className="w-full rounded-lg border border-white/15 bg-white/5 px-3 py-1.5 text-left font-medium text-slate-100 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-sky-400"
               >
                 {tr('tour.linkStep')}
+              </button>
+            ) : null}
+
+            {activeJourneyId ? (
+              <button
+                type="button"
+                onClick={() => void handleCopyJourneyStageLink()}
+                className="w-full rounded-lg border border-white/15 bg-white/5 px-3 py-1.5 text-left font-medium text-slate-100 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-sky-400"
+              >
+                {tr('journey.linkStage')}
               </button>
             ) : null}
 

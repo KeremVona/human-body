@@ -16,6 +16,9 @@ export type Command =
   | 'reset-view'
   | 'tour-next'
   | 'tour-prev'
+  | 'journey-toggle'
+  | 'journey-next'
+  | 'journey-prev'
   | `preset:${Preset}`;
 
 const PLAIN_KEY_MAP: Record<string, Command> = {
@@ -49,6 +52,7 @@ export function shortcutFor(e: {
   targetTag: string;
   targetEditable: boolean;
   tourActive?: boolean;
+  journeyActive?: boolean;
 }): Command | null {
   if (e.altKey || e.targetEditable) return null;
   const tag = e.targetTag.toUpperCase();
@@ -59,6 +63,12 @@ export function shortcutFor(e: {
       return 'undo';
     }
     return null;
+  }
+
+  if (e.journeyActive && !e.shiftKey) {
+    if (e.key === ' ') return 'journey-toggle';
+    if (e.key === 'ArrowRight') return 'journey-next';
+    if (e.key === 'ArrowLeft') return 'journey-prev';
   }
 
   if (e.tourActive && !e.shiftKey) {

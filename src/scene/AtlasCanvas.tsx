@@ -43,6 +43,13 @@ const MotionPlayer = lazy(() =>
 const JourneyPlayer = lazy(() =>
   import('./journey/JourneyPlayer').then((m) => ({ default: m.JourneyPlayer })),
 );
+const JourneyDebug = import.meta.env.DEV
+  ? lazy(() =>
+      import('./journey/JourneyDebug').then((m) => ({
+        default: m.JourneyDebug,
+      })),
+    )
+  : null;
 
 export type CanvasBundle = {
   id: string;
@@ -79,6 +86,10 @@ export function AtlasCanvas({
   const hasPins = useAppSelector((s) => s.pins.items.length > 0);
   const hasMotion = useAppSelector((s) => s.motion.activeId !== null);
   const hasJourney = useAppSelector((s) => s.journey.activeId !== null);
+  const journeyDebug =
+    import.meta.env.DEV &&
+    typeof window !== 'undefined' &&
+    new URLSearchParams(window.location.search).has('journey-debug');
   const skeletalReady = useAppSelector(
     (s) => s.assets.bundles.skeletal === 'ready',
   );
@@ -188,6 +199,7 @@ export function AtlasCanvas({
                 {hasJourney ? (
                   <Suspense fallback={null}>
                     <JourneyPlayer />
+                    {JourneyDebug && journeyDebug ? <JourneyDebug /> : null}
                   </Suspense>
                 ) : null}
 

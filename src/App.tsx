@@ -178,7 +178,7 @@ function AtlasShell({
     if (boot !== 'ready' || bundles.skeletal !== 'ready') return;
     if (
       typeof window === 'undefined' ||
-      !/^(?:#v\d+\.|#tour\/)/.test(window.location.hash)
+      !/^(?:#v\d+\.|#tour\/|#journey\/)/.test(window.location.hash)
     ) {
       return;
     }

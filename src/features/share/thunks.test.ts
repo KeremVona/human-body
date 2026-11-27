@@ -547,4 +547,67 @@ describe('share thunks & bootShare', () => {
     expect(store.getState().systems.skeletal.enabled).toBe(true);
     expect(store.getState().systems.muscular.enabled).toBe(false);
   });
+
+  it('bootShare loads journeys for #journey/<id>/<stage> and sets not-found notice on invalid hash', async () => {
+    const { store } = setupStore();
+    await bootShare(store, { hash: '#journey/' });
+    expect(store.getState().journey.notice).toBe('not-found');
+    expect(store.getState().journey.activeId).toBeNull();
+
+    const loadJourneysSpy = vi.fn();
+    await bootShare(store, {
+      hash: '#journey/digestion/2',
+      loadJourneys: async () => {
+        const { journeysLoaded } = await import('../journey/journeySlice');
+        return {
+          loadJourneys: () => async (dispatch) => {
+            loadJourneysSpy();
+            dispatch(
+              journeysLoaded({
+                defs: [
+                  {
+                    id: 'digestion',
+                    systems: ['skeletal'],
+                    stages: [
+                      {
+                        id: 'mouth',
+                        durationS: 5,
+                        food: 'bolus',
+                        radius: 0.008,
+                        motion: 'none',
+                        organs: [],
+                        view: { c: [0, 0, 3, 0, 0, 0], s: ['skeletal'], h: [], sel: [] },
+                        path: [{ line: 'a' }],
+                        modelled: true,
+                        nutrients: { carbs: 5, protein: 0, fat: 0, water: 0, absorbed: 0 },
+                      },
+                      {
+                        id: 'stomach',
+                        durationS: 5,
+                        food: 'chyme',
+                        radius: 0.01,
+                        motion: 'churn',
+                        organs: [],
+                        view: { c: [0, 0, 2, 0, 0, 0], s: ['skeletal'], h: [], sel: [] },
+                        path: [{ line: 'a' }],
+                        modelled: true,
+                        nutrients: { carbs: 30, protein: 15, fat: 10, water: 0, absorbed: 0 },
+                      },
+                    ],
+                  },
+                ],
+                texts: {},
+                centerlines: { version: 1, lines: { a: [[0, 0, 0], [0, 0.2, 0]] } },
+              }),
+            );
+          },
+          startJourney: (await import('../journey/thunks')).startJourney,
+        };
+      },
+    });
+
+    expect(loadJourneysSpy).toHaveBeenCalledTimes(1);
+    expect(store.getState().journey.activeId).toBe('digestion');
+    expect(store.getState().journey.stageIndex).toBe(1);
+  });
 });
