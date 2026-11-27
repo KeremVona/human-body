@@ -88,12 +88,17 @@ export function startMotion(
     const cacheKey = extra ?? fallbackLoadKey;
     const token = nextTokenFor(cacheKey);
 
-    if (getState().quiz.status !== 'off') return;
+    if (getState().quiz.status !== 'off' || getState().journey?.activeId != null) return;
 
     await dispatch(loadMotions());
     if (startTokens.get(cacheKey) !== token) return;
     const stateAfterLoad = getState();
-    if (stateAfterLoad.quiz.status !== 'off') return;
+    if (
+      stateAfterLoad.quiz.status !== 'off' ||
+      stateAfterLoad.journey?.activeId != null
+    ) {
+      return;
+    }
 
     const def = stateAfterLoad.motion.defs?.find((d) => d.id === id);
     if (!def) return;
@@ -141,7 +146,12 @@ export function startMotion(
 
     if (startTokens.get(cacheKey) !== token) return;
     const stateAfterReady = getState();
-    if (stateAfterReady.quiz.status !== 'off') return;
+    if (
+      stateAfterReady.quiz.status !== 'off' ||
+      stateAfterReady.journey?.activeId != null
+    ) {
+      return;
+    }
     if (def.systems.some((sys) => !stateAfterReady.systems[sys].enabled))
       return;
 

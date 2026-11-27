@@ -287,3 +287,19 @@ export function localProgress(
   if (span <= 0) return u >= end ? 1 : 0;
   return clamp01((u - start) / span);
 }
+
+const routeCache = new WeakMap<Journey, JourneyRoute>();
+
+/** Builds once and caches the `JourneyRoute` for a given `Journey` definition object. */
+export function getRoute(
+  journey: Journey,
+  lines: Record<string, Vec3[]>,
+  meshes: Manifest['meshes'],
+): JourneyRoute {
+  let cached = routeCache.get(journey);
+  if (!cached) {
+    cached = buildRoute(journey, lines, meshes);
+    routeCache.set(journey, cached);
+  }
+  return cached;
+}

@@ -12,6 +12,11 @@ import {
   selectMotionOverrides,
   type MotionState,
 } from '../features/motion/motionSlice';
+import {
+  selectJourneyOverrides,
+  type JourneyState,
+} from '../features/journey/journeySlice';
+import type { Manifest } from '../data/schema';
 import type { SelectionState } from '../features/selection/selectionSlice';
 import type { SystemsState } from '../features/systems/systemsSlice';
 
@@ -115,14 +120,29 @@ type ResolvedStateSlice = {
   dissection: DissectionState;
   selection: SelectionState;
   motion?: MotionState;
+  journey?: JourneyState;
+  assets?: { manifest: Manifest | null };
 };
+
+/** Memoized union of motion and journey active/ghost mesh overrides. */
+export const selectSceneOverrides = createSelector(
+  [selectMotionOverrides, selectJourneyOverrides],
+  (motion, journey) => {
+    if (motion.active.size === 0 && motion.ghost.size === 0) return journey;
+    if (journey.active.size === 0 && journey.ghost.size === 0) return motion;
+    return {
+      active: new Set<MeshId>([...motion.active, ...journey.active]),
+      ghost: new Set<MeshId>([...motion.ghost, ...journey.ghost]),
+    };
+  },
+);
 
 const selectDissectionSets = createSelector(
   [
     (state: ResolvedStateSlice) => state.dissection,
     (state: ResolvedStateSlice) => state.selection.selectedIds,
     (state: ResolvedStateSlice) => state.selection.hoveredId,
-    selectMotionOverrides,
+    selectSceneOverrides,
   ],
   (
     dissection,

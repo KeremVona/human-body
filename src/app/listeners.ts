@@ -37,6 +37,7 @@ import {
   type SystemsState,
 } from '../features/systems/systemsSlice';
 import type { TourState } from '../features/tours/tourSlice';
+import type { JourneyState } from '../features/journey/journeySlice';
 import { clearGltf } from '../scene/gltfCache';
 
 type ListenerState = {
@@ -46,6 +47,7 @@ type ListenerState = {
   pins: PinsState;
   motion: MotionState;
   tour?: TourState;
+  journey?: JourneyState;
   ui?: UiState;
 };
 
@@ -62,6 +64,11 @@ listenerMiddleware.startListening({
     if (state.tour?.defs !== null && state.tour?.defs !== undefined) {
       void import('../features/tours/thunks').then(({ reloadTourTexts }) =>
         listenerApi.dispatch(reloadTourTexts(action.payload)),
+      );
+    }
+    if (state.journey?.defs !== null && state.journey?.defs !== undefined) {
+      void import('../features/journey/thunks').then(({ reloadJourneyTexts }) =>
+        listenerApi.dispatch(reloadJourneyTexts(action.payload)),
       );
     }
   },

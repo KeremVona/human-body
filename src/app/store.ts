@@ -16,6 +16,7 @@ import { uiReducer } from '../features/settings/uiSlice';
 import { shareReducer } from '../features/share/shareSlice';
 import { systemsReducer } from '../features/systems/systemsSlice';
 import { tourReducer } from '../features/tours/tourSlice';
+import { journeyReducer } from '../features/journey/journeySlice';
 import type { CameraApi } from '../scene/camera';
 import type { MeshRegistry } from '../scene/meshRegistry';
 import { listenerMiddleware } from './listeners';
@@ -41,6 +42,7 @@ const rootReducer = combineReducers({
   section: sectionReducer,
   motion: motionReducer,
   tour: tourReducer,
+  journey: journeyReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

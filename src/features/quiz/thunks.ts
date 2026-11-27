@@ -62,7 +62,7 @@ export function startQuiz(
   seed = Date.now(),
 ): AppThunk<'started' | 'empty-pool' | 'refused'> {
   return (dispatch, getState) => {
-    if (getState().tour?.activeId != null) {
+    if (getState().tour?.activeId != null || getState().journey?.activeId != null) {
       return 'refused';
     }
     clearWrongFlashTimer();

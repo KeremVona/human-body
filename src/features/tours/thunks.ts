@@ -208,7 +208,7 @@ export function startTour(
 ): AppThunk<Promise<'started' | 'refused' | 'not-found'>> {
   return async (dispatch, getState) => {
     const state = getState();
-    if (state.quiz.status !== 'off') {
+    if (state.quiz.status !== 'off' || state.journey?.activeId != null) {
       return 'refused';
     }
 
