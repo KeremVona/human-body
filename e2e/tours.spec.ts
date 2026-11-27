@@ -41,7 +41,11 @@ test('play a tour end to end', async ({ page }) => {
     dialog.getByRole('heading', { name: 'Guided tours' }),
   ).toBeVisible();
 
-  await dialog.getByRole('button', { name: 'Start' }).first().click();
+  await dialog
+    .locator('li')
+    .filter({ hasText: 'From bone to muscle: the arm' })
+    .getByRole('button', { name: 'Start' })
+    .click();
 
   const bar = page.getByRole('region', { name: 'From bone to muscle: the arm' });
   await expect(bar).toBeVisible();
@@ -133,7 +137,12 @@ test('keyboard navigation and Escape ordering', async ({ page }) => {
   await waitForAtlas(page);
 
   await page.getByRole('button', { name: 'Tours' }).click();
-  await page.getByRole('dialog').getByRole('button', { name: 'Start' }).first().click();
+  await page
+    .getByRole('dialog')
+    .locator('li')
+    .filter({ hasText: 'From bone to muscle: the arm' })
+    .getByRole('button', { name: 'Start' })
+    .click();
 
   const bar = page.getByRole('region', { name: 'From bone to muscle: the arm' });
   await expect(bar.getByText('Step 1 of 5')).toBeVisible();
@@ -229,7 +238,12 @@ test('quiz and tour exclusive', async ({ page }) => {
   await waitForAtlas(page);
 
   await page.getByRole('button', { name: 'Tours' }).click();
-  await page.getByRole('dialog').getByRole('button', { name: 'Start' }).first().click();
+  await page
+    .getByRole('dialog')
+    .locator('li')
+    .filter({ hasText: 'From bone to muscle: the arm' })
+    .getByRole('button', { name: 'Start' })
+    .click();
 
   const quizBtn = page.getByRole('button', { name: 'Start quiz' });
   await expect(quizBtn).toBeDisabled();
