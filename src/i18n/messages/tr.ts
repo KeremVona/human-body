@@ -251,6 +251,21 @@ export const tr = {
     hidePanel: 'Paneli küçült',
     showPanel: 'Paneli genişlet',
     linkStage: 'Bu aşamaya bağlantı',
+    closeUp: {
+      label: 'Yakın çekim (ölçekli değil)',
+      capillary: {
+        aria: 'Kılcal damar şeması: alyuvarlar vücut hücrelerine oksijen verir ve karbondioksit alır.',
+        caption: 'Oksijen çıkar, karbondioksit girer',
+      },
+      'lung-capillary': {
+        aria: 'Hava kesesine dayanan akciğer kılcalı şeması: oksijen kana girer, karbondioksit kandan çıkar.',
+        caption: 'Oksijen girer, karbondioksit çıkar',
+      },
+      alveolus: {
+        aria: 'Kılcal damarlarla sarılı hava keseleri kümesi şeması: oksijen kana, karbondioksit havaya geçer.',
+        caption: 'Bir hücreden ince duvardan gaz değişimi',
+      },
+    },
   },
   pins: {
     layerAria: 'Anatomi iğneleri',

@@ -251,4 +251,42 @@ describe('JourneyBar', () => {
       screen.getByRole('slider', { name: 'Journey progress' }),
     ).toBeInTheDocument();
   });
+
+  it('renders CloseUpCard only when the active stage sets closeUp', () => {
+    const bloodJourney: Journey = {
+      ...fixtureJourney,
+      id: 'blood',
+      stages: [
+        {
+          ...fixtureJourney.stages[0],
+          id: 'cap',
+          closeUp: 'capillary',
+        },
+        fixtureJourney.stages[1],
+      ],
+    };
+
+    const { store } = setupBar();
+    expect(
+      screen.queryByText('Close-up (not to scale)'),
+    ).not.toBeInTheDocument();
+
+    act(() => {
+      store.dispatch(
+        journeysLoaded({ defs: [bloodJourney], texts: {}, centerlines }),
+      );
+      store.dispatch(journeyStarted({ id: 'blood', stageIndex: 0, progress: 0 }));
+    });
+    expect(screen.getByText('Close-up (not to scale)')).toBeInTheDocument();
+    expect(
+      screen.getByText('Oxygen out, carbon dioxide in'),
+    ).toBeInTheDocument();
+
+    act(() => {
+      store.dispatch(journeyStarted({ id: 'blood', stageIndex: 1, progress: 0.6 }));
+    });
+    expect(
+      screen.queryByText('Close-up (not to scale)'),
+    ).not.toBeInTheDocument();
+  });
 });

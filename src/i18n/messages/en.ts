@@ -248,6 +248,21 @@ export const en = {
     hidePanel: 'Minimize panel',
     showPanel: 'Expand panel',
     linkStage: 'Link to this stage',
+    closeUp: {
+      label: 'Close-up (not to scale)',
+      capillary: {
+        aria: 'Diagram of a capillary: red blood cells give oxygen to body cells and take up carbon dioxide.',
+        caption: 'Oxygen out, carbon dioxide in',
+      },
+      'lung-capillary': {
+        aria: 'Diagram of a lung capillary against an air sac: oxygen enters the blood and carbon dioxide leaves it.',
+        caption: 'Oxygen in, carbon dioxide out',
+      },
+      alveolus: {
+        aria: 'Diagram of a cluster of air sacs wrapped in capillaries, with oxygen crossing into the blood and carbon dioxide crossing into the air.',
+        caption: 'Gas swap across a wall thinner than a cell',
+      },
+    },
   },
   pins: {
     layerAria: 'Anatomy pins',

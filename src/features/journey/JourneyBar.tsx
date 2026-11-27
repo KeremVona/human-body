@@ -9,6 +9,7 @@ import { Chip } from '../../ui/Chip';
 import { selectBundlesForSystem } from '../assets/assetsSlice';
 import { prefersReducedMotion } from '../motion/reducedMotion';
 import { journeyFollowingSet, journeyPlayingSet, journeySpeedSet, type JourneySpeed } from './journeySlice';
+import { CloseUpCard } from './closeups/CloseUpCard';
 import { MetersBox } from './MetersBox';
 import { metersAt } from './meters';
 import { getRoute, localProgress } from './route';
@@ -330,6 +331,8 @@ export function JourneyBar(): JSX.Element | null {
       {stageBundleStatus === 'loading' ? (
         <p className="mt-1.5 text-xs text-sky-200">{tr('journey.loading')}</p>
       ) : null}
+
+      {stage.closeUp ? <CloseUpCard id={stage.closeUp} /> : null}
 
       {mobileBodyOpen ? (
         <>
