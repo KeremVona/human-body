@@ -149,3 +149,31 @@ Inspection of `pipeline/out/inventory.json`, `pipeline/source/Z-Anatomy-License.
   - `5` degenerate `0`-polygon placeholders (`Median sacral nodes`, `(Medial lacunar node).{l,r}`, `(Intermediate lacunar node).{l,r}`).
 - **Selected lymphatic set:** **`153` meshes** (`55,814` total vertices, `62,304` polygons; `Lymph-1`..`Lymph-8` materials).
 - **Combined 3D budget:** `242` (`skin`) + `153` (`lymphatic`) = **`395` new meshes** (`<= 450` hard cap; `1,406` total atlas meshes `<= 1,461`).
+
+---
+
+## Centerlines (`centerlines` step)
+
+Phase 5 adds anatomical centerline polylines (`public/models/centerlines.<sha8>.json`, linked via `manifest.centerlines`) for journey paths (`digestion` and future tracks). `assets:build` runs this step automatically after GLB packing, or you can re-run it standalone without Blender when editing mesh-derived rules:
+
+```sh
+npx tsx pipeline/cli.ts centerlines
+```
+
+### Configuration (`pipeline/config.json` -> `centerlines`)
+
+1. **`curves`** (`{ id, source, reverse? }`):
+   - Exported by `pipeline/blender/export.py` into `pipeline/out/raw/centerlines-curves.json` from Blender `CURVE` objects (`eval_spline_pts`), transformed using the same `offset @ world_matrix` centering matrix as mesh exports and converted to glTF Y-up `(x, z, -y)`.
+   - Multi-spline curve objects (e.g. `Pancreatic duct` with 35 splines) follow the primary (longest) spline and chain consecutive splines only within `<= 2 mm` endpoint distance so side twigs are ignored.
+   - Set `"reverse": true` when the Blender spline runs backwards relative to anatomical flow (e.g. `Jejunum`, where spline start is ileum and end is duodenum).
+
+2. **`meshes`** (`{ id, method, ... }`):
+   - Built in pure TypeScript (`pipeline/src/centerlines.ts`) directly from the packed bundle GLB vertex buffers (`<= 60` points max, `round4` rounded, Laplace-smoothed and uniformly resampled):
+     - `"method": "slice"`: bins vertices along `"axis"` (`"x" | "y" | "z"`) in `"direction"` (`1 | -1`) across `"bins"` slices and emits non-empty slice centroids.
+     - `"method": "polar"`: bins vertices by polar angle in `"plane"` (`"xy" | "xz" | "yz"`) around normalized `[0,1]^3` bbox `"center"`, starting at `"startDeg"` and sweeping `"sweep"` (`1 | -1`) across `"bins"` slices — used for C-shaped or looped organs (`stomach`, `duodenum`, `sigmoid-colon`).
+
+### Adding a New Line
+
+1. If the organ is a `CURVE` in `Z-Anatomy.blend`, first inspect its spline count, direction, and inter-spline gaps in headless Blender, add `{ id, source, reverse }` under `centerlines.curves`, and run `npm run assets:build`.
+2. If the organ is a shipped `MESH`, add a `slice` or `polar` entry under `centerlines.meshes` referencing an existing mesh `id` in `manifest.meshes`, then run `npx tsx pipeline/cli.ts centerlines` and verify route containment with `npx vitest run pipeline/src/journeyInside.test.ts`.
+
