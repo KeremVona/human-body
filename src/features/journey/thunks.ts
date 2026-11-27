@@ -290,6 +290,33 @@ export function startJourney(
   };
 }
 
+/** Applies only the camera and visibility view of stage `index` without resetting playback clock. */
+export function applyStageView(index: number): AppThunk<Promise<void>> {
+  return async (dispatch, getState, extra) => {
+    const key = keyFor(extra);
+    const token = nextToken(key);
+    const state = getState();
+    const { activeId, defs } = state.journey;
+    if (!activeId || !defs) return;
+    const journey = defs.find((j) => j.id === activeId);
+    if (!journey) return;
+    const clamped = Math.max(
+      0,
+      Math.min(journey.stages.length - 1, Math.trunc(index)),
+    );
+    const reduced = prefersReducedMotion();
+    await dispatch(
+      applyViewState(journey.stages[clamped].view, {
+        animate: !reduced,
+        keepHistory: true,
+        keepPins: true,
+        shouldContinue: () =>
+          tokens.get(key) === token && getState().journey.activeId === activeId,
+      }),
+    );
+  };
+}
+
 /** Jumps to clamped stage `index`, syncing clock/progress and applying the stage view. */
 export function goToStage(index: number): AppThunk<Promise<void>> {
   return async (dispatch, getState, extra) => {

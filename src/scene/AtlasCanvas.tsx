@@ -40,6 +40,9 @@ const PinProbe = lazy(() =>
 const MotionPlayer = lazy(() =>
   import('./MotionPlayer').then((m) => ({ default: m.MotionPlayer })),
 );
+const JourneyPlayer = lazy(() =>
+  import('./journey/JourneyPlayer').then((m) => ({ default: m.JourneyPlayer })),
+);
 
 export type CanvasBundle = {
   id: string;
@@ -75,6 +78,7 @@ export function AtlasCanvas({
   const tr = useT();
   const hasPins = useAppSelector((s) => s.pins.items.length > 0);
   const hasMotion = useAppSelector((s) => s.motion.activeId !== null);
+  const hasJourney = useAppSelector((s) => s.journey.activeId !== null);
   const skeletalReady = useAppSelector(
     (s) => s.assets.bundles.skeletal === 'ready',
   );
@@ -178,6 +182,12 @@ export function AtlasCanvas({
                 {hasMotion ? (
                   <Suspense fallback={null}>
                     <MotionPlayer />
+                  </Suspense>
+                ) : null}
+
+                {hasJourney ? (
+                  <Suspense fallback={null}>
+                    <JourneyPlayer />
                   </Suspense>
                 ) : null}
 
