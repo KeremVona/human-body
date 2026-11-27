@@ -7,10 +7,13 @@ import type { MeshId } from '../../data/ids';
 import { hingeDirection } from './math';
 import type { MotionDef } from './schema';
 
+export type MotionOwner = 'user' | 'journey';
+
 export type MotionState = {
   defs: MotionDef[] | null;
   loadStatus: 'idle' | 'loading' | 'ready' | 'error';
   activeId: string | null;
+  owner: MotionOwner | null;
   playing: boolean;
   speed: 0.5 | 1;
   direction: 'flex' | 'extend' | null;
@@ -22,6 +25,7 @@ const initialState: MotionState = {
   defs: null,
   loadStatus: 'idle',
   activeId: null,
+  owner: null,
   playing: false,
   speed: 1,
   direction: null,
@@ -60,12 +64,18 @@ const motionSlice = createSlice({
     },
     motionActivated(
       state,
-      action: PayloadAction<{ id: string; playing: boolean; phase?: number }>,
+      action: PayloadAction<{
+        id: string;
+        playing: boolean;
+        phase?: number;
+        owner?: MotionOwner;
+      }>,
     ) {
-      const { id, playing, phase = 0 } = action.payload;
+      const { id, playing, phase = 0, owner = 'user' } = action.payload;
       const p = clampPhase(phase);
       state.activeId = id;
       state.playing = playing;
+      state.owner = owner;
       state.scrubPhase = p;
       state.direction = directionFor(state.defs, id, p);
       state.activationSeq += 1;
@@ -100,6 +110,7 @@ const motionSlice = createSlice({
     motionStopped(state) {
       state.activeId = null;
       state.playing = false;
+      state.owner = null;
       state.direction = null;
       state.scrubPhase = 0;
     },

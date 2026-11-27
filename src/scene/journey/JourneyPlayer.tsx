@@ -10,8 +10,11 @@ import {
   journeyProgressSet,
   journeyStageSet,
 } from '../../features/journey/journeySlice';
+import { rhythmPhase } from '../../features/journey/rhythm';
 import { getRoute, localProgress, stageAt } from '../../features/journey/route';
 import { applyStageView } from '../../features/journey/thunks';
+import { motionPhase } from '../../features/motion/motionPhase';
+import { motionScrubbed } from '../../features/motion/motionSlice';
 import { prefersReducedMotion } from '../../features/motion/reducedMotion';
 import { selectBundlesForSystem } from '../../features/assets/assetsSlice';
 import { useCameraApi } from '../camera';
@@ -103,6 +106,7 @@ export function JourneyPlayer(): null {
   const layerRef = useRef<JourneyLayer | null>(null);
   const timeRef = useRef(0);
   const lastCommitMsRef = useRef(0);
+  const lastRhythmCommitMsRef = useRef(0);
   const lastStageRef = useRef(stageIndex);
   const stageEnterCooldownRef = useRef(0.5);
   const pulseWasOpenRef = useRef(false);
@@ -211,6 +215,7 @@ export function JourneyPlayer(): null {
 
       const sNext = stageAt(route, u);
       if (sNext !== lastStageRef.current) {
+        const prevIdx = lastStageRef.current;
         lastStageRef.current = sNext;
         if (sNext !== store.getState().journey.stageIndex) {
           stageEnterCooldownRef.current = 0.55;
@@ -219,7 +224,7 @@ export function JourneyPlayer(): null {
           dispatch(journeyStageSet(sNext));
           dispatch(journeyProgressSet(u));
           lastCommitMsRef.current = performance.now();
-          void dispatch(applyStageView(sNext));
+          void dispatch(applyStageView(sNext, prevIdx));
         }
       } else {
         const now = performance.now();
@@ -303,6 +308,21 @@ export function JourneyPlayer(): null {
 
     // Handle secrete/highlight pulse + droplet streams along ducts
     const lp = localProgress(route, s, u);
+    if (
+      playing &&
+      !reduced &&
+      stageBundlesReady &&
+      stage.rhythm?.mode === 'scrub'
+    ) {
+      const phase = rhythmPhase(stage, lp);
+      motionPhase.set(phase);
+      needsFrame = true;
+      const now = performance.now();
+      if (now - lastRhythmCommitMsRef.current >= PROGRESS_THROTTLE_MS) {
+        lastRhythmCommitMsRef.current = now;
+        dispatch(motionScrubbed(phase));
+      }
+    }
     const events = stage.events ?? [];
     let anyOpen = false;
     for (let i = 0; i < events.length; i += 1) {

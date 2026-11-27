@@ -224,41 +224,50 @@ export function MotionPlayer(): null {
     const transforms = transformsRef.current;
     if (!transforms) return;
 
-    phaseRef.current = scrubPhase;
-    if (def.kind === 'hinge') {
-      transforms.applyHinge(
-        def,
-        motionAnchor,
-        hingeAngleDeg(scrubPhase, def.range),
-      );
-      sectionMaterialLibrary.get()?.setActivePulse(0.45);
-    } else if (def.kind === 'pulse') {
-      const buf = pulseBufferRef.current;
-      for (let i = 0; i < def.groups.length; i++) {
-        buf[i].scale = heartbeatScale(
-          scrubPhase - def.groups[i].phase,
-          def.amplitude,
+    const applyPausedPhase = (phase: number) => {
+      phaseRef.current = phase;
+      if (def.kind === 'hinge') {
+        transforms.applyHinge(
+          def,
+          motionAnchor,
+          hingeAngleDeg(phase, def.range),
         );
+        sectionMaterialLibrary.get()?.setActivePulse(0.45);
+      } else if (def.kind === 'pulse') {
+        const buf = pulseBufferRef.current;
+        for (let i = 0; i < def.groups.length; i++) {
+          buf[i].scale = heartbeatScale(
+            phase - def.groups[i].phase,
+            def.amplitude,
+          );
+        }
+        transforms.applyPulse(buf, motionAnchor);
+      } else {
+        const e = breathEnvelope(phase, def.inhaleShare);
+        const gBuf = breathGroupsBufRef.current;
+        for (let i = 0; i < def.expand.length; i++) {
+          gBuf[i].scale = 1 + def.expand[i].amount * e;
+        }
+        const sBuf = breathShiftsBufRef.current;
+        const shifts = def.shift ?? [];
+        for (let i = 0; i < shifts.length; i++) {
+          const off = shifts[i].offset;
+          sBuf[i].offset[0] = off[0] * e;
+          sBuf[i].offset[1] = off[1] * e;
+          sBuf[i].offset[2] = off[2] * e;
+        }
+        transforms.applyBreath(gBuf, sBuf);
       }
-      transforms.applyPulse(buf, motionAnchor);
-    } else {
-      const e = breathEnvelope(scrubPhase, def.inhaleShare);
-      const gBuf = breathGroupsBufRef.current;
-      for (let i = 0; i < def.expand.length; i++) {
-        gBuf[i].scale = 1 + def.expand[i].amount * e;
-      }
-      const sBuf = breathShiftsBufRef.current;
-      const shifts = def.shift ?? [];
-      for (let i = 0; i < shifts.length; i++) {
-        const off = shifts[i].offset;
-        sBuf[i].offset[0] = off[0] * e;
-        sBuf[i].offset[1] = off[1] * e;
-        sBuf[i].offset[2] = off[2] * e;
-      }
-      transforms.applyBreath(gBuf, sBuf);
-    }
+    };
+
+    applyPausedPhase(scrubPhase);
     motionPhase.set(scrubPhase);
     invalidate();
+
+    return motionPhase.subscribe(() => {
+      applyPausedPhase(motionPhase.get());
+      invalidate();
+    });
   }, [def, playing, scrubPhase, motionAnchor, invalidate]);
 
   useFrame((_, delta) => {

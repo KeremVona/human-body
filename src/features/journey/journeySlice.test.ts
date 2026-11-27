@@ -254,6 +254,7 @@ describe('journeySlice reducers and overrides', () => {
       loadStatus: 'ready',
       activeId: 'flex',
       playing: true,
+      owner: 'user',
       speed: 1,
       direction: 'flex',
       scrubPhase: 0.1,

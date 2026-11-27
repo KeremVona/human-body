@@ -52,6 +52,7 @@ describe('motionSlice & selectMotionOverrides', () => {
       loadStatus: 'idle',
       activeId: null,
       playing: false,
+      owner: null,
       speed: 1,
       direction: null,
       scrubPhase: 0,

@@ -12,6 +12,7 @@ import {
   motionsLoaded,
   motionsLoading,
   motionStopped,
+  type MotionOwner,
 } from './motionSlice';
 import { prefersReducedMotion } from './reducedMotion';
 import { MotionsFileSchema, type MotionDef } from './schema';
@@ -88,30 +89,40 @@ export function loadMotions(): AppThunk<Promise<void>> {
 /** Loads motion data, enables required systems, waits for bundles, moves camera, and activates the demo. */
 export function startMotion(
   id: string,
-  opts?: { skipCamera?: boolean; phase?: number },
+  opts?: {
+    skipCamera?: boolean;
+    phase?: number;
+    owner?: MotionOwner;
+    playing?: boolean;
+  },
 ): AppThunk<Promise<void>> {
   return async (dispatch, getState, extra) => {
     const cacheKey = extra ?? fallbackLoadKey;
     const token = nextTokenFor(cacheKey);
+    const owner: MotionOwner = opts?.owner ?? 'user';
 
-    if (getState().quiz.status !== 'off' || getState().journey?.activeId != null) return;
+    const canRun = (s: ReturnType<typeof getState>) => {
+      if (s.quiz.status !== 'off') return false;
+      return owner === 'journey'
+        ? s.journey?.activeId != null
+        : s.journey?.activeId == null;
+    };
+
+    if (!canRun(getState())) return;
 
     await dispatch(loadMotions());
     if (startTokens.get(cacheKey) !== token) return;
     const stateAfterLoad = getState();
-    if (
-      stateAfterLoad.quiz.status !== 'off' ||
-      stateAfterLoad.journey?.activeId != null
-    ) {
-      return;
-    }
+    if (!canRun(stateAfterLoad)) return;
 
     const def = stateAfterLoad.motion.defs?.find((d) => d.id === id);
     if (!def) return;
 
-    for (const sys of def.systems) {
-      if (!getState().systems[sys].enabled) {
-        dispatch(systemToggled(sys));
+    if (owner === 'user') {
+      for (const sys of def.systems) {
+        if (!getState().systems[sys].enabled) {
+          dispatch(systemToggled(sys));
+        }
       }
     }
 
@@ -120,9 +131,10 @@ export function startMotion(
     const meshBundleIds = manifestBundles
       .filter((b) => b.meshIds.some((m) => neededMeshes.has(m)))
       .map((b) => b.id);
-    const systemBundleIds = def.systems.flatMap((sys) =>
-      selectBundlesForSystem(getState(), sys),
-    );
+    const systemBundleIds =
+      owner === 'user'
+        ? def.systems.flatMap((sys) => selectBundlesForSystem(getState(), sys))
+        : [];
     const bundleIds = Array.from(
       new Set([...systemBundleIds, ...meshBundleIds]),
     );
@@ -144,12 +156,7 @@ export function startMotion(
     }
 
     if (startTokens.get(cacheKey) !== token) return;
-    if (
-      getState().quiz.status !== 'off' ||
-      getState().journey?.activeId != null
-    ) {
-      return;
-    }
+    if (!canRun(getState())) return;
 
     if (!opts?.skipCamera) {
       await extra?.camera?.current?.goToPreset(def.view);
@@ -157,14 +164,13 @@ export function startMotion(
 
     if (startTokens.get(cacheKey) !== token) return;
     const stateAfterReady = getState();
+    if (!canRun(stateAfterReady)) return;
     if (
-      stateAfterReady.quiz.status !== 'off' ||
-      stateAfterReady.journey?.activeId != null
+      owner === 'user' &&
+      def.systems.some((sys) => !stateAfterReady.systems[sys].enabled)
     ) {
       return;
     }
-    if (def.systems.some((sys) => !stateAfterReady.systems[sys].enabled))
-      return;
 
     const reduced = prefersReducedMotion();
     const explicitPhase =
@@ -176,8 +182,9 @@ export function startMotion(
     dispatch(
       motionActivated({
         id: def.id,
-        playing: !reduced,
+        playing: !reduced && (opts?.playing ?? true),
         phase: initialPhase,
+        owner,
       }),
     );
   };

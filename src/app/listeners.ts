@@ -20,6 +20,7 @@ import {
   motionStopped,
   type MotionState,
 } from '../features/motion/motionSlice';
+import { journeyEnded } from '../features/journey/journeySlice';
 import {
   pinsHydrated,
   sharedPinsLoaded,
@@ -181,11 +182,21 @@ listenerMiddleware.startListening({
   matcher: isAnyOf(systemToggled, uiGroupToggled, systemsSet),
   effect: (_action, listenerApi) => {
     const state = listenerApi.getState();
-    const { activeId, defs } = state.motion;
-    if (!activeId) return;
+    const { activeId, defs, owner } = state.motion;
+    if (!activeId || owner === 'journey') return;
     const def = defs?.find((d) => d.id === activeId);
     if (!def) return;
     if (def.systems.some((sys) => !state.systems[sys].enabled)) {
+      listenerApi.dispatch(motionStopped());
+    }
+  },
+});
+
+listenerMiddleware.startListening({
+  actionCreator: journeyEnded,
+  effect: (_action, listenerApi) => {
+    const state = listenerApi.getState();
+    if (state.motion.owner === 'journey') {
       listenerApi.dispatch(motionStopped());
     }
   },

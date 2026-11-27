@@ -388,4 +388,42 @@ describe('MotionPanel and LeftPanel Motion tab', () => {
     expect(elbowBtn).toBeDisabled();
     expect(elbowBtn).toHaveAttribute('title', 'Finish the journey first');
   });
+
+  it('ignores journey-owned motion state when rendering active user controls', async () => {
+    const { journeyStarted } = await import('../journey/journeySlice');
+    const { motionActivated, motionsLoaded } = await import('./motionSlice');
+    const { store } = setupStore();
+    store.dispatch(motionsLoaded(motionsFixture.motions));
+    store.dispatch(
+      journeyStarted({
+        id: 'blood',
+        stageIndex: 0,
+        progress: 0,
+        following: true,
+        playing: true,
+      }),
+    );
+    store.dispatch(
+      motionActivated({
+        id: 'elbow-flexion',
+        playing: true,
+        owner: 'journey',
+      }),
+    );
+
+    render(
+      <Provider store={store}>
+        <MotionPanel />
+      </Provider>,
+    );
+
+    const elbowBtn = await screen.findByRole('button', {
+      name: 'Elbow flexion and extension',
+    });
+    expect(elbowBtn).toBeDisabled();
+    expect(elbowBtn).toHaveAttribute('aria-pressed', 'false');
+    expect(
+      screen.queryByRole('button', { name: 'Pause' }),
+    ).not.toBeInTheDocument();
+  });
 });

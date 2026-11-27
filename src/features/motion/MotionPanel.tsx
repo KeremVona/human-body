@@ -30,10 +30,11 @@ export function MotionPanel(): JSX.Element {
   const dispatch = useAppDispatch();
   const tr = useT();
   const locale = getActiveLocale();
-  const { defs, loadStatus, activeId, playing, speed, scrubPhase } =
+  const { defs, loadStatus, activeId, owner, playing, speed, scrubPhase } =
     useAppSelector((s) => s.motion);
   const quizActive = useAppSelector((s) => s.quiz.status !== 'off');
   const journeyActive = useAppSelector((s) => s.journey.activeId !== null);
+  const userActiveId = owner === 'journey' ? null : activeId;
   const speedHeadingId = useId();
   const livePhase = useSyncExternalStore(
     motionPhase.subscribe,
@@ -41,7 +42,7 @@ export function MotionPanel(): JSX.Element {
     motionPhase.get,
   );
   const [stoppedAnnouncement, setStoppedAnnouncement] = useState(false);
-  const prevActiveIdRef = useRef<string | null>(activeId);
+  const prevActiveIdRef = useRef<string | null>(userActiveId);
   const reducedMotion = prefersReducedMotion();
 
   useEffect(() => {
@@ -52,15 +53,15 @@ export function MotionPanel(): JSX.Element {
 
   useEffect(() => {
     const prev = prevActiveIdRef.current;
-    prevActiveIdRef.current = activeId;
-    if (prev !== null && activeId === null) {
+    prevActiveIdRef.current = userActiveId;
+    if (prev !== null && userActiveId === null) {
       queueMicrotask(() => setStoppedAnnouncement(true));
-    } else if (activeId !== null) {
+    } else if (userActiveId !== null) {
       queueMicrotask(() => setStoppedAnnouncement(false));
     }
-  }, [activeId]);
+  }, [userActiveId]);
 
-  const activeDef = defs?.find((d) => d.id === activeId);
+  const activeDef = defs?.find((d) => d.id === userActiveId);
   const displayPhase = playing ? livePhase : scrubPhase;
   const pct = Math.round(displayPhase * 100);
 
@@ -212,7 +213,7 @@ export function MotionPanel(): JSX.Element {
           aria-label={tr('motion.demosAria')}
         >
           {defs.map((def) => {
-            const isActive = activeId === def.id;
+            const isActive = userActiveId === def.id;
             const label =
               locale === 'en'
                 ? def.label

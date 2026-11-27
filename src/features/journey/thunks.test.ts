@@ -371,4 +371,174 @@ describe('journey thunks and exclusivity', () => {
       { journeyId: 'blood', stageIndex: 1 },
     ]);
   });
+
+  it('transitions stage rhythm motions (play, keep, scrub, stop) and preserves user motions on exit', async () => {
+    const { bundleReady } = await import('../assets/assetsSlice');
+    const { motionPhase } = await import('../motion/motionPhase');
+    const { motionsLoaded } = await import('../motion/motionSlice');
+    const rhythmJourney: Journey = {
+      id: 'breath',
+      systems: ['skeletal'],
+      meters: [{ id: 'o2', unit: '%', max: 100, decimals: 0, monotonic: false }],
+      metersStart: { o2: 98 },
+      stages: [
+        {
+          id: 's0',
+          durationS: 8,
+          look: 'blood-oxy',
+          radius: 0.008,
+          motion: 'none',
+          rhythm: { motion: 'heartbeat', mode: 'play' },
+          organs: ['tongue'],
+          view: { c: [0, 0.5, 0.6, 0, 0.5, 0], s: ['skeletal'], h: [], sel: [] },
+          path: [{ line: 'mouth' }],
+          modelled: true,
+          meters: { o2: 99 },
+        },
+        {
+          id: 's1',
+          durationS: 8,
+          look: 'blood-oxy',
+          radius: 0.008,
+          motion: 'none',
+          rhythm: { motion: 'heartbeat', mode: 'play' },
+          organs: ['stomach'],
+          view: { c: [0, 0.2, 0.7, 0, 0.2, 0], s: ['skeletal'], h: [], sel: [] },
+          path: [{ line: 'stomach' }],
+          modelled: true,
+          meters: { o2: 100 },
+        },
+        {
+          id: 's2',
+          durationS: 8,
+          look: 'air-fresh',
+          radius: 0.008,
+          motion: 'none',
+          rhythm: { motion: 'breathing', mode: 'scrub', from: 0.2, to: 0.8 },
+          organs: ['stomach'],
+          view: { c: [0, 0.2, 0.7, 0, 0.2, 0], s: ['skeletal'], h: [], sel: [] },
+          path: [{ line: 'stomach' }],
+          modelled: true,
+          meters: { o2: 75 },
+        },
+      ],
+    };
+    const motionsList = [
+      {
+        id: 'heartbeat',
+        kind: 'pulse' as const,
+        label: 'Heartbeat',
+        view: 'anterior' as const,
+        systems: ['skeletal' as const],
+        groups: [{ meshes: ['sternum'], phase: 0 }],
+        bpm: 72,
+        amplitude: 0.04,
+      },
+      {
+        id: 'breathing',
+        kind: 'breath' as const,
+        label: 'Breathing',
+        view: 'anterior' as const,
+        systems: ['skeletal' as const],
+        breathsPerMin: 12,
+        inhaleShare: 0.4,
+        expand: [
+          {
+            meshes: ['femur--l'],
+            center: { mesh: 'femur--l', anchor: [0.5, 0.5, 0.5] as [number, number, number] },
+            amount: 0.05,
+          },
+        ],
+      },
+    ];
+    const rhythmTexts: JourneyTextsFile = {
+      journeys: {
+        breath: {
+          title: 'Follow a breath',
+          summary: 'Summary',
+          stages: {
+            s0: { title: 'S0', body: 'B0' },
+            s1: { title: 'S1', body: 'B1' },
+            s2: { title: 'S2', body: 'B2' },
+          },
+          events: {},
+        },
+      },
+    };
+    vi.stubGlobal(
+      'fetch',
+      vi.fn((url: string) => {
+        if (url.endsWith('content/journeys.json')) {
+          return Promise.resolve(
+            new Response(JSON.stringify({ journeys: [rhythmJourney] }), {
+              status: 200,
+            }),
+          );
+        }
+        if (
+          url.endsWith('content/en/journeys.json') ||
+          url.endsWith('content/tr/journeys.json')
+        ) {
+          return Promise.resolve(
+            new Response(JSON.stringify(rhythmTexts), { status: 200 }),
+          );
+        }
+        if (url.endsWith('models/centerlines.12345678.json')) {
+          return Promise.resolve(
+            new Response(JSON.stringify(centerlinesFile), { status: 200 }),
+          );
+        }
+        if (url.endsWith('content/motions.json')) {
+          return Promise.resolve(
+            new Response(JSON.stringify({ motions: motionsList }), {
+              status: 200,
+            }),
+          );
+        }
+        return Promise.resolve(new Response(null, { status: 404 }));
+      }),
+    );
+
+    const { store } = makeTestStore();
+    store.dispatch(bundleReady('skeletal'));
+    store.dispatch(bundleReady('organs'));
+    store.dispatch(motionsLoaded(motionsList));
+
+    expect(await store.dispatch(startJourney('breath', 0))).toBe('started');
+    await vi.waitFor(() => {
+      expect(store.getState().motion.activeId).toBe('heartbeat');
+    });
+    expect(store.getState().motion.owner).toBe('journey');
+    expect(store.getState().motion.playing).toBe(true);
+    const seqAfterStart = store.getState().motion.activationSeq;
+
+    // Stage 0 -> 1 keeps heartbeat playing without restarting
+    await store.dispatch(goToStage(1));
+    expect(store.getState().motion.activeId).toBe('heartbeat');
+    expect(store.getState().motion.activationSeq).toBe(seqAfterStart);
+
+    // Stage 1 -> 2 switches to paused scrub breathing at `from` (0.2)
+    await store.dispatch(goToStage(2));
+    await vi.waitFor(() => {
+      expect(store.getState().motion.activeId).toBe('breathing');
+    });
+    expect(store.getState().motion.playing).toBe(false);
+    expect(store.getState().motion.scrubPhase).toBeCloseTo(0.2);
+
+    // Scrubbing within stage 2 midpoint (stage 2 spans [0.8, 1.0] in arc length) updates scrub phase to 0.5
+    await store.dispatch(scrubJourney(0.9));
+    expect(store.getState().motion.scrubPhase).toBeCloseTo(0.5);
+    expect(motionPhase.get()).toBeCloseTo(0.5);
+
+    // Exit clears journey-owned motion
+    await store.dispatch(exitJourney());
+    expect(store.getState().motion.activeId).toBeNull();
+    expect(store.getState().motion.owner).toBeNull();
+
+    // Exiting never stops a user-owned motion if one happens to be set
+    store.dispatch(motionActivated({ id: 'heartbeat', playing: true, owner: 'user' }));
+    await store.dispatch(exitJourney());
+    expect(store.getState().motion.activeId).toBe('heartbeat');
+    expect(store.getState().motion.owner).toBe('user');
+  });
 });

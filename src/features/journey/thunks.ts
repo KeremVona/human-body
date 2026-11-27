@@ -3,7 +3,9 @@ import type { AppThunk } from '../../app/store';
 import { CenterlinesFileSchema } from '../../data/centerlines';
 import type { MeshId } from '../../data/ids';
 import type { Locale } from '../../i18n/locale';
-import { stopMotion } from '../motion/thunks';
+import { motionPhase } from '../motion/motionPhase';
+import { motionScrubbed } from '../motion/motionSlice';
+import { startMotion, stopMotion } from '../motion/thunks';
 import { prefersReducedMotion } from '../motion/reducedMotion';
 import { applyViewState, captureViewState } from '../share/thunks';
 import type { ViewStateV1 } from '../share/viewState';
@@ -24,12 +26,14 @@ import {
   journeyTextsLoaded,
   type JourneyState,
 } from './journeySlice';
-import { getRoute, stageAt } from './route';
+import { rhythmPhase, rhythmPlan } from './rhythm';
+import { getRoute, localProgress, stageAt } from './route';
 import {
   JourneysFileSchema,
   JourneyTextsFileSchema,
   type Journey,
   type JourneyId,
+  type JourneyStage,
   type JourneyTextsFile,
 } from './schema';
 
@@ -285,6 +289,10 @@ export function startJourney(
       }),
     );
 
+    dispatch(
+      syncStageRhythm(undefined, journey.stages[stage], reduced ? 0.5 : 0),
+    );
+
     const shouldContinue = () =>
       tokens.get(key) === token && getState().journey.activeId === journey.id;
 
@@ -300,8 +308,84 @@ export function startJourney(
   };
 }
 
-/** Applies only the camera and visibility view of stage `index` without resetting playback clock. */
-export function applyStageView(index: number): AppThunk<Promise<void>> {
+/** Synchronizes journey-owned rhythm motions across a stage transition. */
+export function syncStageRhythm(
+  prevStage: JourneyStage | undefined,
+  nextStage: JourneyStage,
+  localP = 0,
+): AppThunk<void> {
+  return (dispatch, getState) => {
+    const plan = rhythmPlan(prevStage, nextStage);
+    const reduced = prefersReducedMotion();
+    const isJourneyOwned = getState().motion.owner === 'journey';
+
+    if (plan === 'stop') {
+      if (isJourneyOwned) dispatch(stopMotion());
+      return;
+    }
+    if (plan === 'none' || !nextStage.rhythm) return;
+
+    if (reduced) {
+      if (nextStage.rhythm.mode === 'play') {
+        if (isJourneyOwned) dispatch(stopMotion());
+        return;
+      }
+      const targetPhase = nextStage.rhythm.to;
+      if (plan === 'keep') {
+        motionPhase.set(targetPhase);
+        dispatch(motionScrubbed(targetPhase));
+      } else {
+        if (isJourneyOwned) dispatch(stopMotion());
+        void dispatch(
+          startMotion(nextStage.rhythm.motion, {
+            owner: 'journey',
+            skipCamera: true,
+            playing: false,
+            phase: targetPhase,
+          }),
+        );
+      }
+      return;
+    }
+
+    if (plan === 'start-play') {
+      if (isJourneyOwned) dispatch(stopMotion());
+      void dispatch(
+        startMotion(nextStage.rhythm.motion, {
+          owner: 'journey',
+          skipCamera: true,
+          playing: true,
+        }),
+      );
+      return;
+    }
+
+    const phase = rhythmPhase(nextStage, localP);
+    if (plan === 'start-scrub') {
+      if (isJourneyOwned) dispatch(stopMotion());
+      void dispatch(
+        startMotion(nextStage.rhythm.motion, {
+          owner: 'journey',
+          skipCamera: true,
+          playing: false,
+          phase,
+        }),
+      );
+      return;
+    }
+
+    if (nextStage.rhythm.mode === 'scrub') {
+      motionPhase.set(phase);
+      dispatch(motionScrubbed(phase));
+    }
+  };
+}
+
+/** Applies camera, visibility, and rhythm transition for stage `index` without resetting playback clock. */
+export function applyStageView(
+  index: number,
+  prevIndex?: number,
+): AppThunk<Promise<void>> {
   return async (dispatch, getState, extra) => {
     const key = keyFor(extra);
     const token = nextToken(key);
@@ -314,6 +398,9 @@ export function applyStageView(index: number): AppThunk<Promise<void>> {
       0,
       Math.min(journey.stages.length - 1, Math.trunc(index)),
     );
+    const prevStage =
+      prevIndex !== undefined ? journey.stages[prevIndex] : undefined;
+    dispatch(syncStageRhythm(prevStage, journey.stages[clamped], 0));
     const reduced = prefersReducedMotion();
     await dispatch(
       applyViewState(journey.stages[clamped].view, {
@@ -333,7 +420,7 @@ export function goToStage(index: number): AppThunk<Promise<void>> {
     const key = keyFor(extra);
     const token = nextToken(key);
     const state = getState();
-    const { activeId, defs, centerlines } = state.journey;
+    const { activeId, defs, centerlines, stageIndex } = state.journey;
     const manifest = state.assets.manifest;
     if (!activeId || !defs || !centerlines || !manifest) return;
 
@@ -344,6 +431,7 @@ export function goToStage(index: number): AppThunk<Promise<void>> {
       0,
       Math.min(journey.stages.length - 1, Math.trunc(index)),
     );
+    const prevStage = journey.stages[stageIndex];
     const route = getRoute(journey, centerlines.lines, manifest.meshes);
     const reduced = prefersReducedMotion();
     const targetU = reduced
@@ -356,6 +444,9 @@ export function goToStage(index: number): AppThunk<Promise<void>> {
     if (!reduced) {
       dispatch(journeyFollowingSet(true));
     }
+    dispatch(
+      syncStageRhythm(prevStage, journey.stages[clamped], reduced ? 0.5 : 0),
+    );
 
     await dispatch(
       applyViewState(journey.stages[clamped].view, {
@@ -412,13 +503,25 @@ export function scrubJourney(u: number): AppThunk<Promise<void>> {
 
     const route = getRoute(journey, centerlines.lines, manifest.meshes);
     const nextStageIndex = stageAt(route, clamped);
-    if (nextStageIndex === stageIndex) return;
+    const lp = localProgress(route, nextStageIndex, clamped);
+    const reduced = prefersReducedMotion();
 
+    if (nextStageIndex === stageIndex) {
+      const st = journey.stages[stageIndex];
+      if (!reduced && st.rhythm?.mode === 'scrub') {
+        const phase = rhythmPhase(st, lp);
+        motionPhase.set(phase);
+        dispatch(motionScrubbed(phase));
+      }
+      return;
+    }
+
+    const prevStage = journey.stages[stageIndex];
     const key = keyFor(extra);
     const token = nextToken(key);
     dispatch(journeyStageSet(nextStageIndex));
+    dispatch(syncStageRhythm(prevStage, journey.stages[nextStageIndex], lp));
 
-    const reduced = prefersReducedMotion();
     await dispatch(
       applyViewState(journey.stages[nextStageIndex].view, {
         animate: !reduced,
@@ -438,6 +541,9 @@ export function exitJourney(): AppThunk<Promise<void>> {
     const token = nextToken(key);
 
     extra.camera?.current?.followTarget?.(null);
+    if (getState().motion.owner === 'journey') {
+      dispatch(stopMotion());
+    }
     const savedView = savedViews.get(key);
     savedViews.delete(key);
 

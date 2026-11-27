@@ -350,4 +350,54 @@ describe('motion thunks and safety listeners', () => {
     storeErr.dispatch(uiGroupToggled('major-organs'));
     expect(storeErr.getState().motion.activeId).toBe('elbow-flexion');
   });
+
+  it('allows owner="journey" during an active journey without calling systemToggled and preserves owner across systemsSet', async () => {
+    const { journeyEnded, journeyStarted } = await import(
+      '../journey/journeySlice'
+    );
+    stubMotionsFetch();
+    const { store, camera } = setupStore({
+      skeletal: 'idle',
+      muscular: 'idle',
+      cardiovascular: 'ready',
+    });
+
+    store.dispatch(
+      journeyStarted({
+        id: 'blood',
+        stageIndex: 0,
+        progress: 0,
+        playing: true,
+        following: true,
+      }),
+    );
+
+    // User start is still refused while journey is active
+    await store.dispatch(startMotion('elbow-flexion'));
+    expect(store.getState().motion.activeId).toBeNull();
+
+    // Journey-owned start works without toggling cardiovascular or moving camera when skipCamera=true
+    await store.dispatch(
+      startMotion('heartbeat', {
+        owner: 'journey',
+        skipCamera: true,
+        playing: true,
+      }),
+    );
+    expect(store.getState().motion.activeId).toBe('heartbeat');
+    expect(store.getState().motion.owner).toBe('journey');
+    expect(store.getState().motion.playing).toBe(true);
+    expect(store.getState().systems.cardiovascular.enabled).toBe(false);
+    expect(camera.current?.goToPreset).not.toHaveBeenCalled();
+
+    // Changing visible systems during a journey stage does not stop journey-owned motion
+    store.dispatch(systemsSet(['skeletal']));
+    expect(store.getState().motion.activeId).toBe('heartbeat');
+    expect(store.getState().motion.owner).toBe('journey');
+
+    // Ending the journey stops journey-owned motion cleanly
+    store.dispatch(journeyEnded());
+    expect(store.getState().motion.activeId).toBeNull();
+    expect(store.getState().motion.owner).toBeNull();
+  });
 });
