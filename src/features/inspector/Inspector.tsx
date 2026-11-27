@@ -4,6 +4,11 @@ import { toMeshId } from '../../data/ids';
 import type { Details } from '../../data/schema';
 import { getActiveLocale, useT, type MessageKey } from '../../i18n/t';
 import { useCameraApi } from '../../scene/camera';
+import {
+  getOrganJourneyLookup,
+  loadJourneys,
+  startJourney,
+} from '../journey/thunks';
 import { Chip } from '../../ui/Chip';
 import { IconButton } from '../../ui/IconButton';
 import { selectStructureLookup } from '../content/contentSlice';
@@ -122,11 +127,31 @@ export function Inspector(): JSX.Element | null {
   const cameraApi = useCameraApi();
   const quizStatus = useAppSelector((s) => s.quiz.status);
   const tourActive = useAppSelector((s) => s.tour.activeId !== null);
+  const journeyActive = useAppSelector((s) => s.journey.activeId !== null);
+  const journeyDefs = useAppSelector((s) => s.journey.defs);
+  const journeyLoadStatus = useAppSelector((s) => s.journey.loadStatus);
   const model = useAppSelector(selectInspectorModel);
   const layout = useInspectorLayout();
 
-  if (quizStatus !== 'off' || (tourActive && layout === 'sheet') || !model) {
+  useEffect(() => {
+    if (model && journeyDefs === null && journeyLoadStatus === 'idle') {
+      void dispatch(loadJourneys());
+    }
+  }, [model, journeyDefs, journeyLoadStatus, dispatch]);
+
+  if (
+    quizStatus !== 'off' ||
+    ((tourActive || journeyActive) && layout === 'sheet') ||
+    !model
+  ) {
     return null;
+  }
+
+  const organLookup = getOrganJourneyLookup(journeyDefs);
+  let journeyTarget: { journeyId: string; stageIndex: number } | undefined;
+  for (const meshId of model.meshIds) {
+    journeyTarget = organLookup.get(meshId);
+    if (journeyTarget) break;
   }
 
   const sideBadgeLabel =
@@ -278,6 +303,20 @@ export function Inspector(): JSX.Element | null {
             {tr('inspector.fadeOthers')}
           </button>
         </div>
+
+        {journeyTarget ? (
+          <button
+            type="button"
+            onClick={() =>
+              void dispatch(
+                startJourney(journeyTarget.journeyId, journeyTarget.stageIndex),
+              )
+            }
+            className="mt-2.5 inline-flex items-center gap-1.5 rounded-lg bg-sky-500/20 px-2.5 py-1 text-xs font-medium text-sky-200 ring-1 ring-sky-400/35 hover:bg-sky-500/30 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400"
+          >
+            {tr('journey.inspectorLink')}
+          </button>
+        ) : null}
       </div>
 
       <div className="min-h-0 flex-1 space-y-4 overflow-y-auto p-4 text-sm">

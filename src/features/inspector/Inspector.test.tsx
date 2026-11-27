@@ -289,4 +289,79 @@ describe('Inspector', () => {
       screen.getByRole('complementary', { name: 'Structure details' }),
     ).toHaveAttribute('data-layout', 'drawer');
   });
+
+  it('shows the journey link only when the selected mesh appears in a journey stage', async () => {
+    const { journeysLoaded } = await import('../journey/journeySlice');
+    const store = makeStore();
+    store.dispatch(
+      bootstrap.fulfilled(
+        { manifest, taxonomy, index: { locale: 'en', structures } },
+        'req-1',
+        undefined,
+      ),
+    );
+    store.dispatch(loadStructures.fulfilled({}, 'req-2', 'skeletal'));
+    store.dispatch(
+      journeysLoaded({
+        defs: [
+          {
+            id: 'digestion',
+            systems: ['digestive'],
+            stages: [
+              {
+                id: 'mouth',
+                durationS: 10,
+                food: 'bolus',
+                radius: 0.008,
+                motion: 'none',
+                organs: ['femur--l'],
+                view: { c: [0, 0, 2, 0, 0, 0], s: ['skeletal'], h: [], sel: [] },
+                path: [
+                  { mesh: 'femur--l', anchor: [0.5, 0.5, 0.5] },
+                  { mesh: 'femur--l', anchor: [0.5, 0.4, 0.5] },
+                ],
+                modelled: true,
+                nutrients: { carbs: 5, protein: 0, fat: 0, water: 0, absorbed: 0 },
+              },
+              {
+                id: 'stomach',
+                durationS: 10,
+                food: 'chyme',
+                radius: 0.01,
+                motion: 'churn',
+                organs: [],
+                view: { c: [0, 0, 2, 0, 0, 0], s: ['skeletal'], h: [], sel: [] },
+                path: [
+                  { mesh: 'femur--l', anchor: [0.5, 0.3, 0.5] },
+                  { mesh: 'femur--l', anchor: [0.5, 0.2, 0.5] },
+                ],
+                modelled: true,
+                nutrients: { carbs: 10, protein: 0, fat: 0, water: 0, absorbed: 0 },
+              },
+            ],
+          },
+        ],
+        texts: {},
+        centerlines: { version: 1, lines: {} },
+      }),
+    );
+
+    store.dispatch(selected(['sternum']));
+    const { rerender } = renderInspector(store);
+    expect(
+      screen.queryByRole('button', { name: 'Watch food pass through here' }),
+    ).not.toBeInTheDocument();
+
+    store.dispatch(selected(['femur--l']));
+    rerender(
+      <Provider store={store}>
+        <CameraApiProvider value={mockCameraApi}>
+          <Inspector />
+        </CameraApiProvider>
+      </Provider>,
+    );
+    expect(
+      screen.getByRole('button', { name: 'Watch food pass through here' }),
+    ).toBeInTheDocument();
+  });
 });

@@ -89,6 +89,11 @@ const TourBar = lazy(() =>
     default: m.TourBar,
   })),
 );
+const JourneyBar = lazy(() =>
+  import('./features/journey/JourneyBar').then((m) => ({
+    default: m.JourneyBar,
+  })),
+);
 import {
   BatchRegistryProvider,
   createBatchRegistry,
@@ -136,6 +141,8 @@ function AtlasShell({
   const shareNotice = useAppSelector((s) => s.share.notice);
   const tourNotice = useAppSelector((s) => s.tour.notice);
   const tourActive = useAppSelector((s) => s.tour.activeId !== null);
+  const journeyNotice = useAppSelector((s) => s.journey.notice);
+  const journeyActive = useAppSelector((s) => s.journey.activeId !== null);
   const pinsStorageFailed = useAppSelector((s) => s.pins.storageFailed);
   const pinsStorageNoticeShown = useAppSelector(
     (s) => s.pins.storageNoticeShown,
@@ -392,11 +399,13 @@ function AtlasShell({
               <>
                 <button
                   type="button"
+                  disabled={journeyActive}
+                  title={journeyActive ? tr('journey.finishFirst') : undefined}
                   onClick={() => {
                     setToursLoadedOnce(true);
                     setToursOpen(true);
                   }}
-                  className="whitespace-nowrap rounded-lg px-1.5 py-1 text-[11px] font-medium text-slate-100 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400 sm:px-2 sm:text-xs"
+                  className="whitespace-nowrap rounded-lg px-1.5 py-1 text-[11px] font-medium text-slate-100 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400 disabled:cursor-not-allowed disabled:opacity-45 disabled:hover:bg-transparent sm:px-2 sm:text-xs"
                 >
                   {tr('tour.button')}
                 </button>
@@ -415,8 +424,14 @@ function AtlasShell({
                 </button>
                 <button
                   type="button"
-                  disabled={tourActive}
-                  title={tourActive ? tr('tour.finishFirst') : undefined}
+                  disabled={tourActive || journeyActive}
+                  title={
+                    tourActive
+                      ? tr('tour.finishFirst')
+                      : journeyActive
+                        ? tr('journey.finishFirst')
+                        : undefined
+                  }
                   onClick={() => dispatch(startQuiz())}
                   className="whitespace-nowrap rounded-lg px-1.5 py-1 text-[11px] font-medium text-slate-100 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400 disabled:cursor-not-allowed disabled:opacity-45 disabled:hover:bg-transparent sm:px-2 sm:text-xs"
                 >
@@ -465,9 +480,10 @@ function AtlasShell({
         <>
           {shareNotice ||
           tourNotice ||
+          journeyNotice ||
           (pinsStorageFailed && !pinsStorageNoticeShown) ? (
             <div className="pointer-events-none fixed inset-x-0 top-16 z-30 flex flex-col items-center gap-2 px-4">
-              {shareNotice || tourNotice ? (
+              {shareNotice || tourNotice || journeyNotice ? (
                 <Suspense fallback={null}>
                   <ShareNotice />
                 </Suspense>
@@ -520,6 +536,11 @@ function AtlasShell({
             {tourActive ? (
               <Suspense fallback={null}>
                 <TourBar />
+              </Suspense>
+            ) : null}
+            {journeyActive ? (
+              <Suspense fallback={null}>
+                <JourneyBar />
               </Suspense>
             ) : null}
           </div>

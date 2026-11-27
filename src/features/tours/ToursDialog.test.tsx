@@ -144,4 +144,89 @@ describe('ToursDialog', () => {
 
     expect(screen.getByText('Could not load guided tours.')).toBeInTheDocument();
   });
+
+  it('renders Journeys section above tours and starts a journey when clicked', async () => {
+    const { journeysLoaded } = await import('../journey/journeySlice');
+    const user = userEvent.setup();
+    const store = makeStore();
+    store.dispatch(toursLoaded({ defs, texts }));
+    store.dispatch(
+      journeysLoaded({
+        defs: [
+          {
+            id: 'digestion',
+            systems: ['digestive'],
+            stages: [
+              {
+                id: 'mouth',
+                durationS: 30,
+                food: 'bolus',
+                radius: 0.008,
+                motion: 'none',
+                organs: [],
+                view: { c: [0, 0, 2, 0, 0, 0], s: ['digestive'], h: [], sel: [] },
+                path: [
+                  { line: 'a' },
+                ],
+                modelled: true,
+                nutrients: { carbs: 5, protein: 0, fat: 0, water: 0, absorbed: 0 },
+              },
+              {
+                id: 'exit',
+                durationS: 30,
+                food: 'stool',
+                radius: 0.007,
+                motion: 'none',
+                organs: [],
+                view: { c: [0, 0, 2, 0, 0, 0], s: ['digestive'], h: [], sel: [] },
+                path: [
+                  { line: 'a' },
+                ],
+                modelled: false,
+                nutrients: { carbs: 95, protein: 95, fat: 95, water: 95, absorbed: 95 },
+              },
+            ],
+          },
+        ],
+        texts: {
+          digestion: {
+            title: 'Follow a bite of food',
+            summary: 'Mouth to exit.',
+            stages: {
+              mouth: { title: 'Mouth', body: 'Chew' },
+              exit: { title: 'Exit', body: 'End' },
+            },
+            events: {},
+            fallback: false,
+          },
+        },
+        centerlines: { version: 1, lines: { a: [[0, 0, 0], [0, 0.1, 0]] } },
+      }),
+    );
+
+    const onOpenChange = vi.fn();
+    const onStartJourney = vi.fn(async () => {});
+
+    render(
+      <Provider store={store}>
+        <ToursDialog
+          open
+          onOpenChange={onOpenChange}
+          onStartJourney={onStartJourney}
+        />
+      </Provider>,
+    );
+
+    expect(screen.getByRole('heading', { name: 'Journeys' })).toBeInTheDocument();
+    expect(screen.getByText('Follow a bite of food')).toBeInTheDocument();
+    expect(screen.getByText('About 1 min')).toBeInTheDocument();
+
+    const startButtons = screen.getAllByRole('button', { name: 'Start' });
+    await user.click(startButtons[0]);
+
+    await waitFor(() => {
+      expect(onStartJourney).toHaveBeenCalledWith('digestion');
+      expect(onOpenChange).toHaveBeenCalledWith(false);
+    });
+  });
 });

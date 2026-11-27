@@ -33,6 +33,7 @@ export function MotionPanel(): JSX.Element {
   const { defs, loadStatus, activeId, playing, speed, scrubPhase } =
     useAppSelector((s) => s.motion);
   const quizActive = useAppSelector((s) => s.quiz.status !== 'off');
+  const journeyActive = useAppSelector((s) => s.journey.activeId !== null);
   const speedHeadingId = useId();
   const livePhase = useSyncExternalStore(
     motionPhase.subscribe,
@@ -221,8 +222,14 @@ export function MotionPanel(): JSX.Element {
                 <button
                   type="button"
                   aria-pressed={isActive}
-                  disabled={quizActive}
-                  title={quizActive ? tr('motion.finishQuizTitle') : undefined}
+                  disabled={quizActive || journeyActive}
+                  title={
+                    quizActive
+                      ? tr('motion.finishQuizTitle')
+                      : journeyActive
+                        ? tr('journey.finishFirst')
+                        : undefined
+                  }
                   onClick={() => {
                     setStoppedAnnouncement(false);
                     void dispatch(startMotion(def.id));
