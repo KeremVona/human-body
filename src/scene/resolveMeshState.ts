@@ -12,10 +12,8 @@ import {
   selectMotionOverrides,
   type MotionState,
 } from '../features/motion/motionSlice';
-import {
-  selectJourneyOverrides,
-  type JourneyState,
-} from '../features/journey/journeySlice';
+import type { JourneyState } from '../features/journey/journeySlice';
+import { selectJourneyOverrides } from '../features/journey/selectors';
 import type { Manifest } from '../data/schema';
 import type { SelectionState } from '../features/selection/selectionSlice';
 import type { SystemsState } from '../features/systems/systemsSlice';

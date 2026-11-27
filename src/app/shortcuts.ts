@@ -51,6 +51,7 @@ export function shortcutFor(e: {
   shiftKey: boolean;
   targetTag: string;
   targetEditable: boolean;
+  targetInteractive?: boolean;
   tourActive?: boolean;
   journeyActive?: boolean;
 }): Command | null {
@@ -66,7 +67,7 @@ export function shortcutFor(e: {
   }
 
   if (e.journeyActive && !e.shiftKey) {
-    if (e.key === ' ') return 'journey-toggle';
+    if (e.key === ' ' && !e.targetInteractive) return 'journey-toggle';
     if (e.key === 'ArrowRight') return 'journey-next';
     if (e.key === 'ArrowLeft') return 'journey-prev';
   }

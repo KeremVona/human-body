@@ -229,4 +229,78 @@ describe('ToursDialog', () => {
       expect(onOpenChange).toHaveBeenCalledWith(false);
     });
   });
+
+  it('shows load-error banner and disables tour start buttons during an active journey', async () => {
+    const { journeysFailed, journeysLoaded, journeyStarted } = await import(
+      '../journey/journeySlice'
+    );
+    const store = makeStore();
+    store.dispatch(toursLoaded({ defs, texts }));
+    store.dispatch(journeysFailed());
+
+    const { rerender } = render(
+      <Provider store={store}>
+        <ToursDialog open onOpenChange={() => {}} />
+      </Provider>,
+    );
+
+    expect(screen.getByText('Could not load the journey.')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Retry' })).toBeInTheDocument();
+
+    store.dispatch(
+      journeysLoaded({
+        defs: [
+          {
+            id: 'digestion',
+            systems: ['digestive'],
+            stages: [
+              {
+                id: 'mouth',
+                durationS: 30,
+                food: 'bolus',
+                radius: 0.008,
+                motion: 'none',
+                organs: [],
+                view: { c: [0, 0, 2, 0, 0, 0], s: ['digestive'], h: [], sel: [] },
+                path: [{ line: 'a' }],
+                modelled: true,
+                nutrients: { carbs: 5, protein: 0, fat: 0, water: 0, absorbed: 0 },
+              },
+            ],
+          },
+        ],
+        texts: {
+          digestion: {
+            title: 'Follow a bite of food',
+            summary: 'Mouth to exit.',
+            stages: { mouth: { title: 'Mouth', body: 'Chew' } },
+            events: {},
+            fallback: false,
+          },
+        },
+        centerlines: { version: 1, lines: { a: [[0, 0, 0], [0, 0.1, 0]] } },
+      }),
+    );
+    store.dispatch(
+      journeyStarted({
+        id: 'digestion',
+        stageIndex: 0,
+        progress: 0,
+        following: true,
+        playing: true,
+      }),
+    );
+
+    rerender(
+      <Provider store={store}>
+        <ToursDialog open onOpenChange={() => {}} />
+      </Provider>,
+    );
+
+    const startButtons = screen.getAllByRole('button', { name: 'Start' });
+    for (const btn of startButtons.slice(1)) {
+      expect(btn).toBeDisabled();
+      expect(btn).toHaveAttribute('title', 'Finish the journey first');
+    }
+  });
 });

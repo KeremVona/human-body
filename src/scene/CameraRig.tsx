@@ -106,6 +106,8 @@ export function CameraRig(): null {
     const triggerInvalidate = () => invalidate();
     const handleControlStart = () => {
       invalidate();
+      followTargetRef.current = null;
+      followDirtyRef.current = false;
       const j = store.getState().journey;
       if (j?.activeId && j.following) {
         store.dispatch(journeyFollowingSet(false));

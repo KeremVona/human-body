@@ -153,7 +153,7 @@ export function JourneyBar(): JSX.Element | null {
     >
       {/* Polite stage announcement on stage change (keyed on stageIndex, never progress) */}
       <div aria-live="polite" className="sr-only">
-        {`${stageTitle}. ${stageBody}`}
+        {[stageTitle, stageBody].filter(Boolean).join('. ')}
       </div>
 
       <div className="flex items-center justify-between gap-2 text-[11px] font-medium text-slate-300">

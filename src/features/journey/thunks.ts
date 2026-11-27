@@ -226,6 +226,7 @@ export function startJourney(
     }
 
     if (state.journey.loadStatus === 'error') {
+      dispatch(journeyNoticeSet('load-error'));
       return 'refused';
     }
 
@@ -250,9 +251,7 @@ export function startJourney(
       await dispatch(exitTour());
       if (tokens.get(key) !== token) return 'refused';
     }
-    if (getState().motion?.activeId) {
-      dispatch(stopMotion());
-    }
+    dispatch(stopMotion());
 
     const route = getRoute(journey, centerlines.lines, manifest.meshes);
     const reduced = prefersReducedMotion();

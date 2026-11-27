@@ -197,4 +197,77 @@ describe('SharePopover', () => {
     expect(JSON.parse(copiedJson).id).toBe('step-x');
     expect(JSON.parse(copiedJson).view.p).toBeUndefined();
   });
+
+  it('offers Link to this stage during active journey', async () => {
+    const user = userEvent.setup();
+    const writeText = vi.fn<(text: string) => Promise<void>>(async () => {});
+    Object.defineProperty(navigator, 'clipboard', {
+      configurable: true,
+      value: { writeText },
+    });
+
+    const store = makeStore();
+    const { journeysLoaded, journeyStarted, journeyStageSet } = await import(
+      '../journey/journeySlice'
+    );
+    store.dispatch(
+      journeysLoaded({
+        defs: [
+          {
+            id: 'digestion',
+            systems: ['digestive'],
+            stages: [
+              {
+                id: 'mouth',
+                durationS: 10,
+                food: 'bolus',
+                radius: 0.008,
+                motion: 'none',
+                organs: [],
+                view: { c: [0, 0, 2, 0, 0, 0], s: ['digestive'], h: [], sel: [] },
+                path: [{ line: 'a' }],
+                modelled: true,
+                nutrients: { carbs: 5, protein: 0, fat: 0, water: 0, absorbed: 0 },
+              },
+              {
+                id: 'stomach',
+                durationS: 14,
+                food: 'chyme',
+                radius: 0.011,
+                motion: 'churn',
+                organs: [],
+                view: { c: [0, 0, 2, 0, 0, 0], s: ['digestive'], h: [], sel: [] },
+                path: [{ line: 'b' }],
+                modelled: true,
+                nutrients: { carbs: 30, protein: 15, fat: 10, water: 0, absorbed: 0 },
+              },
+            ],
+          },
+        ],
+        texts: {},
+        centerlines: { version: 1, lines: { a: [[0, 0, 0], [0, 0.1, 0]], b: [[0, 0.1, 0], [0, 0.2, 0]] } },
+      }),
+    );
+    store.dispatch(
+      journeyStarted({
+        id: 'digestion',
+        stageIndex: 0,
+        progress: 0,
+        following: true,
+        playing: true,
+      }),
+    );
+    store.dispatch(journeyStageSet(1));
+
+    render(
+      <Provider store={store}>
+        <SharePopover open onOpenChange={() => {}} />
+      </Provider>,
+    );
+
+    await user.click(screen.getByRole('button', { name: 'Link to this stage' }));
+    expect(writeText).toHaveBeenCalledWith(
+      expect.stringContaining('#journey/digestion/2'),
+    );
+  });
 });

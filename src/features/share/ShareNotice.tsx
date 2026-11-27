@@ -25,7 +25,9 @@ export function ShareNotice(): JSX.Element | null {
       ? tr('tour.notFound')
       : journeyNotice === 'not-found'
         ? tr('journey.notFound')
-        : null;
+        : journeyNotice === 'load-error'
+          ? tr('journey.error')
+          : null;
 
   if (!message) return null;
 

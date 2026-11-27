@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Provider } from 'react-redux';
 import { afterEach, describe, expect, it, vi } from 'vitest';
@@ -316,10 +316,7 @@ describe('Inspector', () => {
                 motion: 'none',
                 organs: ['femur--l'],
                 view: { c: [0, 0, 2, 0, 0, 0], s: ['skeletal'], h: [], sel: [] },
-                path: [
-                  { mesh: 'femur--l', anchor: [0.5, 0.5, 0.5] },
-                  { mesh: 'femur--l', anchor: [0.5, 0.4, 0.5] },
-                ],
+                path: [{ line: 'a' }],
                 modelled: true,
                 nutrients: { carbs: 5, protein: 0, fat: 0, water: 0, absorbed: 0 },
               },
@@ -331,10 +328,7 @@ describe('Inspector', () => {
                 motion: 'churn',
                 organs: [],
                 view: { c: [0, 0, 2, 0, 0, 0], s: ['skeletal'], h: [], sel: [] },
-                path: [
-                  { mesh: 'femur--l', anchor: [0.5, 0.3, 0.5] },
-                  { mesh: 'femur--l', anchor: [0.5, 0.2, 0.5] },
-                ],
+                path: [{ line: 'b' }],
                 modelled: true,
                 nutrients: { carbs: 10, protein: 0, fat: 0, water: 0, absorbed: 0 },
               },
@@ -342,7 +336,19 @@ describe('Inspector', () => {
           },
         ],
         texts: {},
-        centerlines: { version: 1, lines: {} },
+        centerlines: {
+          version: 1,
+          lines: {
+            a: [
+              [0, 0, 0],
+              [0, 0.1, 0],
+            ],
+            b: [
+              [0, 0.1, 0],
+              [0, 0.2, 0],
+            ],
+          },
+        },
       }),
     );
 
@@ -360,8 +366,16 @@ describe('Inspector', () => {
         </CameraApiProvider>
       </Provider>,
     );
-    expect(
-      screen.getByRole('button', { name: 'Watch food pass through here' }),
-    ).toBeInTheDocument();
+    const linkBtn = screen.getByRole('button', {
+      name: 'Watch food pass through here',
+    });
+    expect(linkBtn).toBeInTheDocument();
+
+    const user = userEvent.setup();
+    await user.click(linkBtn);
+    await waitFor(() => {
+      expect(store.getState().journey.activeId).toBe('digestion');
+      expect(store.getState().journey.stageIndex).toBe(0);
+    });
   });
 });

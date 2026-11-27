@@ -138,7 +138,12 @@ export function startMotion(
     }
 
     if (startTokens.get(cacheKey) !== token) return;
-    if (getState().quiz.status !== 'off') return;
+    if (
+      getState().quiz.status !== 'off' ||
+      getState().journey?.activeId != null
+    ) {
+      return;
+    }
 
     if (!opts?.skipCamera) {
       await extra?.camera?.current?.goToPreset(def.view);

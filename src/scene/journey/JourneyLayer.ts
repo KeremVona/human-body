@@ -16,7 +16,7 @@ import {
 import type { Vec3 } from '../../data/schema';
 import type { JourneyRoute } from '../../features/journey/route';
 import { stageAt } from '../../features/journey/route';
-import { BITE_LOOKS, cloneLook, lerpLook, type BiteLook } from './biteLook';
+import { BITE_LOOKS, cloneLook, type BiteLook } from './biteLook';
 import { createRouteMaterial } from './routeMaterial';
 
 export const RING_COUNT = 3;
@@ -273,7 +273,6 @@ export function createJourneyLayer(route: JourneyRoute): JourneyLayer {
   const ringMatrices = Array.from({ length: RING_COUNT }, () => new Matrix4());
   const dropletQuat = new Quaternion();
   const dropletScale = new Vector3(0.0015, 0.0015, 0.0015);
-  const curLook = cloneLook(BITE_LOOKS.bolus);
 
   return {
     group,
@@ -293,10 +292,9 @@ export function createJourneyLayer(route: JourneyRoute): JourneyLayer {
     updateBite(pos, radius, look) {
       biteMesh.position.copy(pos);
       biteMesh.scale.setScalar(radius);
-      lerpLook(look, look, 1, curLook);
-      biteMaterial.color.copy(curLook.color);
-      biteMaterial.roughness = curLook.roughness;
-      biteMaterial.transmission = curLook.transmission;
+      biteMaterial.color.copy(look.color);
+      biteMaterial.roughness = look.roughness;
+      biteMaterial.transmission = look.transmission;
     },
     updateRings(active, targetRoute, u, radius, timeS) {
       if (!active) {

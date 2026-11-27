@@ -362,4 +362,30 @@ describe('MotionPanel and LeftPanel Motion tab', () => {
         Node.DOCUMENT_POSITION_FOLLOWING,
     ).toBeTruthy();
   });
+
+  it('disables motion demos while a journey is active', async () => {
+    const { journeyStarted } = await import('../journey/journeySlice');
+    const { store } = setupStore();
+    store.dispatch(
+      journeyStarted({
+        id: 'digestion',
+        stageIndex: 0,
+        progress: 0,
+        following: true,
+        playing: true,
+      }),
+    );
+
+    render(
+      <Provider store={store}>
+        <MotionPanel />
+      </Provider>,
+    );
+
+    const elbowBtn = await screen.findByRole('button', {
+      name: 'Elbow flexion and extension',
+    });
+    expect(elbowBtn).toBeDisabled();
+    expect(elbowBtn).toHaveAttribute('title', 'Finish the journey first');
+  });
 });

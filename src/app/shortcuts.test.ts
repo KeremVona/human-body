@@ -70,6 +70,7 @@ describe('shortcutFor', () => {
   it('maps Space, ArrowRight and ArrowLeft when journeyActive is true', () => {
     expect(k(' ')).toBeNull();
     expect(k(' ', { journeyActive: true })).toBe('journey-toggle');
+    expect(k(' ', { journeyActive: true, targetInteractive: true })).toBeNull();
     expect(k('ArrowRight', { journeyActive: true })).toBe('journey-next');
     expect(k('ArrowLeft', { journeyActive: true })).toBe('journey-prev');
     expect(k(' ', { journeyActive: true, targetTag: 'INPUT' })).toBeNull();

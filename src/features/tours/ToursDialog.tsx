@@ -29,6 +29,7 @@ export function ToursDialog({
   const journeyDefs = useAppSelector((s) => s.journey.defs);
   const journeyTexts = useAppSelector((s) => s.journey.texts);
   const journeyLoadStatus = useAppSelector((s) => s.journey.loadStatus);
+  const journeyActive = useAppSelector((s) => s.journey.activeId !== null);
   const quizActive = useAppSelector((s) => s.quiz.status !== 'off');
 
   useEffect(() => {
@@ -85,7 +86,18 @@ export function ToursDialog({
             {tr('tour.dialogTitle')}
           </Dialog.Description>
 
-          {journeyDefs && journeyDefs.length > 0 ? (
+          {journeyLoadStatus === 'error' ? (
+            <div className="mt-4 flex items-center justify-between gap-3 rounded-xl border border-red-400/25 bg-red-500/10 px-4 py-3 text-xs text-red-100">
+              <span>{tr('journey.error')}</span>
+              <button
+                type="button"
+                onClick={() => void dispatch(loadJourneys())}
+                className="rounded-lg bg-white/10 px-2.5 py-1 font-medium text-white hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-sky-400"
+              >
+                {tr('motion.retry')}
+              </button>
+            </div>
+          ) : journeyDefs && journeyDefs.length > 0 ? (
             <div className="mt-4">
               <h3 className="text-xs font-semibold tracking-wider text-sky-300 uppercase">
                 {tr('journey.section')}
@@ -168,9 +180,13 @@ export function ToursDialog({
                     </div>
                     <button
                       type="button"
-                      disabled={quizActive}
+                      disabled={quizActive || journeyActive}
                       title={
-                        quizActive ? tr('motion.finishQuizTitle') : undefined
+                        quizActive
+                          ? tr('motion.finishQuizTitle')
+                          : journeyActive
+                            ? tr('journey.finishFirst')
+                            : undefined
                       }
                       onClick={() => handleStart(tour.id)}
                       className="shrink-0 rounded-lg bg-sky-500 px-3 py-1.5 text-xs font-semibold text-slate-950 transition-colors hover:bg-sky-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-300 disabled:cursor-not-allowed disabled:bg-white/10 disabled:text-slate-400"

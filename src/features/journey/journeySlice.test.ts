@@ -16,8 +16,8 @@ import {
   journeyStageSet,
   journeyStarted,
   journeyTextsLoaded,
-  selectJourneyOverrides,
 } from './journeySlice';
+import { selectJourneyOverrides } from './selectors';
 import type { Journey } from './schema';
 
 const bounds = {

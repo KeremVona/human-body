@@ -171,7 +171,9 @@ function stubFetch(opts: { failDefs?: boolean } = {}) {
 }
 
 function makeTestStore() {
-  const setPose = vi.fn((_p: unknown, _animate: unknown) => Promise.resolve());
+  const setPose = vi.fn<(p: unknown, animate: unknown) => Promise<void>>(() =>
+    Promise.resolve(),
+  );
   const followTarget = vi.fn();
   let currentPose = {
     position: [1, 2, 3] as [number, number, number],
@@ -336,6 +338,15 @@ describe('journey thunks and exclusivity', () => {
     await store.dispatch(nextStage());
     expect(store.getState().journey.stageIndex).toBe(1);
     await store.dispatch(nextStage());
+    expect(store.getState().journey.activeId).toBeNull();
+  });
+
+  it('sets loadStatus=error and journey.notice=load-error when definitions fail to load', async () => {
+    stubFetch({ failDefs: true });
+    const { store } = makeTestStore();
+    expect(await store.dispatch(startJourney('digestion'))).toBe('refused');
+    expect(store.getState().journey.loadStatus).toBe('error');
+    expect(store.getState().journey.notice).toBe('load-error');
     expect(store.getState().journey.activeId).toBeNull();
   });
 });

@@ -13,6 +13,7 @@ import {
 import { getRoute, localProgress, stageAt } from '../../features/journey/route';
 import { applyStageView } from '../../features/journey/thunks';
 import { prefersReducedMotion } from '../../features/motion/reducedMotion';
+import { selectBundlesForSystem } from '../../features/assets/assetsSlice';
 import { useCameraApi } from '../camera';
 import { sectionMaterialLibrary } from '../sectionPlaneStore';
 import { BITE_LOOKS, cloneLook, lerpLook } from './biteLook';
@@ -42,15 +43,39 @@ export function JourneyPlayer(): null {
   const activeId = useAppSelector((s) => s.journey.activeId);
   const playing = useAppSelector((s) => s.journey.playing);
   const speed = useAppSelector((s) => s.journey.speed);
-  const following = useAppSelector((s) => s.journey.following);
   const stageIndex = useAppSelector((s) => s.journey.stageIndex);
   const manifest = useAppSelector((s) => s.assets.manifest);
+  const bundles = useAppSelector((s) => s.assets.bundles);
+  const contentIndex = useAppSelector((s) => s.content.index);
 
   const journey = useMemo(
     () =>
       defs && activeId ? (defs.find((d) => d.id === activeId) ?? null) : null,
     [defs, activeId],
   );
+
+  const stageSystems = journey?.stages[stageIndex]?.view.s;
+  const requiredBundles = useMemo(() => {
+    if (
+      !stageSystems ||
+      stageSystems.length === 0 ||
+      !manifest ||
+      !contentIndex
+    ) {
+      return [];
+    }
+    const state = store.getState();
+    const set = new Set<string>();
+    for (const sys of stageSystems) {
+      for (const id of selectBundlesForSystem(state, sys)) {
+        set.add(id);
+      }
+    }
+    return [...set];
+  }, [stageSystems, manifest, contentIndex, store]);
+  const stageBundlesReady =
+    requiredBundles.length === 0 ||
+    requiredBundles.every((id) => bundles[id] === 'ready');
 
   const route = useMemo(() => {
     if (!journey || !centerlines || !manifest) return null;
@@ -92,20 +117,19 @@ export function JourneyPlayer(): null {
   );
   const lookGoalRef = useRef(journey?.stages[stageIndex]?.food ?? 'bolus');
   const lookBlendRef = useRef(1);
-  const streamRef = useRef<{
-    stage: number;
-    eventIdx: number;
-    via: string;
-    remainingS: number;
-    phase: number;
-  } | null>(null);
-  const firedEventsRef = useRef<Set<string>>(new Set());
+  const streamRef = useRef({
+    active: false,
+    via: '',
+    remainingS: 0,
+    phase: 0,
+  });
+  const firedEventsRef = useRef<Set<number>>(new Set());
 
   useEffect(() => {
     if (stageIndex !== lastStageRef.current) {
       lastStageRef.current = stageIndex;
       stageEnterCooldownRef.current = 0.55;
-      streamRef.current = null;
+      streamRef.current.active = false;
       firedEventsRef.current.clear();
     }
   }, [stageIndex]);
@@ -179,7 +203,7 @@ export function JourneyPlayer(): null {
     let u = journeyClock.get();
     let needsFrame = false;
 
-    if (playing && !reduced) {
+    if (playing && !reduced && stageBundlesReady) {
       timeRef.current += dt * speed;
       u = advanceJourneyProgress(route, durationsS, u, dt, speed);
       journeyClock.set(u);
@@ -188,13 +212,15 @@ export function JourneyPlayer(): null {
       const sNext = stageAt(route, u);
       if (sNext !== lastStageRef.current) {
         lastStageRef.current = sNext;
-        stageEnterCooldownRef.current = 0.55;
-        firedEventsRef.current.clear();
-        streamRef.current = null;
-        dispatch(journeyStageSet(sNext));
-        dispatch(journeyProgressSet(u));
-        lastCommitMsRef.current = performance.now();
-        void dispatch(applyStageView(sNext));
+        if (sNext !== store.getState().journey.stageIndex) {
+          stageEnterCooldownRef.current = 0.55;
+          firedEventsRef.current.clear();
+          streamRef.current.active = false;
+          dispatch(journeyStageSet(sNext));
+          dispatch(journeyProgressSet(u));
+          lastCommitMsRef.current = performance.now();
+          void dispatch(applyStageView(sNext));
+        }
       } else {
         const now = performance.now();
         if (now - lastCommitMsRef.current >= PROGRESS_THROTTLE_MS) {
@@ -213,32 +239,45 @@ export function JourneyPlayer(): null {
     const stage = journey.stages[s];
     if (!stage) return;
 
-    // Smoothly ease radius toward current stage's target radius
-    const radiusDiff = stage.radius - curRadiusRef.current;
-    if (Math.abs(radiusDiff) > 1e-5) {
-      curRadiusRef.current += radiusDiff * Math.min(1, dt * 8);
-      needsFrame = true;
-    } else {
+    if (reduced) {
       curRadiusRef.current = stage.radius;
-    }
-
-    // Smoothly ease food look toward current stage's target look
-    if (lookGoalRef.current !== stage.food) {
-      fromLookRef.current.color.copy(curLookRef.current.color);
-      fromLookRef.current.roughness = curLookRef.current.roughness;
-      fromLookRef.current.transmission = curLookRef.current.transmission;
+      const targetLook = BITE_LOOKS[stage.food];
+      fromLookRef.current.color.copy(targetLook.color);
+      fromLookRef.current.roughness = targetLook.roughness;
+      fromLookRef.current.transmission = targetLook.transmission;
+      curLookRef.current.color.copy(targetLook.color);
+      curLookRef.current.roughness = targetLook.roughness;
+      curLookRef.current.transmission = targetLook.transmission;
       lookGoalRef.current = stage.food;
-      lookBlendRef.current = 0;
-    }
-    if (lookBlendRef.current < 1) {
-      lookBlendRef.current = Math.min(1, lookBlendRef.current + dt * 2.5);
-      lerpLook(
-        fromLookRef.current,
-        BITE_LOOKS[stage.food],
-        lookBlendRef.current,
-        curLookRef.current,
-      );
-      needsFrame = true;
+      lookBlendRef.current = 1;
+    } else {
+      // Smoothly ease radius toward current stage's target radius
+      const radiusDiff = stage.radius - curRadiusRef.current;
+      if (Math.abs(radiusDiff) > 1e-5) {
+        curRadiusRef.current += radiusDiff * Math.min(1, dt * 8);
+        needsFrame = true;
+      } else {
+        curRadiusRef.current = stage.radius;
+      }
+
+      // Smoothly ease food look toward current stage's target look
+      if (lookGoalRef.current !== stage.food) {
+        fromLookRef.current.color.copy(curLookRef.current.color);
+        fromLookRef.current.roughness = curLookRef.current.roughness;
+        fromLookRef.current.transmission = curLookRef.current.transmission;
+        lookGoalRef.current = stage.food;
+        lookBlendRef.current = 0;
+      }
+      if (lookBlendRef.current < 1) {
+        lookBlendRef.current = Math.min(1, lookBlendRef.current + dt * 2.5);
+        lerpLook(
+          fromLookRef.current,
+          BITE_LOOKS[stage.food],
+          lookBlendRef.current,
+          curLookRef.current,
+        );
+        needsFrame = true;
+      }
     }
 
     const wobble =
@@ -273,32 +312,37 @@ export function JourneyPlayer(): null {
         anyOpen = true;
       }
       if (!reduced && ev.via) {
-        const key = `${s}:${i}`;
-        if (lp >= ev.at && !firedEventsRef.current.has(key)) {
-          firedEventsRef.current.add(key);
-          streamRef.current = {
-            stage: s,
-            eventIdx: i,
-            via: ev.via,
-            remainingS: DROPLET_DURATION_S,
-            phase: 0,
-          };
+        if (lp >= ev.at && !firedEventsRef.current.has(i)) {
+          firedEventsRef.current.add(i);
+          streamRef.current.active = true;
+          streamRef.current.via = ev.via;
+          streamRef.current.remainingS = DROPLET_DURATION_S;
+          streamRef.current.phase = 0;
         }
       }
     }
 
     const matLib = sectionMaterialLibrary.get();
-    if (!reduced && anyOpen) {
+    if (playing && !reduced && anyOpen) {
       pulseWasOpenRef.current = true;
       const pulse = 0.25 + 0.35 * (0.5 - 0.5 * Math.cos(timeRef.current * 6));
       matLib?.setActivePulse(pulse);
       needsFrame = true;
+    } else if (!reduced && anyOpen) {
+      if (!pulseWasOpenRef.current) {
+        pulseWasOpenRef.current = true;
+        matLib?.setActivePulse(0.45);
+      }
     } else if (pulseWasOpenRef.current) {
       pulseWasOpenRef.current = false;
       matLib?.setActivePulse(0.25);
     }
 
-    if (!reduced && streamRef.current && streamRef.current.remainingS > 0) {
+    if (
+      !reduced &&
+      streamRef.current.active &&
+      streamRef.current.remainingS > 0
+    ) {
       if (playing) {
         streamRef.current.remainingS -= dt * speed;
         streamRef.current.phase += dt * speed;
@@ -307,16 +351,18 @@ export function JourneyPlayer(): null {
       const table = viaTables.get(streamRef.current.via) ?? null;
       layer.updateDroplets(table, streamRef.current.phase);
     } else {
+      streamRef.current.active = false;
       layer.updateDroplets(null, 0);
     }
 
-    if (stageEnterCooldownRef.current > 0) {
+    if (stageBundlesReady && stageEnterCooldownRef.current > 0) {
       stageEnterCooldownRef.current -= dt;
     }
     if (
-      following &&
+      store.getState().journey.following &&
       playing &&
       !reduced &&
+      stageBundlesReady &&
       stageEnterCooldownRef.current <= 0
     ) {
       followTupleRef.current[0] = bitePosRef.current.x;

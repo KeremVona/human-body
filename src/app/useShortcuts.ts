@@ -32,6 +32,13 @@ export function useShortcuts(onContextMenu?: () => void): void {
       const state = store.getState();
       const tourActive = state.tour?.activeId != null;
       const journeyActive = state.journey?.activeId != null;
+      const targetInteractive =
+        target instanceof Element &&
+        Boolean(
+          target.closest(
+            'button, a[href], summary, [role="button"], [role="radio"], [role="slider"], [role="tab"], [role="checkbox"], [role="switch"], [role="menuitem"]',
+          ),
+        );
       const cmd = shortcutFor({
         key: e.key,
         ctrlKey: e.ctrlKey,
@@ -41,6 +48,7 @@ export function useShortcuts(onContextMenu?: () => void): void {
         targetTag: target instanceof Element ? target.tagName : '',
         targetEditable:
           target instanceof HTMLElement ? target.isContentEditable : false,
+        targetInteractive,
         tourActive,
         journeyActive,
       });
@@ -105,12 +113,20 @@ export function useShortcuts(onContextMenu?: () => void): void {
           break;
         case 'journey-toggle':
           e.preventDefault();
-          if (skeletalReady && !quizActive && journeyActive) {
+          if (
+            skeletalReady &&
+            !quizActive &&
+            journeyActive &&
+            state.journey.loadStatus !== 'error'
+          ) {
             void Promise.all([
               import('../features/journey/journeySlice'),
               import('../features/motion/reducedMotion'),
             ]).then(([{ journeyPlayingSet }, { prefersReducedMotion }]) => {
-              if (!prefersReducedMotion()) {
+              if (
+                !prefersReducedMotion() &&
+                store.getState().journey.loadStatus !== 'error'
+              ) {
                 dispatch(journeyPlayingSet(!store.getState().journey.playing));
               }
             });
