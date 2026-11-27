@@ -33,13 +33,18 @@ import {
   type JourneyTextsFile,
 } from './schema';
 
+export type OrganJourneyTarget = {
+  journeyId: JourneyId;
+  stageIndex: number;
+};
+
 const inFlightLoads = new WeakMap<object, Promise<void>>();
 const cachedEnTexts = new WeakMap<object, JourneyTextsFile>();
 const savedViews = new WeakMap<object, ViewStateV1>();
 const tokens = new WeakMap<object, number>();
 const organLookupCache = new WeakMap<
   Journey[],
-  Map<MeshId, { journeyId: JourneyId; stageIndex: number }>
+  Map<MeshId, OrganJourneyTarget[]>
 >();
 const fallbackKey = {};
 
@@ -69,21 +74,27 @@ async function fetchJourneyTexts(
   }
 }
 
-/** Builds and caches a lookup from mesh id to its first `[journeyId, stageIndex]`. */
+/** Builds and caches a lookup from mesh id to its first `[journeyId, stageIndex]` entry per journey. */
 export function getOrganJourneyLookup(
   defs: Journey[] | null,
-): Map<MeshId, { journeyId: JourneyId; stageIndex: number }> {
+): Map<MeshId, OrganJourneyTarget[]> {
   if (!defs) return new Map();
   let cached = organLookupCache.get(defs);
   if (cached) return cached;
 
   cached = new Map();
   for (const journey of defs) {
+    const seenInJourney = new Set<MeshId>();
     for (let s = 0; s < journey.stages.length; s += 1) {
       for (const meshId of journey.stages[s].organs) {
-        if (!cached.has(meshId)) {
-          cached.set(meshId, { journeyId: journey.id, stageIndex: s });
+        if (seenInJourney.has(meshId)) continue;
+        seenInJourney.add(meshId);
+        let list = cached.get(meshId);
+        if (!list) {
+          list = [];
+          cached.set(meshId, list);
         }
+        list.push({ journeyId: journey.id, stageIndex: s });
       }
     }
   }

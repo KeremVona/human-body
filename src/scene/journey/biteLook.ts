@@ -1,5 +1,5 @@
 import { Color } from 'three';
-import type { FoodState } from '../../features/journey/schema';
+import type { Look } from '../../features/journey/schema';
 
 export type BiteLook = {
   color: Color;
@@ -7,7 +7,7 @@ export type BiteLook = {
   transmission: number;
 };
 
-export const BITE_LOOKS: Record<FoodState, BiteLook> = {
+export const BITE_LOOKS: Record<Look, BiteLook> = {
   bolus: {
     color: new Color('#e8dac2'),
     roughness: 0.34,
@@ -22,6 +22,26 @@ export const BITE_LOOKS: Record<FoodState, BiteLook> = {
     color: new Color('#7d5438'),
     roughness: 0.78,
     transmission: 0,
+  },
+  'blood-deoxy': {
+    color: new Color('#6e1420'),
+    roughness: 0.18,
+    transmission: 0,
+  },
+  'blood-oxy': {
+    color: new Color('#d4202c'),
+    roughness: 0.14,
+    transmission: 0,
+  },
+  'air-fresh': {
+    color: new Color('#cfe8ff'),
+    roughness: 0.05,
+    transmission: 0.6,
+  },
+  'air-stale': {
+    color: new Color('#a9b4c2'),
+    roughness: 0.1,
+    transmission: 0.45,
   },
 };
 

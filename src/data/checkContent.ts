@@ -422,7 +422,7 @@ function checkMotions(
 function checkTourTextField(
   fileLabel: string,
   target: string,
-  field: 'title' | 'summary' | 'body' | 'note' | 'label',
+  field: string,
   value: string,
   maxLength: number,
   errors: string[],

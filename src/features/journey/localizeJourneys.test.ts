@@ -7,6 +7,13 @@ const en: JourneyTextsFile = {
     digestion: {
       title: 'Follow a bite of food',
       summary: 'From mouth to exit.',
+      follow: 'Follow the food',
+      inspectorLink: 'Watch food pass through here',
+      metersTitle: "What's been digested",
+      metersNote: 'Rounded teaching values',
+      meters: {
+        carbs: { label: 'Carbohydrates', value: '{v}% broken down, {s}% absorbed' },
+      },
       stages: {
         mouth: { title: 'Mouth', body: 'Chewing begins.' },
         exit: { title: 'Exit', body: 'Leaves the tract.', note: 'Not modelled yet.' },
@@ -25,6 +32,13 @@ describe('localizeJourneyTexts', () => {
         digestion: {
           title: 'Bir lokmanın yolculuğu',
           summary: 'Ağızdan çıkışa.',
+          follow: 'Yiyeceği takip et',
+          inspectorLink: 'Yiyeceğin buradan geçişini izle',
+          metersTitle: 'Neler sindirildi',
+          metersNote: 'Yuvarlanmış öğretici değerler',
+          meters: {
+            carbs: { label: 'Karbonhidratlar', value: '%{v} parçalandı, %{s} emildi' },
+          },
           stages: {
             mouth: { title: 'Ağız', body: 'Çiğneme başlar.' },
             exit: { title: 'Çıkış', body: 'Kanaldan çıkar.', note: 'Henüz modellenmedi.' },
@@ -39,6 +53,13 @@ describe('localizeJourneyTexts', () => {
     expect(localized.digestion).toEqual({
       title: 'Bir lokmanın yolculuğu',
       summary: 'Ağızdan çıkışa.',
+      follow: 'Yiyeceği takip et',
+      inspectorLink: 'Yiyeceğin buradan geçişini izle',
+      metersTitle: 'Neler sindirildi',
+      metersNote: 'Yuvarlanmış öğretici değerler',
+      meters: {
+        carbs: { label: 'Karbonhidratlar', value: '%{v} parçalandı, %{s} emildi' },
+      },
       stages: {
         mouth: { title: 'Ağız', body: 'Çiğneme başlar.' },
         exit: { title: 'Çıkış', body: 'Kanaldan çıkar.', note: 'Henüz modellenmedi.' },
@@ -67,6 +88,11 @@ describe('localizeJourneyTexts', () => {
     expect(localized.digestion.fallback).toBe(true);
     expect(localized.digestion.title).toBe('Follow a bite of food');
     expect(localized.digestion.summary).toBe('Özet');
+    expect(localized.digestion.follow).toBe('Follow the food');
+    expect(localized.digestion.meters.carbs).toEqual({
+      label: 'Carbohydrates',
+      value: '{v}% broken down, {s}% absorbed',
+    });
     expect(localized.digestion.stages.mouth).toEqual({
       title: 'Ağız',
       body: 'Chewing begins.',
@@ -79,7 +105,7 @@ describe('localizeJourneyTexts', () => {
     expect(localized.digestion.events.saliva).toBe('Saliva added');
   });
 
-  it('falls back completely when locale overlay is null', () => {
+  it('flags fallback = true when locale file is null', () => {
     const localized = localizeJourneyTexts(en, null);
     expect(localized.digestion.fallback).toBe(true);
     expect(localized.digestion.title).toBe('Follow a bite of food');

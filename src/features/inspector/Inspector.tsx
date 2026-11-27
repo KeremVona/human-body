@@ -129,6 +129,7 @@ export function Inspector(): JSX.Element | null {
   const tourActive = useAppSelector((s) => s.tour.activeId !== null);
   const journeyActive = useAppSelector((s) => s.journey.activeId !== null);
   const journeyDefs = useAppSelector((s) => s.journey.defs);
+  const journeyTexts = useAppSelector((s) => s.journey.texts);
   const journeyLoadStatus = useAppSelector((s) => s.journey.loadStatus);
   const model = useAppSelector(selectInspectorModel);
   const layout = useInspectorLayout();
@@ -148,10 +149,16 @@ export function Inspector(): JSX.Element | null {
   }
 
   const organLookup = getOrganJourneyLookup(journeyDefs);
-  let journeyTarget: { journeyId: string; stageIndex: number } | undefined;
+  const journeyTargets: Array<{ journeyId: string; stageIndex: number }> = [];
+  const seenJourneys = new Set<string>();
   for (const meshId of model.meshIds) {
-    journeyTarget = organLookup.get(meshId);
-    if (journeyTarget) break;
+    const entries = organLookup.get(meshId);
+    if (!entries) continue;
+    for (const target of entries) {
+      if (seenJourneys.has(target.journeyId)) continue;
+      seenJourneys.add(target.journeyId);
+      journeyTargets.push(target);
+    }
   }
 
   const sideBadgeLabel =
@@ -304,18 +311,24 @@ export function Inspector(): JSX.Element | null {
           </button>
         </div>
 
-        {journeyTarget ? (
-          <button
-            type="button"
-            onClick={() =>
-              void dispatch(
-                startJourney(journeyTarget.journeyId, journeyTarget.stageIndex),
-              )
-            }
-            className="mt-2.5 inline-flex items-center gap-1.5 rounded-lg bg-sky-500/20 px-2.5 py-1 text-xs font-medium text-sky-200 ring-1 ring-sky-400/35 hover:bg-sky-500/30 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400"
-          >
-            {tr('journey.inspectorLink')}
-          </button>
+        {journeyTargets.length > 0 ? (
+          <div className="mt-2.5 flex flex-wrap gap-1.5">
+            {journeyTargets.map((target) => (
+              <button
+                key={target.journeyId}
+                type="button"
+                onClick={() =>
+                  void dispatch(
+                    startJourney(target.journeyId, target.stageIndex),
+                  )
+                }
+                className="inline-flex items-center gap-1.5 rounded-lg bg-sky-500/20 px-2.5 py-1 text-xs font-medium text-sky-200 ring-1 ring-sky-400/35 hover:bg-sky-500/30 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400"
+              >
+                {journeyTexts?.[target.journeyId]?.inspectorLink ??
+                  tr('journey.inspectorLinkFallback')}
+              </button>
+            ))}
+          </div>
         ) : null}
       </div>
 

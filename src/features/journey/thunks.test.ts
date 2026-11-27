@@ -66,30 +66,35 @@ const manifest: Manifest = {
 const fixtureJourney: Journey = {
   id: 'digestion',
   systems: ['digestive'],
+  meters: [
+    { id: 'carbs', unit: '%', max: 100, decimals: 0, monotonic: true, secondary: 'absorbed' },
+    { id: 'absorbed', unit: '%', max: 100, decimals: 0, monotonic: true },
+  ],
+  metersStart: { carbs: 0, absorbed: 0 },
   stages: [
     {
       id: 'mouth',
       durationS: 10,
-      food: 'bolus',
+      look: 'bolus',
       radius: 0.008,
       motion: 'none',
       organs: ['tongue'],
       view: { c: [0, 0.5, 0.6, 0, 0.5, 0], s: ['digestive'], h: [], sel: [] },
       path: [{ line: 'mouth' }],
       modelled: true,
-      nutrients: { carbs: 5, protein: 0, fat: 0, water: 0, absorbed: 0 },
+      meters: { carbs: 5, absorbed: 0 },
     },
     {
       id: 'stomach',
       durationS: 14,
-      food: 'chyme',
+      look: 'chyme',
       radius: 0.011,
       motion: 'churn',
       organs: ['stomach'],
       view: { c: [0, 0.2, 0.7, 0, 0.2, 0], s: ['digestive', 'skeletal'], o: { skeletal: 0.15 }, h: [], sel: [] },
       path: [{ line: 'stomach' }],
       modelled: true,
-      nutrients: { carbs: 30, protein: 15, fat: 10, water: 0, absorbed: 0 },
+      meters: { carbs: 30, absorbed: 0 },
     },
   ],
 };
@@ -348,5 +353,22 @@ describe('journey thunks and exclusivity', () => {
     expect(store.getState().journey.loadStatus).toBe('error');
     expect(store.getState().journey.notice).toBe('load-error');
     expect(store.getState().journey.activeId).toBeNull();
+  });
+
+  it('getOrganJourneyLookup returns one ordered target per matching journey', async () => {
+    const { getOrganJourneyLookup } = await import('./thunks');
+    const second: Journey = {
+      ...fixtureJourney,
+      id: 'blood',
+      stages: [
+        { ...fixtureJourney.stages[0], id: 'hand', organs: [] },
+        { ...fixtureJourney.stages[1], id: 'heart', organs: ['tongue'] },
+      ],
+    };
+    const lookup = getOrganJourneyLookup([fixtureJourney, second]);
+    expect(lookup.get('tongue')).toEqual([
+      { journeyId: 'digestion', stageIndex: 0 },
+      { journeyId: 'blood', stageIndex: 1 },
+    ]);
   });
 });

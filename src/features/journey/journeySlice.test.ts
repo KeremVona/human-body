@@ -28,11 +28,16 @@ const bounds = {
 const fixtureJourney: Journey = {
   id: 'digestion',
   systems: ['digestive'],
+  meters: [
+    { id: 'carbs', unit: '%', max: 100, decimals: 0, monotonic: true, secondary: 'absorbed' },
+    { id: 'absorbed', unit: '%', max: 100, decimals: 0, monotonic: true },
+  ],
+  metersStart: { carbs: 0, absorbed: 0 },
   stages: [
     {
       id: 'mouth',
       durationS: 10,
-      food: 'bolus',
+      look: 'bolus',
       radius: 0.008,
       motion: 'none',
       organs: ['tongue', 'upper-medial-incisor--l'],
@@ -42,20 +47,23 @@ const fixtureJourney: Journey = {
         { mesh: 'tongue', anchor: [0.5, 0.5, 0.3] },
       ],
       modelled: true,
-      events: [{ at: 0.2, kind: 'secrete', mesh: 'parotid-gland--l', id: 'saliva' }],
-      nutrients: { carbs: 5, protein: 0, fat: 0, water: 0, absorbed: 0 },
+      events: [
+        { at: 0.2, kind: 'secrete', mesh: 'parotid-gland--l', id: 'saliva' },
+        { at: 0.5, kind: 'highlight', mesh: 'uvula-of-palate', id: 'valve' },
+      ],
+      meters: { carbs: 5, absorbed: 0 },
     },
     {
       id: 'stomach',
       durationS: 10,
-      food: 'chyme',
+      look: 'chyme',
       radius: 0.011,
       motion: 'churn',
       organs: ['stomach'],
       view: { c: [0, 0.2, 0.6, 0, 0.2, 0], s: ['digestive'], h: [], sel: [] },
       path: [{ line: 'stomach' }],
       modelled: true,
-      nutrients: { carbs: 30, protein: 15, fat: 10, water: 0, absorbed: 0 },
+      meters: { carbs: 30, absorbed: 0 },
     },
   ],
 };
@@ -106,6 +114,7 @@ describe('journeySlice reducers and overrides', () => {
       digestion: {
         title: 'Title',
         summary: 'Summary',
+        meters: {},
         stages: {
           mouth: { title: 'Mouth', body: 'Chew' },
           stomach: { title: 'Stomach', body: 'Acid' },
@@ -202,6 +211,19 @@ describe('journeySlice reducers and overrides', () => {
       journey: windowState,
     });
     expect(ovOpen.active.has('parotid-gland--l')).toBe(true);
+    expect(ovOpen.active.has('uvula-of-palate')).toBe(false);
+
+    // Highlight event at 0.5 -> open at localP ~ 0.54 (progress ~ 0.175 of 0.33 mouth span):
+    const hlState = journeyReducer(
+      s,
+      journeyProgressSet(0.175),
+    );
+    const ovHighlight = selectJourneyOverrides({
+      ...baseInput,
+      journey: hlState,
+    });
+    expect(ovHighlight.active.has('uvula-of-palate')).toBe(true);
+    expect(ovHighlight.active.has('parotid-gland--l')).toBe(false);
   });
 
   it('selectSceneOverrides unions active and ghost sets from motion and journey', () => {

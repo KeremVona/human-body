@@ -33,32 +33,39 @@ const manifest: Manifest = {
 const fixtureJourney: Journey = {
   id: 'digestion',
   systems: ['digestive'],
+  meters: [
+    { id: 'carbs', unit: '%', max: 100, decimals: 0, monotonic: true, secondary: 'absorbed' },
+    { id: 'water', unit: '%', max: 100, decimals: 0, monotonic: true },
+    { id: 'absorbed', unit: '%', max: 100, decimals: 0, monotonic: true },
+  ],
+  metersStart: { carbs: 0, water: 0, absorbed: 0 },
   stages: [
     {
       id: 'mouth',
       durationS: 10,
       realTime: { min: 5, max: 30, unit: 's' },
-      food: 'bolus',
+      look: 'bolus',
       radius: 0.008,
       motion: 'none',
       organs: ['tongue'],
       view: { c: [0, 0.5, 0.6, 0, 0.5, 0], s: ['digestive'], h: [], sel: [] },
       path: [{ line: 'mouth' }],
       modelled: true,
-      nutrients: { carbs: 5, protein: 0, fat: 0, water: 0, absorbed: 0 },
+      events: [{ at: 0, kind: 'highlight', mesh: 'tongue', id: 'taste' }],
+      meters: { carbs: 5, water: 0, absorbed: 0 },
     },
     {
       id: 'stomach',
       durationS: 14,
       realTime: { min: 2, max: 4, unit: 'h' },
-      food: 'chyme',
+      look: 'chyme',
       radius: 0.011,
       motion: 'churn',
       organs: ['stomach'],
       view: { c: [0, 0.2, 0.7, 0, 0.2, 0], s: ['digestive'], h: [], sel: [] },
       path: [{ line: 'stomach' }],
       modelled: false,
-      nutrients: { carbs: 30, protein: 15, fat: 10, water: 0, absorbed: 0 },
+      meters: { carbs: 30, water: 10, absorbed: 10 },
     },
   ],
 };
@@ -105,6 +112,23 @@ function setupBar(opts: { reduced?: boolean; locale?: 'en' | 'tr' } = {}) {
         digestion: {
           title: opts.locale === 'tr' ? 'Bir lokmanın yolculuğu' : 'Follow a bite of food',
           summary: 'Summary',
+          follow: opts.locale === 'tr' ? 'Yiyeceği takip et' : 'Follow the food',
+          metersTitle: opts.locale === 'tr' ? 'Neler sindirildi' : "What's been digested",
+          metersNote: opts.locale === 'tr' ? 'Yuvarlanmış öğretici değerler' : 'Rounded teaching values',
+          meters: {
+            carbs: {
+              label: opts.locale === 'tr' ? 'Karbonhidratlar' : 'Carbohydrates',
+              value: opts.locale === 'tr' ? '%{v} parçalandı, %{s} emildi' : '{v}% broken down, {s}% absorbed',
+            },
+            water: {
+              label: opts.locale === 'tr' ? 'Su' : 'Water',
+              value: opts.locale === 'tr' ? '%{v} emildi' : '{v}% absorbed',
+            },
+            absorbed: {
+              label: opts.locale === 'tr' ? 'Emildi' : 'Absorbed',
+              value: opts.locale === 'tr' ? '%{v}' : '{v}%',
+            },
+          },
           stages: {
             mouth: {
               title: opts.locale === 'tr' ? 'Çiğneme' : 'Chewing',
@@ -116,7 +140,7 @@ function setupBar(opts: { reduced?: boolean; locale?: 'en' | 'tr' } = {}) {
               note: opts.locale === 'tr' ? 'Model dışı not' : 'Sample note.',
             },
           },
-          events: {},
+          events: { taste: opts.locale === 'tr' ? 'Tat alma' : 'Taste buds' },
           fallback: false,
         },
       },
@@ -149,6 +173,7 @@ describe('JourneyBar', () => {
     expect(screen.getByText('Stage 1 of 2')).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Chewing' })).toBeInTheDocument();
     expect(screen.getByText('Real time: about 5–30 seconds')).toBeInTheDocument();
+    expect(screen.getByText('Taste buds')).toBeInTheDocument();
 
     // Speed toggle
     await user.click(screen.getByRole('radio', { name: '2×' }));

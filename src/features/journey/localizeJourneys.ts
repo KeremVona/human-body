@@ -1,5 +1,10 @@
 import type { StructureId } from '../../data/ids';
-import type { JourneyId, JourneyTextsFile, StageId } from './schema';
+import type {
+  JourneyId,
+  JourneyTextsFile,
+  MeterId,
+  StageId,
+} from './schema';
 
 export type LocalizedStageText = {
   title: string;
@@ -7,9 +12,19 @@ export type LocalizedStageText = {
   note?: string;
 };
 
+export type LocalizedMeterText = {
+  label: string;
+  value: string;
+};
+
 export type LocalizedJourneyText = {
   title: string;
   summary: string;
+  follow?: string;
+  inspectorLink?: string;
+  metersTitle?: string;
+  metersNote?: string;
+  meters: Record<MeterId, LocalizedMeterText>;
   stages: Record<StageId, LocalizedStageText>;
   events: Record<StructureId, string>;
   fallback: boolean;
@@ -45,7 +60,41 @@ export function localizeJourneyTexts(
       fallback = true;
     }
 
-    const stages: Record<StageId, LocalizedStageText> = {};
+    const out: LocalizedJourneyText = {
+      title: title.text,
+      summary: summary.text,
+      meters: {},
+      stages: {},
+      events: {},
+      fallback,
+    };
+
+    for (const key of [
+      'follow',
+      'inspectorLink',
+      'metersTitle',
+      'metersNote',
+    ] as const) {
+      if (enEntry[key] !== undefined) {
+        const picked = pickField(locEntry?.[key], enEntry[key]);
+        if (picked.fellBack) fallback = true;
+        out[key] = picked.text;
+      }
+    }
+
+    for (const [meterId, enMeter] of Object.entries(enEntry.meters ?? {})) {
+      const locMeter =
+        locEntry?.meters && Object.hasOwn(locEntry.meters, meterId)
+          ? locEntry.meters[meterId]
+          : undefined;
+      const label = pickField(locMeter?.label, enMeter.label);
+      const value = pickField(locMeter?.value, enMeter.value);
+      if (label.fellBack || value.fellBack) {
+        fallback = true;
+      }
+      out.meters[meterId] = { label: label.text, value: value.text };
+    }
+
     for (const [stageId, enStage] of Object.entries(enEntry.stages ?? {})) {
       const locStage =
         locEntry?.stages && Object.hasOwn(locEntry.stages, stageId)
@@ -65,10 +114,9 @@ export function localizeJourneyTexts(
         if (note.fellBack) fallback = true;
         entry.note = note.text;
       }
-      stages[stageId] = entry;
+      out.stages[stageId] = entry;
     }
 
-    const events: Record<StructureId, string> = {};
     for (const [eventId, enLabel] of Object.entries(enEntry.events ?? {})) {
       const locLabel =
         locEntry?.events && Object.hasOwn(locEntry.events, eventId)
@@ -76,16 +124,11 @@ export function localizeJourneyTexts(
           : undefined;
       const picked = pickField(locLabel, enLabel);
       if (picked.fellBack) fallback = true;
-      events[eventId] = picked.text;
+      out.events[eventId] = picked.text;
     }
 
-    result[journeyId] = {
-      title: title.text,
-      summary: summary.text,
-      stages,
-      events,
-      fallback,
-    };
+    out.fallback = fallback;
+    result[journeyId] = out;
   }
 
   return result;

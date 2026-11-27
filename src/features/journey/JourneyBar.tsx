@@ -9,13 +9,14 @@ import { Chip } from '../../ui/Chip';
 import { selectBundlesForSystem } from '../assets/assetsSlice';
 import { prefersReducedMotion } from '../motion/reducedMotion';
 import { journeyFollowingSet, journeyPlayingSet, journeySpeedSet, type JourneySpeed } from './journeySlice';
-import { NutrientsBox } from './NutrientsBox';
-import { nutrientsAt } from './nutrients';
+import { MetersBox } from './MetersBox';
+import { metersAt } from './meters';
 import { getRoute, localProgress } from './route';
 import type { RealTime } from './schema';
 import { exitJourney, nextStage, prevStage, scrubJourney } from './thunks';
 
 const SPEEDS: readonly JourneySpeed[] = [0.5, 1, 2];
+const EVENT_WINDOW_S = 1.2;
 
 function formatRealTime(
   rt: RealTime,
@@ -134,7 +135,18 @@ export function JourneyBar(): JSX.Element | null {
     : reduced
       ? 0.5
       : 0;
-  const liveNutrients = nutrientsAt(journey, stageIndex, localP);
+  const liveMeters = metersAt(journey, stageIndex, localP);
+  const followLabel = copy?.follow ?? journeyTitle;
+
+  const activeEvents: string[] = [];
+  const seenEvents = new Set<string>();
+  for (const ev of stage.events ?? []) {
+    const windowEnd = ev.at + EVENT_WINDOW_S / stage.durationS;
+    if (localP >= ev.at && localP <= windowEnd && !seenEvents.has(ev.id)) {
+      seenEvents.add(ev.id);
+      activeEvents.push(copy?.events?.[ev.id] ?? ev.id);
+    }
+  }
 
   const handleSliderKeyDown = (e: KeyboardEvent<HTMLElement>) => {
     if (e.key === 'PageDown') {
@@ -173,7 +185,7 @@ export function JourneyBar(): JSX.Element | null {
           <div className="flex shrink-0 items-center gap-1">
             {!following && !reduced ? (
               <Chip onClick={() => dispatch(journeyFollowingSet(true))}>
-                {tr('journey.follow')}
+                {followLabel}
               </Chip>
             ) : null}
 
@@ -349,10 +361,23 @@ export function JourneyBar(): JSX.Element | null {
         </>
       ) : null}
 
+      {activeEvents.length > 0 ? (
+        <div className="mt-1.5 flex flex-wrap gap-1">
+          {activeEvents.map((label) => (
+            <span
+              key={label}
+              className="rounded-md bg-sky-500/20 px-2 py-0.5 text-[11px] font-medium text-sky-200 ring-1 ring-sky-400/35"
+            >
+              {label}
+            </span>
+          ))}
+        </div>
+      ) : null}
+
       {!following && !reduced ? (
         <div className="mt-2">
           <Chip onClick={() => dispatch(journeyFollowingSet(true))}>
-            {tr('journey.follow')}
+            {followLabel}
           </Chip>
         </div>
       ) : null}
@@ -392,8 +417,15 @@ export function JourneyBar(): JSX.Element | null {
         </Slider.Root>
       </div>
 
-      {/* Nutrients */}
-      <NutrientsBox nutrients={liveNutrients} defaultOpen={false} />
+      {/* Meters */}
+      <MetersBox
+        meters={journey.meters}
+        values={liveMeters}
+        title={copy?.metersTitle}
+        note={copy?.metersNote}
+        meterTexts={copy?.meters}
+        defaultOpen={false}
+      />
 
       {/* Controls */}
       <div className="mt-2.5 flex flex-wrap items-center justify-between gap-2 border-t border-white/10 pt-2.5">

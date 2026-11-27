@@ -290,7 +290,7 @@ describe('Inspector', () => {
     ).toHaveAttribute('data-layout', 'drawer');
   });
 
-  it('shows the journey link only when the selected mesh appears in a journey stage', async () => {
+  it('shows one journey link per journey matching the selected mesh', async () => {
     const { journeysLoaded } = await import('../journey/journeySlice');
     const store = makeStore();
     store.dispatch(
@@ -307,35 +307,86 @@ describe('Inspector', () => {
           {
             id: 'digestion',
             systems: ['digestive'],
+            meters: [{ id: 'carbs', unit: '%', max: 100, decimals: 0 }],
             stages: [
               {
                 id: 'mouth',
                 durationS: 10,
-                food: 'bolus',
+                look: 'bolus',
                 radius: 0.008,
                 motion: 'none',
                 organs: ['femur--l'],
                 view: { c: [0, 0, 2, 0, 0, 0], s: ['skeletal'], h: [], sel: [] },
                 path: [{ line: 'a' }],
                 modelled: true,
-                nutrients: { carbs: 5, protein: 0, fat: 0, water: 0, absorbed: 0 },
+                meters: { carbs: 5 },
               },
               {
                 id: 'stomach',
                 durationS: 10,
-                food: 'chyme',
+                look: 'chyme',
                 radius: 0.01,
                 motion: 'churn',
                 organs: [],
                 view: { c: [0, 0, 2, 0, 0, 0], s: ['skeletal'], h: [], sel: [] },
                 path: [{ line: 'b' }],
                 modelled: true,
-                nutrients: { carbs: 10, protein: 0, fat: 0, water: 0, absorbed: 0 },
+                meters: { carbs: 10 },
+              },
+            ],
+          },
+          {
+            id: 'blood',
+            systems: ['cardiovascular'],
+            meters: [{ id: 'oxygen', unit: '%', max: 100, decimals: 0 }],
+            stages: [
+              {
+                id: 'hand',
+                durationS: 6,
+                look: 'blood-deoxy',
+                radius: 0.004,
+                motion: 'none',
+                organs: [],
+                view: { c: [0, 0, 2, 0, 0, 0], s: ['skeletal'], h: [], sel: [] },
+                path: [{ line: 'a' }],
+                modelled: true,
+                meters: { oxygen: 75 },
+              },
+              {
+                id: 'arm',
+                durationS: 8,
+                look: 'blood-oxy',
+                radius: 0.004,
+                motion: 'none',
+                organs: ['femur--l'],
+                view: { c: [0, 0, 2, 0, 0, 0], s: ['skeletal'], h: [], sel: [] },
+                path: [{ line: 'b' }],
+                modelled: true,
+                meters: { oxygen: 98 },
               },
             ],
           },
         ],
-        texts: {},
+        texts: {
+          digestion: {
+            title: 'Follow a bite of food',
+            summary: 'Mouth to exit.',
+            inspectorLink: 'Watch food pass through here',
+            meters: {},
+            stages: {},
+            events: {},
+            fallback: false,
+          },
+          blood: {
+            title: 'Follow a drop of blood',
+            summary: 'One loop.',
+            inspectorLink: 'Watch blood flow through here',
+            meters: {},
+            stages: {},
+            events: {},
+            fallback: false,
+          },
+        },
         centerlines: {
           version: 1,
           lines: {
@@ -370,6 +421,9 @@ describe('Inspector', () => {
       name: 'Watch food pass through here',
     });
     expect(linkBtn).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: 'Watch blood flow through here' }),
+    ).toBeInTheDocument();
 
     const user = userEvent.setup();
     await user.click(linkBtn);

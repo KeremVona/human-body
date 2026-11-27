@@ -110,12 +110,12 @@ export function JourneyPlayer(): null {
   const followTupleRef = useRef<[number, number, number]>([0, 0, 0]);
   const curRadiusRef = useRef(journey?.stages[stageIndex]?.radius ?? 0.008);
   const curLookRef = useRef(
-    cloneLook(BITE_LOOKS[journey?.stages[stageIndex]?.food ?? 'bolus']),
+    cloneLook(BITE_LOOKS[journey?.stages[stageIndex]?.look ?? 'bolus']),
   );
   const fromLookRef = useRef(
-    cloneLook(BITE_LOOKS[journey?.stages[stageIndex]?.food ?? 'bolus']),
+    cloneLook(BITE_LOOKS[journey?.stages[stageIndex]?.look ?? 'bolus']),
   );
-  const lookGoalRef = useRef(journey?.stages[stageIndex]?.food ?? 'bolus');
+  const lookGoalRef = useRef(journey?.stages[stageIndex]?.look ?? 'bolus');
   const lookBlendRef = useRef(1);
   const streamRef = useRef({
     active: false,
@@ -143,13 +143,13 @@ export function JourneyPlayer(): null {
 
     const st = journey.stages[store.getState().journey.stageIndex] ?? journey.stages[0];
     curRadiusRef.current = st.radius;
-    fromLookRef.current.color.copy(BITE_LOOKS[st.food].color);
-    fromLookRef.current.roughness = BITE_LOOKS[st.food].roughness;
-    fromLookRef.current.transmission = BITE_LOOKS[st.food].transmission;
-    curLookRef.current.color.copy(BITE_LOOKS[st.food].color);
-    curLookRef.current.roughness = BITE_LOOKS[st.food].roughness;
-    curLookRef.current.transmission = BITE_LOOKS[st.food].transmission;
-    lookGoalRef.current = st.food;
+    fromLookRef.current.color.copy(BITE_LOOKS[st.look].color);
+    fromLookRef.current.roughness = BITE_LOOKS[st.look].roughness;
+    fromLookRef.current.transmission = BITE_LOOKS[st.look].transmission;
+    curLookRef.current.color.copy(BITE_LOOKS[st.look].color);
+    curLookRef.current.roughness = BITE_LOOKS[st.look].roughness;
+    curLookRef.current.transmission = BITE_LOOKS[st.look].transmission;
+    lookGoalRef.current = st.look;
     lookBlendRef.current = 1;
 
     const u = journeyClock.get();
@@ -181,7 +181,7 @@ export function JourneyPlayer(): null {
       const st = journey?.stages[s];
       if (st) {
         const reduced = prefersReducedMotion();
-        layer.updateBite(bitePosRef.current, st.radius, BITE_LOOKS[st.food]);
+        layer.updateBite(bitePosRef.current, st.radius, BITE_LOOKS[st.look]);
         layer.updateRings(
           !reduced && st.motion === 'squeeze',
           route,
@@ -241,14 +241,14 @@ export function JourneyPlayer(): null {
 
     if (reduced) {
       curRadiusRef.current = stage.radius;
-      const targetLook = BITE_LOOKS[stage.food];
+      const targetLook = BITE_LOOKS[stage.look];
       fromLookRef.current.color.copy(targetLook.color);
       fromLookRef.current.roughness = targetLook.roughness;
       fromLookRef.current.transmission = targetLook.transmission;
       curLookRef.current.color.copy(targetLook.color);
       curLookRef.current.roughness = targetLook.roughness;
       curLookRef.current.transmission = targetLook.transmission;
-      lookGoalRef.current = stage.food;
+      lookGoalRef.current = stage.look;
       lookBlendRef.current = 1;
     } else {
       // Smoothly ease radius toward current stage's target radius
@@ -260,19 +260,19 @@ export function JourneyPlayer(): null {
         curRadiusRef.current = stage.radius;
       }
 
-      // Smoothly ease food look toward current stage's target look
-      if (lookGoalRef.current !== stage.food) {
+      // Smoothly ease look toward current stage's target look
+      if (lookGoalRef.current !== stage.look) {
         fromLookRef.current.color.copy(curLookRef.current.color);
         fromLookRef.current.roughness = curLookRef.current.roughness;
         fromLookRef.current.transmission = curLookRef.current.transmission;
-        lookGoalRef.current = stage.food;
+        lookGoalRef.current = stage.look;
         lookBlendRef.current = 0;
       }
       if (lookBlendRef.current < 1) {
         lookBlendRef.current = Math.min(1, lookBlendRef.current + dt * 2.5);
         lerpLook(
           fromLookRef.current,
-          BITE_LOOKS[stage.food],
+          BITE_LOOKS[stage.look],
           lookBlendRef.current,
           curLookRef.current,
         );
@@ -301,7 +301,7 @@ export function JourneyPlayer(): null {
       timeRef.current,
     );
 
-    // Handle secrete pulse + droplet streams along ducts
+    // Handle secrete/highlight pulse + droplet streams along ducts
     const lp = localProgress(route, s, u);
     const events = stage.events ?? [];
     let anyOpen = false;
@@ -311,7 +311,7 @@ export function JourneyPlayer(): null {
       if (lp >= ev.at && lp <= windowEnd) {
         anyOpen = true;
       }
-      if (!reduced && ev.via) {
+      if (!reduced && ev.kind === 'secrete' && ev.via) {
         if (lp >= ev.at && !firedEventsRef.current.has(i)) {
           firedEventsRef.current.add(i);
           streamRef.current.active = true;

@@ -13,11 +13,12 @@ import {
 const fixtureJourney: Journey = {
   id: 'digestion',
   systems: ['digestive'],
+  meters: [{ id: 'carbs', unit: '%', max: 100, decimals: 0 }],
   stages: [
     {
       id: 'mouth',
       durationS: 4,
-      food: 'bolus',
+      look: 'bolus',
       radius: 0.008,
       motion: 'none',
       organs: ['tongue'],
@@ -26,19 +27,19 @@ const fixtureJourney: Journey = {
         { line: 'a' },
       ],
       modelled: true,
-      nutrients: { carbs: 5, protein: 0, fat: 0, water: 0, absorbed: 0 },
+      meters: { carbs: 5 },
     },
     {
       id: 'esophagus',
       durationS: 8,
-      food: 'bolus',
+      look: 'bolus',
       radius: 0.009,
       motion: 'squeeze',
       organs: ['tongue'],
       view: { c: [0, 0.3, 0.5, 0, 0.3, 0], s: ['digestive'], h: [], sel: [] },
       path: [{ line: 'b' }],
       modelled: true,
-      nutrients: { carbs: 10, protein: 0, fat: 0, water: 0, absorbed: 0 },
+      meters: { carbs: 10 },
     },
   ],
 };

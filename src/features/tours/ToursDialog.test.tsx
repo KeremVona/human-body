@@ -156,11 +156,12 @@ describe('ToursDialog', () => {
           {
             id: 'digestion',
             systems: ['digestive'],
+            meters: [{ id: 'carbs', unit: '%', max: 100, decimals: 0 }],
             stages: [
               {
                 id: 'mouth',
                 durationS: 30,
-                food: 'bolus',
+                look: 'bolus',
                 radius: 0.008,
                 motion: 'none',
                 organs: [],
@@ -169,12 +170,12 @@ describe('ToursDialog', () => {
                   { line: 'a' },
                 ],
                 modelled: true,
-                nutrients: { carbs: 5, protein: 0, fat: 0, water: 0, absorbed: 0 },
+                meters: { carbs: 5 },
               },
               {
                 id: 'exit',
                 durationS: 30,
-                food: 'stool',
+                look: 'stool',
                 radius: 0.007,
                 motion: 'none',
                 organs: [],
@@ -183,7 +184,7 @@ describe('ToursDialog', () => {
                   { line: 'a' },
                 ],
                 modelled: false,
-                nutrients: { carbs: 95, protein: 95, fat: 95, water: 95, absorbed: 95 },
+                meters: { carbs: 95 },
               },
             ],
           },
@@ -192,6 +193,7 @@ describe('ToursDialog', () => {
           digestion: {
             title: 'Follow a bite of food',
             summary: 'Mouth to exit.',
+            meters: {},
             stages: {
               mouth: { title: 'Mouth', body: 'Chew' },
               exit: { title: 'Exit', body: 'End' },
@@ -253,18 +255,19 @@ describe('ToursDialog', () => {
           {
             id: 'digestion',
             systems: ['digestive'],
+            meters: [{ id: 'carbs', unit: '%', max: 100, decimals: 0 }],
             stages: [
               {
                 id: 'mouth',
                 durationS: 30,
-                food: 'bolus',
+                look: 'bolus',
                 radius: 0.008,
                 motion: 'none',
                 organs: [],
                 view: { c: [0, 0, 2, 0, 0, 0], s: ['digestive'], h: [], sel: [] },
                 path: [{ line: 'a' }],
                 modelled: true,
-                nutrients: { carbs: 5, protein: 0, fat: 0, water: 0, absorbed: 0 },
+                meters: { carbs: 5 },
               },
             ],
           },
@@ -273,6 +276,7 @@ describe('ToursDialog', () => {
           digestion: {
             title: 'Follow a bite of food',
             summary: 'Mouth to exit.',
+            meters: {},
             stages: { mouth: { title: 'Mouth', body: 'Chew' } },
             events: {},
             fallback: false,
