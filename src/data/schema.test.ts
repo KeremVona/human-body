@@ -113,3 +113,27 @@ it('ships a valid taxonomy with nine systems and empty uiGroups', () => {
   expect(t.systems).toHaveLength(9);
   expect(t.uiGroups).toEqual([]);
 });
+
+it('accepts optional centerlines metadata with hashed json filename and rejects invalid filename', () => {
+  expect(
+    ManifestSchema.safeParse({
+      ...manifest,
+      centerlines: {
+        file: 'centerlines.1a2b3c4d.json',
+        bytes: 12_345,
+        sha256: 'c'.repeat(64),
+      },
+    }).success,
+  ).toBe(true);
+
+  expect(
+    ManifestSchema.safeParse({
+      ...manifest,
+      centerlines: {
+        file: 'centerlines.json',
+        bytes: 12_345,
+        sha256: 'c'.repeat(64),
+      },
+    }).success,
+  ).toBe(false);
+});

@@ -124,6 +124,13 @@ export const ManifestSchema = z.object({
       }),
     }),
   ),
+  centerlines: z.optional(
+    z.object({
+      file: z.string().check(z.regex(/^centerlines\.[0-9a-f]{8}\.json$/)),
+      bytes: z.number().check(z.int(), z.nonnegative()),
+      sha256: z.string().check(z.regex(/^[0-9a-f]{64}$/)),
+    }),
+  ),
   meshes: z.record(
     MeshIdString,
     z.object({

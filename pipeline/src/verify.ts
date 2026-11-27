@@ -97,10 +97,41 @@ export function verifyManifest(
     }
   }
 
+  if (manifest.centerlines) {
+    const cl = manifest.centerlines;
+    expectedFiles.add(cl.file);
+    if (cl.bytes > 60_000) {
+      problems.push(
+        `centerlines is ${cl.bytes} bytes, over its 60,000-byte budget`,
+      );
+    }
+    const disk = files[cl.file];
+    if (!disk) {
+      problems.push(`centerlines: file ${cl.file} not found`);
+    } else {
+      if (disk.sha256 !== cl.sha256) {
+        problems.push('centerlines: file hash does not match manifest');
+      }
+      if (disk.bytes !== cl.bytes) {
+        problems.push(
+          `centerlines: file size ${disk.bytes} does not match manifest (${cl.bytes})`,
+        );
+      }
+    }
+  }
+
   for (const file of Object.keys(files).sort()) {
     if (file.endsWith('.glb') && !expectedFiles.has(file)) {
       problems.push(
         `stray unreferenced glb file "${file}" in models directory`,
+      );
+    }
+    if (
+      /^centerlines\.[0-9a-f]{8}\.json$/.test(file) &&
+      !expectedFiles.has(file)
+    ) {
+      problems.push(
+        `stray unreferenced centerlines file "${file}" in models directory`,
       );
     }
   }

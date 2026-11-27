@@ -41,7 +41,54 @@
       { "id": "bile-duct", "source": "Bile duct", "reverse": false },
       { "id": "pancreatic-duct", "source": "Pancreatic duct", "reverse": false }
     ],
-    "meshes": []
+    "meshes": [
+      {
+        "id": "stomach",
+        "method": "polar",
+        "plane": "xy",
+        "center": [0.22, 0.58, 0.5],
+        "bins": 24,
+        "startDeg": 105,
+        "sweep": -1
+      },
+      {
+        "id": "duodenum",
+        "method": "polar",
+        "plane": "xy",
+        "center": [0.55, 0.55, 0.5],
+        "bins": 24,
+        "startDeg": 90,
+        "sweep": 1
+      },
+      {
+        "id": "ascending-colon",
+        "method": "slice",
+        "axis": "y",
+        "direction": 1,
+        "bins": 30
+      },
+      {
+        "id": "transverse-colon",
+        "method": "slice",
+        "axis": "x",
+        "direction": 1,
+        "bins": 30
+      },
+      {
+        "id": "descending-colon",
+        "method": "slice",
+        "axis": "y",
+        "direction": -1,
+        "bins": 30
+      },
+      {
+        "id": "sigmoid-colon",
+        "method": "slice",
+        "axis": "y",
+        "direction": -1,
+        "bins": 20
+      }
+    ]
   },
   "bundles": [
     {

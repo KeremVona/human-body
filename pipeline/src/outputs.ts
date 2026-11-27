@@ -22,6 +22,7 @@ export function writeOutputs(
     glb: Uint8Array;
     bounds: { min: Vec3; max: Vec3 };
   },
+  centerlines?: Manifest['centerlines'],
 ): Manifest {
   mkdirSync(dir, { recursive: true });
 
@@ -76,6 +77,7 @@ export function writeOutputs(
     source,
     bundles: manifestBundles,
     ...(manifestPreview ? { preview: manifestPreview } : {}),
+    ...(centerlines ? { centerlines } : {}),
     meshes,
   };
 

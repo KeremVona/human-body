@@ -15,6 +15,7 @@ import {
   type IndexFile,
 } from '../src/data/schema';
 import { runBlender } from './src/blender';
+import { generateCenterlinesFile } from './src/centerlines';
 import { PipelineConfigSchema, type PipelineConfig } from './src/config';
 import { updateNameMap, type NameMap } from './src/nameMap';
 import { optimizeBundle, type MeshStats } from './src/optimize';
@@ -132,7 +133,12 @@ function runVerify(): boolean {
     };
     if (existsSync(modelsDir)) {
       for (const entry of readdirSync(modelsDir)) {
-        if (entry.endsWith('.glb')) recordModelFile(entry);
+        if (
+          entry.endsWith('.glb') ||
+          /^centerlines\.[0-9a-f]{8}\.json$/.test(entry)
+        ) {
+          recordModelFile(entry);
+        }
       }
     }
     for (const bundle of parsedManifest.data.bundles) {
@@ -140,6 +146,9 @@ function runVerify(): boolean {
     }
     if (parsedManifest.data.preview) {
       recordModelFile(parsedManifest.data.preview.file);
+    }
+    if (parsedManifest.data.centerlines) {
+      recordModelFile(parsedManifest.data.centerlines.file);
     }
     problems.push(...verifyManifest(parsedManifest.data, config, files));
   }
@@ -246,6 +255,26 @@ async function runBuild(): Promise<void> {
     );
   }
 
+  const clInfo = await generateCenterlinesFile({
+    config,
+    rawDir,
+    modelsDir,
+    manifest,
+  });
+  manifest.centerlines = {
+    file: clInfo.file,
+    bytes: clInfo.bytes,
+    sha256: clInfo.sha256,
+  };
+  writeFileSync(
+    path.join(modelsDir, 'manifest.json'),
+    `${JSON.stringify(manifest, null, 2)}\n`,
+    'utf8',
+  );
+  console.log(
+    `Wrote ${clInfo.file}: ${clInfo.bytes} bytes, ${clInfo.lineCount} centerlines`,
+  );
+
   const indexPath = path.join(root, 'content', 'en', 'index.json');
   const existingIndex: IndexFile = IndexFileSchema.parse(readJson(indexPath));
   const nextIndex = scaffoldIndex(existingIndex, stubs);
@@ -254,6 +283,34 @@ async function runBuild(): Promise<void> {
     `Scaffolded content/en/index.json: ${nextIndex.structures.length} structures`,
   );
 
+  runVerify();
+}
+
+async function runCenterlines(): Promise<void> {
+  const config = loadConfig();
+  const rawDir = path.join(root, 'pipeline', 'out', 'raw');
+  const modelsDir = path.join(root, 'public', 'models');
+  const manifestPath = path.join(modelsDir, 'manifest.json');
+  const manifest = ManifestSchema.parse(readJson<unknown>(manifestPath));
+  const clInfo = await generateCenterlinesFile({
+    config,
+    rawDir,
+    modelsDir,
+    manifest,
+  });
+  manifest.centerlines = {
+    file: clInfo.file,
+    bytes: clInfo.bytes,
+    sha256: clInfo.sha256,
+  };
+  writeFileSync(
+    manifestPath,
+    `${JSON.stringify(manifest, null, 2)}\n`,
+    'utf8',
+  );
+  console.log(
+    `Wrote ${clInfo.file}: ${clInfo.bytes} bytes, ${clInfo.lineCount} centerlines`,
+  );
   runVerify();
 }
 
@@ -269,12 +326,15 @@ async function main(): Promise<void> {
     case 'build':
       await runBuild();
       break;
+    case 'centerlines':
+      await runCenterlines();
+      break;
     case 'verify':
       runVerify();
       break;
     default:
       console.error(
-        `Unknown or missing subcommand: ${subcommand ?? '(none)'}. Expected: inventory | namemap | build | verify`,
+        `Unknown or missing subcommand: ${subcommand ?? '(none)'}. Expected: inventory | namemap | build | centerlines | verify`,
       );
       process.exitCode = 1;
   }
