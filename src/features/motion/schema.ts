@@ -79,9 +79,44 @@ export const PulseDefSchema = z.object({
 });
 export type PulseDef = z.infer<typeof PulseDefSchema>;
 
+export const BreathExpandSchema = z.object({
+  meshes: z.array(MeshIdString).check(z.minLength(1)),
+  center: AnchorSchema,
+  amount: FiniteNumber.check(
+    z.refine((n) => n > 0 && n <= 0.1, 'amount must be in (0, 0.1]'),
+  ),
+});
+
+const OffsetAxis = FiniteNumber.check(
+  z.refine((n) => Math.abs(n) <= 0.03, 'offset axis must satisfy |axis| <= 0.03'),
+);
+
+export const BreathShiftSchema = z.object({
+  meshes: z.array(MeshIdString).check(z.minLength(1)),
+  offset: z.tuple([OffsetAxis, OffsetAxis, OffsetAxis]),
+});
+
+export const BreathDefSchema = z.object({
+  id: NonEmptyString,
+  kind: z.literal('breath'),
+  label: NonEmptyString,
+  view: PresetSchema,
+  systems: z.array(SystemIdSchema).check(z.minLength(1)),
+  expand: z.array(BreathExpandSchema).check(z.minLength(1)),
+  shift: z.optional(z.array(BreathShiftSchema)),
+  breathsPerMin: FiniteNumber.check(
+    z.refine((n) => n >= 6 && n <= 30, 'breathsPerMin must be in [6, 30]'),
+  ),
+  inhaleShare: FiniteNumber.check(
+    z.refine((n) => n >= 0.2 && n <= 0.6, 'inhaleShare must be in [0.2, 0.6]'),
+  ),
+});
+export type BreathDef = z.infer<typeof BreathDefSchema>;
+
 export const MotionDefSchema = z.discriminatedUnion('kind', [
   HingeDefSchema,
   PulseDefSchema,
+  BreathDefSchema,
 ]);
 export type MotionDef = z.infer<typeof MotionDefSchema>;
 

@@ -101,4 +101,41 @@ describe('createMotionTransforms', () => {
     expect(atrium.position.equals(new Vector3(0, 0, 0))).toBe(true);
     expect(atrium.scale.equals(new Vector3(1, 1, 1))).toBe(true);
   });
+
+  it('breath scales groups about their centers, shifts diaphragm, and restores exact originals', () => {
+    const registry = createMeshRegistry();
+    const lung = new Mesh();
+    lung.position.set(0.1, 0.2, 0.3);
+    lung.scale.set(1, 1, 1);
+    const diaphragm = new Mesh();
+    diaphragm.position.set(0, 0.1, 0);
+    registry.register('inferior-lobe-of-left-lung', lung);
+    registry.register('diaphragm', diaphragm);
+
+    const transforms = createMotionTransforms(registry);
+    transforms.begin(['inferior-lobe-of-left-lung', 'diaphragm']);
+
+    // Identity at envelope 0 (scale 1, offset 0)
+    transforms.applyBreath(
+      [{ ids: ['inferior-lobe-of-left-lung'], center: [0.1, 0.5, 0.3], scale: 1 }],
+      [{ ids: ['diaphragm'], offset: [0, 0, 0] }],
+    );
+    expect(lung.position.distanceTo(new Vector3(0.1, 0.2, 0.3))).toBeLessThan(1e-9);
+    expect(lung.scale.distanceTo(new Vector3(1, 1, 1))).toBeLessThan(1e-9);
+    expect(diaphragm.position.distanceTo(new Vector3(0, 0.1, 0))).toBeLessThan(1e-9);
+
+    // Peak inhale expand + shift
+    transforms.applyBreath(
+      [{ ids: ['inferior-lobe-of-left-lung'], center: [0.1, 0.5, 0.3], scale: 1.05 }],
+      [{ ids: ['diaphragm'], offset: [0, -0.015, 0] }],
+    );
+    expect(lung.position.y).toBeCloseTo(0.2 * 1.05 + 0.5 * -0.05, 6);
+    expect(lung.scale.x).toBeCloseTo(1.05, 6);
+    expect(diaphragm.position.y).toBeCloseTo(0.085, 6);
+
+    transforms.restore();
+    expect(lung.position.distanceTo(new Vector3(0.1, 0.2, 0.3))).toBeLessThan(1e-9);
+    expect(lung.scale.distanceTo(new Vector3(1, 1, 1))).toBeLessThan(1e-9);
+    expect(diaphragm.position.distanceTo(new Vector3(0, 0.1, 0))).toBeLessThan(1e-9);
+  });
 });

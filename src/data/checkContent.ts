@@ -406,7 +406,7 @@ function checkMotions(
         checkMesh(def.id, meshId);
       }
       checkMesh(def.id, def.pivot.mesh);
-    } else {
+    } else if (def.kind === 'pulse') {
       for (const group of def.groups) {
         for (const meshId of group.meshes) {
           checkMesh(def.id, meshId);
@@ -414,6 +414,18 @@ function checkMotions(
       }
       if (def.center) {
         checkMesh(def.id, def.center.mesh);
+      }
+    } else if (def.kind === 'breath') {
+      for (const group of def.expand) {
+        for (const meshId of group.meshes) {
+          checkMesh(def.id, meshId);
+        }
+        checkMesh(def.id, group.center.mesh);
+      }
+      for (const shift of def.shift ?? []) {
+        for (const meshId of shift.meshes) {
+          checkMesh(def.id, meshId);
+        }
       }
     }
   }

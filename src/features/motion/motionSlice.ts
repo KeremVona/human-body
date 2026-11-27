@@ -174,6 +174,12 @@ export const selectMotionMoving = createSelector(
     if (def.kind === 'pulse') {
       return new Set(def.groups.flatMap((g) => g.meshes));
     }
+    if (def.kind === 'breath') {
+      return new Set([
+        ...def.expand.flatMap((g) => g.meshes),
+        ...(def.shift ?? []).flatMap((s) => s.meshes),
+      ]);
+    }
     return EMPTY_SET;
   },
 );

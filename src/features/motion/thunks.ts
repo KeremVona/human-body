@@ -36,6 +36,12 @@ function referencedMeshIds(def: MotionDef): Set<string> {
       def.pivot.mesh,
     ]);
   }
+  if (def.kind === 'breath') {
+    return new Set([
+      ...def.expand.flatMap((g) => [g.center.mesh, ...g.meshes]),
+      ...(def.shift ?? []).flatMap((s) => s.meshes),
+    ]);
+  }
   return new Set([
     ...(def.center ? [def.center.mesh] : []),
     ...def.groups.flatMap((g) => g.meshes),

@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '../app/hooks';
 import type { RootState } from '../app/store';
 import {
   anchorPoint,
+  breathEnvelope,
   heartbeatScale,
   hingeAngleDeg,
   hingeDirection,
@@ -19,6 +20,12 @@ import { sectionMaterialLibrary } from './sectionPlaneStore';
 
 function movingIdsFor(def: MotionDef): string[] {
   if (def.kind === 'hinge') return def.moving;
+  if (def.kind === 'breath') {
+    return [
+      ...def.expand.flatMap((g) => g.meshes),
+      ...(def.shift ?? []).flatMap((s) => s.meshes),
+    ];
+  }
   return def.groups.flatMap((g) => g.meshes);
 }
 
@@ -71,9 +78,21 @@ export function MotionPlayer(): null {
         pivotEntry?.bounds ?? DEFAULT_BODY_BOUNDS,
       );
     }
-    return manifest
-      ? pulseCenterFor(def, manifest.meshes)
-      : anchorPoint([0.5, 0.5, 0.5], DEFAULT_BODY_BOUNDS);
+    if (def.kind === 'pulse') {
+      return manifest
+        ? pulseCenterFor(def, manifest.meshes)
+        : anchorPoint([0.5, 0.5, 0.5], DEFAULT_BODY_BOUNDS);
+    }
+    return [0, 0, 0];
+  }, [def, manifest]);
+
+  const breathCenters = useMemo<readonly [number, number, number][]>(() => {
+    if (!def || def.kind !== 'breath') return [];
+    return def.expand.map((g) => {
+      const bounds =
+        manifest?.meshes[g.center.mesh]?.bounds ?? DEFAULT_BODY_BOUNDS;
+      return anchorPoint(g.center.anchor, bounds);
+    });
   }, [def, manifest]);
 
   const transformsRef = useRef<ReturnType<
@@ -82,6 +101,16 @@ export function MotionPlayer(): null {
   const pulseBufferRef = useRef<{ ids: readonly string[]; scale: number }[]>(
     [],
   );
+  const breathGroupsBufRef = useRef<
+    {
+      ids: readonly string[];
+      center: readonly [number, number, number];
+      scale: number;
+    }[]
+  >([]);
+  const breathShiftsBufRef = useRef<
+    { ids: readonly string[]; offset: [number, number, number] }[]
+  >([]);
   const phaseRef = useRef(scrubPhase);
   const lastDirRef = useRef<'flex' | 'extend' | null>(null);
 
@@ -93,6 +122,8 @@ export function MotionPlayer(): null {
 
     if (!def) {
       pulseBufferRef.current = [];
+      breathGroupsBufRef.current = [];
+      breathShiftsBufRef.current = [];
       transforms.restore();
       motionPhase.set(0);
       lastDirRef.current = null;
@@ -105,18 +136,48 @@ export function MotionPlayer(): null {
       def.kind === 'pulse'
         ? def.groups.map((g) => ({ ids: g.meshes, scale: 1 }))
         : [];
+    breathGroupsBufRef.current =
+      def.kind === 'breath'
+        ? def.expand.map((g, i) => ({
+            ids: g.meshes,
+            center: breathCenters[i] ?? [0, 0, 0],
+            scale: 1,
+          }))
+        : [];
+    breathShiftsBufRef.current =
+      def.kind === 'breath'
+        ? (def.shift ?? []).map((s) => ({
+            ids: s.meshes,
+            offset: [0, 0, 0] as [number, number, number],
+          }))
+        : [];
 
     const ids = movingIdsFor(def);
     const applyAtPhase = (p: number) => {
       if (def.kind === 'hinge') {
         const angle = hingeAngleDeg(p, def.range);
         transforms.applyHinge(def, motionAnchor, angle);
-      } else {
+      } else if (def.kind === 'pulse') {
         const buf = pulseBufferRef.current;
         for (let i = 0; i < def.groups.length; i++) {
           buf[i].scale = heartbeatScale(p - def.groups[i].phase, def.amplitude);
         }
         transforms.applyPulse(buf, motionAnchor);
+      } else {
+        const e = breathEnvelope(p, def.inhaleShare);
+        const gBuf = breathGroupsBufRef.current;
+        for (let i = 0; i < def.expand.length; i++) {
+          gBuf[i].scale = 1 + def.expand[i].amount * e;
+        }
+        const sBuf = breathShiftsBufRef.current;
+        const shifts = def.shift ?? [];
+        for (let i = 0; i < shifts.length; i++) {
+          const off = shifts[i].offset;
+          sBuf[i].offset[0] = off[0] * e;
+          sBuf[i].offset[1] = off[1] * e;
+          sBuf[i].offset[2] = off[2] * e;
+        }
+        transforms.applyBreath(gBuf, sBuf);
       }
       motionPhase.set(p);
     };
@@ -156,7 +217,7 @@ export function MotionPlayer(): null {
       sectionMaterialLibrary.get()?.setActivePulse(0.25);
       invalidate();
     };
-  }, [def, activationSeq, motionAnchor, registry, store, invalidate]);
+  }, [def, activationSeq, motionAnchor, breathCenters, registry, store, invalidate]);
 
   useEffect(() => {
     if (!def || playing) return;
@@ -171,7 +232,7 @@ export function MotionPlayer(): null {
         hingeAngleDeg(scrubPhase, def.range),
       );
       sectionMaterialLibrary.get()?.setActivePulse(0.45);
-    } else {
+    } else if (def.kind === 'pulse') {
       const buf = pulseBufferRef.current;
       for (let i = 0; i < def.groups.length; i++) {
         buf[i].scale = heartbeatScale(
@@ -180,6 +241,21 @@ export function MotionPlayer(): null {
         );
       }
       transforms.applyPulse(buf, motionAnchor);
+    } else {
+      const e = breathEnvelope(scrubPhase, def.inhaleShare);
+      const gBuf = breathGroupsBufRef.current;
+      for (let i = 0; i < def.expand.length; i++) {
+        gBuf[i].scale = 1 + def.expand[i].amount * e;
+      }
+      const sBuf = breathShiftsBufRef.current;
+      const shifts = def.shift ?? [];
+      for (let i = 0; i < shifts.length; i++) {
+        const off = shifts[i].offset;
+        sBuf[i].offset[0] = off[0] * e;
+        sBuf[i].offset[1] = off[1] * e;
+        sBuf[i].offset[2] = off[2] * e;
+      }
+      transforms.applyBreath(gBuf, sBuf);
     }
     motionPhase.set(scrubPhase);
     invalidate();
@@ -190,7 +266,12 @@ export function MotionPlayer(): null {
     const transforms = transformsRef.current;
     if (!transforms) return;
 
-    const period = def.kind === 'hinge' ? def.periodS : 60 / def.bpm;
+    const period =
+      def.kind === 'hinge'
+        ? def.periodS
+        : def.kind === 'pulse'
+          ? 60 / def.bpm
+          : 60 / def.breathsPerMin;
     const clampedDelta = Math.min(delta, 0.1);
     const nextPhase = (phaseRef.current + (clampedDelta * speed) / period) % 1;
     phaseRef.current = nextPhase;
@@ -211,7 +292,7 @@ export function MotionPlayer(): null {
         ?.setActivePulse(
           0.25 + 0.35 * (0.5 - 0.5 * Math.cos(4 * Math.PI * nextPhase)),
         );
-    } else {
+    } else if (def.kind === 'pulse') {
       const buf = pulseBufferRef.current;
       for (let i = 0; i < def.groups.length; i++) {
         buf[i].scale = heartbeatScale(
@@ -220,6 +301,21 @@ export function MotionPlayer(): null {
         );
       }
       transforms.applyPulse(buf, motionAnchor);
+    } else {
+      const e = breathEnvelope(nextPhase, def.inhaleShare);
+      const gBuf = breathGroupsBufRef.current;
+      for (let i = 0; i < def.expand.length; i++) {
+        gBuf[i].scale = 1 + def.expand[i].amount * e;
+      }
+      const sBuf = breathShiftsBufRef.current;
+      const shifts = def.shift ?? [];
+      for (let i = 0; i < shifts.length; i++) {
+        const off = shifts[i].offset;
+        sBuf[i].offset[0] = off[0] * e;
+        sBuf[i].offset[1] = off[1] * e;
+        sBuf[i].offset[2] = off[2] * e;
+      }
+      transforms.applyBreath(gBuf, sBuf);
     }
 
     motionPhase.set(nextPhase);

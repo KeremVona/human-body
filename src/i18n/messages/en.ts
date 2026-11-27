@@ -291,6 +291,7 @@ export const en = {
       'knee-flexion': 'Knee flexion and extension',
       'shoulder-abduction': 'Shoulder abduction',
       heartbeat: 'Heartbeat',
+      breathing: 'Breathing',
     },
   },
   onboarding: {

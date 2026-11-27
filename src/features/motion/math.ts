@@ -84,3 +84,18 @@ export function scaleAboutPoint(
   const k = 1 - s;
   return [center[0] * k, center[1] * k, center[2] * k];
 }
+
+function smoothstep(x: number): number {
+  const t = Math.min(1, Math.max(0, x));
+  return t * t * (3 - 2 * t);
+}
+
+/** Evaluates smooth inhale-then-exhale breathing envelope `e(p) in [0, 1]` peaking at `inhaleShare`. */
+export function breathEnvelope(phase: number, inhaleShare: number): number {
+  const p = wrapPhase(phase);
+  const share = Math.min(0.999, Math.max(0.001, inhaleShare));
+  if (p < share) {
+    return smoothstep(p / share);
+  }
+  return 1 - smoothstep((p - share) / (1 - share));
+}

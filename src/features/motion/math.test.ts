@@ -2,6 +2,7 @@ import { Matrix4, Quaternion, Vector3 } from 'three';
 import { describe, expect, it } from 'vitest';
 import {
   anchorPoint,
+  breathEnvelope,
   heartbeatScale,
   hingeAngleDeg,
   hingeDirection,
@@ -65,5 +66,16 @@ describe('motion math', () => {
     expect(scaleAboutPoint([1, 2, 3], 1.1).map((n) => +n.toFixed(9))).toEqual([
       -0.1, -0.2, -0.3,
     ]);
+  });
+
+  it('computes smooth breathing envelope at 0, share, 1, and continuity across share', () => {
+    const share = 0.4;
+    expect(breathEnvelope(0, share)).toBe(0);
+    expect(breathEnvelope(share - 1e-6, share)).toBeCloseTo(1, 5);
+    expect(breathEnvelope(share, share)).toBe(1);
+    expect(breathEnvelope(share + 1e-6, share)).toBeCloseTo(1, 5);
+    expect(breathEnvelope(share / 2, share)).toBeCloseTo(0.5, 6);
+    expect(breathEnvelope(share + (1 - share) / 2, share)).toBeCloseTo(0.5, 6);
+    expect(breathEnvelope(1, share)).toBe(0);
   });
 });

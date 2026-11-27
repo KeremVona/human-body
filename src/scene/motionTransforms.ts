@@ -27,6 +27,17 @@ export function createMotionTransforms(registry: MeshRegistry): {
     groups: readonly { ids: readonly MeshId[]; scale: number }[],
     center: readonly [number, number, number],
   ): void;
+  applyBreath(
+    groups: readonly {
+      ids: readonly MeshId[];
+      center: readonly [number, number, number];
+      scale: number;
+    }[],
+    shifts: readonly {
+      ids: readonly MeshId[];
+      offset: readonly [number, number, number];
+    }[],
+  ): void;
   restore(): void;
 } {
   const snapshots = new Map<MeshId, Snapshot>();
@@ -79,6 +90,43 @@ export function createMotionTransforms(registry: MeshRegistry): {
             .add(_offsetVec);
           snap.mesh.quaternion.copy(snap.quaternion);
           snap.mesh.scale.copy(snap.scale).multiplyScalar(group.scale);
+          snap.mesh.updateMatrixWorld(true);
+        }
+      }
+    },
+    applyBreath(groups, shifts) {
+      if (snapshots.size === 0) return;
+      for (const group of groups) {
+        const k = 1 - group.scale;
+        _offsetVec.set(
+          group.center[0] * k,
+          group.center[1] * k,
+          group.center[2] * k,
+        );
+        for (const id of group.ids) {
+          const snap = snapshots.get(id);
+          if (!snap) continue;
+          snap.mesh.position
+            .copy(snap.position)
+            .multiplyScalar(group.scale)
+            .add(_offsetVec);
+          snap.mesh.quaternion.copy(snap.quaternion);
+          snap.mesh.scale.copy(snap.scale).multiplyScalar(group.scale);
+          snap.mesh.updateMatrixWorld(true);
+        }
+      }
+      for (const shift of shifts) {
+        const [ox, oy, oz] = shift.offset;
+        for (const id of shift.ids) {
+          const snap = snapshots.get(id);
+          if (!snap) continue;
+          snap.mesh.position.set(
+            snap.position.x + ox,
+            snap.position.y + oy,
+            snap.position.z + oz,
+          );
+          snap.mesh.quaternion.copy(snap.quaternion);
+          snap.mesh.scale.copy(snap.scale);
           snap.mesh.updateMatrixWorld(true);
         }
       }

@@ -202,7 +202,12 @@ listenerMiddleware.startListening({
     const moving = new Set<string>(
       def.kind === 'hinge'
         ? def.moving
-        : def.groups.flatMap((group) => group.meshes),
+        : def.kind === 'breath'
+          ? [
+              ...def.expand.flatMap((g) => g.meshes),
+              ...(def.shift ?? []).flatMap((s) => s.meshes),
+            ]
+          : def.groups.flatMap((group) => group.meshes),
     );
     if (action.payload.meshIds.some((id) => moving.has(id))) {
       listenerApi.dispatch(motionStopped());

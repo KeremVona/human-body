@@ -1,5 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import { MotionsFileSchema, type HingeDef, type PulseDef } from './schema';
+import rawMotions from '../../../content/motions.json';
+import {
+  MotionsFileSchema,
+  type BreathDef,
+  type HingeDef,
+  type PulseDef,
+} from './schema';
 
 const baseHinge: HingeDef = {
   id: 'elbow-flexion',
@@ -33,14 +39,72 @@ const basePulse: PulseDef = {
   amplitude: 0.04,
 };
 
+const baseBreath: BreathDef = {
+  id: 'breathing',
+  kind: 'breath',
+  label: 'Breathing',
+  view: 'anterior',
+  systems: ['respiratory', 'muscular'],
+  expand: [
+    {
+      meshes: ['inferior-lobe-of-left-lung'],
+      center: { mesh: 'inferior-lobe-of-left-lung', anchor: [0.5, 0.9, 0.5] },
+      amount: 0.05,
+    },
+  ],
+  shift: [{ meshes: ['diaphragm'], offset: [0, -0.015, 0] }],
+  breathsPerMin: 12,
+  inhaleShare: 0.4,
+};
+
 describe('MotionsFileSchema', () => {
-  it('accepts one valid hinge and one valid pulse definition', () => {
+  it('accepts valid hinge, pulse, breath definitions and real content/motions.json', () => {
     const parsed = MotionsFileSchema.parse({
-      motions: [baseHinge, basePulse],
+      motions: [baseHinge, basePulse, baseBreath],
     });
-    expect(parsed.motions).toHaveLength(2);
+    expect(parsed.motions).toHaveLength(3);
     expect(parsed.motions[0].kind).toBe('hinge');
     expect(parsed.motions[1].kind).toBe('pulse');
+    expect(parsed.motions[2].kind).toBe('breath');
+
+    const prod = MotionsFileSchema.parse(rawMotions);
+    expect(prod.motions.some((m) => m.id === 'breathing' && m.kind === 'breath')).toBe(
+      true,
+    );
+  });
+
+  it('rejects invalid breath ranges and out-of-range offsets alongside hinge/pulse checks', () => {
+    expect(
+      MotionsFileSchema.safeParse({
+        motions: [
+          {
+            ...baseBreath,
+            expand: [
+              {
+                meshes: ['inferior-lobe-of-left-lung'],
+                center: { mesh: 'inferior-lobe-of-left-lung', anchor: [0.5, 0.9, 0.5] },
+                amount: 0.11,
+              },
+            ],
+          },
+        ],
+      }).success,
+    ).toBe(false);
+    expect(
+      MotionsFileSchema.safeParse({
+        motions: [{ ...baseBreath, shift: [{ meshes: ['diaphragm'], offset: [0, -0.04, 0] }] }],
+      }).success,
+    ).toBe(false);
+    expect(
+      MotionsFileSchema.safeParse({
+        motions: [{ ...baseBreath, breathsPerMin: 5 }],
+      }).success,
+    ).toBe(false);
+    expect(
+      MotionsFileSchema.safeParse({
+        motions: [{ ...baseBreath, inhaleShare: 0.7 }],
+      }).success,
+    ).toBe(false);
   });
 
   it('rejects zero axis, inverted range, out-of-range anchor, excessive bpm, and duplicate ids', () => {

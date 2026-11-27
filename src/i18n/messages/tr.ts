@@ -296,6 +296,7 @@ export const tr = {
       'knee-flexion': 'Diz fleksiyonu ve ekstansiyonu',
       'shoulder-abduction': 'Omuz abdüksiyonu',
       heartbeat: 'Kalp atışı',
+      breathing: 'Nefes alma',
     },
   },
   onboarding: {
