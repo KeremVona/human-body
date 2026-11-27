@@ -49,18 +49,44 @@ describe('i18n catalogue key parity', () => {
     }
   });
 
-  it('contains every English journey, stage, and event key in Turkish as non-empty', () => {
+  it('contains every English journey, stage, meter, label, and event key in Turkish as non-empty', () => {
     const enParsed = JourneyTextsFileSchema.parse(enJourneys);
     const trParsed = JourneyTextsFileSchema.parse(trJourneys);
 
     for (const [journeyId, enEntry] of Object.entries(enParsed.journeys)) {
       const trEntry = trParsed.journeys[journeyId];
       expect(trEntry, `missing journey in tr: ${journeyId}`).toBeDefined();
-      if (enEntry.title) {
-        expect(trEntry.title?.trim().length, `missing tr title for ${journeyId}`).toBeGreaterThan(0);
+      for (const field of [
+        'title',
+        'summary',
+        'follow',
+        'inspectorLink',
+        'metersTitle',
+        'metersNote',
+      ] as const) {
+        if (enEntry[field]) {
+          expect(
+            trEntry[field]?.trim().length,
+            `missing tr ${field} for ${journeyId}`,
+          ).toBeGreaterThan(0);
+        }
       }
-      if (enEntry.summary) {
-        expect(trEntry.summary?.trim().length, `missing tr summary for ${journeyId}`).toBeGreaterThan(0);
+      for (const [meterId, enMeter] of Object.entries(enEntry.meters ?? {})) {
+        const trMeter = trEntry.meters?.[meterId];
+        expect(trMeter, `missing meter in tr: ${journeyId}/meters/${meterId}`).toBeDefined();
+        if (enMeter.label) {
+          expect(
+            trMeter?.label?.trim().length,
+            `missing tr meter label for ${journeyId}/${meterId}`,
+          ).toBeGreaterThan(0);
+        }
+        if (enMeter.value) {
+          expect(
+            trMeter?.value?.trim().length,
+            `missing tr meter value for ${journeyId}/${meterId}`,
+          ).toBeGreaterThan(0);
+          expect(placeholders(trMeter!.value!)).toEqual(placeholders(enMeter.value));
+        }
       }
       for (const [stageId, enStage] of Object.entries(enEntry.stages ?? {})) {
         const trStage = trEntry.stages?.[stageId];

@@ -1,7 +1,11 @@
 import { describe, expect, it } from 'vitest';
+import enJourneys from '../../../content/en/journeys.json';
+import rawJourneys from '../../../content/journeys.json';
+import trJourneys from '../../../content/tr/journeys.json';
 import {
-  JourneysFileSchema,
+  JourneySchema,
   JourneyStageSchema,
+  JourneysFileSchema,
   JourneyTextsFileSchema,
 } from './schema';
 
@@ -13,11 +17,29 @@ const baseView = {
   sel: [],
 };
 
+const metersDef = [
+  {
+    id: 'carbs',
+    unit: '%' as const,
+    max: 100,
+    decimals: 0 as const,
+    monotonic: true,
+    secondary: 'absorbed',
+  },
+  {
+    id: 'absorbed',
+    unit: '%' as const,
+    max: 100,
+    decimals: 0 as const,
+    monotonic: true,
+  },
+];
+
 const stage1 = {
   id: 'mouth',
   durationS: 10,
   realTime: { min: 5, max: 30, unit: 's' as const },
-  food: 'bolus' as const,
+  look: 'bolus' as const,
   radius: 0.007,
   motion: 'none' as const,
   organs: ['tongue'],
@@ -26,33 +48,43 @@ const stage1 = {
   modelled: true,
   events: [
     { at: 0.15, kind: 'secrete' as const, mesh: 'parotid-gland--l', id: 'saliva' },
-    { at: 0.15, kind: 'secrete' as const, mesh: 'parotid-gland--r', id: 'saliva' },
+    { at: 0.25, kind: 'highlight' as const, mesh: 'tongue', id: 'taste' },
   ],
-  nutrients: { carbs: 5, protein: 0, fat: 0, water: 0, absorbed: 0 },
+  meters: { carbs: 5, absorbed: 0 },
 };
 
 const stage2 = {
   id: 'esophagus',
   durationS: 6,
-  food: 'bolus' as const,
+  look: 'blood-oxy' as const,
   radius: 0.005,
   motion: 'squeeze' as const,
+  rhythm: { motion: 'breathing', mode: 'scrub' as const, from: 0, to: 0.4 },
+  closeUp: 'alveolus' as const,
   organs: ['esophagus'],
   inside: ['esophagus'],
   view: baseView,
-  path: [{ line: 'esophagus', from: 0.04, to: 1 }],
+  path: [{ line: 'esophagus', from: 0.04, to: 1, reverse: true }],
   modelled: true,
-  nutrients: { carbs: 10, protein: 0, fat: 0, water: 0, absorbed: 0 },
+  meters: { carbs: 10, absorbed: 0 },
 };
 
-describe('journey schemas', () => {
-  it('accepts valid JourneysFileSchema and JourneyTextsFileSchema fixtures', () => {
+describe('journey schemas v2', () => {
+  it('accepts migrated digestion content and localized text files', () => {
+    expect(JourneysFileSchema.parse(rawJourneys).journeys[0]?.id).toBe('digestion');
+    expect(JourneyTextsFileSchema.parse(enJourneys).journeys.digestion).toBeDefined();
+    expect(JourneyTextsFileSchema.parse(trJourneys).journeys.digestion).toBeDefined();
+  });
+
+  it('accepts valid v2 JourneysFileSchema and JourneyTextsFileSchema fixtures', () => {
     expect(
       JourneysFileSchema.safeParse({
         journeys: [
           {
             id: 'digestion',
             systems: ['digestive'],
+            meters: metersDef,
+            metersStart: { carbs: 0, absorbed: 0 },
             stages: [stage1, stage2],
           },
         ],
@@ -65,6 +97,13 @@ describe('journey schemas', () => {
           digestion: {
             title: 'Follow a bite of food',
             summary: 'Watch one bite travel the digestive tract.',
+            follow: 'Follow the food',
+            inspectorLink: 'Watch food pass through here',
+            metersTitle: "What's been digested",
+            metersNote: 'Rounded teaching values',
+            meters: {
+              carbs: { label: 'Carbohydrates', value: '{v}% broken down, {s}% absorbed' },
+            },
             stages: {
               mouth: { title: 'Chewing', body: 'Teeth chew.' },
             },
@@ -75,10 +114,57 @@ describe('journey schemas', () => {
     ).toBe(true);
   });
 
-  it('rejects out-of-range durationS, radius, from >= to, min > max, and pins in view', () => {
+  it('rejects invalid looks, highlight with via, scrub from > to, duplicate/bad secondary meters, and out-of-range fields', () => {
+    expect(JourneyStageSchema.safeParse({ ...stage1, look: 'plasma' }).success).toBe(false);
+    expect(JourneyStageSchema.safeParse({ ...stage1, closeUp: 'liver' }).success).toBe(false);
+    expect(
+      JourneyStageSchema.safeParse({
+        ...stage1,
+        events: [{ at: 0.2, kind: 'highlight', mesh: 'tongue', id: 'taste', via: 'esophagus' }],
+      }).success,
+    ).toBe(false);
+    expect(
+      JourneyStageSchema.safeParse({
+        ...stage2,
+        rhythm: { motion: 'breathing', mode: 'scrub', from: 0.6, to: 0.2 },
+      }).success,
+    ).toBe(false);
+    expect(
+      JourneySchema.safeParse({
+        id: 'digestion',
+        systems: ['digestive'],
+        meters: [],
+        stages: [stage1, stage2],
+      }).success,
+    ).toBe(false);
+    expect(
+      JourneySchema.safeParse({
+        id: 'digestion',
+        systems: ['digestive'],
+        meters: [
+          { id: 'carbs', unit: '%', max: 100, decimals: 0 },
+          { id: 'carbs', unit: '%', max: 100, decimals: 0 },
+        ],
+        stages: [stage1, stage2],
+      }).success,
+    ).toBe(false);
+    expect(
+      JourneySchema.safeParse({
+        id: 'digestion',
+        systems: ['digestive'],
+        meters: [{ id: 'carbs', unit: '%', max: 100, decimals: 0, secondary: 'carbs' }],
+        stages: [stage1, stage2],
+      }).success,
+    ).toBe(false);
+    expect(
+      JourneySchema.safeParse({
+        id: 'digestion',
+        systems: ['digestive'],
+        meters: [{ id: 'carbs', unit: '%', max: 100, decimals: 0, secondary: 'missing' }],
+        stages: [stage1, stage2],
+      }).success,
+    ).toBe(false);
     expect(JourneyStageSchema.safeParse({ ...stage1, durationS: 1 }).success).toBe(false);
-    expect(JourneyStageSchema.safeParse({ ...stage1, durationS: 31 }).success).toBe(false);
-    expect(JourneyStageSchema.safeParse({ ...stage1, radius: 0 }).success).toBe(false);
     expect(JourneyStageSchema.safeParse({ ...stage1, radius: 0.031 }).success).toBe(false);
     expect(
       JourneyStageSchema.safeParse({

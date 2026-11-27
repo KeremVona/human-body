@@ -98,7 +98,11 @@ function resolvePathItem(
     if (!poly) {
       throw new Error(`route: missing centerline "${item.line}"`);
     }
-    return sliceLineByArcLength(poly, item.from ?? 0, item.to ?? 1);
+    const sliced = sliceLineByArcLength(poly, item.from ?? 0, item.to ?? 1);
+    if (item.reverse) {
+      sliced.reverse();
+    }
+    return sliced;
   }
   const mesh = meshes[item.mesh];
   if (!mesh) {

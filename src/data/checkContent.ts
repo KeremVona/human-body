@@ -41,7 +41,12 @@ const MAX_STEP_TITLE = 60;
 const MAX_STEP_BODY = 400;
 const MAX_JOURNEY_NOTE = 160;
 const MAX_JOURNEY_EVENT_LABEL = 40;
-const NUTRIENT_KEYS = ['carbs', 'protein', 'fat', 'water', 'absorbed'] as const;
+const MAX_JOURNEY_FOLLOW = 40;
+const MAX_JOURNEY_INSPECTOR_LINK = 60;
+const MAX_JOURNEY_METERS_TITLE = 40;
+const MAX_JOURNEY_METERS_NOTE = 120;
+const MAX_METER_LABEL = 40;
+const MAX_METER_VALUE = 60;
 const MARKUP_RE = /<\/?[a-z][^>]*>|\*\*|\[[^\]]+\]\([^)]+\)/i;
 const Z_ANATOMY_RE = /z-anatomy/i;
 
@@ -594,11 +599,15 @@ function checkJourneys(
   manifest: Manifest,
   taxonomy: Taxonomy,
   centerlinesFile: CenterlinesFile | null,
+  motionsFile: MotionsFile | null,
   errors: string[],
 ): void {
   const knownMeshes = new Set(Object.keys(manifest.meshes));
   const knownSystems = new Set(taxonomy.systems.map((s) => s.id));
   const knownLines = new Set(Object.keys(centerlinesFile?.lines ?? {}));
+  const knownMotions = new Set(
+    motionsFile ? motionsFile.motions.map((m) => m.id) : [],
+  );
 
   if (journeysFile.journeys.length > 0 && !manifest.centerlines) {
     errors.push(
@@ -611,6 +620,10 @@ function checkJourneys(
 
   const stagesByJourney = new Map<JourneyId, Set<StageId>>();
   const eventIdsByJourney = new Map<JourneyId, Set<string>>();
+  const metersByJourney = new Map<
+    JourneyId,
+    Map<string, JourneysFile['journeys'][number]['meters'][number]>
+  >();
 
   for (const journey of journeysFile.journeys) {
     if (stagesByJourney.has(journey.id)) {
@@ -623,6 +636,31 @@ function checkJourneys(
         errors.push(
           `journeys.json: "${journey.id}" references unknown system "${sys}"`,
         );
+      }
+    }
+
+    const meterDefs = new Map(journey.meters.map((m) => [m.id, m]));
+    metersByJourney.set(journey.id, meterDefs);
+
+    if (journey.metersStart) {
+      for (const m of journey.meters) {
+        if (!Object.hasOwn(journey.metersStart, m.id)) {
+          errors.push(
+            `journeys.json: "${journey.id}" metersStart is missing meter "${m.id}"`,
+          );
+        }
+      }
+      for (const [mId, val] of Object.entries(journey.metersStart)) {
+        const def = meterDefs.get(mId);
+        if (!def) {
+          errors.push(
+            `journeys.json: "${journey.id}" metersStart sets unknown meter "${mId}"`,
+          );
+        } else if (val < 0 || val > def.max) {
+          errors.push(
+            `journeys.json: "${journey.id}" metersStart meter "${mId}" (${val}) must be in [0, ${def.max}]`,
+          );
+        }
       }
     }
 
@@ -700,12 +738,72 @@ function checkJourneys(
         }
       }
 
+      if (stage.rhythm && motionsFile && !knownMotions.has(stage.rhythm.motion)) {
+        errors.push(
+          `journeys.json: "${target}" rhythm references unknown motion "${stage.rhythm.motion}"`,
+        );
+      }
+
       if (idx > 0) {
         const prev = journey.stages[idx - 1];
-        for (const key of NUTRIENT_KEYS) {
-          if (stage.nutrients[key] < prev.nutrients[key]) {
+        if (
+          prev.rhythm?.mode === 'scrub' &&
+          stage.rhythm?.mode === 'scrub' &&
+          prev.rhythm.motion === stage.rhythm.motion &&
+          stage.rhythm.from < prev.rhythm.from
+        ) {
+          errors.push(
+            `journeys.json: "${target}" scrub rhythm from (${stage.rhythm.from}) decreases below previous stage "${prev.id}" (${prev.rhythm.from})`,
+          );
+        }
+      }
+
+      for (const m of journey.meters) {
+        if (!Object.hasOwn(stage.meters, m.id)) {
+          errors.push(
+            `journeys.json: "${target}" is missing meter "${m.id}"`,
+          );
+        }
+      }
+      for (const [mId, val] of Object.entries(stage.meters)) {
+        const def = meterDefs.get(mId);
+        if (!def) {
+          errors.push(
+            `journeys.json: "${target}" sets unknown meter "${mId}"`,
+          );
+          continue;
+        }
+        if (val < 0 || val > def.max) {
+          errors.push(
+            `journeys.json: "${target}" meter "${mId}" (${val}) must be in [0, ${def.max}]`,
+          );
+        }
+      }
+
+      if (idx === 0 && journey.metersStart) {
+        for (const m of journey.meters) {
+          if (
+            m.monotonic &&
+            Object.hasOwn(stage.meters, m.id) &&
+            Object.hasOwn(journey.metersStart, m.id) &&
+            stage.meters[m.id] < journey.metersStart[m.id]
+          ) {
             errors.push(
-              `journeys.json: "${target}" nutrient "${key}" (${stage.nutrients[key]}) decreases below previous stage "${prev.id}" (${prev.nutrients[key]})`,
+              `journeys.json: "${target}" monotonic meter "${m.id}" (${stage.meters[m.id]}) decreases below metersStart (${journey.metersStart[m.id]})`,
+            );
+          }
+        }
+      } else if (idx > 0) {
+        const prev = journey.stages[idx - 1];
+        for (const m of journey.meters) {
+          if (
+            m.monotonic &&
+            Object.hasOwn(stage.meters, m.id) &&
+            Object.hasOwn(prev.meters, m.id) &&
+            stage.meters[m.id] < prev.meters[m.id]
+          ) {
+            errors.push(
+              `journeys.json: "${target}" meter "${m.id}" (${stage.meters[m.id]}) decreases below previous stage "${prev.id}" (${prev.meters[m.id]})`,
             );
           }
         }
@@ -724,6 +822,37 @@ function checkJourneys(
         errors.push(
           `content/en/journeys.json: missing summary for "${journey.id}"`,
         );
+      }
+      if (!entry?.follow?.trim()) {
+        errors.push(`content/en/journeys.json: missing follow label for "${journey.id}"`);
+      }
+      if (!entry?.inspectorLink?.trim()) {
+        errors.push(
+          `content/en/journeys.json: missing inspectorLink for "${journey.id}"`,
+        );
+      }
+      if (!entry?.metersTitle?.trim()) {
+        errors.push(
+          `content/en/journeys.json: missing metersTitle for "${journey.id}"`,
+        );
+      }
+      if (!entry?.metersNote?.trim()) {
+        errors.push(
+          `content/en/journeys.json: missing metersNote for "${journey.id}"`,
+        );
+      }
+      for (const meter of journey.meters) {
+        const mText = entry?.meters?.[meter.id];
+        if (!mText?.label?.trim()) {
+          errors.push(
+            `content/en/journeys.json: missing meter label for "${journey.id}/meters/${meter.id}"`,
+          );
+        }
+        if (!mText?.value?.trim()) {
+          errors.push(
+            `content/en/journeys.json: missing meter value template for "${journey.id}/meters/${meter.id}"`,
+          );
+        }
       }
       for (const stage of journey.stages) {
         const st = entry?.stages?.[stage.id];
@@ -750,6 +879,7 @@ function checkJourneys(
     for (const [journeyId, entry] of Object.entries(textFile.journeys)) {
       const validStages = stagesByJourney.get(journeyId);
       const validEvents = eventIdsByJourney.get(journeyId);
+      const meterDefs = metersByJourney.get(journeyId);
       if (!validStages) {
         errors.push(`${fileLabel}: "${journeyId}" is not in journeys.json`);
         continue;
@@ -773,6 +903,86 @@ function checkJourneys(
           MAX_TOUR_SUMMARY,
           errors,
         );
+      }
+      if (entry.follow !== undefined) {
+        checkTourTextField(
+          fileLabel,
+          journeyId,
+          'follow',
+          entry.follow,
+          MAX_JOURNEY_FOLLOW,
+          errors,
+        );
+      }
+      if (entry.inspectorLink !== undefined) {
+        checkTourTextField(
+          fileLabel,
+          journeyId,
+          'inspectorLink',
+          entry.inspectorLink,
+          MAX_JOURNEY_INSPECTOR_LINK,
+          errors,
+        );
+      }
+      if (entry.metersTitle !== undefined) {
+        checkTourTextField(
+          fileLabel,
+          journeyId,
+          'metersTitle',
+          entry.metersTitle,
+          MAX_JOURNEY_METERS_TITLE,
+          errors,
+        );
+      }
+      if (entry.metersNote !== undefined) {
+        checkTourTextField(
+          fileLabel,
+          journeyId,
+          'metersNote',
+          entry.metersNote,
+          MAX_JOURNEY_METERS_NOTE,
+          errors,
+        );
+      }
+      for (const [meterId, mText] of Object.entries(entry.meters ?? {})) {
+        const target = `${journeyId}/meters/${meterId}`;
+        const mDef = meterDefs?.get(meterId);
+        if (!mDef) {
+          errors.push(`${fileLabel}: "${target}" is not in journeys.json`);
+          continue;
+        }
+        if (mText.label !== undefined) {
+          checkTourTextField(
+            fileLabel,
+            target,
+            'label',
+            mText.label,
+            MAX_METER_LABEL,
+            errors,
+          );
+        }
+        if (mText.value !== undefined) {
+          checkTourTextField(
+            fileLabel,
+            target,
+            'value',
+            mText.value,
+            MAX_METER_VALUE,
+            errors,
+          );
+          for (const match of mText.value.matchAll(/\{([^}]+)\}/g)) {
+            const name = match[1];
+            if (name !== 'v' && name !== 's') {
+              errors.push(
+                `${fileLabel}: "${target}" value template uses unsupported placeholder "{${name}}"`,
+              );
+            } else if (name === 's' && mDef.secondary === undefined) {
+              errors.push(
+                `${fileLabel}: "${target}" value template uses "{s}" without a secondary meter`,
+              );
+            }
+          }
+        }
       }
       for (const [stageId, stText] of Object.entries(entry.stages ?? {})) {
         const target = `${journeyId}/${stageId}`;
@@ -1060,6 +1270,7 @@ export function checkContent(input: {
       manifestResult.data,
       taxonomyResult.data,
       centerlinesResult?.success ? centerlinesResult.data : null,
+      motionsResult?.success ? motionsResult.data : null,
       errors,
     );
   }

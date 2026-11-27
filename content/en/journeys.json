@@ -3,6 +3,17 @@
     "digestion": {
       "title": "Follow a bite of food",
       "summary": "Watch one bite travel from the mouth to the end of the gut and see what each organ does to it along the way.",
+      "follow": "Follow the food",
+      "inspectorLink": "Watch food pass through here",
+      "metersTitle": "What's been digested",
+      "metersNote": "Rounded teaching values",
+      "meters": {
+        "carbs": { "label": "Carbohydrates", "value": "{v}% broken down, {s}% absorbed" },
+        "protein": { "label": "Proteins", "value": "{v}% broken down, {s}% absorbed" },
+        "fat": { "label": "Fats", "value": "{v}% broken down, {s}% absorbed" },
+        "water": { "label": "Water", "value": "{v}% absorbed" },
+        "absorbed": { "label": "Absorbed", "value": "{v}%" }
+      },
       "stages": {
         "mouth": {
           "title": "Chewing and saliva",

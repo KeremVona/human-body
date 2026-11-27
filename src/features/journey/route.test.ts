@@ -13,13 +13,13 @@ const sampleView = {
 
 const baseStage = {
   durationS: 5,
-  food: 'bolus' as const,
+  look: 'bolus' as const,
   radius: 0.006,
   motion: 'squeeze' as const,
   organs: ['esophagus'],
   view: sampleView,
   modelled: true,
-  nutrients: { carbs: 0, protein: 0, fat: 0, water: 0, absorbed: 0 },
+  meters: { carbs: 0 },
 };
 
 const meshes: Manifest['meshes'] = {
@@ -65,6 +65,7 @@ const lines: Record<string, [number, number, number][]> = {
 const testJourney: Journey = {
   id: 'digestion',
   systems: ['digestive'],
+  meters: [{ id: 'carbs', unit: '%', max: 100, decimals: 0 }],
   stages: [
     {
       ...baseStage,
@@ -146,5 +147,38 @@ describe('journey route builder', () => {
     expect(localProgress(route, 1, mid1)).toBeCloseTo(0.5, 4);
     expect(localProgress(route, 1, 0)).toBe(0);
     expect(localProgress(route, 1, 1)).toBe(1);
+  });
+
+  it('walks a line slice with reverse: true from end back to start', () => {
+    const revJourney: Journey = {
+      id: 'breath',
+      systems: ['digestive'],
+      meters: [{ id: 'carbs', unit: '%', max: 100, decimals: 0 }],
+      stages: [
+        {
+          ...baseStage,
+          id: 'inhale',
+          path: [{ line: 'line-a', from: 0.1, to: 0.9 }],
+        },
+        {
+          ...baseStage,
+          id: 'exhale',
+          path: [{ line: 'line-a', from: 0.1, to: 0.9, reverse: true }],
+        },
+      ],
+    };
+    const route = buildRoute(revJourney, lines, meshes);
+    const pStart0 = new Vector3();
+    const pEnd0 = new Vector3();
+    const pStart1 = new Vector3();
+    const pEnd1 = new Vector3();
+    route.pointAt(route.stageStart[0], pStart0);
+    route.pointAt(route.stageEnd[0], pEnd0);
+    route.pointAt(route.stageStart[1], pStart1);
+    route.pointAt(route.stageEnd[1], pEnd1);
+
+    // Exhale begins at the end of inhale and returns to the start of inhale
+    expect(pStart1.distanceTo(pEnd0)).toBeLessThan(0.002);
+    expect(pEnd1.distanceTo(pStart0)).toBeLessThan(0.002);
   });
 });

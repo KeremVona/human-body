@@ -3,6 +3,17 @@
     "digestion": {
       "title": "Bir lokmanın yolculuğu",
       "summary": "Bir lokmanın ağızdan bağırsağın sonuna kadar yolculuğunu izleyin ve yol boyunca her organın ona ne yaptığını görün.",
+      "follow": "Yiyeceği takip et",
+      "inspectorLink": "Yiyeceğin buradan geçişini izle",
+      "metersTitle": "Neler sindirildi",
+      "metersNote": "Yuvarlanmış öğretici değerler",
+      "meters": {
+        "carbs": { "label": "Karbonhidratlar", "value": "%{v} parçalandı, %{s} emildi" },
+        "protein": { "label": "Proteinler", "value": "%{v} parçalandı, %{s} emildi" },
+        "fat": { "label": "Yağlar", "value": "%{v} parçalandı, %{s} emildi" },
+        "water": { "label": "Su", "value": "%{v} emildi" },
+        "absorbed": { "label": "Emildi", "value": "%{v}" }
+      },
       "stages": {
         "mouth": {
           "title": "Çiğneme ve tükürük",

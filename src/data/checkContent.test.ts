@@ -969,6 +969,24 @@ describe('checkContent tours validation', () => {
 describe('checkContent journeys validation', () => {
   function makeJourneyFixture() {
     const base = makeFixture();
+    const motions = {
+      motions: [
+        {
+          id: 'elbow-flexion',
+          kind: 'hinge',
+          label: 'Elbow flexion',
+          view: 'left',
+          systems: ['skeletal'],
+          moving: ['femur--l'],
+          ghost: [],
+          agonists: { flex: [], extend: [] },
+          pivot: { mesh: 'femur--l', anchor: [0.5, 0.5, 0.5] },
+          axis: [1, 0, 0],
+          range: [0, 90],
+          periodS: 4,
+        },
+      ],
+    };
     const manifest = {
       ...base.manifest,
       centerlines: {
@@ -991,11 +1009,16 @@ describe('checkContent journeys validation', () => {
         {
           id: 'digestion',
           systems: ['skeletal'],
+          meters: [
+            { id: 'carbs', unit: '%', max: 100, decimals: 0, monotonic: true, secondary: 'absorbed' },
+            { id: 'absorbed', unit: '%', max: 100, decimals: 0, monotonic: true },
+          ],
+          metersStart: { carbs: 0, absorbed: 0 },
           stages: [
             {
               id: 'mouth',
               durationS: 8,
-              food: 'bolus',
+              look: 'bolus',
               radius: 0.007,
               motion: 'none',
               organs: ['femur--l'],
@@ -1003,12 +1026,12 @@ describe('checkContent journeys validation', () => {
               path: [{ mesh: 'femur--l', anchor: [0.5, 0.5, 0.5] }],
               modelled: true,
               events: [{ at: 0.2, kind: 'secrete', mesh: 'femur--l', id: 'saliva' }],
-              nutrients: { carbs: 5, protein: 0, fat: 0, water: 0, absorbed: 0 },
+              meters: { carbs: 5, absorbed: 0 },
             },
             {
               id: 'esophagus',
               durationS: 6,
-              food: 'bolus',
+              look: 'bolus',
               radius: 0.005,
               motion: 'squeeze',
               organs: ['sternum'],
@@ -1016,7 +1039,7 @@ describe('checkContent journeys validation', () => {
               view: { c: [0, 0, 2, 0, 0, 0], s: ['skeletal'], h: [], sel: [] },
               path: [{ line: 'esophagus', from: 0, to: 1 }],
               modelled: true,
-              nutrients: { carbs: 10, protein: 0, fat: 0, water: 0, absorbed: 0 },
+              meters: { carbs: 10, absorbed: 0 },
             },
           ],
         },
@@ -1028,6 +1051,14 @@ describe('checkContent journeys validation', () => {
           digestion: {
             title: 'Follow a bite of food',
             summary: 'Trace one bite down the tract.',
+            follow: 'Follow the food',
+            inspectorLink: 'Watch food pass through here',
+            metersTitle: "What's been digested",
+            metersNote: 'Rounded teaching values',
+            meters: {
+              carbs: { label: 'Carbohydrates', value: '{v}% broken down, {s}% absorbed' },
+              absorbed: { label: 'Absorbed', value: '{v}%' },
+            },
             stages: {
               mouth: { title: 'Mouth', body: 'Chew and wet.' },
               esophagus: { title: 'Esophagus', body: 'Squeeze down.' },
@@ -1041,6 +1072,14 @@ describe('checkContent journeys validation', () => {
           digestion: {
             title: 'Bir lokmanın yolculuğu',
             summary: 'Bir lokmayı yol boyunca izleyin.',
+            follow: 'Yiyeceği takip et',
+            inspectorLink: 'Yiyeceğin buradan geçişini izle',
+            metersTitle: 'Neler sindirildi',
+            metersNote: 'Yuvarlanmış öğretici değerler',
+            meters: {
+              carbs: { label: 'Karbonhidratlar', value: '%{v} parçalandı, %{s} emildi' },
+              absorbed: { label: 'Emildi', value: '%{v}' },
+            },
             stages: {
               mouth: { title: 'Ağız', body: 'Çiğneme.' },
               esophagus: { title: 'Yemek borusu', body: 'Aşağı iniş.' },
@@ -1050,7 +1089,7 @@ describe('checkContent journeys validation', () => {
         },
       },
     };
-    return { ...base, manifest, centerlines, journeys, journeyTexts };
+    return { ...base, manifest, centerlines, motions, journeys, journeyTexts };
   }
 
   it('passes on a valid journey + centerlines + localized texts', () => {
@@ -1060,6 +1099,7 @@ describe('checkContent journeys validation', () => {
       taxonomy: f.taxonomy,
       index: f.index,
       structureFiles: f.structureFiles,
+      motions: f.motions,
       centerlines: f.centerlines,
       journeys: f.journeys,
       journeyTexts: f.journeyTexts,
@@ -1067,13 +1107,13 @@ describe('checkContent journeys validation', () => {
     expect(res.errors).toEqual([]);
   });
 
-  it('flags missing centerlines, unknown mesh/line ids, decreasing nutrients, missing en labels, and over-limit text', () => {
+  it('flags missing centerlines, unknown mesh/line ids, decreasing monotonic meters, missing en labels, and over-limit text', () => {
     const f = makeJourneyFixture();
     f.journeys.journeys[0].stages[0].organs = ['no-such-organ'];
     f.journeys.journeys[0].stages[1].path = [
       { line: 'missing-line', from: 0, to: 1 },
     ];
-    f.journeys.journeys[0].stages[1].nutrients.carbs = 2; // decreased from 5 -> 2
+    f.journeys.journeys[0].stages[1].meters.carbs = 2; // decreased from 5 -> 2
     delete (f.journeyTexts.en.journeys.digestion.events as Record<string, string>).saliva;
     f.journeyTexts.tr.journeys.digestion.events.saliva = 'x'.repeat(41);
 
@@ -1082,6 +1122,7 @@ describe('checkContent journeys validation', () => {
       taxonomy: f.taxonomy,
       index: f.index,
       structureFiles: f.structureFiles,
+      motions: f.motions,
       centerlines: f.centerlines,
       journeys: f.journeys,
       journeyTexts: f.journeyTexts,
@@ -1101,5 +1142,58 @@ describe('checkContent journeys validation', () => {
       journeyTexts: f.journeyTexts,
     });
     expect(noCl.errors.some((e) => e.includes('manifest.centerlines'))).toBe(true);
+  });
+
+  it('flags unknown rhythm motion, decreasing scrub range, out-of-range meters, missing v2 en texts, and bad meter template placeholders', () => {
+    const f = makeJourneyFixture();
+    (f.journeys.journeys[0].stages[0] as Record<string, unknown>).rhythm = {
+      motion: 'elbow-flexion',
+      mode: 'scrub',
+      from: 0.5,
+      to: 0.8,
+    };
+    (f.journeys.journeys[0].stages[1] as Record<string, unknown>).rhythm = {
+      motion: 'elbow-flexion',
+      mode: 'scrub',
+      from: 0.3,
+      to: 0.9,
+    };
+    f.journeys.journeys[0].stages[1].meters.absorbed = 120;
+    f.journeyTexts.tr.journeys.digestion.meters.absorbed.value = '{s}% bad {q}';
+    delete (f.journeyTexts.en.journeys.digestion as Record<string, unknown>).follow;
+
+    const res = checkContent({
+      manifest: f.manifest,
+      taxonomy: f.taxonomy,
+      index: f.index,
+      structureFiles: f.structureFiles,
+      motions: f.motions,
+      centerlines: f.centerlines,
+      journeys: f.journeys,
+      journeyTexts: f.journeyTexts,
+    });
+    expect(res.errors.some((e) => e.includes('scrub rhythm from') && e.includes('esophagus'))).toBe(true);
+    expect(res.errors.some((e) => e.includes('absorbed') && e.includes('[0, 100]'))).toBe(true);
+    expect(res.errors.some((e) => e.includes('without a secondary meter'))).toBe(true);
+    expect(res.errors.some((e) => e.includes('unsupported placeholder "{q}"'))).toBe(true);
+    expect(res.errors.some((e) => e.includes('missing follow label'))).toBe(true);
+
+    (f.journeys.journeys[0].stages[0] as Record<string, unknown>).rhythm = {
+      motion: 'unknown-motion',
+      mode: 'play',
+    };
+    const resUnknownMotion = checkContent({
+      manifest: f.manifest,
+      taxonomy: f.taxonomy,
+      index: f.index,
+      structureFiles: f.structureFiles,
+      motions: f.motions,
+      centerlines: f.centerlines,
+      journeys: f.journeys,
+      journeyTexts: f.journeyTexts,
+    });
+    expect(
+      resUnknownMotion.errors.some((e) => e.includes('unknown-motion') && e.includes('mouth')),
+    ).toBe(true);
   });
 });
