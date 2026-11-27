@@ -1,3 +1,49 @@
 {
-  "journeys": {}
+  "journeys": {
+    "digestion": {
+      "title": "Bir lokmanın yolculuğu",
+      "summary": "Bir lokmanın ağızdan bağırsağın sonuna kadar yolculuğunu izleyin ve yol boyunca her organın ona ne yaptığını görün.",
+      "stages": {
+        "mouth": {
+          "title": "Çiğneme ve tükürük",
+          "body": "Dişler lokmayı keser ve öğütür, dil de onu ağız içinde çevirir. Üç çift tükürük bezi tükürük salgılar; tükürük yiyeceği ıslatarak yutmayı kolaylaştırır ve nişastayı şekerlere ayırmaya başlayan amilaz enzimini taşır. Yumuşamış bu yiyecek topağına bolus denir."
+        },
+        "swallow": {
+          "title": "Yutma",
+          "body": "Dil bolusu boğaza (yutak) doğru iter. Yumuşak damak ve küçük dil yukarı kalkarak burun yolunu kapatır; yaprak biçimli bir kapak olan epiglot da soluk borusunun üzerine kapanır, böylece yiyecek akciğerlere değil yemek borusuna gider. Boğaz kasları onu aşağı doğru sıkar."
+        },
+        "esophagus": {
+          "title": "Yemek borusundan aşağı",
+          "body": "Peristaltizm denen kas kasılması dalgaları, bolusu 25 cm'lik bu borudan birkaç saniyede aşağı iter. Bu dalgalar baş aşağı dururken bile çalışır. En altta bir kas halkası açılarak yiyeceği mideye bırakır, sonra asidi dışarıda tutmak için yeniden kapanır."
+        },
+        "stomach": {
+          "title": "Midede çalkalanma",
+          "body": "Midenin kaslı duvarları yiyeceği mide özsuyuyla çalkalar: hidroklorik asit ve proteinleri parçalamaya başlayan pepsin enzimi. Birkaç saat sonra yiyecek kimus denen koyu, asitli bir sıvıya dönüşür ve pilordan azar azar dışarı bırakılır."
+        },
+        "duodenum": {
+          "title": "Onikiparmak bağırsağında salgılar",
+          "body": "İnce bağırsağın ilk bölümünde, karaciğerde üretilip safra kesesinde depolanan safra, safra kanalından gelir ve yağları küçük damlacıklara ayırır. Pankreas da asidi nötrleyen ve karbonhidrat, protein ve yağları sindiren enzimler taşıyan bir salgı ekler."
+        },
+        "small-intestine": {
+          "title": "İnce bağırsakta emilim",
+          "body": "Metrelerce kıvrımlı bağırsak boyunca enzimler yiyeceği en küçük parçalarına ayırmayı tamamlar: şekerler, amino asitler ve yağ asitleri. Villus denen milyonlarca minik parmaksı çıkıntı bunları kana ve lenfe emer. Bu model jejunum ve ileumu tek bir kıvrım olarak gösterir."
+        },
+        "large-intestine": {
+          "title": "Kalın bağırsakta su ve bakteriler",
+          "body": "Geriye kalan, çoğunlukla lif ve su, apandisin yakınında kalın bağırsağa geçer ve kolon boyunca yukarı, karşıya ve aşağı ilerler. Kolon kalan suyun ve tuzların çoğunu emer; trilyonlarca bağırsak bakterisi de vücudun sindiremediği lifleri fermente eder. Artıklar dışkıya dönüşür."
+        },
+        "exit": {
+          "title": "Vücuttan çıkış",
+          "body": "Dışkı, vücut boşaltmaya hazır olana kadar rektumda depolanır, sonra halka biçimli büzgen kasların denetiminde anal kanaldan dışarı çıkar.",
+          "note": "Rektum ve anal kanal henüz 3B modelde yok, bu yüzden rota burada kesik çizgiyle gösteriliyor."
+        }
+      },
+      "events": {
+        "saliva": "Tükürük",
+        "acid": "Mide özsuyu",
+        "bile": "Safra",
+        "pancreatic-juice": "Pankreas özsuyu"
+      }
+    }
+  }
 }

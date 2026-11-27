@@ -1487,9 +1487,9 @@
     }
   },
   "centerlines": {
-    "file": "centerlines.fba42a8f.json",
-    "bytes": 39265,
-    "sha256": "fba42a8f06b058c9a61ea6a4b191dc4a2c9589dbf73739533c14e5c9e9b890ca"
+    "file": "centerlines.2f091312.json",
+    "bytes": 39525,
+    "sha256": "2f091312e5129dae7377de292d46c9a8869b0baec6fc9b4ccb0e94869a753f76"
   },
   "meshes": {
     "abdominal-aorta": {

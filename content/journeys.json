@@ -1,3 +1,234 @@
 {
-  "journeys": []
+  "journeys": [
+    {
+      "id": "digestion",
+      "systems": ["digestive"],
+      "stages": [
+        {
+          "id": "mouth",
+          "durationS": 10,
+          "realTime": { "min": 5, "max": 30, "unit": "s" },
+          "food": "bolus",
+          "radius": 0.007,
+          "motion": "none",
+          "organs": [
+            "tongue",
+            "upper-medial-incisor--l",
+            "upper-medial-incisor--r"
+          ],
+          "view": {
+            "c": [0, 0.667, 0.252, 0, 0.667, 0.045],
+            "s": ["digestive", "skeletal"],
+            "o": { "skeletal": 0.15 },
+            "h": [],
+            "sel": []
+          },
+          "path": [
+            { "mesh": "upper-medial-incisor--l", "anchor": [0, 0.2, 0.9] },
+            { "mesh": "tongue", "anchor": [0.5, 0.95, 0.75] },
+            { "mesh": "tongue", "anchor": [0.5, 0.95, 0.35] }
+          ],
+          "modelled": true,
+          "events": [
+            { "at": 0.15, "kind": "secrete", "mesh": "parotid-gland--l", "id": "saliva" },
+            { "at": 0.15, "kind": "secrete", "mesh": "parotid-gland--r", "id": "saliva" },
+            { "at": 0.15, "kind": "secrete", "mesh": "submandibular-gland--l", "id": "saliva" },
+            { "at": 0.15, "kind": "secrete", "mesh": "submandibular-gland--r", "id": "saliva" },
+            { "at": 0.15, "kind": "secrete", "mesh": "sublingual-gland--l", "id": "saliva" },
+            { "at": 0.15, "kind": "secrete", "mesh": "sublingual-gland--r", "id": "saliva" }
+          ],
+          "nutrients": { "carbs": 5, "protein": 0, "fat": 0, "water": 0, "absorbed": 0 }
+        },
+        {
+          "id": "swallow",
+          "durationS": 4,
+          "realTime": { "min": 1, "max": 2, "unit": "s" },
+          "food": "bolus",
+          "radius": 0.006,
+          "motion": "squeeze",
+          "organs": [
+            "soft-palate",
+            "uvula-of-palate",
+            "epiglottis",
+            "superior-pharyngeal-constrictor--l",
+            "superior-pharyngeal-constrictor--r",
+            "middle-pharyngeal-constrictor--l",
+            "middle-pharyngeal-constrictor--r",
+            "inferior-pharyngeal-constrictor--l",
+            "inferior-pharyngeal-constrictor--r"
+          ],
+          "view": {
+            "c": [0.219, 0.66, 0.239, 0, 0.66, 0.014],
+            "s": ["digestive", "skeletal", "respiratory", "muscular"],
+            "h": [],
+            "i": [
+              "tongue",
+              "soft-palate",
+              "uvula-of-palate",
+              "epiglottis",
+              "superior-pharyngeal-constrictor--l",
+              "superior-pharyngeal-constrictor--r",
+              "middle-pharyngeal-constrictor--l",
+              "middle-pharyngeal-constrictor--r",
+              "inferior-pharyngeal-constrictor--l",
+              "inferior-pharyngeal-constrictor--r",
+              "esophagus"
+            ],
+            "sel": []
+          },
+          "path": [
+            { "mesh": "soft-palate", "anchor": [0.5, 0, 0.1] },
+            { "mesh": "epiglottis", "anchor": [0.5, 0.6, 0] },
+            { "line": "esophagus", "to": 0.04 }
+          ],
+          "modelled": true,
+          "nutrients": { "carbs": 5, "protein": 0, "fat": 0, "water": 0, "absorbed": 0 }
+        },
+        {
+          "id": "esophagus",
+          "durationS": 6,
+          "realTime": { "min": 5, "max": 10, "unit": "s" },
+          "food": "bolus",
+          "radius": 0.005,
+          "motion": "squeeze",
+          "organs": ["esophagus"],
+          "inside": ["esophagus"],
+          "view": {
+            "c": [0.005, 0.477, 0.598, 0.005, 0.477, -0.02],
+            "s": ["digestive", "skeletal"],
+            "o": { "skeletal": 0.15 },
+            "h": [],
+            "sel": []
+          },
+          "path": [{ "line": "esophagus", "from": 0.04, "to": 1 }],
+          "modelled": true,
+          "nutrients": { "carbs": 10, "protein": 0, "fat": 0, "water": 0, "absorbed": 0 }
+        },
+        {
+          "id": "stomach",
+          "durationS": 14,
+          "realTime": { "min": 2, "max": 4, "unit": "h" },
+          "food": "chyme",
+          "radius": 0.011,
+          "motion": "churn",
+          "organs": ["stomach"],
+          "inside": ["stomach"],
+          "view": {
+            "c": [0.038, 0.309, 0.479, 0.038, 0.309, 0.024],
+            "s": ["digestive", "skeletal"],
+            "o": { "skeletal": 0.15 },
+            "h": [],
+            "sel": []
+          },
+          "path": [{ "line": "stomach" }],
+          "modelled": true,
+          "events": [{ "at": 0.1, "kind": "secrete", "mesh": "stomach", "id": "acid" }],
+          "nutrients": { "carbs": 30, "protein": 15, "fat": 10, "water": 0, "absorbed": 0 }
+        },
+        {
+          "id": "duodenum",
+          "durationS": 8,
+          "realTime": { "min": 1, "max": 15, "unit": "min" },
+          "food": "chyme",
+          "radius": 0.006,
+          "motion": "squeeze",
+          "organs": ["duodenum"],
+          "inside": ["duodenum"],
+          "view": {
+            "c": [-0.017, 0.237, 0.338, -0.017, 0.237, 0.019],
+            "s": ["digestive", "skeletal"],
+            "o": { "skeletal": 0.15 },
+            "h": [],
+            "sel": []
+          },
+          "path": [{ "line": "duodenum" }],
+          "modelled": true,
+          "events": [
+            { "at": 0.1, "kind": "secrete", "mesh": "gallbladder", "id": "bile", "via": "bile-duct" },
+            { "at": 0.1, "kind": "secrete", "mesh": "liver", "id": "bile" },
+            { "at": 0.35, "kind": "secrete", "mesh": "pancreas", "id": "pancreatic-juice", "via": "pancreatic-duct" }
+          ],
+          "nutrients": { "carbs": 60, "protein": 50, "fat": 40, "water": 10, "absorbed": 10 }
+        },
+        {
+          "id": "small-intestine",
+          "durationS": 20,
+          "realTime": { "min": 3, "max": 5, "unit": "h" },
+          "food": "chyme",
+          "radius": 0.004,
+          "motion": "squeeze",
+          "organs": ["jejunum"],
+          "inside": ["jejunum"],
+          "view": {
+            "c": [0.009, 0.128, 0.649, 0.009, 0.128, 0.038],
+            "s": ["digestive", "skeletal"],
+            "o": { "skeletal": 0.15 },
+            "h": [],
+            "sel": []
+          },
+          "path": [{ "line": "jejunum" }],
+          "modelled": true,
+          "nutrients": { "carbs": 95, "protein": 95, "fat": 95, "water": 80, "absorbed": 90 }
+        },
+        {
+          "id": "large-intestine",
+          "durationS": 18,
+          "realTime": { "min": 12, "max": 24, "unit": "h" },
+          "food": "stool",
+          "radius": 0.008,
+          "motion": "squeeze",
+          "organs": [
+            "vermiform-appendix",
+            "ascending-colon",
+            "transverse-colon",
+            "descending-colon",
+            "sigmoid-colon"
+          ],
+          "inside": [
+            "ascending-colon",
+            "transverse-colon",
+            "descending-colon",
+            "sigmoid-colon"
+          ],
+          "view": {
+            "c": [0, 0.112, 0.918, 0, 0.112, -0.007],
+            "s": ["digestive", "skeletal"],
+            "o": { "skeletal": 0.15 },
+            "h": [],
+            "sel": []
+          },
+          "path": [
+            { "mesh": "ascending-colon", "anchor": [0.5, 0.05, 0.5] },
+            { "line": "ascending-colon", "from": 0, "to": 0.86 },
+            { "line": "transverse-colon", "from": 0.03, "to": 0.94 },
+            { "line": "descending-colon", "from": 0.14, "to": 1 },
+            { "line": "sigmoid-colon", "from": 0, "to": 0.72 }
+          ],
+          "modelled": true,
+          "nutrients": { "carbs": 95, "protein": 95, "fat": 95, "water": 95, "absorbed": 95 }
+        },
+        {
+          "id": "exit",
+          "durationS": 6,
+          "food": "stool",
+          "radius": 0.007,
+          "motion": "none",
+          "organs": [],
+          "view": {
+            "c": [0.117, 0.006, -0.36, 0.005, 0.006, -0.059],
+            "s": ["digestive", "skeletal"],
+            "o": { "skeletal": 0.15 },
+            "h": [],
+            "sel": []
+          },
+          "path": [
+            { "mesh": "pararectal-nodes", "anchor": [0.5, 0.5, 0.5] },
+            { "mesh": "external-anal-sphincter--l", "anchor": [0, 0.5, 0.5] }
+          ],
+          "modelled": false,
+          "nutrients": { "carbs": 95, "protein": 95, "fat": 95, "water": 95, "absorbed": 95 }
+        }
+      ]
+    }
+  ]
 }

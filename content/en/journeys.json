@@ -1,3 +1,49 @@
 {
-  "journeys": {}
+  "journeys": {
+    "digestion": {
+      "title": "Follow a bite of food",
+      "summary": "Watch one bite travel from the mouth to the end of the gut and see what each organ does to it along the way.",
+      "stages": {
+        "mouth": {
+          "title": "Chewing and saliva",
+          "body": "Teeth cut and grind the bite while the tongue rolls it around. Three pairs of salivary glands add saliva, which wets the food so it can be swallowed and carries amylase, an enzyme that starts breaking starch into sugars. The softened lump is called a bolus."
+        },
+        "swallow": {
+          "title": "The swallow",
+          "body": "The tongue pushes the bolus back into the throat (pharynx). The soft palate and uvula lift to seal off the nose, and the epiglottis, a leaf-shaped flap, folds down over the windpipe so food goes into the esophagus instead of the lungs. Throat muscles squeeze it downward."
+        },
+        "esophagus": {
+          "title": "Down the esophagus",
+          "body": "Waves of muscle contraction called peristalsis squeeze the bolus down this 25 cm tube in a few seconds. They work even if you are upside down. At the bottom, a ring of muscle opens to let food into the stomach and closes again to keep acid out."
+        },
+        "stomach": {
+          "title": "Churning in the stomach",
+          "body": "The stomach's muscular walls churn the food with gastric juice: hydrochloric acid and pepsin, an enzyme that starts breaking proteins apart. After a few hours the food has become chyme, a thick acidic liquid, and is let out a little at a time through the pylorus."
+        },
+        "duodenum": {
+          "title": "Juices join in the duodenum",
+          "body": "In the first part of the small intestine, bile made by the liver and stored in the gallbladder arrives through the bile duct and breaks fat into tiny droplets. The pancreas adds juice that neutralises the acid and carries enzymes for carbohydrates, proteins and fats."
+        },
+        "small-intestine": {
+          "title": "Absorbing in the small intestine",
+          "body": "Along several metres of coiled intestine, enzymes finish breaking food into its smallest pieces: sugars, amino acids and fatty acids. Millions of tiny finger-like folds called villi absorb them into the blood and lymph. This model shows the jejunum and ileum together as one coil."
+        },
+        "large-intestine": {
+          "title": "Water and bacteria in the large intestine",
+          "body": "What's left, mostly fibre and water, enters the large intestine near the appendix and travels up, across and down the colon. The colon absorbs most of the remaining water and salts, and trillions of gut bacteria ferment fibre the body couldn't digest. The leftovers become stool."
+        },
+        "exit": {
+          "title": "Out of the body",
+          "body": "Stool is stored in the rectum until the body is ready to empty it, then leaves through the anal canal, controlled by ring-shaped sphincter muscles.",
+          "note": "The rectum and anal canal aren't in the 3D model yet, so the route is dashed here."
+        }
+      },
+      "events": {
+        "saliva": "Saliva",
+        "acid": "Gastric juice",
+        "bile": "Bile",
+        "pancreatic-juice": "Pancreatic juice"
+      }
+    }
+  }
 }
