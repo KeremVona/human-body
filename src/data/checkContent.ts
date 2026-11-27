@@ -1,4 +1,13 @@
 import { parseMeshId, type MeshId, type Side, type StructureId } from './ids';
+import { CenterlinesFileSchema, type CenterlinesFile } from './centerlines';
+import {
+  JourneysFileSchema,
+  JourneyTextsFileSchema,
+  type JourneyId,
+  type JourneysFile,
+  type JourneyTextsFile,
+  type StageId,
+} from '../features/journey/schema';
 import { MotionsFileSchema, type MotionsFile } from '../features/motion/schema';
 import {
   ToursFileSchema,
@@ -30,6 +39,9 @@ const MAX_TOUR_TITLE = 60;
 const MAX_TOUR_SUMMARY = 160;
 const MAX_STEP_TITLE = 60;
 const MAX_STEP_BODY = 400;
+const MAX_JOURNEY_NOTE = 160;
+const MAX_JOURNEY_EVENT_LABEL = 40;
+const NUTRIENT_KEYS = ['carbs', 'protein', 'fat', 'water', 'absorbed'] as const;
 const MARKUP_RE = /<\/?[a-z][^>]*>|\*\*|\[[^\]]+\]\([^)]+\)/i;
 const Z_ANATOMY_RE = /z-anatomy/i;
 
@@ -405,7 +417,7 @@ function checkMotions(
 function checkTourTextField(
   fileLabel: string,
   target: string,
-  field: 'title' | 'summary' | 'body',
+  field: 'title' | 'summary' | 'body' | 'note' | 'label',
   value: string,
   maxLength: number,
   errors: string[],
@@ -576,6 +588,248 @@ function checkTours(
   }
 }
 
+function checkJourneys(
+  journeysFile: JourneysFile,
+  journeyTexts: Record<string, JourneyTextsFile>,
+  manifest: Manifest,
+  taxonomy: Taxonomy,
+  centerlinesFile: CenterlinesFile | null,
+  errors: string[],
+): void {
+  const knownMeshes = new Set(Object.keys(manifest.meshes));
+  const knownSystems = new Set(taxonomy.systems.map((s) => s.id));
+  const knownLines = new Set(Object.keys(centerlinesFile?.lines ?? {}));
+
+  if (journeysFile.journeys.length > 0 && !manifest.centerlines) {
+    errors.push(
+      'journeys.json: manifest.centerlines is missing (run npm run assets:centerlines)',
+    );
+  }
+  if (journeysFile.journeys.length > 0 && !centerlinesFile) {
+    errors.push('journeys.json: centerlines data is missing');
+  }
+
+  const stagesByJourney = new Map<JourneyId, Set<StageId>>();
+  const eventIdsByJourney = new Map<JourneyId, Set<string>>();
+
+  for (const journey of journeysFile.journeys) {
+    if (stagesByJourney.has(journey.id)) {
+      errors.push(`journeys.json: duplicate journey id "${journey.id}"`);
+      continue;
+    }
+
+    for (const sys of journey.systems) {
+      if (!knownSystems.has(sys)) {
+        errors.push(
+          `journeys.json: "${journey.id}" references unknown system "${sys}"`,
+        );
+      }
+    }
+
+    const stageIds = new Set<StageId>();
+    const eventIds = new Set<string>();
+    stagesByJourney.set(journey.id, stageIds);
+    eventIdsByJourney.set(journey.id, eventIds);
+
+    for (let idx = 0; idx < journey.stages.length; idx += 1) {
+      const stage = journey.stages[idx];
+      const target = `${journey.id}/${stage.id}`;
+      if (stageIds.has(stage.id)) {
+        errors.push(
+          `journeys.json: "${journey.id}" has duplicate stage id "${stage.id}"`,
+        );
+        continue;
+      }
+      stageIds.add(stage.id);
+
+      const referencedSystems = new Set<string>([
+        ...stage.view.s,
+        ...Object.keys(stage.view.o ?? {}),
+      ]);
+      for (const sys of referencedSystems) {
+        if (!knownSystems.has(sys as Taxonomy['systems'][number]['id'])) {
+          errors.push(
+            `journeys.json: "${target}" references unknown system "${sys}"`,
+          );
+        }
+      }
+
+      const meshArrays: ReadonlyArray<readonly string[]> = [
+        stage.organs,
+        stage.inside ?? [],
+        stage.view.h,
+        stage.view.i ?? [],
+        stage.view.f ?? [],
+        stage.view.sel,
+      ];
+      for (const list of meshArrays) {
+        for (const meshId of list) {
+          if (!knownMeshes.has(meshId)) {
+            errors.push(
+              `journeys.json: "${target}" references unknown mesh "${meshId}"`,
+            );
+          }
+        }
+      }
+
+      for (const item of stage.path) {
+        if ('mesh' in item) {
+          if (!knownMeshes.has(item.mesh)) {
+            errors.push(
+              `journeys.json: "${target}" path waypoint references unknown mesh "${item.mesh}"`,
+            );
+          }
+        } else if (centerlinesFile && !knownLines.has(item.line)) {
+          errors.push(
+            `journeys.json: "${target}" references unknown centerline "${item.line}"`,
+          );
+        }
+      }
+
+      for (const ev of stage.events ?? []) {
+        eventIds.add(ev.id);
+        if (!knownMeshes.has(ev.mesh)) {
+          errors.push(
+            `journeys.json: "${target}" event "${ev.id}" references unknown mesh "${ev.mesh}"`,
+          );
+        }
+        if (ev.via && centerlinesFile && !knownLines.has(ev.via)) {
+          errors.push(
+            `journeys.json: "${target}" event "${ev.id}" references unknown centerline "${ev.via}"`,
+          );
+        }
+      }
+
+      if (idx > 0) {
+        const prev = journey.stages[idx - 1];
+        for (const key of NUTRIENT_KEYS) {
+          if (stage.nutrients[key] < prev.nutrients[key]) {
+            errors.push(
+              `journeys.json: "${target}" nutrient "${key}" (${stage.nutrients[key]}) decreases below previous stage "${prev.id}" (${prev.nutrients[key]})`,
+            );
+          }
+        }
+      }
+    }
+  }
+
+  const enTexts = journeyTexts.en;
+  if (enTexts || journeysFile.journeys.length > 0) {
+    for (const journey of journeysFile.journeys) {
+      const entry = enTexts?.journeys[journey.id];
+      if (!entry?.title?.trim()) {
+        errors.push(`content/en/journeys.json: missing title for "${journey.id}"`);
+      }
+      if (!entry?.summary?.trim()) {
+        errors.push(
+          `content/en/journeys.json: missing summary for "${journey.id}"`,
+        );
+      }
+      for (const stage of journey.stages) {
+        const st = entry?.stages?.[stage.id];
+        const target = `${journey.id}/${stage.id}`;
+        if (!st?.title?.trim()) {
+          errors.push(`content/en/journeys.json: missing title for "${target}"`);
+        }
+        if (!st?.body?.trim()) {
+          errors.push(`content/en/journeys.json: missing body for "${target}"`);
+        }
+      }
+      for (const eventId of eventIdsByJourney.get(journey.id) ?? []) {
+        if (!entry?.events?.[eventId]?.trim()) {
+          errors.push(
+            `content/en/journeys.json: missing event label for "${journey.id}/${eventId}"`,
+          );
+        }
+      }
+    }
+  }
+
+  for (const [locale, textFile] of Object.entries(journeyTexts)) {
+    const fileLabel = `content/${locale}/journeys.json`;
+    for (const [journeyId, entry] of Object.entries(textFile.journeys)) {
+      const validStages = stagesByJourney.get(journeyId);
+      const validEvents = eventIdsByJourney.get(journeyId);
+      if (!validStages) {
+        errors.push(`${fileLabel}: "${journeyId}" is not in journeys.json`);
+        continue;
+      }
+      if (entry.title !== undefined) {
+        checkTourTextField(
+          fileLabel,
+          journeyId,
+          'title',
+          entry.title,
+          MAX_TOUR_TITLE,
+          errors,
+        );
+      }
+      if (entry.summary !== undefined) {
+        checkTourTextField(
+          fileLabel,
+          journeyId,
+          'summary',
+          entry.summary,
+          MAX_TOUR_SUMMARY,
+          errors,
+        );
+      }
+      for (const [stageId, stText] of Object.entries(entry.stages ?? {})) {
+        const target = `${journeyId}/${stageId}`;
+        if (!validStages.has(stageId)) {
+          errors.push(`${fileLabel}: "${target}" is not in journeys.json`);
+          continue;
+        }
+        if (stText.title !== undefined) {
+          checkTourTextField(
+            fileLabel,
+            target,
+            'title',
+            stText.title,
+            MAX_STEP_TITLE,
+            errors,
+          );
+        }
+        if (stText.body !== undefined) {
+          checkTourTextField(
+            fileLabel,
+            target,
+            'body',
+            stText.body,
+            MAX_STEP_BODY,
+            errors,
+          );
+        }
+        if (stText.note !== undefined) {
+          checkTourTextField(
+            fileLabel,
+            target,
+            'note',
+            stText.note,
+            MAX_JOURNEY_NOTE,
+            errors,
+          );
+        }
+      }
+      for (const [evId, label] of Object.entries(entry.events ?? {})) {
+        const target = `${journeyId}/events/${evId}`;
+        if (!validEvents?.has(evId)) {
+          errors.push(`${fileLabel}: "${target}" is not in journeys.json`);
+          continue;
+        }
+        checkTourTextField(
+          fileLabel,
+          target,
+          'label',
+          label,
+          MAX_JOURNEY_EVENT_LABEL,
+          errors,
+        );
+      }
+    }
+  }
+}
+
 export type LocaleContentInput = {
   index: unknown;
   structureFiles: Record<string, unknown>;
@@ -668,6 +922,9 @@ export function checkContent(input: {
   locales?: Record<string, LocaleContentInput>;
   tours?: unknown;
   tourTexts?: Record<string, unknown>;
+  centerlines?: unknown;
+  journeys?: unknown;
+  journeyTexts?: Record<string, unknown>;
 }): ContentReport {
   const schemaErrors: string[] = [];
 
@@ -730,13 +987,49 @@ export function checkContent(input: {
     }
   }
 
+  const centerlinesResult =
+    input.centerlines !== undefined
+      ? CenterlinesFileSchema.safeParse(input.centerlines)
+      : null;
+  if (centerlinesResult && !centerlinesResult.success) {
+    schemaErrors.push(
+      ...formatSchemaErrors('centerlines.json', centerlinesResult.error),
+    );
+  }
+
+  const journeysResult =
+    input.journeys !== undefined
+      ? JourneysFileSchema.safeParse(input.journeys)
+      : null;
+  if (journeysResult && !journeysResult.success) {
+    schemaErrors.push(
+      ...formatSchemaErrors('journeys.json', journeysResult.error),
+    );
+  }
+
+  const parsedJourneyTexts: Record<string, JourneyTextsFile> = {};
+  if (input.journeyTexts) {
+    for (const [locale, raw] of Object.entries(input.journeyTexts)) {
+      const res = JourneyTextsFileSchema.safeParse(raw);
+      if (!res.success) {
+        schemaErrors.push(
+          ...formatSchemaErrors(`content/${locale}/journeys.json`, res.error),
+        );
+      } else {
+        parsedJourneyTexts[locale] = res.data;
+      }
+    }
+  }
+
   if (
     schemaErrors.length > 0 ||
     !manifestResult.success ||
     !taxonomyResult.success ||
     !indexResult.success ||
     (motionsResult && !motionsResult.success) ||
-    (toursResult && !toursResult.success)
+    (toursResult && !toursResult.success) ||
+    (centerlinesResult && !centerlinesResult.success) ||
+    (journeysResult && !journeysResult.success)
   ) {
     return { errors: schemaErrors, warnings: [] };
   }
@@ -757,6 +1050,16 @@ export function checkContent(input: {
       manifestResult.data,
       taxonomyResult.data,
       motionsResult?.success ? motionsResult.data : null,
+      errors,
+    );
+  }
+  if (journeysResult?.success) {
+    checkJourneys(
+      journeysResult.data,
+      parsedJourneyTexts,
+      manifestResult.data,
+      taxonomyResult.data,
+      centerlinesResult?.success ? centerlinesResult.data : null,
       errors,
     );
   }

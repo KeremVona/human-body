@@ -37,20 +37,23 @@ function loadLocaleDirs(root: string): Record<string, LocaleContentInput> {
   return locales;
 }
 
-function loadTourTexts(root: string): Record<string, unknown> {
+function loadTextsByFile(
+  root: string,
+  fileName: string,
+): Record<string, unknown> {
   const result: Record<string, unknown> = {};
   const contentDir = path.join(root, 'content');
   for (const entry of readdirSync(contentDir, { withFileTypes: true })) {
     if (!entry.isDirectory()) continue;
-    const toursPath = path.join(contentDir, entry.name, 'tours.json');
-    if (existsSync(toursPath)) {
-      result[entry.name] = readJson(toursPath);
+    const filePath = path.join(contentDir, entry.name, fileName);
+    if (existsSync(filePath)) {
+      result[entry.name] = readJson(filePath);
     }
   }
   return result;
 }
 
-/** Loads manifest, taxonomy, English content, non-en locale folders, optional motions, and tours from disk. */
+/** Loads manifest, taxonomy, English content, non-en locale folders, optional motions, tours, centerlines, and journeys from disk. */
 export function loadContentInput(root: string): {
   manifest: unknown;
   taxonomy: unknown;
@@ -60,13 +63,23 @@ export function loadContentInput(root: string): {
   locales?: Record<string, LocaleContentInput>;
   tours?: unknown;
   tourTexts?: Record<string, unknown>;
+  centerlines?: unknown;
+  journeys?: unknown;
+  journeyTexts?: Record<string, unknown>;
 } {
   const motionsPath = path.join(root, 'content', 'motions.json');
   const toursPath = path.join(root, 'content', 'tours.json');
+  const journeysPath = path.join(root, 'content', 'journeys.json');
   const locales = loadLocaleDirs(root);
-  const tourTexts = loadTourTexts(root);
+  const tourTexts = loadTextsByFile(root, 'tours.json');
+  const journeyTexts = loadTextsByFile(root, 'journeys.json');
+  const manifest = readJson(path.join(root, 'public', 'models', 'manifest.json'));
+  const clFile = (manifest as { centerlines?: { file?: string } }).centerlines?.file;
+  const centerlinesPath = clFile
+    ? path.join(root, 'public', 'models', clFile)
+    : null;
   return {
-    manifest: readJson(path.join(root, 'public', 'models', 'manifest.json')),
+    manifest,
     taxonomy: readJson(path.join(root, 'content', 'taxonomy.json')),
     index: readJson(path.join(root, 'content', 'en', 'index.json')),
     structureFiles: loadStructureFiles(
@@ -76,5 +89,12 @@ export function loadContentInput(root: string): {
     locales,
     tours: existsSync(toursPath) ? readJson(toursPath) : undefined,
     tourTexts: Object.keys(tourTexts).length > 0 ? tourTexts : undefined,
+    centerlines:
+      centerlinesPath && existsSync(centerlinesPath)
+        ? readJson(centerlinesPath)
+        : undefined,
+    journeys: existsSync(journeysPath) ? readJson(journeysPath) : undefined,
+    journeyTexts:
+      Object.keys(journeyTexts).length > 0 ? journeyTexts : undefined,
   };
 }

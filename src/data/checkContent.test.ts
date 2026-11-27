@@ -965,3 +965,141 @@ describe('checkContent tours validation', () => {
     expect(res.errors.some((e) => e.startsWith('tours.json:'))).toBe(true);
   });
 });
+
+describe('checkContent journeys validation', () => {
+  function makeJourneyFixture() {
+    const base = makeFixture();
+    const manifest = {
+      ...base.manifest,
+      centerlines: {
+        file: 'centerlines.1a2b3c4d.json',
+        bytes: 120,
+        sha256: 'c'.repeat(64),
+      },
+    };
+    const centerlines = {
+      version: 1,
+      lines: {
+        esophagus: [
+          [0, 0.5, 0],
+          [0, 0.3, 0],
+        ],
+      },
+    };
+    const journeys = {
+      journeys: [
+        {
+          id: 'digestion',
+          systems: ['skeletal'],
+          stages: [
+            {
+              id: 'mouth',
+              durationS: 8,
+              food: 'bolus',
+              radius: 0.007,
+              motion: 'none',
+              organs: ['femur--l'],
+              view: { c: [0, 0, 2, 0, 0, 0], s: ['skeletal'], h: [], sel: [] },
+              path: [{ mesh: 'femur--l', anchor: [0.5, 0.5, 0.5] }],
+              modelled: true,
+              events: [{ at: 0.2, kind: 'secrete', mesh: 'femur--l', id: 'saliva' }],
+              nutrients: { carbs: 5, protein: 0, fat: 0, water: 0, absorbed: 0 },
+            },
+            {
+              id: 'esophagus',
+              durationS: 6,
+              food: 'bolus',
+              radius: 0.005,
+              motion: 'squeeze',
+              organs: ['sternum'],
+              inside: ['sternum'],
+              view: { c: [0, 0, 2, 0, 0, 0], s: ['skeletal'], h: [], sel: [] },
+              path: [{ line: 'esophagus', from: 0, to: 1 }],
+              modelled: true,
+              nutrients: { carbs: 10, protein: 0, fat: 0, water: 0, absorbed: 0 },
+            },
+          ],
+        },
+      ],
+    };
+    const journeyTexts = {
+      en: {
+        journeys: {
+          digestion: {
+            title: 'Follow a bite of food',
+            summary: 'Trace one bite down the tract.',
+            stages: {
+              mouth: { title: 'Mouth', body: 'Chew and wet.' },
+              esophagus: { title: 'Esophagus', body: 'Squeeze down.' },
+            },
+            events: { saliva: 'Saliva' },
+          },
+        },
+      },
+      tr: {
+        journeys: {
+          digestion: {
+            title: 'Bir lokmanın yolculuğu',
+            summary: 'Bir lokmayı yol boyunca izleyin.',
+            stages: {
+              mouth: { title: 'Ağız', body: 'Çiğneme.' },
+              esophagus: { title: 'Yemek borusu', body: 'Aşağı iniş.' },
+            },
+            events: { saliva: 'Tükürük' },
+          },
+        },
+      },
+    };
+    return { ...base, manifest, centerlines, journeys, journeyTexts };
+  }
+
+  it('passes on a valid journey + centerlines + localized texts', () => {
+    const f = makeJourneyFixture();
+    const res = checkContent({
+      manifest: f.manifest,
+      taxonomy: f.taxonomy,
+      index: f.index,
+      structureFiles: f.structureFiles,
+      centerlines: f.centerlines,
+      journeys: f.journeys,
+      journeyTexts: f.journeyTexts,
+    });
+    expect(res.errors).toEqual([]);
+  });
+
+  it('flags missing centerlines, unknown mesh/line ids, decreasing nutrients, missing en labels, and over-limit text', () => {
+    const f = makeJourneyFixture();
+    f.journeys.journeys[0].stages[0].organs = ['no-such-organ'];
+    f.journeys.journeys[0].stages[1].path = [
+      { line: 'missing-line', from: 0, to: 1 },
+    ];
+    f.journeys.journeys[0].stages[1].nutrients.carbs = 2; // decreased from 5 -> 2
+    delete (f.journeyTexts.en.journeys.digestion.events as Record<string, string>).saliva;
+    f.journeyTexts.tr.journeys.digestion.events.saliva = 'x'.repeat(41);
+
+    const res = checkContent({
+      manifest: f.manifest,
+      taxonomy: f.taxonomy,
+      index: f.index,
+      structureFiles: f.structureFiles,
+      centerlines: f.centerlines,
+      journeys: f.journeys,
+      journeyTexts: f.journeyTexts,
+    });
+    expect(res.errors.some((e) => e.includes('no-such-organ') && e.includes('mouth'))).toBe(true);
+    expect(res.errors.some((e) => e.includes('missing-line') && e.includes('esophagus'))).toBe(true);
+    expect(res.errors.some((e) => e.includes('carbs') && e.includes('esophagus'))).toBe(true);
+    expect(res.errors.some((e) => e.includes('saliva') && e.includes('content/en/journeys.json'))).toBe(true);
+    expect(res.errors.some((e) => e.includes('41 characters') && e.includes('content/tr/journeys.json'))).toBe(true);
+
+    const noCl = checkContent({
+      manifest: { ...f.manifest, centerlines: undefined },
+      taxonomy: f.taxonomy,
+      index: f.index,
+      structureFiles: f.structureFiles,
+      journeys: f.journeys,
+      journeyTexts: f.journeyTexts,
+    });
+    expect(noCl.errors.some((e) => e.includes('manifest.centerlines'))).toBe(true);
+  });
+});
