@@ -198,3 +198,33 @@ it('verifies preview byte budget and bounds against skeletal bundle', () => {
   const errs = verifyManifest(manifest, config, files);
   expect(errs.some((e) => e.startsWith('preview bounds differ from skeletal bounds by '))).toBe(true);
 });
+
+it('verifies centerlines file existence, hash, byte budget, and stray files', () => {
+  const [manifest, config, files] = fixture({});
+  const lineFile = 'centerlines.11223344.json';
+  const lineSha = 'd'.repeat(64);
+  const centerlines = {
+    file: lineFile,
+    bytes: 65_000,
+    sha256: lineSha,
+  };
+  manifest.centerlines = centerlines;
+  files[lineFile] = { bytes: 65_000, sha256: lineSha };
+
+  expect(verifyManifest(manifest, config, files)).toContain(
+    'centerlines is 65000 bytes, over its 60,000-byte budget',
+  );
+
+  centerlines.bytes = 40_000;
+  files[lineFile] = { bytes: 40_000, sha256: lineSha };
+  files['centerlines.deadbeef.json'] = { bytes: 100, sha256: 'e'.repeat(64) };
+  expect(verifyManifest(manifest, config, files)).toContain(
+    'stray unreferenced centerlines file "centerlines.deadbeef.json" in models directory',
+  );
+
+  delete files['centerlines.deadbeef.json'];
+  delete files[lineFile];
+  expect(verifyManifest(manifest, config, files)).toContain(
+    `centerlines: file ${lineFile} not found`,
+  );
+});

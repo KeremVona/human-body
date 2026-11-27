@@ -20,6 +20,7 @@
     "assets:inventory": "tsx pipeline/cli.ts inventory",
     "assets:namemap": "tsx pipeline/cli.ts namemap",
     "assets:build": "tsx pipeline/cli.ts build",
+    "assets:centerlines": "tsx pipeline/cli.ts centerlines",
     "assets:verify": "tsx pipeline/cli.ts verify",
     "ci": "npm run typecheck && npm run lint && npm test && npm run check:content && npm run assets:verify && npm run build"
   },

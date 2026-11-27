@@ -67,44 +67,66 @@ function buildMeshGeometry(gltfMesh: GltfMesh, worldMatrix: Float32Array | numbe
   return mesh;
 }
 
+const POS_DIRS = [
+  new Vector3(1, 0, 0),
+  new Vector3(0, 1, 0),
+  new Vector3(0, 0, 1),
+] as const;
+
+const NEG_DIRS = [
+  new Vector3(-1, 0, 0),
+  new Vector3(0, -1, 0),
+  new Vector3(0, 0, -1),
+] as const;
+
+// Solidify-extruded hollow double-walled tubes in Z-Anatomy.
+const SOLIDIFY_TUBE_IDS = new Set([
+  'esophagus',
+  'ascending-colon',
+  'transverse-colon',
+  'descending-colon',
+  'sigmoid-colon',
+]);
+
 function isPointInsideMesh(
   raycaster: Raycaster,
   origin: Vector3,
-  meshes: Mesh[],
+  meshes: ReadonlyArray<{ id: string; mesh: Mesh }>,
 ): boolean {
-  const posDirs = [
-    new Vector3(1, 0, 0),
-    new Vector3(0, 1, 0),
-    new Vector3(0, 0, 1),
-  ];
-  const negDirs = [
-    new Vector3(-1, 0, 0),
-    new Vector3(0, -1, 0),
-    new Vector3(0, 0, -1),
-  ];
-
-  for (const mesh of meshes) {
+  for (const { id, mesh } of meshes) {
     let oddVotes = 0;
     let lumenAxes = 0;
+    const allowLumen = SOLIDIFY_TUBE_IDS.has(id);
+
     for (let axis = 0; axis < 3; axis += 1) {
-      raycaster.set(origin, posDirs[axis]);
+      raycaster.set(origin, POS_DIRS[axis]);
       raycaster.firstHitOnly = false;
       const posHits = raycaster.intersectObject(mesh, false);
       if (posHits.length % 2 === 1) {
         oddVotes += 1;
       }
 
-      // Solidify-extruded tubes (esophagus, colon) have thin double walls: rays inside
-      // the hollow lumen hit >=2 layers on both opposite directions within lumen radius.
-      if (posHits.length >= 2 && posHits.length % 2 === 0 && posHits[0].distance < 0.05) {
-        raycaster.set(origin, negDirs[axis]);
+      if (
+        allowLumen &&
+        posHits.length >= 2 &&
+        posHits.length % 2 === 0 &&
+        posHits[0].distance < 0.045 &&
+        posHits[1].distance - posHits[0].distance < 0.008
+      ) {
+        raycaster.set(origin, NEG_DIRS[axis]);
         const negHits = raycaster.intersectObject(mesh, false);
-        if (negHits.length >= 2 && negHits.length % 2 === 0 && negHits[0].distance < 0.05) {
+        if (
+          negHits.length >= 2 &&
+          negHits.length % 2 === 0 &&
+          negHits[0].distance < 0.045 &&
+          negHits[1].distance - negHits[0].distance < 0.008 &&
+          posHits[0].distance + negHits[0].distance <= 0.075
+        ) {
           lumenAxes += 1;
         }
       }
     }
-    if (oddVotes >= 2 || lumenAxes >= 2) {
+    if (oddVotes >= 2 || (allowLumen && lumenAxes >= 2)) {
       return true;
     }
   }
@@ -170,9 +192,9 @@ describe('digestion journey inside-mesh gate', () => {
       if (!stage.inside || stage.inside.length === 0) continue;
 
       const stageMeshes = stage.inside.map((id) => {
-        const m = threeMeshes.get(id);
-        expect(m, `missing mesh ${id} for stage ${stage.id}`).toBeDefined();
-        return m!;
+        const mesh = threeMeshes.get(id);
+        expect(mesh, `missing mesh ${id} for stage ${stage.id}`).toBeDefined();
+        return { id, mesh: mesh! };
       });
 
       const u0 = route.stageStart[s];

@@ -239,13 +239,15 @@ export function buildRoute(
     const alpha = scaled - lo;
     const o0 = lo * 3;
     const o1 = hi * 3;
-    return out
-      .set(
-        tangents[o0] + (tangents[o1] - tangents[o0]) * alpha,
-        tangents[o0 + 1] + (tangents[o1 + 1] - tangents[o0 + 1]) * alpha,
-        tangents[o0 + 2] + (tangents[o1 + 2] - tangents[o0 + 2]) * alpha,
-      )
-      .normalize();
+    out.set(
+      tangents[o0] + (tangents[o1] - tangents[o0]) * alpha,
+      tangents[o0 + 1] + (tangents[o1 + 1] - tangents[o0 + 1]) * alpha,
+      tangents[o0 + 2] + (tangents[o1 + 2] - tangents[o0 + 2]) * alpha,
+    );
+    if (out.lengthSq() === 0) {
+      out.set(tangents[o0], tangents[o0 + 1], tangents[o0 + 2]);
+    }
+    return out.normalize();
   };
 
   return {
