@@ -4220,6 +4220,23 @@
       "featured": false
     },
     {
+      "id": "intermediate-bronchus",
+      "system": "respiratory",
+      "region": "thorax",
+      "paired": false,
+      "kind": "organ",
+      "tissue": "organ",
+      "color": "#E89AA6",
+      "names": {
+        "common": "Intermediate bronchus",
+        "latin": "Bronchus intermedius",
+        "synonyms": [
+          "bronchus intermedius"
+        ]
+      },
+      "featured": false
+    },
+    {
       "id": "intermediate-common-iliac-nodes",
       "system": "lymphatic",
       "region": "pelvis",
@@ -6492,6 +6509,24 @@
         ]
       },
       "featured": true
+    },
+    {
+      "id": "nasal-cavity-lining",
+      "system": "respiratory",
+      "region": "head",
+      "paired": false,
+      "kind": "organ",
+      "tissue": "organ",
+      "color": "#E89AA6",
+      "names": {
+        "common": "Lining of the nasal cavity",
+        "latin": "Tunica mucosa nasi",
+        "synonyms": [
+          "nasal mucosa",
+          "inside of the nose"
+        ]
+      },
+      "featured": false
     },
     {
       "id": "nasal-region",

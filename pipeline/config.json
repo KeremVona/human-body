@@ -39,7 +39,26 @@
       { "id": "esophagus", "source": "Oesophagus", "reverse": false },
       { "id": "jejunum", "source": "Jejunum", "reverse": true },
       { "id": "bile-duct", "source": "Bile duct", "reverse": false },
-      { "id": "pancreatic-duct", "source": "Pancreatic duct", "reverse": false }
+      { "id": "pancreatic-duct", "source": "Pancreatic duct", "reverse": false },
+      { "id": "radial-veins--l", "source": "Radial veins.l", "reverse": false },
+      { "id": "brachial-veins--l", "source": "Brachial veins.l", "reverse": false },
+      { "id": "axillary-vein--l", "source": "Axillary vein.l", "reverse": false },
+      { "id": "left-subclavian-vein", "source": "Left subclavian vein", "reverse": false },
+      { "id": "left-brachiocephalic-vein", "source": "Left brachiocephalic vein", "reverse": false },
+      { "id": "superior-vena-cava", "source": "Superior vena cava", "reverse": false },
+      { "id": "bifurcation-of-pulmonary-trunk", "source": "Bifurcation of pulmonary trunk", "reverse": false },
+      { "id": "left-pulmonary-artery", "source": "Left pulmonary artery", "reverse": false },
+      { "id": "left-superior-pulmonary-vein", "source": "Left superior pulmonary vein", "reverse": true },
+      { "id": "ascending-aorta", "source": "Ascending aorta", "reverse": false },
+      { "id": "aortic-arch", "source": "Aortic arch", "reverse": false },
+      { "id": "left-subclavian-artery", "source": "Left subclavian artery", "reverse": false },
+      { "id": "axillary-artery--l", "source": "Axillary artery.l", "reverse": false },
+      { "id": "brachial-artery--l", "source": "Brachial artery.l", "reverse": false },
+      { "id": "radial-artery--l", "source": "Radial artery.l", "reverse": false },
+      { "id": "deep-palmar-arch--l", "source": "Deep palmar arch.l", "reverse": true },
+      { "id": "right-main-bronchus", "source": "Right main bronchus", "reverse": true },
+      { "id": "intermediate-bronchus", "source": "Intermediate bronchus.r", "reverse": true },
+      { "id": "right-inferior-lobar-bronchus", "source": "Right inferior lobar bronchus", "reverse": true }
     ],
     "meshes": [
       {
@@ -89,6 +108,13 @@
         "bins": 24,
         "startDeg": 15,
         "sweep": 1
+      },
+      {
+        "id": "trachea",
+        "method": "slice",
+        "axis": "y",
+        "direction": -1,
+        "bins": 30
       }
     ]
   },
@@ -662,6 +688,18 @@
         },
         {
           "system": "respiratory",
+          "region": "head",
+          "kind": "organ",
+          "tissue": "organ",
+          "color": "#E89AA6",
+          "match": {
+            "collection": "8: Visceral systems",
+            "name": "^Mucosa of nasal cavity$"
+          },
+          "exclude": ["\\.(i|j|s|t|g)$"]
+        },
+        {
+          "system": "respiratory",
           "region": "thorax",
           "kind": "organ",
           "tissue": "organ",
@@ -669,8 +707,9 @@
           "types": ["MESH", "CURVE"],
           "match": {
             "collection": "Bonus collection/Visceral systems/Respiratory system",
-            "name": "^((Superior|Middle|Inferior) lobe of (left|right) lung|(Left|Right) main bronchus|(Left|Right) (superior|inferior) lobar bronchus|Middle lobar bronchus\\.r)$"
-          }
+            "name": "^((Superior|Middle|Inferior) lobe of (left|right) lung|(Left|Right) main bronchus|(Left|Right) (superior|inferior) lobar bronchus|(Intermediate|Middle lobar) bronchus\\.r)$"
+          },
+          "exclude": ["\\.(i|j|s|t|g)$"]
         },
         {
           "system": "digestive",

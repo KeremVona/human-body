@@ -164,12 +164,16 @@ npm run assets:centerlines
 
 1. **`curves`** (`{ id, source, reverse? }`):
    - Exported by `pipeline/blender/export.py` into `pipeline/out/raw/centerlines-curves.json` from Blender `CURVE` objects (`sample_spline_world`), transformed using the same `offset @ world_matrix` centering matrix as mesh exports and converted to glTF Y-up `(x, z, -y)`.
-   - Multi-spline curve objects (e.g. `Pancreatic duct` with 35 splines) follow the primary (longest) spline and chain consecutive splines only within `<= 2 mm` endpoint distance so side twigs are ignored.
-   - Set `"reverse": true` when the Blender spline runs backwards relative to anatomical flow (e.g. `Jejunum`, where spline start is ileum and end is duodenum).
+   - Multi-spline curve objects (e.g. `Pancreatic duct` with 35 splines, `Bifurcation of pulmonary trunk`, `Left superior pulmonary vein`) follow the primary (longest) spline and chain consecutive splines only within `<= 2 mm` endpoint distance so side twigs are ignored.
+   - Set `"reverse": true` when the Blender spline runs backwards relative to anatomical flow (`jejunum`, `left-superior-pulmonary-vein`, `deep-palmar-arch--l`, `right-main-bronchus`, `intermediate-bronchus`, `right-inferior-lobar-bronchus`).
+   - Shipped curves (`23` total):
+     - Digestive (`4`): `esophagus`, `jejunum`, `bile-duct`, `pancreatic-duct`
+     - Blood (`16`): `radial-veins--l`, `brachial-veins--l`, `axillary-vein--l`, `left-subclavian-vein`, `left-brachiocephalic-vein`, `superior-vena-cava`, `bifurcation-of-pulmonary-trunk`, `left-pulmonary-artery`, `left-superior-pulmonary-vein`, `ascending-aorta`, `aortic-arch`, `left-subclavian-artery`, `axillary-artery--l`, `brachial-artery--l`, `radial-artery--l`, `deep-palmar-arch--l`
+     - Bronchi (`3`): `right-main-bronchus`, `intermediate-bronchus`, `right-inferior-lobar-bronchus`
 
 2. **`meshes`** (`{ id, method, ... }`):
    - Built in pure TypeScript (`pipeline/src/centerlines.ts`) directly from the unquantized raw GLB vertex buffers (`pipeline/out/raw/<bundle>.glb`) — `<= 200` points max per line, centered moving-average smoothed (`window = 5`, keeping endpoints fixed), uniformly arc-length resampled, and `round4` rounded:
-     - `"method": "slice"`: bins vertices along `"axis"` (`"x" | "y" | "z"`) in `"direction"` (`1 | -1`) across `"bins"` slices and emits non-empty slice centroids.
+     - `"method": "slice"`: bins vertices along `"axis"` (`"x" | "y" | "z"`) in `"direction"` (`1 | -1`) across `"bins"` slices and emits non-empty slice centroids (`ascending-colon`, `transverse-colon`, `descending-colon`, `trachea`).
      - `"method": "polar"`: bins vertices by polar angle in `"plane"` (`"xy" | "xz" | "yz"`) around normalized `[0,1]^3` bbox `"center"`, starting at `"startDeg"` and sweeping `"sweep"` (`1 | -1`) across `"bins"` slices — used for C-shaped or looped organs (`stomach`, `duodenum`, `sigmoid-colon`).
 
 ### Adding a New Line

@@ -150,3 +150,27 @@ it('config selects Epiglottis and the six pharyngeal constrictors into expected 
     ['Inferior pharyngeal constrictor.r', 'muscular', 'muscular', 'muscle'],
   ]);
 });
+
+it('config selects Mucosa of nasal cavity and Intermediate bronchus.r into organs/respiratory', () => {
+  const realConfig = PipelineConfigSchema.parse(
+    JSON.parse(
+      readFileSync(path.resolve(import.meta.dirname, '..', 'config.json'), 'utf8'),
+    ),
+  );
+  const objs = [
+    obj('Mucosa of nasal cavity', ['8: Visceral systems'], 'MESH'),
+    obj(
+      'Intermediate bronchus.r',
+      ['Bonus collection/Visceral systems/Respiratory system'],
+      'CURVE',
+    ),
+  ];
+
+  const { selected } = selectObjects(realConfig, objs);
+  expect(
+    selected.map((s) => [s.object.name, s.bundleId, s.rule.system, s.rule.region, s.rule.tissue]),
+  ).toEqual([
+    ['Mucosa of nasal cavity', 'organs', 'respiratory', 'head', 'organ'],
+    ['Intermediate bronchus.r', 'organs', 'respiratory', 'thorax', 'organ'],
+  ]);
+});

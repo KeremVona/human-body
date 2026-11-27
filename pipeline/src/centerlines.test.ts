@@ -120,6 +120,18 @@ describe('centerlines geometry helpers', () => {
       CenterlinesFileSchema.safeParse({
         version: 1,
         lines: {
+          'radial-veins--l': [
+            [0, 0.6, 0],
+            [0, 0.3, 0],
+          ],
+        },
+      }).success,
+    ).toBe(true);
+
+    expect(
+      CenterlinesFileSchema.safeParse({
+        version: 1,
+        lines: {
           BadId: [
             [0, 0, 0],
             [0, 1, 0],
@@ -148,7 +160,7 @@ describe('centerlines geometry helpers', () => {
       readFileSync(path.join(modelsDir, manifest.centerlines!.file), 'utf8'),
     );
     const parsed = CenterlinesFileSchema.parse(raw);
-    expect(Object.keys(parsed.lines).length).toBe(10);
+    expect(Object.keys(parsed.lines).length).toBe(30);
     for (const pts of Object.values(parsed.lines)) {
       expect(pts.length).toBeLessThanOrEqual(200);
       expect(pts.length).toBeGreaterThanOrEqual(2);

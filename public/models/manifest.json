@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-11-26T17:45:34.012Z",
+  "generatedAt": "2026-11-27T20:06:12.917Z",
   "source": {
     "name": "Z-Anatomy",
     "version": "2023-05-02",
@@ -977,9 +977,9 @@
     },
     {
       "id": "organs",
-      "file": "organs.e9899176.glb",
-      "bytes": 3266324,
-      "sha256": "e9899176f7b88cba7bdd08677b9ef58575ec28f3b69b35dcaa4d5e10fadbb1b4",
+      "file": "organs.a065813b.glb",
+      "bytes": 3329172,
+      "sha256": "a065813b1d031b4575595be2493f275f34083f68095e99e629d22fd4469c1074",
       "meshIds": [
         "ascending-colon",
         "cornea--l",
@@ -996,6 +996,7 @@
         "ganglia-of-sympathetic-trunk--r",
         "inferior-lobe-of-left-lung",
         "inferior-lobe-of-right-lung",
+        "intermediate-bronchus",
         "iris--l",
         "iris--r",
         "jejunum",
@@ -1009,6 +1010,7 @@
         "median-nerve--l",
         "median-nerve--r",
         "middle-lobe-of-right-lung",
+        "nasal-cavity-lining",
         "palatine-tonsil--l",
         "palatine-tonsil--r",
         "pancreas",
@@ -1485,11 +1487,6 @@
         0.12505768239498138
       ]
     }
-  },
-  "centerlines": {
-    "file": "centerlines.2f091312.json",
-    "bytes": 39525,
-    "sha256": "2f091312e5129dae7377de292d46c9a8869b0baec6fc9b4ccb0e94869a753f76"
   },
   "meshes": {
     "abdominal-aorta": {
@@ -10298,6 +10295,23 @@
       "triangles": 1410,
       "sizeClass": "large"
     },
+    "intermediate-bronchus": {
+      "bundle": "organs",
+      "bounds": {
+        "min": [
+          -0.037246834486722946,
+          0.4563474655151367,
+          -0.040386416018009186
+        ],
+        "max": [
+          -0.007449616678059101,
+          0.49516090750694275,
+          -0.02202446386218071
+        ]
+      },
+      "triangles": 200,
+      "sizeClass": "small"
+    },
     "intermediate-common-iliac-nodes": {
       "bundle": "lymphatic",
       "bounds": {
@@ -14921,6 +14935,23 @@
       },
       "triangles": 260,
       "sizeClass": "small"
+    },
+    "nasal-cavity-lining": {
+      "bundle": "organs",
+      "bounds": {
+        "min": [
+          -0.013657242991030216,
+          0.6922922134399414,
+          0.029918406158685684
+        ],
+        "max": [
+          0.013657242991030216,
+          0.7402409315109253,
+          0.09584910422563553
+        ]
+      },
+      "triangles": 6864,
+      "sizeClass": "medium"
     },
     "nasal-region--l": {
       "bundle": "skin",
@@ -25513,5 +25544,10 @@
       "triangles": 428,
       "sizeClass": "small"
     }
+  },
+  "centerlines": {
+    "file": "centerlines.81d77e72.json",
+    "bytes": 83210,
+    "sha256": "81d77e720538ebf0fea23295794f92e2fb25fc33b3e5dc05d6c87ee4c032188f"
   }
 }

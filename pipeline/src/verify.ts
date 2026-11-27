@@ -100,9 +100,9 @@ export function verifyManifest(
   if (manifest.centerlines) {
     const cl = manifest.centerlines;
     expectedFiles.add(cl.file);
-    if (cl.bytes > 60_000) {
+    if (cl.bytes > 120_000) {
       problems.push(
-        `centerlines is ${cl.bytes} bytes, over its 60,000-byte budget`,
+        `centerlines is ${cl.bytes} bytes, over its 120,000-byte budget`,
       );
     }
     const disk = files[cl.file];

@@ -368,9 +368,9 @@ export async function generateCenterlinesFile(opts: {
     lines: sortedLines,
   });
   const encoded = Buffer.from(`${JSON.stringify(payload, null, 2)}\n`, 'utf8');
-  if (encoded.byteLength > 60_000) {
+  if (encoded.byteLength > 120_000) {
     throw new Error(
-      `centerlines: output is ${encoded.byteLength} bytes, over 60,000-byte limit`,
+      `centerlines: output is ${encoded.byteLength} bytes, over 120,000-byte limit`,
     );
   }
 

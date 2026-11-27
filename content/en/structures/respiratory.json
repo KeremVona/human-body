@@ -145,6 +145,54 @@
           "license": "CC-BY-SA-4.0"
         }
       ]
+    },
+    {
+      "id": "nasal-cavity-lining",
+      "overview": "The moist, blood-rich lining that covers the inside of the nose, including the curled shelves of the conchae.",
+      "function": "Warms, moistens and cleans the air you breathe in; its mucus traps dust and germs, and tiny hairs sweep that mucus toward the throat.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Richly supplied with surface capillaries that warm cool inhaled air before it reaches the lungs.",
+          "Produces a sticky layer of mucus moved backward by microscopic cilia toward the pharynx."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — The Nose and its Adjacent Structures",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/22-1-organs-and-structures-of-the-respiratory-system#fs-id1938446",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Nasal mucosa",
+          "url": "https://en.wikipedia.org/wiki/Nasal_mucosa",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "intermediate-bronchus",
+      "overview": "A short airway on the right side between the upper-lobe branch and the branches to the middle and lower lobes of the right lung.",
+      "function": "Carries air from the right main bronchus on to the middle and lower lobes of the right lung.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Found only on the right lung, continuing below the take-off of the right superior lobar bronchus.",
+          "Splits into the right middle lobar bronchus and right inferior lobar bronchus."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Conducting Zone",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/22-1-organs-and-structures-of-the-respiratory-system#fs-id1938446",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Bronchus",
+          "url": "https://en.wikipedia.org/wiki/Bronchus",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
     }
   ]
 }

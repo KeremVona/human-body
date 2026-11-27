@@ -205,14 +205,14 @@ it('verifies centerlines file existence, hash, byte budget, and stray files', ()
   const lineSha = 'd'.repeat(64);
   const centerlines = {
     file: lineFile,
-    bytes: 65_000,
+    bytes: 125_000,
     sha256: lineSha,
   };
   manifest.centerlines = centerlines;
-  files[lineFile] = { bytes: 65_000, sha256: lineSha };
+  files[lineFile] = { bytes: 125_000, sha256: lineSha };
 
   expect(verifyManifest(manifest, config, files)).toContain(
-    'centerlines is 65000 bytes, over its 60,000-byte budget',
+    'centerlines is 125000 bytes, over its 120,000-byte budget',
   );
 
   centerlines.bytes = 40_000;

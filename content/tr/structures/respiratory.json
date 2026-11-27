@@ -145,6 +145,54 @@
           "license": "CC-BY-SA-4.0"
         }
       ]
+    },
+    {
+      "id": "nasal-cavity-lining",
+      "overview": "Konkaların kıvrımlı rafları da dahil olmak üzere burnun içini örten nemli ve damar bakımından zengin tabakadır.",
+      "function": "Solunan havayı ısıtır, nemlendirir ve temizler; mukusu toz ile mikropları tutar, minik tüycükler ise bu mukusu yutağa doğru süpürür.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Yüzeyine yakın kılcal damar ağı sayesinde soğuk solunan havayı akciğerlere ulaşmadan ısıtır.",
+          "Mikroskobik siller tarafından yutağa doğru ilerletilen yapışkan bir mukus tabakası üretir."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — The Nose and its Adjacent Structures",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/22-1-organs-and-structures-of-the-respiratory-system#fs-id1938446",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Nasal mucosa",
+          "url": "https://en.wikipedia.org/wiki/Nasal_mucosa",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
+    },
+    {
+      "id": "intermediate-bronchus",
+      "overview": "Sağ tarafta üst lob dalı ile sağ akciğerin orta ve alt loblarına giden dallar arasında yer alan kısa bir hava yoludur.",
+      "function": "Havayı sağ ana bronştan sağ akciğerin orta ve alt loblarına taşır.",
+      "details": {
+        "kind": "facts",
+        "facts": [
+          "Yalnızca sağ akciğerde bulunur; sağ üst lob bronşu ayrıldıktan sonra aşağı doğru devam eder.",
+          "Sağ orta lob bronşu ve sağ alt lob bronşuna ayrılır."
+        ]
+      },
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e — Conducting Zone",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/22-1-organs-and-structures-of-the-respiratory-system#fs-id1938446",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "title": "Wikipedia — Bronchus",
+          "url": "https://en.wikipedia.org/wiki/Bronchus",
+          "license": "CC-BY-SA-4.0"
+        }
+      ]
     }
   ]
 }

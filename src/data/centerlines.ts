@@ -1,8 +1,8 @@
 import { z } from 'zod/mini';
-import { STRUCTURE_ID_RE } from './ids';
+import { MESH_ID_RE } from './ids';
 import { Vec3Schema } from './schema';
 
-const CenterlineIdString = z.string().check(z.regex(STRUCTURE_ID_RE));
+const CenterlineIdString = z.string().check(z.regex(MESH_ID_RE));
 
 /** Precomputed 3D anatomical centerlines emitted by the asset pipeline. */
 export const CenterlinesFileSchema = z.object({
