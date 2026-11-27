@@ -257,6 +257,8 @@ export const tr = {
     scrubber: 'Yolculuk ilerlemesi',
     showDetails: 'Ayrıntıları göster',
     hideDetails: 'Ayrıntıları gizle',
+    hidePanel: 'Paneli küçült',
+    showPanel: 'Paneli genişlet',
     linkStage: 'Bu aşamaya bağlantı',
   },
   pins: {

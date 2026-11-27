@@ -4,13 +4,19 @@ import type { Nutrients } from './schema';
 
 type NutrientsBoxProps = {
   nutrients: Nutrients;
+  defaultOpen?: boolean;
 };
 
 /** Collapsible digestion progress bars with breakdown + absorbed fills and screen-reader labels. */
-export function NutrientsBox({ nutrients }: NutrientsBoxProps): JSX.Element {
+export function NutrientsBox({
+  nutrients,
+  defaultOpen,
+}: NutrientsBoxProps): JSX.Element {
   const tr = useT();
-  const [open, setOpen] = useState(() =>
-    typeof window !== 'undefined' ? window.innerWidth >= 640 : true,
+  const [open, setOpen] = useState(
+    () =>
+      defaultOpen ??
+      (typeof window !== 'undefined' ? window.innerWidth >= 640 : true),
   );
 
   const macroRows: readonly {

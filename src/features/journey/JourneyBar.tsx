@@ -58,6 +58,7 @@ export function JourneyBar(): JSX.Element | null {
   const manifest = useAppSelector((s) => s.assets.manifest);
   const stateBundles = useAppSelector((s) => s.assets.bundles);
 
+  const [minimized, setMinimized] = useState(false);
   const [mobileBodyOpen, setMobileBodyOpen] = useState(() =>
     typeof window !== 'undefined' ? window.innerWidth >= 640 : true,
   );
@@ -145,6 +146,116 @@ export function JourneyBar(): JSX.Element | null {
     }
   };
 
+  if (minimized) {
+    return (
+      <section
+        role="region"
+        aria-label={journeyTitle}
+        className="pointer-events-auto w-[min(94vw,28rem)] rounded-xl border border-white/15 bg-slate-900/85 px-3 py-1.5 text-slate-100 shadow-2xl ring-1 ring-white/10 backdrop-blur-md"
+      >
+        <div aria-live="polite" className="sr-only">
+          {[stageTitle, stageBody].filter(Boolean).join('. ')}
+        </div>
+
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <div className="flex min-w-0 flex-1 items-center gap-2">
+            <span className="shrink-0 text-[11px] font-medium tabular-nums text-sky-300">
+              {tr('journey.progress', {
+                i: String(stageIndex + 1),
+                n: String(journey.stages.length),
+              })}
+            </span>
+            <h2 className="truncate text-xs font-semibold text-white">
+              {stageTitle}
+            </h2>
+          </div>
+
+          <div className="flex shrink-0 items-center gap-1">
+            {!following && !reduced ? (
+              <Chip onClick={() => dispatch(journeyFollowingSet(true))}>
+                {tr('journey.follow')}
+              </Chip>
+            ) : null}
+
+            {!reduced ? (
+              <button
+                type="button"
+                disabled={stageBundleStatus === 'loading'}
+                onClick={() => dispatch(journeyPlayingSet(!playing))}
+                className="rounded-lg bg-white/10 px-2 py-1 text-[11px] font-medium text-slate-100 transition-colors hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400 disabled:cursor-not-allowed disabled:opacity-40"
+              >
+                {playing ? tr('journey.pause') : tr('journey.play')}
+              </button>
+            ) : null}
+
+            <button
+              type="button"
+              disabled={isFirst}
+              aria-label={tr('journey.back')}
+              title={tr('journey.back')}
+              onClick={() => void dispatch(prevStage())}
+              className="inline-flex h-6 w-6 items-center justify-center rounded-lg bg-white/10 text-slate-100 transition-colors hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400 disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              <svg aria-hidden="true" viewBox="0 0 16 16" fill="none" className="h-3.5 w-3.5">
+                <path
+                  d="M10 3.5L5.5 8L10 12.5"
+                  stroke="currentColor"
+                  strokeWidth="1.75"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => void dispatch(nextStage())}
+              className="rounded-lg bg-sky-500 px-2 py-1 text-[11px] font-semibold text-slate-950 transition-colors hover:bg-sky-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-300"
+            >
+              {isLast ? tr('journey.finish') : tr('journey.next')}
+            </button>
+
+            <button
+              type="button"
+              aria-expanded={false}
+              aria-label={tr('journey.showPanel')}
+              title={tr('journey.showPanel')}
+              onClick={() => setMinimized(false)}
+              className="inline-flex h-6 w-6 items-center justify-center rounded-lg text-slate-300 transition-colors hover:bg-white/15 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400"
+            >
+              <svg aria-hidden="true" viewBox="0 0 16 16" fill="none" className="h-3.5 w-3.5">
+                <path
+                  d="M4 10l4-4 4 4"
+                  stroke="currentColor"
+                  strokeWidth="1.75"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+
+            <button
+              type="button"
+              aria-label={tr('journey.exit')}
+              title={tr('journey.exit')}
+              onClick={() => void dispatch(exitJourney())}
+              className="inline-flex h-6 w-6 items-center justify-center rounded-lg text-slate-300 transition-colors hover:bg-white/15 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400"
+            >
+              <svg aria-hidden="true" viewBox="0 0 16 16" fill="none" className="h-3.5 w-3.5">
+                <path
+                  d="M4.5 4.5l7 7M11.5 4.5l-7 7"
+                  stroke="currentColor"
+                  strokeWidth="1.75"
+                  strokeLinecap="round"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section
       role="region"
@@ -158,12 +269,32 @@ export function JourneyBar(): JSX.Element | null {
 
       <div className="flex items-center justify-between gap-2 text-[11px] font-medium text-slate-300">
         <span className="truncate text-sky-300">{journeyTitle}</span>
-        <span className="shrink-0 tabular-nums">
-          {tr('journey.progress', {
-            i: String(stageIndex + 1),
-            n: String(journey.stages.length),
-          })}
-        </span>
+        <div className="flex shrink-0 items-center gap-1.5">
+          <span className="tabular-nums">
+            {tr('journey.progress', {
+              i: String(stageIndex + 1),
+              n: String(journey.stages.length),
+            })}
+          </span>
+          <button
+            type="button"
+            aria-expanded={true}
+            aria-label={tr('journey.hidePanel')}
+            title={tr('journey.hidePanel')}
+            onClick={() => setMinimized(true)}
+            className="inline-flex h-6 w-6 items-center justify-center rounded-md text-slate-300 transition-colors hover:bg-white/15 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400"
+          >
+            <svg aria-hidden="true" viewBox="0 0 16 16" fill="none" className="h-3.5 w-3.5">
+              <path
+                d="M4 6l4 4 4-4"
+                stroke="currentColor"
+                strokeWidth="1.75"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
 
       <div className="mt-1 flex items-center justify-between gap-2">
@@ -191,7 +322,7 @@ export function JourneyBar(): JSX.Element | null {
       {mobileBodyOpen ? (
         <>
           {stageBody ? (
-            <p className="mt-1.5 max-h-[20dvh] overflow-y-auto pr-1 text-xs leading-relaxed text-slate-200">
+            <p className="mt-1.5 max-h-[14dvh] overflow-y-auto pr-1 text-xs leading-relaxed text-slate-200">
               {stageBody}
             </p>
           ) : null}
@@ -262,7 +393,7 @@ export function JourneyBar(): JSX.Element | null {
       </div>
 
       {/* Nutrients */}
-      <NutrientsBox nutrients={liveNutrients} />
+      <NutrientsBox nutrients={liveNutrients} defaultOpen={false} />
 
       {/* Controls */}
       <div className="mt-2.5 flex flex-wrap items-center justify-between gap-2 border-t border-white/10 pt-2.5">

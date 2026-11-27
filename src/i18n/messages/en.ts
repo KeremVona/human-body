@@ -254,6 +254,8 @@ export const en = {
     scrubber: 'Journey progress',
     showDetails: 'More details',
     hideDetails: 'Fewer details',
+    hidePanel: 'Minimize panel',
+    showPanel: 'Expand panel',
     linkStage: 'Link to this stage',
   },
   pins: {

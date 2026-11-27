@@ -197,4 +197,33 @@ describe('JourneyBar', () => {
     await user.click(screen.getByRole('button', { name: 'Exit journey' }));
     expect(store.getState().journey.activeId).toBeNull();
   });
+
+  it('starts nutrients collapsed and toggles between minimized and expanded panel', async () => {
+    const user = userEvent.setup();
+    setupBar();
+
+    // Nutrient breakdown starts collapsed so it does not cover the viewport
+    const nutrientsBtn = screen.getByRole('button', {
+      name: "What's been digested",
+    });
+    expect(nutrientsBtn).toHaveAttribute('aria-expanded', 'false');
+
+    // Minimize collapses narration, scrubber, and nutrients down to a slim bar
+    const minBtn = screen.getByRole('button', { name: 'Minimize panel' });
+    expect(minBtn).toHaveAttribute('aria-expanded', 'true');
+    await user.click(minBtn);
+
+    expect(
+      screen.queryByRole('slider', { name: 'Journey progress' }),
+    ).not.toBeInTheDocument();
+    expect(screen.getByText('Chewing')).toBeInTheDocument();
+
+    const expandBtn = screen.getByRole('button', { name: 'Expand panel' });
+    expect(expandBtn).toHaveAttribute('aria-expanded', 'false');
+    await user.click(expandBtn);
+
+    expect(
+      screen.getByRole('slider', { name: 'Journey progress' }),
+    ).toBeInTheDocument();
+  });
 });
