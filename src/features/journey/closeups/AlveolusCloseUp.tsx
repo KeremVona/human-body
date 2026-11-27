@@ -14,11 +14,15 @@ export function AlveolusCloseUp({ label }: CloseUpSvgProps): JSX.Element {
       className="h-auto w-full select-none [--cu-co2:#94a3b8] [--cu-deoxy:#be123c] [--cu-o2:#38bdf8] [--cu-oxy:#ef4444] [--cu-wall:rgba(255,255,255,0.28)]"
     >
       <style>{`
-        .cu-alv-o2 { animation: cu-alv-pulse 2.8s ease-in-out infinite; }
-        .cu-alv-co2 { animation: cu-alv-pulse 2.8s ease-in-out infinite -1.4s; }
-        @keyframes cu-alv-pulse {
+        .cu-alv-o2 { animation: cu-alv-o2 2.8s ease-in-out infinite; }
+        .cu-alv-co2 { animation: cu-alv-co2 2.8s ease-in-out infinite -1.4s; }
+        @keyframes cu-alv-o2 {
           0%, 100% { opacity: 0.45; transform: translateX(0); }
           50% { opacity: 1; transform: translateX(4px); }
+        }
+        @keyframes cu-alv-co2 {
+          0%, 100% { opacity: 0.45; transform: translateX(0); }
+          50% { opacity: 1; transform: translateX(-4px); }
         }
         @media (prefers-reduced-motion: reduce) {
           .cu-alv-o2, .cu-alv-co2 { animation: none; opacity: 1; }

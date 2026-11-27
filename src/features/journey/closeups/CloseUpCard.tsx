@@ -1,4 +1,4 @@
-import { useState, type JSX } from 'react';
+import { useEffect, useState, type JSX } from 'react';
 import { useT } from '../../../i18n/t';
 import type { CloseUpId } from '../schema';
 import { AlveolusCloseUp } from './AlveolusCloseUp';
@@ -12,10 +12,19 @@ interface CloseUpCardProps {
 /** Compact inline diagram card paired with stages that zoom below 3D mesh resolution. */
 export function CloseUpCard({ id }: CloseUpCardProps): JSX.Element {
   const tr = useT();
-  const [mobileOpen, setMobileOpen] = useState(() =>
+  const [isDesktop, setIsDesktop] = useState(() =>
     typeof window !== 'undefined' ? window.innerWidth >= 640 : true,
   );
+  const [mobileExpanded, setMobileExpanded] = useState(false);
 
+  useEffect(() => {
+    if (typeof window === 'undefined') return undefined;
+    const onResize = () => setIsDesktop(window.innerWidth >= 640);
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
+  const open = isDesktop || mobileExpanded;
   const labelKey = `journey.closeUp.${id}.aria` as const;
   const captionKey = `journey.closeUp.${id}.caption` as const;
   const ariaLabel = tr(labelKey);
@@ -28,15 +37,15 @@ export function CloseUpCard({ id }: CloseUpCardProps): JSX.Element {
         </span>
         <button
           type="button"
-          aria-expanded={mobileOpen}
-          onClick={() => setMobileOpen((v) => !v)}
+          aria-expanded={open}
+          onClick={() => setMobileExpanded((v) => !v)}
           className="rounded px-1.5 py-0.5 text-[11px] font-medium text-sky-300 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-sky-400 sm:hidden"
         >
-          {mobileOpen ? tr('journey.hideDetails') : tr('journey.showDetails')}
+          {open ? tr('journey.hideDetails') : tr('journey.showDetails')}
         </button>
       </div>
 
-      {mobileOpen ? (
+      {open ? (
         <div className="mt-1.5">
           {id === 'capillary' ? (
             <CapillaryCloseUp label={ariaLabel} />

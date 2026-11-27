@@ -541,4 +541,101 @@ describe('journey thunks and exclusivity', () => {
     expect(store.getState().motion.activeId).toBe('heartbeat');
     expect(store.getState().motion.owner).toBe('user');
   });
+
+  it('cancels a pending async rhythm startMotion if moving to a non-rhythm stage before fetch resolves', async () => {
+    const { bundleReady } = await import('../assets/assetsSlice');
+    let resolveMotions!: (value: Response) => void;
+    const motionsPromise = new Promise<Response>((res) => {
+      resolveMotions = res;
+    });
+    const asyncRhythmJourney: Journey = {
+      ...fixtureJourney,
+      id: 'blood',
+      stages: [
+        {
+          ...fixtureJourney.stages[0],
+          rhythm: { motion: 'heartbeat', mode: 'play' },
+        },
+        fixtureJourney.stages[1], // no rhythm
+      ],
+    };
+    const texts: JourneyTextsFile = {
+      journeys: {
+        blood: {
+          title: 'Blood',
+          summary: 'Summary',
+          stages: {
+            mouth: { title: 'S0', body: 'B0' },
+            stomach: { title: 'S1', body: 'B1' },
+          },
+          events: {},
+        },
+      },
+    };
+    vi.stubGlobal(
+      'fetch',
+      vi.fn((url: string) => {
+        if (url.endsWith('content/journeys.json')) {
+          return Promise.resolve(
+            new Response(JSON.stringify({ journeys: [asyncRhythmJourney] }), {
+              status: 200,
+            }),
+          );
+        }
+        if (
+          url.endsWith('content/en/journeys.json') ||
+          url.endsWith('content/tr/journeys.json')
+        ) {
+          return Promise.resolve(
+            new Response(JSON.stringify(texts), { status: 200 }),
+          );
+        }
+        if (url.endsWith('models/centerlines.12345678.json')) {
+          return Promise.resolve(
+            new Response(JSON.stringify(centerlinesFile), { status: 200 }),
+          );
+        }
+        if (url.endsWith('content/motions.json')) {
+          return motionsPromise;
+        }
+        return Promise.resolve(new Response(null, { status: 404 }));
+      }),
+    );
+
+    const { store } = makeTestStore();
+    store.dispatch(bundleReady('skeletal'));
+    store.dispatch(bundleReady('organs'));
+
+    // Start on rhythm stage 0 while motions.json fetch is still in flight
+    expect(await store.dispatch(startJourney('blood', 0))).toBe('started');
+    expect(store.getState().motion.owner).toBeNull();
+
+    // Advance to non-rhythm stage 1 BEFORE motions.json resolves
+    await store.dispatch(goToStage(1));
+
+    resolveMotions(
+      new Response(
+        JSON.stringify({
+          motions: [
+            {
+              id: 'heartbeat',
+              kind: 'pulse',
+              label: 'Heartbeat',
+              view: 'anterior',
+              systems: ['skeletal'],
+              groups: [{ meshes: ['sternum'], phase: 0 }],
+              bpm: 72,
+              amplitude: 0.04,
+            },
+          ],
+        }),
+        { status: 200 },
+      ),
+    );
+    await Promise.resolve();
+    await Promise.resolve();
+
+    expect(store.getState().motion.activeId).toBeNull();
+    expect(store.getState().motion.owner).toBeNull();
+  });
 });

@@ -1,6 +1,6 @@
 import * as RadioGroup from '@radix-ui/react-radio-group';
 import * as Slider from '@radix-ui/react-slider';
-import { useMemo, useState, type JSX, type KeyboardEvent } from 'react';
+import { useEffect, useMemo, useState, type JSX, type KeyboardEvent } from 'react';
 import { useStore } from 'react-redux';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import type { RootState } from '../../app/store';
@@ -61,9 +61,19 @@ export function JourneyBar(): JSX.Element | null {
   const stateBundles = useAppSelector((s) => s.assets.bundles);
 
   const [minimized, setMinimized] = useState(false);
-  const [mobileBodyOpen, setMobileBodyOpen] = useState(() =>
+  const [isDesktop, setIsDesktop] = useState(() =>
     typeof window !== 'undefined' ? window.innerWidth >= 640 : true,
   );
+  const [mobileBodyExpanded, setMobileBodyExpanded] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return undefined;
+    const onResize = () => setIsDesktop(window.innerWidth >= 640);
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
+  const mobileBodyOpen = isDesktop || mobileBodyExpanded;
 
   const reduced = prefersReducedMotion();
   const journey = useMemo(
@@ -315,7 +325,7 @@ export function JourneyBar(): JSX.Element | null {
         <button
           type="button"
           aria-expanded={mobileBodyOpen}
-          onClick={() => setMobileBodyOpen((v) => !v)}
+          onClick={() => setMobileBodyExpanded((v) => !v)}
           className="rounded px-1.5 py-0.5 text-[11px] font-medium text-sky-300 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-sky-400 sm:hidden"
         >
           {mobileBodyOpen ? tr('journey.hideDetails') : tr('journey.showDetails')}

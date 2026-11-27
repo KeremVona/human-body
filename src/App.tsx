@@ -174,18 +174,29 @@ function AtlasShell({
   }, [boot, store]);
 
   useEffect(() => {
-    if (bootShareStartedRef.current) return;
-    if (boot !== 'ready' || bundles.skeletal !== 'ready') return;
+    if (boot !== 'ready' || bundles.skeletal !== 'ready') return undefined;
+    const isHashTarget = (h: string) =>
+      /^(?:#v\d+\.|#tour\/|#journey\/)/.test(h);
+
     if (
-      typeof window === 'undefined' ||
-      !/^(?:#v\d+\.|#tour\/|#journey\/)/.test(window.location.hash)
+      !bootShareStartedRef.current &&
+      typeof window !== 'undefined' &&
+      isHashTarget(window.location.hash)
     ) {
-      return;
+      bootShareStartedRef.current = true;
+      void import('./features/share/bootShare')
+        .then(({ bootShare }) => bootShare(store))
+        .catch(() => {});
     }
-    bootShareStartedRef.current = true;
-    void import('./features/share/bootShare')
-      .then(({ bootShare }) => bootShare(store))
-      .catch(() => {});
+
+    const onHashChange = () => {
+      if (!isHashTarget(window.location.hash)) return;
+      void import('./features/share/bootShare')
+        .then(({ bootShare }) => bootShare(store))
+        .catch(() => {});
+    };
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
   }, [boot, bundles.skeletal, store]);
 
   useEffect(() => {

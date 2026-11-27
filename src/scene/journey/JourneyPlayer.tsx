@@ -175,6 +175,10 @@ export function JourneyPlayer(): null {
 
   useEffect(() => {
     if (playing || !route) return undefined;
+    const st = journey?.stages[stageIndex];
+    if (st?.rhythm?.mode === 'scrub' && !prefersReducedMotion()) {
+      dispatch(motionScrubbed(motionPhase.get()));
+    }
     return journeyClock.subscribe(() => {
       const layer = layerRef.current;
       if (!layer) return;
@@ -182,21 +186,21 @@ export function JourneyPlayer(): null {
       route.pointAt(u, bitePosRef.current);
       layer.updateProgress(u);
       const s = stageAt(route, u);
-      const st = journey?.stages[s];
-      if (st) {
+      const curSt = journey?.stages[s];
+      if (curSt) {
         const reduced = prefersReducedMotion();
-        layer.updateBite(bitePosRef.current, st.radius, BITE_LOOKS[st.look]);
+        layer.updateBite(bitePosRef.current, curSt.radius, BITE_LOOKS[curSt.look]);
         layer.updateRings(
-          !reduced && st.motion === 'squeeze',
+          !reduced && curSt.motion === 'squeeze',
           route,
           u,
-          st.radius,
+          curSt.radius,
           timeRef.current,
         );
       }
       invalidate();
     });
-  }, [playing, route, journey, invalidate]);
+  }, [playing, route, journey, stageIndex, dispatch, invalidate]);
 
   useFrame((_, delta) => {
     const layer = layerRef.current;
@@ -235,6 +239,12 @@ export function JourneyPlayer(): null {
       }
 
       if (u >= 1) {
+        const endStage = journey.stages[sNext];
+        if (endStage?.rhythm?.mode === 'scrub') {
+          const endPhase = rhythmPhase(endStage, 1);
+          motionPhase.set(endPhase);
+          dispatch(motionScrubbed(endPhase));
+        }
         dispatch(journeyProgressSet(1));
         dispatch(journeyPlayingSet(false));
       }

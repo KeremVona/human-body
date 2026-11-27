@@ -1,5 +1,5 @@
 import { useFrame, useThree } from '@react-three/fiber';
-import { useEffect, useMemo, useRef } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useStore } from 'react-redux';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import type { RootState } from '../app/store';
@@ -219,12 +219,11 @@ export function MotionPlayer(): null {
     };
   }, [def, activationSeq, motionAnchor, breathCenters, registry, store, invalidate]);
 
-  useEffect(() => {
-    if (!def || playing) return;
-    const transforms = transformsRef.current;
-    if (!transforms) return;
-
-    const applyPausedPhase = (phase: number) => {
+  const applyPausedPhase = useCallback(
+    (phase: number) => {
+      if (!def) return;
+      const transforms = transformsRef.current;
+      if (!transforms) return;
       phaseRef.current = phase;
       if (def.kind === 'hinge') {
         transforms.applyHinge(
@@ -258,17 +257,38 @@ export function MotionPlayer(): null {
         }
         transforms.applyBreath(gBuf, sBuf);
       }
-    };
+    },
+    [def, motionAnchor],
+  );
 
-    applyPausedPhase(scrubPhase);
-    motionPhase.set(scrubPhase);
+  // Apply initial paused phase and subscribe to live external phase updates (e.g., journey scrub)
+  // without resetting motionPhase backwards when Redux throttled scrubPhase commits arrive.
+  useEffect(() => {
+    if (!def || playing) return;
+    const isJourney = store.getState().motion.owner === 'journey';
+    const initial = isJourney
+      ? motionPhase.get()
+      : store.getState().motion.scrubPhase;
+    applyPausedPhase(initial);
+    if (!isJourney) {
+      motionPhase.set(initial);
+    }
     invalidate();
 
     return motionPhase.subscribe(() => {
       applyPausedPhase(motionPhase.get());
       invalidate();
     });
-  }, [def, playing, scrubPhase, motionAnchor, invalidate]);
+  }, [def, playing, activationSeq, store, applyPausedPhase, invalidate]);
+
+  // Keep user-driven MotionPanel slider/scrub updates synchronized with Redux scrubPhase.
+  useEffect(() => {
+    if (!def || playing) return;
+    if (store.getState().motion.owner === 'journey') return;
+    applyPausedPhase(scrubPhase);
+    motionPhase.set(scrubPhase);
+    invalidate();
+  }, [def, playing, scrubPhase, store, applyPausedPhase, invalidate]);
 
   useFrame((_, delta) => {
     if (!def || !playing) return;

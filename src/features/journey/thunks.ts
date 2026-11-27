@@ -317,17 +317,20 @@ export function syncStageRhythm(
   return (dispatch, getState) => {
     const plan = rhythmPlan(prevStage, nextStage);
     const reduced = prefersReducedMotion();
-    const isJourneyOwned = getState().motion.owner === 'journey';
+    // Cancel any active OR still-loading journey-owned motion without disturbing user motions
+    const stopJourneyMotion = () => {
+      if (getState().motion.owner !== 'user') dispatch(stopMotion());
+    };
 
     if (plan === 'stop') {
-      if (isJourneyOwned) dispatch(stopMotion());
+      stopJourneyMotion();
       return;
     }
     if (plan === 'none' || !nextStage.rhythm) return;
 
     if (reduced) {
       if (nextStage.rhythm.mode === 'play') {
-        if (isJourneyOwned) dispatch(stopMotion());
+        stopJourneyMotion();
         return;
       }
       const targetPhase = nextStage.rhythm.to;
@@ -335,7 +338,7 @@ export function syncStageRhythm(
         motionPhase.set(targetPhase);
         dispatch(motionScrubbed(targetPhase));
       } else {
-        if (isJourneyOwned) dispatch(stopMotion());
+        stopJourneyMotion();
         void dispatch(
           startMotion(nextStage.rhythm.motion, {
             owner: 'journey',
@@ -349,7 +352,7 @@ export function syncStageRhythm(
     }
 
     if (plan === 'start-play') {
-      if (isJourneyOwned) dispatch(stopMotion());
+      stopJourneyMotion();
       void dispatch(
         startMotion(nextStage.rhythm.motion, {
           owner: 'journey',
@@ -362,7 +365,7 @@ export function syncStageRhythm(
 
     const phase = rhythmPhase(nextStage, localP);
     if (plan === 'start-scrub') {
-      if (isJourneyOwned) dispatch(stopMotion());
+      stopJourneyMotion();
       void dispatch(
         startMotion(nextStage.rhythm.motion, {
           owner: 'journey',
@@ -541,7 +544,7 @@ export function exitJourney(): AppThunk<Promise<void>> {
     const token = nextToken(key);
 
     extra.camera?.current?.followTarget?.(null);
-    if (getState().motion.owner === 'journey') {
+    if (getState().motion.owner !== 'user') {
       dispatch(stopMotion());
     }
     const savedView = savedViews.get(key);
