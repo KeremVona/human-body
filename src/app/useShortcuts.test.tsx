@@ -24,6 +24,7 @@ const noopCamera: CameraApi = {
   getPose: vi.fn(() => null),
   setPose: vi.fn(async () => {}),
   lookAtPoint: vi.fn(async () => {}),
+  followTarget: vi.fn(),
 };
 
 function ShortcutMenuHarness({
@@ -76,6 +77,7 @@ describe('useShortcuts', () => {
       getPose: vi.fn(() => null),
       setPose: vi.fn(async () => {}),
       lookAtPoint: vi.fn(async () => {}),
+      followTarget: vi.fn(),
     };
 
     render(

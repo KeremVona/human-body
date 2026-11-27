@@ -29,6 +29,7 @@ import {
   type Preset,
 } from './camera';
 import { useMeshRegistry } from './meshRegistry';
+import { journeyFollowingSet } from '../features/journey/journeySlice';
 
 CameraControlsImpl.install({
   THREE: {
@@ -66,12 +67,23 @@ export function CameraRig(): null {
   const invalidate = useThree((s) => s.invalidate);
 
   const sizeRef = useRef(size);
+  const followTargetRef = useRef<Vector3 | null>(null);
+  const followVecRef = useRef(new Vector3());
+  const followDirtyRef = useRef(false);
   useEffect(() => {
     sizeRef.current = size;
   }, [size]);
 
   useFrame((_, delta) => {
-    if (controlsRef.current?.update(delta)) {
+    const controls = controlsRef.current;
+    if (!controls) return;
+    if (followDirtyRef.current && followTargetRef.current) {
+      const t = followTargetRef.current;
+      void controls.setTarget(t.x, t.y, t.z, true);
+      followDirtyRef.current = false;
+      invalidate();
+    }
+    if (controls.update(delta)) {
       invalidate();
     }
   }, -1);
@@ -92,7 +104,15 @@ export function CameraRig(): null {
     controls.touches.two = CameraControlsImpl.ACTION.TOUCH_DOLLY_TRUCK;
 
     const triggerInvalidate = () => invalidate();
-    controls.addEventListener('controlstart', triggerInvalidate);
+    const handleControlStart = () => {
+      invalidate();
+      const j = store.getState().journey;
+      if (j?.activeId && j.following) {
+        store.dispatch(journeyFollowingSet(false));
+      }
+      controller?.notifyUserControl();
+    };
+    controls.addEventListener('controlstart', handleControlStart);
     controls.addEventListener('control', triggerInvalidate);
     controls.addEventListener('transitionstart', triggerInvalidate);
     controls.addEventListener('update', triggerInvalidate);
@@ -217,6 +237,17 @@ export function CameraRig(): null {
         invalidate();
         await promise;
       },
+      followTarget(world) {
+        if (world === null) {
+          followTargetRef.current = null;
+          followDirtyRef.current = false;
+          return;
+        }
+        followVecRef.current.set(world[0], world[1], world[2]);
+        followTargetRef.current = followVecRef.current;
+        followDirtyRef.current = true;
+        invalidate();
+      },
     };
 
     const probe: CameraDebugProbe = {
@@ -270,7 +301,7 @@ export function CameraRig(): null {
     return () => {
       unsubStore();
       unbind?.();
-      controls.removeEventListener('controlstart', triggerInvalidate);
+      controls.removeEventListener('controlstart', handleControlStart);
       controls.removeEventListener('control', triggerInvalidate);
       controls.removeEventListener('transitionstart', triggerInvalidate);
       controls.removeEventListener('update', triggerInvalidate);

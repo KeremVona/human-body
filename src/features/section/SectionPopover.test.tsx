@@ -20,6 +20,7 @@ function renderToolbar() {
     getPose: vi.fn(() => null),
     setPose: vi.fn(async () => {}),
     lookAtPoint: vi.fn(async () => {}),
+    followTarget: vi.fn(),
   };
   render(
     <Provider store={store}>

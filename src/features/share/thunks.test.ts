@@ -79,6 +79,7 @@ function setupStore(
       getPose: vi.fn(() => pose),
       setPose: vi.fn(async () => {}),
       lookAtPoint: vi.fn(async () => {}),
+      followTarget: vi.fn(),
     },
   };
 

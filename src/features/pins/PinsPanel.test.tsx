@@ -21,6 +21,7 @@ function fakeCamera(): CameraApi {
     getPose: vi.fn(() => null),
     setPose: vi.fn(async () => {}),
     lookAtPoint: vi.fn(async () => {}),
+    followTarget: vi.fn(),
   };
 }
 

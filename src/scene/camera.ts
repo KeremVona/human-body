@@ -151,6 +151,7 @@ export type CameraApi = {
     world: [number, number, number],
     distance?: number,
   ): Promise<void>;
+  followTarget(world: readonly [number, number, number] | null): void;
 };
 
 export type CameraDebugProbe = {
@@ -163,11 +164,15 @@ export type CameraController = {
   bind(impl: CameraApi, probe?: CameraDebugProbe): () => void;
   screenPointOf(id: MeshId): { x: number; y: number } | null;
   waitIdle(): Promise<void>;
+  notifyUserControl(): void;
 };
 
-export function createCameraController(cameraRef?: {
-  current: CameraApi | null;
-}): CameraController {
+export function createCameraController(
+  cameraRef?: {
+    current: CameraApi | null;
+  },
+  onUserControl?: () => void,
+): CameraController {
   let impl: CameraApi | null = null;
   let probeImpl: CameraDebugProbe | null = null;
   const api: CameraApi = {
@@ -191,6 +196,9 @@ export function createCameraController(cameraRef?: {
     },
     lookAtPoint(world, distance) {
       return impl ? impl.lookAtPoint(world, distance) : Promise.resolve();
+    },
+    followTarget(world) {
+      impl?.followTarget(world);
     },
   };
 
@@ -218,6 +226,9 @@ export function createCameraController(cameraRef?: {
     waitIdle() {
       return probeImpl ? probeImpl.waitIdle() : Promise.resolve();
     },
+    notifyUserControl() {
+      onUserControl?.();
+    },
   };
 }
 
@@ -242,6 +253,7 @@ export function CameraApiProvider({
         bind: () => () => {},
         screenPointOf: () => null,
         waitIdle: () => Promise.resolve(),
+        notifyUserControl: () => {},
       };
     }
     return fallback;

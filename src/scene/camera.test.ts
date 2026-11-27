@@ -109,8 +109,13 @@ describe('distanceLimits', () => {
 
 describe('createCameraController pose methods', () => {
   it('returns null unbound and forwards getPose and setPose when bound', async () => {
-    const controller = createCameraController();
+    const onUserControl = vi.fn();
+    const controller = createCameraController(undefined, onUserControl);
     expect(controller.api.getPose()).toBeNull();
+    controller.api.followTarget([0, 0.2, 0]);
+    controller.notifyUserControl();
+    expect(onUserControl).toHaveBeenCalledTimes(1);
+
     await expect(
       controller.api.setPose({ position: [0, 0, 3], target: [0, 0, 0] }, false),
     ).resolves.toBeUndefined();
@@ -124,6 +129,7 @@ describe('createCameraController pose methods', () => {
       getPose: vi.fn(() => pose),
       setPose: vi.fn(async () => {}),
       lookAtPoint: vi.fn(async () => {}),
+      followTarget: vi.fn(),
     };
 
     const unbind = controller.bind(impl);
@@ -132,6 +138,10 @@ describe('createCameraController pose methods', () => {
     expect(impl.setPose).toHaveBeenCalledWith(pose, true);
     await controller.api.lookAtPoint([0, 0.5, 0], 0.4);
     expect(impl.lookAtPoint).toHaveBeenCalledWith([0, 0.5, 0], 0.4);
+    controller.api.followTarget([0.1, 0.2, 0.3]);
+    expect(impl.followTarget).toHaveBeenCalledWith([0.1, 0.2, 0.3]);
+    controller.api.followTarget(null);
+    expect(impl.followTarget).toHaveBeenCalledWith(null);
 
     unbind();
     expect(controller.api.getPose()).toBeNull();

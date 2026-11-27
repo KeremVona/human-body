@@ -128,6 +128,7 @@ function setupStore() {
       })),
       setPose: vi.fn(async () => {}),
       lookAtPoint: vi.fn(async () => {}),
+      followTarget: vi.fn(),
     },
   };
 
@@ -420,6 +421,7 @@ describe('tour thunks', () => {
         })),
         setPose: vi.fn(async () => {}),
         lookAtPoint: vi.fn(async () => {}),
+        followTarget: vi.fn(),
       },
     };
     const store = makeStore(undefined, { camera });
