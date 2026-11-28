@@ -237,6 +237,445 @@
           "meters": { "carbs": 95, "protein": 95, "fat": 95, "water": 95, "absorbed": 95 }
         }
       ]
+    },
+    {
+      "id": "blood",
+      "systems": ["cardiovascular"],
+      "meters": [
+        { "id": "oxygen", "unit": "%", "max": 100, "decimals": 0 },
+        { "id": "co2", "unit": "relative", "max": 100, "decimals": 0 }
+      ],
+      "metersStart": { "oxygen": 98, "co2": 20 },
+      "stages": [
+        {
+          "id": "hand",
+          "durationS": 6,
+          "realTime": { "min": 1, "max": 2, "unit": "s" },
+          "look": "blood-deoxy",
+          "radius": 0.002,
+          "motion": "none",
+          "closeUp": "capillary",
+          "organs": [],
+          "view": {
+            "c": [0.267, -0.014, 0.226, 0.267, -0.014, 0.012],
+            "s": ["cardiovascular", "skeletal"],
+            "o": { "skeletal": 0.15 },
+            "h": [],
+            "sel": [],
+            "f": [
+              "deep-palmar-arch--l", "radial-veins--l", "brachial-veins--l", "axillary-vein--l",
+              "left-subclavian-vein", "left-brachiocephalic-vein", "superior-vena-cava",
+              "right-atrium", "right-ventricle", "pulmonary-trunk",
+              "bifurcation-of-pulmonary-trunk", "left-pulmonary-artery",
+              "left-superior-pulmonary-vein", "left-atrium", "left-ventricle",
+              "ascending-aorta", "aortic-arch", "left-subclavian-artery",
+              "axillary-artery--l", "brachial-artery--l", "radial-artery--l",
+              "septal-leaflet-of-right-atrioventricular-valve",
+              "inferior-leaflet-of-right-atrioventricular-valve",
+              "anterior-semilunar-leaflet-of-pulmonary-valve",
+              "left-semilunar-leaflet-of-pulmonary-valve",
+              "right-semilunar-leaflet-of-pulmonary-valve",
+              "posterior-leaflet-of-left-atrioventricular-valve",
+              "left-coronary-leaflet", "right-coronary-leaflet", "non-coronary-leaflet",
+              "left-coronary-artery", "right-coronary-artery"
+            ]
+          },
+          "path": [
+            { "line": "deep-palmar-arch--l", "from": 0.6 },
+            { "line": "radial-veins--l", "to": 0.03 }
+          ],
+          "modelled": false,
+          "meters": { "oxygen": 75, "co2": 80 }
+        },
+        {
+          "id": "arm-veins",
+          "durationS": 10,
+          "look": "blood-deoxy",
+          "radius": 0.0025,
+          "motion": "none",
+          "organs": ["radial-veins--l", "brachial-veins--l", "axillary-vein--l"],
+          "inside": ["radial-veins--l", "brachial-veins--l", "axillary-vein--l"],
+          "view": {
+            "c": [0.188, 0.278, 1.274, 0.188, 0.278, -0.012],
+            "s": ["cardiovascular", "skeletal"],
+            "o": { "skeletal": 0.15 },
+            "h": [],
+            "sel": [],
+            "f": [
+              "deep-palmar-arch--l", "radial-veins--l", "brachial-veins--l", "axillary-vein--l",
+              "left-subclavian-vein", "left-brachiocephalic-vein", "superior-vena-cava",
+              "right-atrium", "right-ventricle", "pulmonary-trunk",
+              "bifurcation-of-pulmonary-trunk", "left-pulmonary-artery",
+              "left-superior-pulmonary-vein", "left-atrium", "left-ventricle",
+              "ascending-aorta", "aortic-arch", "left-subclavian-artery",
+              "axillary-artery--l", "brachial-artery--l", "radial-artery--l",
+              "septal-leaflet-of-right-atrioventricular-valve",
+              "inferior-leaflet-of-right-atrioventricular-valve",
+              "anterior-semilunar-leaflet-of-pulmonary-valve",
+              "left-semilunar-leaflet-of-pulmonary-valve",
+              "right-semilunar-leaflet-of-pulmonary-valve",
+              "posterior-leaflet-of-left-atrioventricular-valve",
+              "left-coronary-leaflet", "right-coronary-leaflet", "non-coronary-leaflet",
+              "left-coronary-artery", "right-coronary-artery"
+            ]
+          },
+          "path": [
+            { "line": "radial-veins--l", "from": 0.03 },
+            { "line": "brachial-veins--l" },
+            { "line": "axillary-vein--l" }
+          ],
+          "modelled": true,
+          "meters": { "oxygen": 75, "co2": 80 }
+        },
+        {
+          "id": "to-heart",
+          "durationS": 8,
+          "look": "blood-deoxy",
+          "radius": 0.006,
+          "motion": "none",
+          "rhythm": { "motion": "heartbeat", "mode": "play" },
+          "organs": ["left-subclavian-vein", "left-brachiocephalic-vein", "superior-vena-cava"],
+          "inside": ["left-subclavian-vein", "left-brachiocephalic-vein", "superior-vena-cava"],
+          "view": {
+            "c": [0.029, 0.474, 0.529, 0.029, 0.474, 0.017],
+            "s": ["cardiovascular", "skeletal"],
+            "o": { "skeletal": 0.15 },
+            "h": [],
+            "sel": [],
+            "f": [
+              "deep-palmar-arch--l", "radial-veins--l", "brachial-veins--l", "axillary-vein--l",
+              "left-subclavian-vein", "left-brachiocephalic-vein", "superior-vena-cava",
+              "right-atrium", "right-ventricle", "pulmonary-trunk",
+              "bifurcation-of-pulmonary-trunk", "left-pulmonary-artery",
+              "left-superior-pulmonary-vein", "left-atrium", "left-ventricle",
+              "ascending-aorta", "aortic-arch", "left-subclavian-artery",
+              "axillary-artery--l", "brachial-artery--l", "radial-artery--l",
+              "septal-leaflet-of-right-atrioventricular-valve",
+              "inferior-leaflet-of-right-atrioventricular-valve",
+              "anterior-semilunar-leaflet-of-pulmonary-valve",
+              "left-semilunar-leaflet-of-pulmonary-valve",
+              "right-semilunar-leaflet-of-pulmonary-valve",
+              "posterior-leaflet-of-left-atrioventricular-valve",
+              "left-coronary-leaflet", "right-coronary-leaflet", "non-coronary-leaflet",
+              "left-coronary-artery", "right-coronary-artery"
+            ]
+          },
+          "path": [
+            { "line": "left-subclavian-vein" },
+            { "line": "left-brachiocephalic-vein" },
+            { "line": "superior-vena-cava" }
+          ],
+          "modelled": true,
+          "meters": { "oxygen": 75, "co2": 80 }
+        },
+        {
+          "id": "right-heart",
+          "durationS": 8,
+          "realTime": { "min": 0.6, "max": 1, "unit": "s" },
+          "look": "blood-deoxy",
+          "radius": 0.008,
+          "motion": "none",
+          "rhythm": { "motion": "heartbeat", "mode": "play" },
+          "organs": ["right-atrium", "right-ventricle", "pulmonary-trunk"],
+          "view": {
+            "c": [0.012, 0.441, 0.422, 0.012, 0.441, 0.024],
+            "s": ["cardiovascular", "skeletal"],
+            "o": { "skeletal": 0.15 },
+            "h": [],
+            "sel": [],
+            "f": [
+              "deep-palmar-arch--l", "radial-veins--l", "brachial-veins--l", "axillary-vein--l",
+              "left-subclavian-vein", "left-brachiocephalic-vein", "superior-vena-cava",
+              "right-atrium", "right-ventricle", "pulmonary-trunk",
+              "bifurcation-of-pulmonary-trunk", "left-pulmonary-artery",
+              "left-superior-pulmonary-vein", "left-atrium", "left-ventricle",
+              "ascending-aorta", "aortic-arch", "left-subclavian-artery",
+              "axillary-artery--l", "brachial-artery--l", "radial-artery--l",
+              "septal-leaflet-of-right-atrioventricular-valve",
+              "inferior-leaflet-of-right-atrioventricular-valve",
+              "anterior-semilunar-leaflet-of-pulmonary-valve",
+              "left-semilunar-leaflet-of-pulmonary-valve",
+              "right-semilunar-leaflet-of-pulmonary-valve",
+              "posterior-leaflet-of-left-atrioventricular-valve",
+              "left-coronary-leaflet", "right-coronary-leaflet", "non-coronary-leaflet",
+              "left-coronary-artery", "right-coronary-artery"
+            ]
+          },
+          "path": [
+            { "mesh": "right-atrium", "anchor": [0.45, 0.9, 0.35] },
+            { "mesh": "right-atrium", "anchor": [0.5, 0.6, 0.5] },
+            { "mesh": "septal-leaflet-of-right-atrioventricular-valve", "anchor": [0.5, 0.5, 0.5] },
+            { "mesh": "right-ventricle", "anchor": [0.5, 0.35, 0.6] },
+            { "mesh": "anterior-semilunar-leaflet-of-pulmonary-valve", "anchor": [0.5, 0.5, 0.5] },
+            { "mesh": "pulmonary-trunk", "anchor": [0.5, 0.8, 0.5] }
+          ],
+          "modelled": true,
+          "events": [
+            { "at": 0.2, "kind": "highlight", "mesh": "septal-leaflet-of-right-atrioventricular-valve", "id": "tricuspid-valve" },
+            { "at": 0.2, "kind": "highlight", "mesh": "inferior-leaflet-of-right-atrioventricular-valve", "id": "tricuspid-valve" },
+            { "at": 0.7, "kind": "highlight", "mesh": "anterior-semilunar-leaflet-of-pulmonary-valve", "id": "pulmonary-valve" },
+            { "at": 0.7, "kind": "highlight", "mesh": "left-semilunar-leaflet-of-pulmonary-valve", "id": "pulmonary-valve" },
+            { "at": 0.7, "kind": "highlight", "mesh": "right-semilunar-leaflet-of-pulmonary-valve", "id": "pulmonary-valve" }
+          ],
+          "meters": { "oxygen": 75, "co2": 80 }
+        },
+        {
+          "id": "to-lungs",
+          "durationS": 6,
+          "look": "blood-deoxy",
+          "radius": 0.005,
+          "motion": "none",
+          "rhythm": { "motion": "heartbeat", "mode": "play" },
+          "organs": ["bifurcation-of-pulmonary-trunk", "left-pulmonary-artery"],
+          "inside": ["bifurcation-of-pulmonary-trunk", "left-pulmonary-artery"],
+          "view": {
+            "c": [0.048, 0.456, 0.316, 0.048, 0.456, -0.014],
+            "s": ["cardiovascular", "skeletal", "respiratory"],
+            "o": { "skeletal": 0.15, "respiratory": 0.25 },
+            "h": [],
+            "sel": [],
+            "f": [
+              "deep-palmar-arch--l", "radial-veins--l", "brachial-veins--l", "axillary-vein--l",
+              "left-subclavian-vein", "left-brachiocephalic-vein", "superior-vena-cava",
+              "right-atrium", "right-ventricle", "pulmonary-trunk",
+              "bifurcation-of-pulmonary-trunk", "left-pulmonary-artery",
+              "left-superior-pulmonary-vein", "left-atrium", "left-ventricle",
+              "ascending-aorta", "aortic-arch", "left-subclavian-artery",
+              "axillary-artery--l", "brachial-artery--l", "radial-artery--l",
+              "septal-leaflet-of-right-atrioventricular-valve",
+              "inferior-leaflet-of-right-atrioventricular-valve",
+              "anterior-semilunar-leaflet-of-pulmonary-valve",
+              "left-semilunar-leaflet-of-pulmonary-valve",
+              "right-semilunar-leaflet-of-pulmonary-valve",
+              "posterior-leaflet-of-left-atrioventricular-valve",
+              "left-coronary-leaflet", "right-coronary-leaflet", "non-coronary-leaflet",
+              "left-coronary-artery", "right-coronary-artery",
+              "superior-lobe-of-left-lung", "inferior-lobe-of-left-lung"
+            ]
+          },
+          "path": [
+            { "line": "bifurcation-of-pulmonary-trunk" },
+            { "line": "left-pulmonary-artery" }
+          ],
+          "modelled": true,
+          "meters": { "oxygen": 75, "co2": 80 }
+        },
+        {
+          "id": "lung-capillaries",
+          "durationS": 8,
+          "realTime": { "min": 0.75, "max": 0.75, "unit": "s" },
+          "look": "blood-oxy",
+          "radius": 0.002,
+          "motion": "none",
+          "rhythm": { "motion": "heartbeat", "mode": "play" },
+          "closeUp": "lung-capillary",
+          "organs": ["superior-lobe-of-left-lung"],
+          "view": {
+            "c": [0.066, 0.468, 0.666, 0.066, 0.468, 0.004],
+            "s": ["cardiovascular", "skeletal", "respiratory"],
+            "o": { "skeletal": 0.15, "respiratory": 0.25 },
+            "h": [],
+            "sel": [],
+            "f": [
+              "deep-palmar-arch--l", "radial-veins--l", "brachial-veins--l", "axillary-vein--l",
+              "left-subclavian-vein", "left-brachiocephalic-vein", "superior-vena-cava",
+              "right-atrium", "right-ventricle", "pulmonary-trunk",
+              "bifurcation-of-pulmonary-trunk", "left-pulmonary-artery",
+              "left-superior-pulmonary-vein", "left-atrium", "left-ventricle",
+              "ascending-aorta", "aortic-arch", "left-subclavian-artery",
+              "axillary-artery--l", "brachial-artery--l", "radial-artery--l",
+              "septal-leaflet-of-right-atrioventricular-valve",
+              "inferior-leaflet-of-right-atrioventricular-valve",
+              "anterior-semilunar-leaflet-of-pulmonary-valve",
+              "left-semilunar-leaflet-of-pulmonary-valve",
+              "right-semilunar-leaflet-of-pulmonary-valve",
+              "posterior-leaflet-of-left-atrioventricular-valve",
+              "left-coronary-leaflet", "right-coronary-leaflet", "non-coronary-leaflet",
+              "left-coronary-artery", "right-coronary-artery",
+              "superior-lobe-of-left-lung", "inferior-lobe-of-left-lung"
+            ]
+          },
+          "path": [
+            { "mesh": "superior-lobe-of-left-lung", "anchor": [0.68, 0.23, 0.24] },
+            { "mesh": "superior-lobe-of-left-lung", "anchor": [0.45, 0.5, 0.5] }
+          ],
+          "modelled": false,
+          "meters": { "oxygen": 98, "co2": 20 }
+        },
+        {
+          "id": "back-to-heart",
+          "durationS": 6,
+          "look": "blood-oxy",
+          "radius": 0.005,
+          "motion": "none",
+          "rhythm": { "motion": "heartbeat", "mode": "play" },
+          "organs": ["left-superior-pulmonary-vein", "left-atrium"],
+          "inside": ["left-superior-pulmonary-vein"],
+          "view": {
+            "c": [0.347, 0.443, -0.001, 0.021, 0.443, -0.001],
+            "s": ["cardiovascular", "skeletal", "respiratory"],
+            "o": { "skeletal": 0.15, "respiratory": 0.25 },
+            "h": [],
+            "sel": [],
+            "f": [
+              "deep-palmar-arch--l", "radial-veins--l", "brachial-veins--l", "axillary-vein--l",
+              "left-subclavian-vein", "left-brachiocephalic-vein", "superior-vena-cava",
+              "right-atrium", "right-ventricle", "pulmonary-trunk",
+              "bifurcation-of-pulmonary-trunk", "left-pulmonary-artery",
+              "left-superior-pulmonary-vein", "left-atrium", "left-ventricle",
+              "ascending-aorta", "aortic-arch", "left-subclavian-artery",
+              "axillary-artery--l", "brachial-artery--l", "radial-artery--l",
+              "septal-leaflet-of-right-atrioventricular-valve",
+              "inferior-leaflet-of-right-atrioventricular-valve",
+              "anterior-semilunar-leaflet-of-pulmonary-valve",
+              "left-semilunar-leaflet-of-pulmonary-valve",
+              "right-semilunar-leaflet-of-pulmonary-valve",
+              "posterior-leaflet-of-left-atrioventricular-valve",
+              "left-coronary-leaflet", "right-coronary-leaflet", "non-coronary-leaflet",
+              "left-coronary-artery", "right-coronary-artery",
+              "superior-lobe-of-left-lung", "inferior-lobe-of-left-lung"
+            ]
+          },
+          "path": [
+            { "line": "left-superior-pulmonary-vein" }
+          ],
+          "modelled": true,
+          "meters": { "oxygen": 98, "co2": 20 }
+        },
+        {
+          "id": "left-heart",
+          "durationS": 8,
+          "realTime": { "min": 0.6, "max": 1, "unit": "s" },
+          "look": "blood-oxy",
+          "radius": 0.008,
+          "motion": "none",
+          "rhythm": { "motion": "heartbeat", "mode": "play" },
+          "organs": ["left-atrium", "left-ventricle"],
+          "view": {
+            "c": [0.029, 0.43, 0.411, 0.029, 0.43, 0.008],
+            "s": ["cardiovascular", "skeletal"],
+            "o": { "skeletal": 0.15 },
+            "h": [],
+            "sel": [],
+            "f": [
+              "deep-palmar-arch--l", "radial-veins--l", "brachial-veins--l", "axillary-vein--l",
+              "left-subclavian-vein", "left-brachiocephalic-vein", "superior-vena-cava",
+              "right-atrium", "right-ventricle", "pulmonary-trunk",
+              "bifurcation-of-pulmonary-trunk", "left-pulmonary-artery",
+              "left-superior-pulmonary-vein", "left-atrium", "left-ventricle",
+              "ascending-aorta", "aortic-arch", "left-subclavian-artery",
+              "axillary-artery--l", "brachial-artery--l", "radial-artery--l",
+              "septal-leaflet-of-right-atrioventricular-valve",
+              "inferior-leaflet-of-right-atrioventricular-valve",
+              "anterior-semilunar-leaflet-of-pulmonary-valve",
+              "left-semilunar-leaflet-of-pulmonary-valve",
+              "right-semilunar-leaflet-of-pulmonary-valve",
+              "posterior-leaflet-of-left-atrioventricular-valve",
+              "left-coronary-leaflet", "right-coronary-leaflet", "non-coronary-leaflet",
+              "left-coronary-artery", "right-coronary-artery"
+            ]
+          },
+          "path": [
+            { "mesh": "left-atrium", "anchor": [0.8, 0.7, 0.28] },
+            { "mesh": "left-atrium", "anchor": [0.5, 0.5, 0.4] },
+            { "mesh": "posterior-leaflet-of-left-atrioventricular-valve", "anchor": [0.5, 0.5, 0.5] },
+            { "mesh": "left-ventricle", "anchor": [0.5, 0.35, 0.5] },
+            { "mesh": "non-coronary-leaflet", "anchor": [0.5, 0.5, 0.5] }
+          ],
+          "modelled": true,
+          "events": [
+            { "at": 0.2, "kind": "highlight", "mesh": "posterior-leaflet-of-left-atrioventricular-valve", "id": "mitral-valve" },
+            { "at": 0.7, "kind": "highlight", "mesh": "left-coronary-leaflet", "id": "aortic-valve" },
+            { "at": 0.7, "kind": "highlight", "mesh": "right-coronary-leaflet", "id": "aortic-valve" },
+            { "at": 0.7, "kind": "highlight", "mesh": "non-coronary-leaflet", "id": "aortic-valve" },
+            { "at": 0.85, "kind": "highlight", "mesh": "left-coronary-artery", "id": "coronary-arteries" },
+            { "at": 0.85, "kind": "highlight", "mesh": "right-coronary-artery", "id": "coronary-arteries" }
+          ],
+          "meters": { "oxygen": 98, "co2": 20 }
+        },
+        {
+          "id": "aorta",
+          "durationS": 6,
+          "look": "blood-oxy",
+          "radius": 0.006,
+          "motion": "none",
+          "rhythm": { "motion": "heartbeat", "mode": "play" },
+          "organs": ["ascending-aorta", "aortic-arch", "left-subclavian-artery"],
+          "inside": ["ascending-aorta", "aortic-arch", "left-subclavian-artery"],
+          "view": {
+            "c": [0.035, 0.51, 0.377, 0.035, 0.51, -0.012],
+            "s": ["cardiovascular", "skeletal"],
+            "o": { "skeletal": 0.15 },
+            "h": [],
+            "sel": [],
+            "f": [
+              "deep-palmar-arch--l", "radial-veins--l", "brachial-veins--l", "axillary-vein--l",
+              "left-subclavian-vein", "left-brachiocephalic-vein", "superior-vena-cava",
+              "right-atrium", "right-ventricle", "pulmonary-trunk",
+              "bifurcation-of-pulmonary-trunk", "left-pulmonary-artery",
+              "left-superior-pulmonary-vein", "left-atrium", "left-ventricle",
+              "ascending-aorta", "aortic-arch", "left-subclavian-artery",
+              "axillary-artery--l", "brachial-artery--l", "radial-artery--l",
+              "septal-leaflet-of-right-atrioventricular-valve",
+              "inferior-leaflet-of-right-atrioventricular-valve",
+              "anterior-semilunar-leaflet-of-pulmonary-valve",
+              "left-semilunar-leaflet-of-pulmonary-valve",
+              "right-semilunar-leaflet-of-pulmonary-valve",
+              "posterior-leaflet-of-left-atrioventricular-valve",
+              "left-coronary-leaflet", "right-coronary-leaflet", "non-coronary-leaflet",
+              "left-coronary-artery", "right-coronary-artery"
+            ]
+          },
+          "path": [
+            { "line": "ascending-aorta" },
+            { "line": "aortic-arch", "to": 0.57 },
+            { "line": "left-subclavian-artery" }
+          ],
+          "modelled": true,
+          "meters": { "oxygen": 98, "co2": 20 }
+        },
+        {
+          "id": "arm-arteries",
+          "durationS": 10,
+          "look": "blood-oxy",
+          "radius": 0.0025,
+          "motion": "none",
+          "organs": ["axillary-artery--l", "brachial-artery--l", "radial-artery--l"],
+          "inside": ["axillary-artery--l", "brachial-artery--l", "radial-artery--l", "deep-palmar-arch--l"],
+          "view": {
+            "c": [0.184, 0.266, 1.382, 0.184, 0.266, -0.011],
+            "s": ["cardiovascular", "skeletal"],
+            "o": { "skeletal": 0.15 },
+            "h": [],
+            "sel": [],
+            "f": [
+              "deep-palmar-arch--l", "radial-veins--l", "brachial-veins--l", "axillary-vein--l",
+              "left-subclavian-vein", "left-brachiocephalic-vein", "superior-vena-cava",
+              "right-atrium", "right-ventricle", "pulmonary-trunk",
+              "bifurcation-of-pulmonary-trunk", "left-pulmonary-artery",
+              "left-superior-pulmonary-vein", "left-atrium", "left-ventricle",
+              "ascending-aorta", "aortic-arch", "left-subclavian-artery",
+              "axillary-artery--l", "brachial-artery--l", "radial-artery--l",
+              "septal-leaflet-of-right-atrioventricular-valve",
+              "inferior-leaflet-of-right-atrioventricular-valve",
+              "anterior-semilunar-leaflet-of-pulmonary-valve",
+              "left-semilunar-leaflet-of-pulmonary-valve",
+              "right-semilunar-leaflet-of-pulmonary-valve",
+              "posterior-leaflet-of-left-atrioventricular-valve",
+              "left-coronary-leaflet", "right-coronary-leaflet", "non-coronary-leaflet",
+              "left-coronary-artery", "right-coronary-artery"
+            ]
+          },
+          "path": [
+            { "line": "axillary-artery--l" },
+            { "line": "brachial-artery--l" },
+            { "line": "radial-artery--l" },
+            { "line": "deep-palmar-arch--l", "to": 0.6 }
+          ],
+          "modelled": true,
+          "meters": { "oxygen": 98, "co2": 20 }
+        }
+      ]
     }
   ]
 }

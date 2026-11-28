@@ -55,6 +55,69 @@
         "bile": "Bile",
         "pancreatic-juice": "Pancreatic juice"
       }
+    },
+    "blood": {
+      "title": "Follow a drop of blood",
+      "summary": "Ride one drop of blood from your left hand to the heart, through the lungs to pick up oxygen, and back again.",
+      "follow": "Follow the blood",
+      "inspectorLink": "Watch blood flow through here",
+      "metersTitle": "In this blood",
+      "metersNote": "Typical resting values; carbon dioxide on a relative scale.",
+      "meters": {
+        "oxygen": { "label": "Oxygen saturation", "value": "{v}%" },
+        "co2": { "label": "Carbon dioxide carried", "value": "{v} of 100" }
+      },
+      "stages": {
+        "hand": {
+          "title": "Delivering oxygen in the hand",
+          "body": "In the hand, arteries branch into capillaries thinner than a hair. Here the blood hands oxygen and nutrients to the cells and picks up carbon dioxide, their waste gas. Oxygen-poor blood is darker red; it only looks blue through the skin.",
+          "note": "Capillaries are too small to be in the 3D model, so the route is dashed here."
+        },
+        "arm-veins": {
+          "title": "Up the arm in the veins",
+          "body": "Veins collect the blood and carry it back toward the heart. The pressure here is low, so one-way valves inside the veins stop blood from sliding back, and the squeeze of the arm muscles helps push it along."
+        },
+        "to-heart": {
+          "title": "Into the great veins",
+          "body": "The arm vein joins veins from the head and neck. On the left they form the brachiocephalic vein, which crosses the chest to join the superior vena cava, the large vein that empties blood from the upper body into the heart's right atrium."
+        },
+        "right-heart": {
+          "title": "Through the right side of the heart",
+          "body": "From the right atrium the blood passes the tricuspid valve into the right ventricle. When the ventricle squeezes, the valve snaps shut and the blood is pushed through the pulmonary valve into the pulmonary trunk, toward the lungs."
+        },
+        "to-lungs": {
+          "title": "Off to the lungs",
+          "body": "The pulmonary trunk splits into a right and a left pulmonary artery. These are the only arteries that carry oxygen-poor blood, which is why diagrams often colour them blue. This drop takes the left branch into the left lung."
+        },
+        "lung-capillaries": {
+          "title": "Picking up oxygen",
+          "body": "In the lungs the arteries branch into capillaries wrapped around millions of tiny air sacs called alveoli. Oxygen moves from the air into the blood and binds to red blood cells, while carbon dioxide moves out to be breathed away. The blood turns bright red.",
+          "note": "The lung capillaries and air sacs are too small for the 3D model; the close-up shows what happens."
+        },
+        "back-to-heart": {
+          "title": "Back to the heart",
+          "body": "Oxygen-rich blood leaves the lung through the pulmonary veins, the only veins that carry oxygen-rich blood, and flows into the left atrium."
+        },
+        "left-heart": {
+          "title": "Through the left side of the heart",
+          "body": "The blood passes the mitral valve into the left ventricle, the heart's strongest chamber, whose thick wall pumps blood to the whole body. Each squeeze pushes it through the aortic valve into the aorta. Just above the valve, the coronary arteries branch off to feed the heart muscle itself."
+        },
+        "aorta": {
+          "title": "The aorta",
+          "body": "The aorta, the body's largest artery, rises from the heart and curves over in the aortic arch. Branches from the arch supply the head and arms; this drop turns into the left subclavian artery, heading for the left arm."
+        },
+        "arm-arteries": {
+          "title": "Down the arm to the hand",
+          "body": "Arteries carry the blood down the arm: the axillary artery in the armpit, the brachial artery in the upper arm, then the radial artery on the thumb side of the forearm, where you can feel your pulse at the wrist. Then it is back to the hand's capillaries, and the loop starts again."
+        }
+      },
+      "events": {
+        "tricuspid-valve": "Tricuspid valve",
+        "pulmonary-valve": "Pulmonary valve",
+        "mitral-valve": "Mitral valve",
+        "aortic-valve": "Aortic valve",
+        "coronary-arteries": "Coronary arteries"
+      }
     }
   }
 }

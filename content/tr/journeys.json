@@ -55,6 +55,69 @@
         "bile": "Safra",
         "pancreatic-juice": "Pankreas özsuyu"
       }
+    },
+    "blood": {
+      "title": "Bir damla kanın yolculuğu",
+      "summary": "Bir damla kanla sol elinizden kalbe, oksijen almak için akciğerlere ve yeniden geri yolculuk edin.",
+      "follow": "Kanı takip et",
+      "inspectorLink": "Kanın buradan akışını izle",
+      "metersTitle": "Bu kanda",
+      "metersNote": "Tipik dinlenme değerleri; karbondioksit göreli ölçekte.",
+      "meters": {
+        "oxygen": { "label": "Oksijen doygunluğu", "value": "%{v}" },
+        "co2": { "label": "Taşınan karbondioksit", "value": "100 üzerinden {v}" }
+      },
+      "stages": {
+        "hand": {
+          "title": "Elde oksijen teslimi",
+          "body": "Elde atardamarlar saç telinden ince kılcal damarlara ayrılır. Kan burada hücrelere oksijen ve besin bırakır, onların atık gazı olan karbondioksiti alır. Oksijeni azalmış kan daha koyu kırmızıdır; yalnızca deri altından mavi görünür.",
+          "note": "Kılcal damarlar 3B modelde yer almayacak kadar küçük, bu yüzden rota burada kesik çizgiyle gösteriliyor."
+        },
+        "arm-veins": {
+          "title": "Toplardamarlarla kol boyunca yukarı",
+          "body": "Toplardamarlar kanı toplayıp kalbe geri taşır. Buradaki basınç düşüktür; bu yüzden damarların içindeki tek yönlü kapakçıklar kanın geri kaymasını önler, kol kaslarının sıkıştırması da kanı ileri iter."
+        },
+        "to-heart": {
+          "title": "Büyük toplardamarlara",
+          "body": "Kol toplardamarı baş ve boyundan gelen toplardamarlarla birleşir. Sol tarafta bunlar brakiyosefalik veni oluşturur; bu ven göğsü geçerek üst vücudun kanını kalbin sağ kulakçığına boşaltan büyük toplardamar olan üst ana toplardamara katılır."
+        },
+        "right-heart": {
+          "title": "Kalbin sağ tarafından",
+          "body": "Kan sağ kulakçıktan triküspit kapaktan geçerek sağ karıncığa girer. Karıncık kasıldığında kapak kapanır ve kan pulmoner kapaktan pulmoner gövdeye, akciğerlere doğru itilir."
+        },
+        "to-lungs": {
+          "title": "Akciğerlere doğru",
+          "body": "Pulmoner gövde sağ ve sol pulmoner artere ayrılır. Bunlar oksijeni az kanı taşıyan tek atardamarlardır; bu yüzden şemalarda genellikle mavi çizilirler. Bu damla sol dala girip sol akciğere gider."
+        },
+        "lung-capillaries": {
+          "title": "Oksijen alma",
+          "body": "Akciğerlerde atardamarlar, alveol denen milyonlarca minik hava kesesini saran kılcal damarlara ayrılır. Oksijen havadan kana geçip alyuvarlara bağlanır, karbondioksit ise soluk verirken atılmak üzere dışarı çıkar. Kan parlak kırmızıya döner.",
+          "note": "Akciğer kılcalları ve hava keseleri 3B model için çok küçük; yakın çekim burada olanları gösteriyor."
+        },
+        "back-to-heart": {
+          "title": "Kalbe dönüş",
+          "body": "Oksijenden zengin kan, oksijenli kan taşıyan tek toplardamarlar olan pulmoner venlerle akciğerden çıkar ve sol kulakçığa akar."
+        },
+        "left-heart": {
+          "title": "Kalbin sol tarafından",
+          "body": "Kan mitral kapaktan sol karıncığa geçer. Kalbin en güçlü odacığı olan sol karıncığın kalın duvarı kanı bütün vücuda pompalar. Her kasılma kanı aort kapağından aorta iter. Kapağın hemen üstünde, kalp kasının kendisini besleyen koroner arterler ayrılır."
+        },
+        "aorta": {
+          "title": "Aort",
+          "body": "Vücudun en büyük atardamarı olan aort kalpten yükselir ve aort kavsinde kıvrılır. Kavisten çıkan dallar başı ve kolları besler; bu damla sol kola giden sol subklavyen artere sapar."
+        },
+        "arm-arteries": {
+          "title": "Kol boyunca ele",
+          "body": "Atardamarlar kanı kol boyunca aşağı taşır: koltuk altındaki aksiller arter, üst koldaki brakiyal arter, sonra önkolun başparmak tarafındaki radial arter; nabzınızı bilekte burada hissedebilirsiniz. Ardından kan elin kılcallarına döner ve döngü yeniden başlar."
+        }
+      },
+      "events": {
+        "tricuspid-valve": "Triküspit kapak",
+        "pulmonary-valve": "Pulmoner kapak",
+        "mitral-valve": "Mitral kapak",
+        "aortic-valve": "Aort kapağı",
+        "coronary-arteries": "Koroner arterler"
+      }
     }
   }
 }
