@@ -701,7 +701,7 @@
           ],
           "view": {
             "c": [0.211, 0.716, 0.066, 0, 0.716, 0.066],
-            "s": ["respiratory", "skeletal", "muscular"],
+            "s": ["respiratory", "skeletal", "muscular", "digestive"],
             "h": [],
             "sel": [],
             "i": [
@@ -738,7 +738,7 @@
           "organs": ["soft-palate", "epiglottis"],
           "view": {
             "c": [0.205, 0.661, 0.023, 0, 0.661, 0.023],
-            "s": ["respiratory", "skeletal", "muscular"],
+            "s": ["respiratory", "skeletal", "muscular", "digestive"],
             "h": [],
             "sel": [],
             "i": [
@@ -769,7 +769,7 @@
           "organs": ["thyroid-cartilage", "cricoid-cartilage"],
           "view": {
             "c": [0, 0.621, 0.154, 0, 0.621, 0.004],
-            "s": ["respiratory", "skeletal", "muscular"],
+            "s": ["respiratory", "skeletal", "muscular", "digestive"],
             "h": [],
             "sel": [],
             "i": [
@@ -801,7 +801,7 @@
           "inside": ["trachea"],
           "view": {
             "c": [0, 0.551, 0.245, 0, 0.551, -0.014],
-            "s": ["respiratory", "skeletal", "muscular"],
+            "s": ["respiratory", "skeletal", "muscular", "digestive"],
             "h": [],
             "sel": [],
             "i": [
@@ -838,7 +838,7 @@
           ],
           "view": {
             "c": [-0.025, 0.457, 0.284, -0.025, 0.457, -0.039],
-            "s": ["respiratory", "skeletal", "muscular"],
+            "s": ["respiratory", "skeletal", "muscular", "digestive"],
             "h": [],
             "sel": [],
             "i": [
@@ -871,7 +871,7 @@
           "organs": ["inferior-lobe-of-right-lung"],
           "view": {
             "c": [-0.067, 0.403, 0.627, -0.067, 0.403, -0.008],
-            "s": ["respiratory", "skeletal", "muscular"],
+            "s": ["respiratory", "skeletal", "muscular", "digestive"],
             "h": [],
             "sel": [],
             "i": [
@@ -917,7 +917,7 @@
           ],
           "view": {
             "c": [-0.018, 0.519, 0.583, -0.018, 0.519, -0.022],
-            "s": ["respiratory", "skeletal", "muscular"],
+            "s": ["respiratory", "skeletal", "muscular", "digestive"],
             "h": [],
             "sel": [],
             "i": [
@@ -953,7 +953,7 @@
           "organs": ["nasal-cavity-lining"],
           "view": {
             "c": [0.267, 0.714, 0.053, 0, 0.714, 0.053],
-            "s": ["respiratory", "skeletal", "muscular"],
+            "s": ["respiratory", "skeletal", "muscular", "digestive"],
             "h": [],
             "sel": [],
             "i": [
