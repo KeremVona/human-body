@@ -118,6 +118,57 @@
         "aortic-valve": "Aortic valve",
         "coronary-arteries": "Coronary arteries"
       }
+    },
+    "breath": {
+      "title": "Follow a breath of air",
+      "summary": "Breathe in with one breath of air through the nose and down the windpipe to the lungs' tiny air sacs, then back out again.",
+      "follow": "Follow the air",
+      "inspectorLink": "Watch air pass through here",
+      "metersTitle": "In this air",
+      "metersNote": "Typical resting values, rounded.",
+      "meters": {
+        "oxygen": { "label": "Oxygen", "value": "{v}% of the air" },
+        "co2": { "label": "Carbon dioxide", "value": "{v}% of the air" }
+      },
+      "stages": {
+        "nose": {
+          "title": "In through the nose",
+          "body": "Air enters through the nostrils into the nasal cavity. Hairs and sticky mucus trap dust, and curled bony shelves called conchae swirl the air over a warm, moist lining, so it reaches the lungs warmed, humidified and cleaner."
+        },
+        "throat": {
+          "title": "Down the throat",
+          "body": "Behind the nose the air passes into the pharynx, the throat space shared with food. While you breathe, the soft palate hangs down and the epiglottis stands open, leaving the way into the voice box clear."
+        },
+        "larynx": {
+          "title": "Through the voice box",
+          "body": "The larynx, or voice box, is a frame of cartilages, including the thyroid cartilage that forms the Adam's apple. Air passes between the vocal folds inside it; when they are pulled together and vibrate, they make the sound of your voice."
+        },
+        "trachea": {
+          "title": "Down the windpipe",
+          "body": "The trachea is a tube about 10 to 12 cm long held open by C-shaped rings of cartilage. Its lining is covered in tiny hairs called cilia that sweep mucus and trapped dust up toward the throat, away from the lungs."
+        },
+        "bronchi": {
+          "title": "Branching into the bronchi",
+          "body": "The trachea splits into two main bronchi. The right one is wider, shorter and steeper, so this breath follows it, then branches again toward the lower lobe of the right lung. The airways keep dividing, more than 20 times, into ever smaller tubes."
+        },
+        "alveoli": {
+          "title": "Swapping gases in the air sacs",
+          "body": "The smallest airways end in clusters of alveoli, hundreds of millions of tiny air sacs with walls thinner than a cell. Oxygen crosses into the blood in the surrounding capillaries, and carbon dioxide crosses the other way into the air.",
+          "note": "Alveoli are far too small for the 3D model; the close-up shows what happens."
+        },
+        "breathe-out": {
+          "title": "Breathing out",
+          "body": "The diaphragm, the dome-shaped muscle under the lungs, relaxes and rises, and the stretchy lungs spring back. That pushes the used air back up through the bronchi, the trachea and the voice box. Breathing out at rest takes no muscle effort at all."
+        },
+        "out-nose": {
+          "title": "Out through the nose",
+          "body": "The air leaves with less oxygen and about a hundred times more carbon dioxide than it came in with. At rest you repeat this about 12 to 20 times a minute, moving about half a litre of air each breath."
+        }
+      },
+      "events": {
+        "breathing-muscles": "Breathing muscles tighten",
+        "diaphragm-relaxes": "Diaphragm relaxes"
+      }
     }
   }
 }

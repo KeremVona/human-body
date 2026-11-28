@@ -118,6 +118,57 @@
         "aortic-valve": "Aort kapağı",
         "coronary-arteries": "Koroner arterler"
       }
+    },
+    "breath": {
+      "title": "Bir nefes havanın yolculuğu",
+      "summary": "Bir nefes havayla burundan girip soluk borusundan akciğerlerin minik hava keselerine inin, sonra yeniden dışarı çıkın.",
+      "follow": "Havayı takip et",
+      "inspectorLink": "Havanın buradan geçişini izle",
+      "metersTitle": "Bu havada",
+      "metersNote": "Tipik dinlenme değerleri, yuvarlanmış.",
+      "meters": {
+        "oxygen": { "label": "Oksijen", "value": "havanın %{v} kadarı" },
+        "co2": { "label": "Karbondioksit", "value": "havanın %{v} kadarı" }
+      },
+      "stages": {
+        "nose": {
+          "title": "Burundan içeri",
+          "body": "Hava burun deliklerinden burun boşluğuna girer. Kıllar ve yapışkan mukus tozu tutar; konka denen kıvrık kemik raflar havayı ılık ve nemli bir zarın üzerinde döndürür, böylece hava akciğerlere ısınmış, nemlenmiş ve temizlenmiş olarak ulaşır."
+        },
+        "throat": {
+          "title": "Boğazdan aşağı",
+          "body": "Burnun arkasında hava, yiyecekle paylaşılan boğaz boşluğu olan yutağa geçer. Nefes alırken yumuşak damak aşağı sarkar ve epiglot açık durur; böylece gırtlağa giden yol açık kalır."
+        },
+        "larynx": {
+          "title": "Gırtlaktan geçiş",
+          "body": "Gırtlak, Âdemelması'nı oluşturan tiroid kıkırdağı da dahil olmak üzere kıkırdaklardan oluşan bir çerçevedir. Hava içindeki ses telleri arasından geçer; ses telleri birbirine yaklaşıp titreştiğinde sesinizi oluşturur."
+        },
+        "trachea": {
+          "title": "Soluk borusundan aşağı",
+          "body": "Soluk borusu (trakea), C biçimli kıkırdak halkalarla açık tutulan yaklaşık 10–12 cm uzunluğunda bir borudur. İç yüzeyi, mukusu ve tutulan tozu akciğerlerden uzağa, boğaza doğru süpüren silya denen minik tüylerle kaplıdır."
+        },
+        "bronchi": {
+          "title": "Bronşlara ayrılma",
+          "body": "Soluk borusu iki ana bronşa ayrılır. Sağdaki daha geniş, daha kısa ve daha diktir; bu nefes onu izler, sonra sağ akciğerin alt lobuna doğru yeniden dallanır. Hava yolları 20 kereden fazla bölünerek gittikçe incelen borulara ayrılır."
+        },
+        "alveoli": {
+          "title": "Hava keselerinde gaz değişimi",
+          "body": "En küçük hava yolları, duvarları bir hücreden ince olan yüz milyonlarca minik hava kesesinden, yani alveollerden oluşan kümelerle sonlanır. Oksijen çevredeki kılcal damarlardaki kana geçer, karbondioksit de ters yönde havaya geçer.",
+          "note": "Alveoller 3B model için çok küçük; yakın çekim burada olanları gösteriyor."
+        },
+        "breathe-out": {
+          "title": "Nefes verme",
+          "body": "Akciğerlerin altındaki kubbe biçimli kas olan diyafram gevşeyip yükselir, esnek akciğerler de geri toplanır. Bu, kullanılmış havayı bronşlardan, soluk borusundan ve gırtlaktan yukarı iter. Dinlenirken nefes vermek hiç kas çabası gerektirmez."
+        },
+        "out-nose": {
+          "title": "Burundan dışarı",
+          "body": "Hava, girdiğinden daha az oksijen ve yaklaşık yüz kat daha fazla karbondioksitle çıkar. Dinlenirken bunu dakikada yaklaşık 12–20 kez tekrarlarsınız ve her nefeste yaklaşık yarım litre hava hareket ettirirsiniz."
+        }
+      },
+      "events": {
+        "breathing-muscles": "Solunum kasları kasılıyor",
+        "diaphragm-relaxes": "Diyafram gevşiyor"
+      }
     }
   }
 }

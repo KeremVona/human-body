@@ -676,6 +676,310 @@
           "meters": { "oxygen": 98, "co2": 20 }
         }
       ]
+    },
+    {
+      "id": "breath",
+      "systems": ["respiratory"],
+      "meters": [
+        { "id": "oxygen", "unit": "%", "max": 25, "decimals": 0 },
+        { "id": "co2", "unit": "%", "max": 6, "decimals": 2 }
+      ],
+      "metersStart": { "oxygen": 21, "co2": 0.04 },
+      "stages": [
+        {
+          "id": "nose",
+          "durationS": 8,
+          "look": "air-fresh",
+          "radius": 0.005,
+          "motion": "none",
+          "rhythm": { "motion": "breathing", "mode": "scrub", "from": 0, "to": 0.08 },
+          "organs": [
+            "nasal-cavity-lining",
+            "inferior-nasal-concha-bone--l",
+            "inferior-nasal-concha-bone--r",
+            "nasal-septal-cartilage"
+          ],
+          "view": {
+            "c": [0.211, 0.716, 0.066, 0, 0.716, 0.066],
+            "s": ["respiratory", "skeletal", "muscular"],
+            "h": [],
+            "sel": [],
+            "i": [
+              "nasal-cavity-lining", "inferior-nasal-concha-bone--l",
+              "inferior-nasal-concha-bone--r", "nasal-septal-cartilage",
+              "nasal-bone--l", "nasal-bone--r",
+              "soft-palate", "epiglottis", "thyroid-cartilage", "cricoid-cartilage",
+              "trachea", "right-main-bronchus", "intermediate-bronchus", "right-inferior-lobar-bronchus",
+              "superior-lobe-of-left-lung", "inferior-lobe-of-left-lung",
+              "superior-lobe-of-right-lung", "middle-lobe-of-right-lung", "inferior-lobe-of-right-lung",
+              "diaphragm", "external-intercostal-muscles--l", "external-intercostal-muscles--r"
+            ]
+          },
+          "path": [
+            { "mesh": "nasal-septal-cartilage", "anchor": [0.5, 0.1, 1.0] },
+            { "mesh": "nasal-cavity-lining", "anchor": [0.5, 0.35, 0.65] },
+            { "mesh": "nasal-cavity-lining", "anchor": [0.5, 0.35, 0.1] }
+          ],
+          "modelled": true,
+          "events": [
+            { "at": 0.1, "kind": "highlight", "mesh": "diaphragm", "id": "breathing-muscles" },
+            { "at": 0.1, "kind": "highlight", "mesh": "external-intercostal-muscles--l", "id": "breathing-muscles" },
+            { "at": 0.1, "kind": "highlight", "mesh": "external-intercostal-muscles--r", "id": "breathing-muscles" }
+          ],
+          "meters": { "oxygen": 21, "co2": 0.04 }
+        },
+        {
+          "id": "throat",
+          "durationS": 6,
+          "look": "air-fresh",
+          "radius": 0.005,
+          "motion": "none",
+          "rhythm": { "motion": "breathing", "mode": "scrub", "from": 0.08, "to": 0.14 },
+          "organs": ["soft-palate", "epiglottis"],
+          "view": {
+            "c": [0.205, 0.661, 0.023, 0, 0.661, 0.023],
+            "s": ["respiratory", "skeletal", "muscular"],
+            "h": [],
+            "sel": [],
+            "i": [
+              "nasal-cavity-lining", "inferior-nasal-concha-bone--l",
+              "inferior-nasal-concha-bone--r", "nasal-septal-cartilage",
+              "nasal-bone--l", "nasal-bone--r",
+              "soft-palate", "epiglottis", "thyroid-cartilage", "cricoid-cartilage",
+              "trachea", "right-main-bronchus", "intermediate-bronchus", "right-inferior-lobar-bronchus",
+              "superior-lobe-of-left-lung", "inferior-lobe-of-left-lung",
+              "superior-lobe-of-right-lung", "middle-lobe-of-right-lung", "inferior-lobe-of-right-lung",
+              "diaphragm", "external-intercostal-muscles--l", "external-intercostal-muscles--r"
+            ]
+          },
+          "path": [
+            { "mesh": "soft-palate", "anchor": [0.5, 0, 0] },
+            { "mesh": "epiglottis", "anchor": [0.5, 0.9, 1.0] }
+          ],
+          "modelled": true,
+          "meters": { "oxygen": 21, "co2": 0.04 }
+        },
+        {
+          "id": "larynx",
+          "durationS": 5,
+          "look": "air-fresh",
+          "radius": 0.005,
+          "motion": "none",
+          "rhythm": { "motion": "breathing", "mode": "scrub", "from": 0.14, "to": 0.2 },
+          "organs": ["thyroid-cartilage", "cricoid-cartilage"],
+          "view": {
+            "c": [0, 0.621, 0.154, 0, 0.621, 0.004],
+            "s": ["respiratory", "skeletal", "muscular"],
+            "h": [],
+            "sel": [],
+            "i": [
+              "nasal-cavity-lining", "inferior-nasal-concha-bone--l",
+              "inferior-nasal-concha-bone--r", "nasal-septal-cartilage",
+              "nasal-bone--l", "nasal-bone--r",
+              "soft-palate", "epiglottis", "thyroid-cartilage", "cricoid-cartilage",
+              "trachea", "right-main-bronchus", "intermediate-bronchus", "right-inferior-lobar-bronchus",
+              "superior-lobe-of-left-lung", "inferior-lobe-of-left-lung",
+              "superior-lobe-of-right-lung", "middle-lobe-of-right-lung", "inferior-lobe-of-right-lung",
+              "diaphragm", "external-intercostal-muscles--l", "external-intercostal-muscles--r"
+            ]
+          },
+          "path": [
+            { "mesh": "thyroid-cartilage", "anchor": [0.5, 0.5, 0.35] },
+            { "mesh": "cricoid-cartilage", "anchor": [0.5, 0.5, 0.5] }
+          ],
+          "modelled": true,
+          "meters": { "oxygen": 21, "co2": 0.04 }
+        },
+        {
+          "id": "trachea",
+          "durationS": 6,
+          "look": "air-fresh",
+          "radius": 0.006,
+          "motion": "none",
+          "rhythm": { "motion": "breathing", "mode": "scrub", "from": 0.2, "to": 0.3 },
+          "organs": ["trachea"],
+          "inside": ["trachea"],
+          "view": {
+            "c": [0, 0.551, 0.245, 0, 0.551, -0.014],
+            "s": ["respiratory", "skeletal", "muscular"],
+            "h": [],
+            "sel": [],
+            "i": [
+              "nasal-cavity-lining", "inferior-nasal-concha-bone--l",
+              "inferior-nasal-concha-bone--r", "nasal-septal-cartilage",
+              "nasal-bone--l", "nasal-bone--r",
+              "soft-palate", "epiglottis", "thyroid-cartilage", "cricoid-cartilage",
+              "trachea", "right-main-bronchus", "intermediate-bronchus", "right-inferior-lobar-bronchus",
+              "superior-lobe-of-left-lung", "inferior-lobe-of-left-lung",
+              "superior-lobe-of-right-lung", "middle-lobe-of-right-lung", "inferior-lobe-of-right-lung",
+              "diaphragm", "external-intercostal-muscles--l", "external-intercostal-muscles--r"
+            ]
+          },
+          "path": [{ "line": "trachea" }],
+          "modelled": true,
+          "meters": { "oxygen": 21, "co2": 0.04 }
+        },
+        {
+          "id": "bronchi",
+          "durationS": 8,
+          "look": "air-fresh",
+          "radius": 0.004,
+          "motion": "none",
+          "rhythm": { "motion": "breathing", "mode": "scrub", "from": 0.3, "to": 0.4 },
+          "organs": [
+            "right-main-bronchus",
+            "intermediate-bronchus",
+            "right-inferior-lobar-bronchus"
+          ],
+          "inside": [
+            "right-main-bronchus",
+            "intermediate-bronchus",
+            "right-inferior-lobar-bronchus"
+          ],
+          "view": {
+            "c": [-0.025, 0.457, 0.284, -0.025, 0.457, -0.039],
+            "s": ["respiratory", "skeletal", "muscular"],
+            "h": [],
+            "sel": [],
+            "i": [
+              "nasal-cavity-lining", "inferior-nasal-concha-bone--l",
+              "inferior-nasal-concha-bone--r", "nasal-septal-cartilage",
+              "nasal-bone--l", "nasal-bone--r",
+              "soft-palate", "epiglottis", "thyroid-cartilage", "cricoid-cartilage",
+              "trachea", "right-main-bronchus", "intermediate-bronchus", "right-inferior-lobar-bronchus",
+              "superior-lobe-of-left-lung", "inferior-lobe-of-left-lung",
+              "superior-lobe-of-right-lung", "middle-lobe-of-right-lung", "inferior-lobe-of-right-lung",
+              "diaphragm", "external-intercostal-muscles--l", "external-intercostal-muscles--r"
+            ]
+          },
+          "path": [
+            { "line": "right-main-bronchus" },
+            { "line": "intermediate-bronchus" },
+            { "line": "right-inferior-lobar-bronchus" }
+          ],
+          "modelled": true,
+          "meters": { "oxygen": 21, "co2": 0.04 }
+        },
+        {
+          "id": "alveoli",
+          "durationS": 10,
+          "look": "air-stale",
+          "radius": 0.003,
+          "motion": "none",
+          "rhythm": { "motion": "breathing", "mode": "scrub", "from": 0.4, "to": 0.4 },
+          "closeUp": "alveolus",
+          "organs": ["inferior-lobe-of-right-lung"],
+          "view": {
+            "c": [-0.067, 0.403, 0.627, -0.067, 0.403, -0.008],
+            "s": ["respiratory", "skeletal", "muscular"],
+            "h": [],
+            "sel": [],
+            "i": [
+              "nasal-cavity-lining", "inferior-nasal-concha-bone--l",
+              "inferior-nasal-concha-bone--r", "nasal-septal-cartilage",
+              "nasal-bone--l", "nasal-bone--r",
+              "soft-palate", "epiglottis", "thyroid-cartilage", "cricoid-cartilage",
+              "trachea", "right-main-bronchus", "intermediate-bronchus", "right-inferior-lobar-bronchus",
+              "superior-lobe-of-left-lung", "inferior-lobe-of-left-lung",
+              "superior-lobe-of-right-lung", "middle-lobe-of-right-lung", "inferior-lobe-of-right-lung",
+              "diaphragm", "external-intercostal-muscles--l", "external-intercostal-muscles--r"
+            ]
+          },
+          "path": [
+            { "mesh": "inferior-lobe-of-right-lung", "anchor": [0.61, 0.48, 0.21] },
+            { "mesh": "inferior-lobe-of-right-lung", "anchor": [0.55, 0.35, 0.45] },
+            { "mesh": "inferior-lobe-of-right-lung", "anchor": [0.61, 0.48, 0.21] }
+          ],
+          "modelled": false,
+          "meters": { "oxygen": 14, "co2": 5 }
+        },
+        {
+          "id": "breathe-out",
+          "durationS": 10,
+          "realTime": { "min": 2, "max": 3, "unit": "s" },
+          "look": "air-stale",
+          "radius": 0.004,
+          "motion": "none",
+          "rhythm": { "motion": "breathing", "mode": "scrub", "from": 0.4, "to": 0.9 },
+          "organs": [
+            "right-inferior-lobar-bronchus",
+            "intermediate-bronchus",
+            "right-main-bronchus",
+            "trachea",
+            "cricoid-cartilage",
+            "thyroid-cartilage"
+          ],
+          "inside": [
+            "right-inferior-lobar-bronchus",
+            "intermediate-bronchus",
+            "right-main-bronchus",
+            "trachea"
+          ],
+          "view": {
+            "c": [-0.018, 0.519, 0.583, -0.018, 0.519, -0.022],
+            "s": ["respiratory", "skeletal", "muscular"],
+            "h": [],
+            "sel": [],
+            "i": [
+              "nasal-cavity-lining", "inferior-nasal-concha-bone--l",
+              "inferior-nasal-concha-bone--r", "nasal-septal-cartilage",
+              "nasal-bone--l", "nasal-bone--r",
+              "soft-palate", "epiglottis", "thyroid-cartilage", "cricoid-cartilage",
+              "trachea", "right-main-bronchus", "intermediate-bronchus", "right-inferior-lobar-bronchus",
+              "superior-lobe-of-left-lung", "inferior-lobe-of-left-lung",
+              "superior-lobe-of-right-lung", "middle-lobe-of-right-lung", "inferior-lobe-of-right-lung",
+              "diaphragm", "external-intercostal-muscles--l", "external-intercostal-muscles--r"
+            ]
+          },
+          "path": [
+            { "line": "right-inferior-lobar-bronchus", "reverse": true },
+            { "line": "intermediate-bronchus", "reverse": true },
+            { "line": "right-main-bronchus", "reverse": true },
+            { "line": "trachea", "reverse": true }
+          ],
+          "modelled": true,
+          "events": [
+            { "at": 0.05, "kind": "highlight", "mesh": "diaphragm", "id": "diaphragm-relaxes" }
+          ],
+          "meters": { "oxygen": 16, "co2": 4 }
+        },
+        {
+          "id": "out-nose",
+          "durationS": 5,
+          "look": "air-stale",
+          "radius": 0.005,
+          "motion": "none",
+          "rhythm": { "motion": "breathing", "mode": "scrub", "from": 0.9, "to": 1 },
+          "organs": ["nasal-cavity-lining"],
+          "view": {
+            "c": [0.267, 0.714, 0.053, 0, 0.714, 0.053],
+            "s": ["respiratory", "skeletal", "muscular"],
+            "h": [],
+            "sel": [],
+            "i": [
+              "nasal-cavity-lining", "inferior-nasal-concha-bone--l",
+              "inferior-nasal-concha-bone--r", "nasal-septal-cartilage",
+              "nasal-bone--l", "nasal-bone--r",
+              "soft-palate", "epiglottis", "thyroid-cartilage", "cricoid-cartilage",
+              "trachea", "right-main-bronchus", "intermediate-bronchus", "right-inferior-lobar-bronchus",
+              "superior-lobe-of-left-lung", "inferior-lobe-of-left-lung",
+              "superior-lobe-of-right-lung", "middle-lobe-of-right-lung", "inferior-lobe-of-right-lung",
+              "diaphragm", "external-intercostal-muscles--l", "external-intercostal-muscles--r"
+            ]
+          },
+          "path": [
+            { "mesh": "cricoid-cartilage", "anchor": [0.5, 0.5, 0.5] },
+            { "mesh": "thyroid-cartilage", "anchor": [0.5, 0.5, 0.35] },
+            { "mesh": "epiglottis", "anchor": [0.5, 0.9, 1.0] },
+            { "mesh": "soft-palate", "anchor": [0.5, 0, 0] },
+            { "mesh": "nasal-cavity-lining", "anchor": [0.5, 0.35, 0.1] },
+            { "mesh": "nasal-cavity-lining", "anchor": [0.5, 0.35, 0.65] },
+            { "mesh": "nasal-septal-cartilage", "anchor": [0.5, 0.1, 1.0] }
+          ],
+          "modelled": true,
+          "meters": { "oxygen": 16, "co2": 4 }
+        }
+      ]
     }
   ]
 }
