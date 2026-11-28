@@ -60,7 +60,7 @@ export type JourneyEvent = {
   kind: 'secrete' | 'highlight';
   mesh: MeshId;
   id: StructureId;
-  via?: StructureId;
+  via?: MeshId;
 };
 
 export const RealTimeSchema = z

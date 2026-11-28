@@ -58,7 +58,7 @@
     },
     "blood": {
       "title": "Follow a drop of blood",
-      "summary": "Ride one drop of blood from your left hand to the heart, through the lungs to pick up oxygen, and back again.",
+      "summary": "Ride one drop of blood from your left hand to the heart, through the lungs, and back again. The full trip takes about a minute at rest.",
       "follow": "Follow the blood",
       "inspectorLink": "Watch blood flow through here",
       "metersTitle": "In this blood",

@@ -273,7 +273,6 @@ test('breath journey stage screenshots, lung scale at alveoli and out-nose, mete
   const bounds = await readStageBounds(bar);
   expect(bounds.length).toBe(9);
 
-  let alveoliScaleY = 1;
   for (let i = 0; i < 8; i += 1) {
     const mid = (bounds[i] + bounds[i + 1]) / 2;
     await page.evaluate(
@@ -307,7 +306,7 @@ test('breath journey stage screenshots, lung scale at alveoli and out-nose, mete
       await expect(
         bar.getByRole('img', { name: /Diagram of a cluster of air sacs/ }),
       ).toBeVisible();
-      alveoliScaleY = await page.evaluate(
+      const alveoliScaleY = await page.evaluate(
         () =>
           (globalThis as AtlasGlobal).__atlas?.meshTransform(
             'inferior-lobe-of-right-lung',

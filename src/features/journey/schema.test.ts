@@ -47,7 +47,7 @@ const stage1 = {
   path: [{ mesh: 'tongue', anchor: [0.5, 0.95, 0.5] as [number, number, number] }],
   modelled: true,
   events: [
-    { at: 0.15, kind: 'secrete' as const, mesh: 'parotid-gland--l', id: 'saliva' },
+    { at: 0.15, kind: 'secrete' as const, mesh: 'parotid-gland--l', id: 'saliva', via: 'pancreatic-duct--l' },
     { at: 0.25, kind: 'highlight' as const, mesh: 'tongue', id: 'taste' },
   ],
   meters: { carbs: 5, absorbed: 0 },
@@ -64,16 +64,25 @@ const stage2 = {
   organs: ['esophagus'],
   inside: ['esophagus'],
   view: baseView,
-  path: [{ line: 'esophagus', from: 0.04, to: 1, reverse: true }],
+  path: [{ line: 'radial-veins--l', from: 0.04, to: 1, reverse: true }],
   modelled: true,
   meters: { carbs: 10, absorbed: 0 },
 };
 
 describe('journey schemas v2', () => {
-  it('accepts migrated digestion content and localized text files', () => {
-    expect(JourneysFileSchema.parse(rawJourneys).journeys[0]?.id).toBe('digestion');
-    expect(JourneyTextsFileSchema.parse(enJourneys).journeys.digestion).toBeDefined();
-    expect(JourneyTextsFileSchema.parse(trJourneys).journeys.digestion).toBeDefined();
+  it('accepts all shipped journeys and localized text files', () => {
+    const parsed = JourneysFileSchema.parse(rawJourneys);
+    expect(parsed.journeys.map((j) => j.id)).toEqual([
+      'digestion',
+      'blood',
+      'breath',
+    ]);
+    const enParsed = JourneyTextsFileSchema.parse(enJourneys);
+    const trParsed = JourneyTextsFileSchema.parse(trJourneys);
+    for (const id of ['digestion', 'blood', 'breath'] as const) {
+      expect(enParsed.journeys[id]).toBeDefined();
+      expect(trParsed.journeys[id]).toBeDefined();
+    }
   });
 
   it('accepts valid v2 JourneysFileSchema and JourneyTextsFileSchema fixtures', () => {

@@ -58,7 +58,7 @@
     },
     "blood": {
       "title": "Bir damla kanın yolculuğu",
-      "summary": "Bir damla kanla sol elinizden kalbe, oksijen almak için akciğerlere ve yeniden geri yolculuk edin.",
+      "summary": "Bir damla kanla sol elinizden kalbe, akciğerlere ve yeniden geri yolculuk edin. Tüm tur dinlenirken yaklaşık bir dakika sürer.",
       "follow": "Kanı takip et",
       "inspectorLink": "Kanın buradan akışını izle",
       "metersTitle": "Bu kanda",
@@ -141,7 +141,7 @@
         },
         "larynx": {
           "title": "Gırtlaktan geçiş",
-          "body": "Gırtlak, Âdemelması'nı oluşturan tiroid kıkırdağı da dahil olmak üzere kıkırdaklardan oluşan bir çerçevedir. Hava içindeki ses telleri arasından geçer; ses telleri birbirine yaklaşıp titreştiğinde sesinizi oluşturur."
+          "body": "Gırtlak, Âdem elması'nı oluşturan tiroid kıkırdağı da dahil olmak üzere kıkırdaklardan oluşan bir çerçevedir. Hava içindeki ses telleri arasından geçer; ses telleri birbirine yaklaşıp titreştiğinde sesinizi oluşturur."
         },
         "trachea": {
           "title": "Soluk borusundan aşağı",
