@@ -25,7 +25,7 @@ const UnitNumber = FiniteNumber.check(
 
 export const LineSlicePathItemSchema = z
   .object({
-    line: KebabIdString,
+    line: MeshIdString,
     from: z.optional(UnitNumber),
     to: z.optional(UnitNumber),
     reverse: z.optional(z.boolean()),
@@ -47,7 +47,7 @@ export const JourneyEventSchema = z
     kind: z.enum(['secrete', 'highlight']),
     mesh: MeshIdString,
     id: KebabIdString,
-    via: z.optional(KebabIdString),
+    via: z.optional(MeshIdString),
   })
   .check(
     z.refine(
